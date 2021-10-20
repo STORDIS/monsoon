@@ -1,0 +1,30 @@
+version: '3.3'
+
+services:
+  sonic_monitoring:
+    image: sonic_monitoring:latest 
+    container_name: sonic_monitoring
+    pid: host
+    privileged: true
+    restart: always
+    environment:
+      - REDIS_COLLECTION_INTERVAL = 30
+    ports:
+      # Node exporter
+      - target: 9100
+        published: 9100
+        mode: host
+      # Python exporter
+      - target: 9101
+        published: 9101 # Change here to alter public port
+        mode: host
+    volumes:
+      # Remember to use read-only bind mounts.
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+      # For python exporter
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/vtysh:/usr/bin/vtysh
+      - /usr/bin/docker:/usr/bin/docker
+      - /usr/local/include/top_process.json:/usr/local/include/top_process.json
