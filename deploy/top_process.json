@@ -1,0 +1,106 @@
+{
+  "top10_cpu_process": [
+    {
+      "pid": "1375",
+      "cpu_per": "0.5",
+      "cmd": "/usr/local/bin/gitlab-runner run --working-directory /home/gitlab-runner --config /etc/gitlab-runner/config.toml --service gitlab-runner --user gitlab-runner"
+    },
+    {
+      "pid": "1413",
+      "cpu_per": "0.2",
+      "cmd": "/usr/bin/containerd"
+    },
+    {
+      "pid": "1299",
+      "cpu_per": "0.1",
+      "cmd": "/usr/bin/vmtoolsd"
+    },
+    {
+      "pid": "1",
+      "cpu_per": "0.0",
+      "cmd": "/sbin/init maybe-ubiquity"
+    },
+    {
+      "pid": "2",
+      "cpu_per": "0.0",
+      "cmd": "[kthreadd]"
+    },
+    {
+      "pid": "3",
+      "cpu_per": "0.0",
+      "cmd": "[rcu_gp]"
+    },
+    {
+      "pid": "4",
+      "cpu_per": "0.0",
+      "cmd": "[rcu_par_gp]"
+    },
+    {
+      "pid": "6",
+      "cpu_per": "0.0",
+      "cmd": "[kworker/0:0H-kblockd]"
+    },
+    {
+      "pid": "8",
+      "cpu_per": "0.0",
+      "cmd": "[kworker/u96:0-scsi_tmf_2]"
+    },
+    {
+      "pid": "10",
+      "cpu_per": "0.0",
+      "cmd": "[mm_percpu_wq]"
+    }
+  ],
+  "top10_mem_process": [
+    {
+      "pid": "1606",
+      "mem_per": "0.0",
+      "cmd": "/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock"
+    },
+    {
+      "pid": "930",
+      "mem_per": "0.0",
+      "cmd": "/lib/systemd/systemd-journald"
+    },
+    {
+      "pid": "1413",
+      "mem_per": "0.0",
+      "cmd": "/usr/bin/containerd"
+    },
+    {
+      "pid": "1375",
+      "mem_per": "0.0",
+      "cmd": "/usr/local/bin/gitlab-runner run --working-directory /home/gitlab-runner --config /etc/gitlab-runner/config.toml --service gitlab-runner --user gitlab-runner"
+    },
+    {
+      "pid": "188123",
+      "mem_per": "0.0",
+      "cmd": "/usr/lib/snapd/snapd"
+    },
+    {
+      "pid": "1395",
+      "mem_per": "0.0",
+      "cmd": "/usr/bin/python3 /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf"
+    },
+    {
+      "pid": "1525",
+      "mem_per": "0.0",
+      "cmd": "/usr/bin/python3 /usr/share/unattended-upgrades/unattended-upgrade-shutdown --wait-for-signal"
+    },
+    {
+      "pid": "1380",
+      "mem_per": "0.0",
+      "cmd": "/usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers"
+    },
+    {
+      "pid": "1243",
+      "mem_per": "0.0",
+      "cmd": "/sbin/multipathd -d -s"
+    },
+    {
+      "pid": "1349",
+      "mem_per": "0.0",
+      "cmd": "/lib/systemd/systemd-resolved"
+    }
+  ]
+}
