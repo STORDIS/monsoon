@@ -9,7 +9,8 @@ DEVELOPMENT
 
 1. git clone https://gitlab.stordis.com/cshivash/sonic_monitoring.git
 2. cd sonic_monitoring
-3. For compiling execute below command: 
-    make
-4. For building docker image execute below script:
-    ./makeDocker.sh
+3. git submodule update 
+4. For compiling execute command: 
+    `make`
+5. For building docker image execute script:
+    `./makeDocker.sh`
