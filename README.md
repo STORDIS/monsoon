@@ -13,4 +13,4 @@ DEVELOPMENT
 4. For compiling execute command: 
     `make`
 5. For building docker image execute script:
-    `./makeDocker.sh`
+    `./makeDockerAndPush.sh`
