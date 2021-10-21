@@ -21,7 +21,14 @@ def _decode(string):
 
 class Export:
     def __init__(self):
-        self.sonic_db = swsssdk.SonicV2Connector()
+        try :
+            secret = os.environ.get('REDIS_AUTH')
+            print(f"Password from ENV: {secret}")
+        except :
+            print ("Password env REDIS_AUTH is not set ... Exiting")
+            sys.exit(1)
+
+        self.sonic_db = swsssdk.SonicV2Connector(password=secret)
         self.sonic_db.connect(self.sonic_db.COUNTERS_DB)
         self.sonic_db.connect(self.sonic_db.STATE_DB)
         self.sonic_db.connect(self.sonic_db.CONFIG_DB)

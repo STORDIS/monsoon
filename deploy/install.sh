@@ -14,5 +14,16 @@ sudo systemctl daemon-reload
 sudo systemctl stop top_processes
 sudo systemctl start top_processes
 
+#install docker-compose if it doesnt exist
+file='/usr/local/bin/docker-compose'
+if [ -f $file ];
+then
+	echo "$file exists."
+else
+	echo "$file does NOT exists... Installing "
+	sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+	sudo chmod +x /usr/local/bin/docker-compose
+fi
+
 #Start docker-compose file
-docker-compose up -d
+REDIS_AUTH=$(cat /run/redis/auth/passwd) docker-compose up -d

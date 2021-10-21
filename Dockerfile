@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-RUN apt-get update  && apt-get install -y python3 python3-pip supervisor vim
+RUN apt-get update  && apt-get install -y python3 python3-pip supervisor vim net-tools
 
 #COPY binary
 COPY src/node_exporter/node_exporter /usr/bin/
