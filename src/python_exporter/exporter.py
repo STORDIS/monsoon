@@ -128,6 +128,8 @@ class Export:
         )
 
     def export_intf_util_bps(self, ifname, RX_OCTETS, TX_OCTETS, delta):
+        if ifname.lower() == "cpu":
+            return
         RX_OCTETS_old = self.rx_octets_dict[ifname]
         TX_OCTETS_old = self.tx_octets_dict[ifname]
         logger.debug(
@@ -244,6 +246,8 @@ class Export:
         delta = int(self.curr_time - old_time)
         logger.debug("export_intf_counter : delta ", delta)
         for ifname in maps:
+            if ifname.lower() == "cpu":
+                continue
             counter_key = COUNTER_TABLE_PREFIX + _decode(maps[ifname])
             ifname = _decode(ifname)
             try:
