@@ -5,27 +5,35 @@ import prometheus_client as prom
 import swsssdk
 import os
 import subprocess
+import sys
+import logging
+import logging.handlers
 
 COUNTER_PORT_MAP = "COUNTERS_PORT_NAME_MAP"
 COUNTER_QUEUE_MAP = "COUNTERS_QUEUE_NAME_MAP"
 COUNTER_QUEUE_TYPE_MAP = "COUNTERS_QUEUE_TYPE_MAP"
 COUNTER_TABLE_PREFIX = "COUNTERS:"
-STATUS_NA = "N/A"
 
+logger = logging.getLogger("Python_exporter")
+fh = logging.handlers.RotatingFileHandler("/var/log/python_exporter.log", maxBytes=50000000, backupCount=3)
+formatter = logging.Formatter('[%(asctime)s][%(levelname)s][%(name)s] %(message)s')
+fh.setFormatter(formatter)
+logger.addHandler(fh)
+level = os.environ.get("PYTHON_EXPORTER_LOGLEVEL", "INFO")
+logger.setLevel(level)
 
 def _decode(string):
     if hasattr(string, "decode"):
         return string.decode("utf-8")
     return string
 
-
 class Export:
     def __init__(self):
         try :
             secret = os.environ.get('REDIS_AUTH')
-            print(f"Password from ENV: {secret}")
+            logger.debug(f"Password from ENV: {secret}")
         except :
-            print ("Password env REDIS_AUTH is not set ... Exiting")
+            logger.error("Password ENV REDIS_AUTH is not set ... Exiting")
             sys.exit(1)
 
         self.sonic_db = swsssdk.SonicV2Connector(password=secret)
@@ -119,38 +127,12 @@ class Export:
             ["pid", "process_name"],
         )
 
-    # def _ns_diff(self, newstr, oldstr):
-    #     """
-    #         Calculate the diff.
-    #     """
-    #     if newstr == STATUS_NA or oldstr == STATUS_NA:
-    #         return STATUS_NA
-    #     else:
-    #         new, old = int(newstr), int(oldstr)
-    #         return '{:,}'.format(max(0, new - old))
-
-    # def _ns_brate(self,newstr, oldstr, delta):
-    #     """
-    #         Calculate the byte rate.
-    #     """
-    #     if newstr == STATUS_NA or oldstr == STATUS_NA:
-    #         return STATUS_NA
-    #     else:
-    #         rate = int(self._ns_diff(newstr, oldstr).replace(',',''))/delta
-    #         return "{:.2f}".format(rate)
-
     def export_intf_util_bps(self, ifname, RX_OCTETS, TX_OCTETS, delta):
         RX_OCTETS_old = self.rx_octets_dict[ifname]
         TX_OCTETS_old = self.tx_octets_dict[ifname]
-        # print(
-        #     "export_intf_util_bps : ",
-        #     ifname,
-        #     RX_OCTETS,
-        #     TX_OCTETS,
-        #     RX_OCTETS_old,
-        #     TX_OCTETS_old,
-        #     delta,
-        # )  # 12 12 487830 491425 10
+        logger.debug(
+            "export_intf_util_bps :ifname={}, RX_OCTETS={}, TX_OCTETS={}, RX_OCTETS_old={}, TX_OCTETS_old={}, delta={}".format(ifname,RX_OCTETS,TX_OCTETS,RX_OCTETS_old,TX_OCTETS_old,delta)
+        )  # 12 12 487830 491425 10
         if RX_OCTETS > RX_OCTETS_old and delta != 0:
             rx_bps = round(((RX_OCTETS - RX_OCTETS_old) / delta), 2)
         else:
@@ -163,7 +145,7 @@ class Export:
         self.rx_octets_dict[ifname] = RX_OCTETS
         self.tx_octets_dict[ifname] = TX_OCTETS
 
-        #print(rx_bps, tx_bps)
+        logger.debug("export_intf_util_bps : rx_bps={} tx_bps={}".format(rx_bps, tx_bps))
 
         self.metric_intf_util_bps.labels(ifname, "RX").set(rx_bps)
         self.metric_intf_util_bps.labels(ifname, "TX").set(tx_bps)
@@ -256,11 +238,11 @@ class Export:
     def export_intf_counter(self):
         maps = self.sonic_db.get_all(self.sonic_db.COUNTERS_DB, COUNTER_PORT_MAP)
         old_time = self.curr_time
-        print("old_time ", old_time)
+        logger.debug("export_intf_counter : old_time ", old_time)
         self.curr_time = time.time()
-        print("self.curr_time ", self.curr_time)
+        logger.debug("export_intf_counter : self.curr_time ", self.curr_time)
         delta = int(self.curr_time - old_time)
-        print("delta ", delta)
+        logger.debug("export_intf_counter : delta ", delta)
         for ifname in maps:
             counter_key = COUNTER_TABLE_PREFIX + _decode(maps[ifname])
             ifname = _decode(ifname)
@@ -349,7 +331,7 @@ class Export:
             self.metric_intf_err_counter.labels(ifname, "RX").set(RX_ERR)
             self.metric_intf_err_counter.labels(ifname, "TX").set(TX_ERR)
             self.export_intf_util_bps(ifname, RX_OCTETS, TX_OCTETS, delta)
-            # print(ifname, RX_OK, TX_OK, RX_ERR, TX_ERR)
+            logger.debug("export_intf_counter : ifname={}, RX_OK={}, TX_OK={}, RX_ERR={}, TX_ERR={}".format(ifname, RX_OK, TX_OK, RX_ERR, TX_ERR))
 
     def export_intf_queue_counters(self):
         maps = self.sonic_db.get_all(self.sonic_db.COUNTERS_DB, COUNTER_QUEUE_MAP)
@@ -383,7 +365,7 @@ class Export:
                 queue_type = "MC" + lane_no
             if packet_type.endswith("UNICAST"):
                 queue_type = "UC" + lane_no
-            # print(ifname, queue_type, QUEUE_STAT_PACKET)
+            logger.debug("export_intf_queue_counters : ifname={}, queue_type={}, QUEUE_STAT_PACKET={}".format(ifname, queue_type, QUEUE_STAT_PACKET))
             self.metric_intf_queue_counter.labels(ifname, queue_type).set(
                 QUEUE_STAT_PACKET
             )
@@ -392,7 +374,7 @@ class Export:
         keys = self.sonic_db.keys(
             self.sonic_db.STATE_DB, pattern="*TRANSCEIVER_DOM_SENSOR*"
         )
-        # print(keys)
+        logger.debug("export_intf_sensor_data : keys={}".format(keys))
         for key in keys:
             ifname = _decode(key).replace("TRANSCEIVER_DOM_SENSOR|", "")
             transceiver_sensor_data = self.sonic_db.get_all(self.sonic_db.STATE_DB, key)
@@ -460,7 +442,7 @@ class Export:
                 )
             except ValueError and TypeError:
                 OUT_POWER = 0
-            # print(psu_name, IN_POWER, OUT_POWER)
+            logger.debug("export_psu_info : psu_name={}, IN_POWER={}, OUT_POWER={}".format(psu_name, IN_POWER, OUT_POWER))
             self.metric_psu.labels(psu_name, "input").set(IN_POWER)
             self.metric_psu.labels(psu_name, "output").set(OUT_POWER)
 
@@ -481,7 +463,7 @@ class Export:
                 "mac_address": MAC_ADDR,
             }
         )
-        # print(PART_NUMBER, SERIAL_NUMBER, MAC_ADDR)
+        logger.debug("export_sys_info : PART_NUMBER={}, SERIAL_NUMBER={}, MAC_ADDR={}".format(PART_NUMBER, SERIAL_NUMBER, MAC_ADDR))
 
     def export_bgp_peer_status(self):
         # vtysh -c "show ip bgp neighbors Ethernet32 json"
@@ -494,7 +476,7 @@ class Export:
                 command = 'vtysh -c "show ip bgp neighbors {} json"'.format(
                     bgp_neighbour
                 )
-                # print(subprocess.getoutput(command))
+                logger.debug("export_bgp_peer_status : command out={}".format(subprocess.getoutput(command)))
                 cmd_out = json.loads(subprocess.getoutput(command))
                 bgpState = cmd_out[bgp_neighbour]["bgpState"]
                 # states as one of these - "idle","connect","active","opensent","openconfirm","Established"
@@ -508,7 +490,7 @@ class Export:
                         "down"
                     )
         except Exception as e:
-            print("export_bgp_peer_status : Exception : ", e)
+            logger.debug("export_bgp_peer_status : Exception={}".format(e))
 
     def export_bgp_num_routes(self):
         # vtysh -c "show ip bgp neighbors Ethernet32 prefix-counts  json"
@@ -523,12 +505,12 @@ class Export:
                         bgp_neighbour
                     )
                 )
-                # print(subprocess.getoutput(command))
+                logger.debug("export_bgp_num_routes : command out={}".format(subprocess.getoutput(command)))
                 cmd_out = json.loads(subprocess.getoutput(command))
                 bgp_count = cmd_out["pfxCounter"]
                 self.metric_bgp_num_routes.labels(bgp_neighbour).set(bgp_count)
         except Exception as e:
-            print("export_bgp_num_routes : Exception :", e)
+            logger.debug("export_bgp_num_routes : Exception={}".format(e))
 
     def export_system_top10_process(self):
         # read "/usr/local/include/top_process.json" file and get the top process
@@ -545,7 +527,7 @@ class Export:
                         mem_process["pid"], mem_process["cmd"]
                     ).set(mem_process["mem_per"])
         except Exception as e:
-            print("export_system_top10_process : Exception = ", e)
+            logger.debug("export_system_top10_process : Exception={}".format(e))
 
     def start_export(self):
         try:
@@ -559,14 +541,15 @@ class Export:
             self.export_bgp_num_routes()
             self.export_system_top10_process()
         except Exception as e:
-            print("Exception: ", e)
+            logger.debug("Exception={}".format(e))
 
 
 def main():
-    data_extract_interval = 10
-    port = 9101
+    data_extract_interval = int(os.environ.get("REDIS_COLLECTION_INTERVAL", 30)) # considering 30 seconds as default collection interval
+    port = 9101 #setting port static as 9101. if required map it to someother port of host by editing compose file.
 
     exp = Export()
+    logger.info("Starting Prometheus server at port 9101")
     prom.start_http_server(port)
     while True:
         exp.start_export()
@@ -576,6 +559,5 @@ def main():
 if __name__ == "__main__":
     file_path = os.path.dirname(__file__)
     if file_path != "":
-        # to make sure the json file gets created in same path as this script
         os.chdir(file_path)
     main()
