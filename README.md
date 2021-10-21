@@ -1,14 +1,14 @@
-# sonic_monitoring
+# SONiC Monitoring
 
 This repository contains 
 1. Node exporter 
 2. Python exporter
 
-# Files and Folder Structure:
+# Details:
 
 1. src/ folder has below subfolders
 - node_exporter - cloned from [github](https://github.com/prometheus/node_exporter) , contains supervisor conf file `node_exporter.conf`
-- python_exporter - exporter code which fetches data from REDIS and export using promethues client.
+- python_exporter - this folder contains - exporter script, requirements.txt and supervisor conf file `python_exporter.conf`
 - sonic-py-swsssdk - this is a git submodule pulled from [github](https://github.com/Azure/sonic-py-swsssdk) as a redis connector used by python_exporter.
 
 2. Dockerfile - This file can be used to build docker image.
