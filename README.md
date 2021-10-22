@@ -18,11 +18,14 @@ This repository contains
 4. makeDockerAndPush.sh -  Build docker image and push to docker hub.
 
 5. deploy/ folder has below contents:
+> **This folder can be zipped and exported to any Broadcom SONiC platform and 
+   we need to run `install.sh` to bring up monitoring  docker**
 - docker-compose.yml - file to bring up the docker image on SONiC board.
 - top_process.py - file which reads top 10 CPU and Memory processes and export to a JSON file.
 - top_process.json - output file of above script.
 - top_processes.service - systemd service file for top_processes
 - install.sh  - script to be run on SONiC board for installation of docker and systemd service.
+
 
 # Development
 
