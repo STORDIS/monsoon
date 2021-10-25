@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   sonic_monitoring:
-    image: palcnetworks/sonic_monitoring:latest
+    image: stordis/sonic-monitoring:latest
     container_name: sonic_monitoring
     pid: host
     network_mode: host
