@@ -11,6 +11,7 @@ services:
     environment:
       - REDIS_COLLECTION_INTERVAL = 30
       - REDIS_AUTH=${REDIS_AUTH}
+      - SONIC_VERSION=${SONIC_VERSION}
     ports:
       # Node exporter
       - target: 9100

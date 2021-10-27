@@ -25,5 +25,10 @@ else
 	sudo chmod +x /usr/local/bin/docker-compose
 fi
 
+# get sonic software version
+sonic_ver=$(cat /etc/sonic/sonic_version.yml | head -n 1 | sed -n "s/^.*:\s*'\(\S*\)'/\1/p")
+# get password to loginto redis. same to be set as env in container
+redis_pass=$(cat /run/redis/auth/passwd)
+
 #Start docker-compose file
-REDIS_AUTH=$(cat /run/redis/auth/passwd) docker-compose up -d
+REDIS_AUTH=$redis_pass SONIC_VERSION=$sonic_ver docker-compose up -d

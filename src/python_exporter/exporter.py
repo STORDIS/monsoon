@@ -451,6 +451,16 @@ class Export:
             self.metric_psu.labels(psu_name, "input").set(in_power*1000) 
             self.metric_psu.labels(psu_name, "output").set(out_power*1000)
 
+    def _get_sonic_version_info(self):
+        version = ""
+        try :
+            version = os.environ.get('SONIC_VERSION')
+            logger.debug(f"sonic version from env: {version}")
+        except :
+            logger.error("ENV SONIC_VERSION is not set !. Set env in container to get software version in system info metric.")
+            return ""
+        return "SONiC-OS-{}".format(version)
+
     def export_sys_info(self):
         part_num = _decode(
             self.sonic_db.get(self.sonic_db.STATE_DB, "EEPROM_INFO|0x22", "Value")
@@ -461,15 +471,17 @@ class Export:
         mac_addr = _decode(
             self.sonic_db.get(self.sonic_db.STATE_DB, "EEPROM_INFO|0x24", "Value")
         )
-        
+        software_version = self._get_sonic_version_info()
+
         self.sys_info.info(
             {
                 "part_number": part_num,
                 "serial_number": serial_num,
                 "mac_address": mac_addr,
+                "software_version" : software_version,
             }
         )
-        logger.debug("export_sys_info : part_num={}, serial_num={}, mac_addr={}".format(part_num, serial_num, mac_addr))
+        logger.debug("export_sys_info : part_num={}, serial_num={}, mac_addr={}, software_version={}".format(part_num, serial_num, mac_addr, software_version))
 
     def export_bgp_peer_status(self):
         # vtysh -c "show ip bgp neighbors Ethernet32 json"
@@ -555,7 +567,7 @@ def main():
     port = 9101 #setting port static as 9101. if required map it to someother port of host by editing compose file.
 
     exp = Export()
-    logger.info("Starting Prometheus server at port 9101")
+    logger.info("Starting Python exporter server at port 9101")
     prom.start_http_server(port)
     while True:
         exp.start_export()
