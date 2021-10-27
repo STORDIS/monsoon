@@ -435,39 +435,41 @@ class Export:
         for key in keys:
             psu_name = _decode(self.sonic_db.get(self.sonic_db.STATE_DB, key, "name"))
             try:
-                IN_POWER = float(
+                in_power = float(
                     self.sonic_db.get(self.sonic_db.STATE_DB, key, "input_power")
                 )
             except ValueError and TypeError:
-                IN_POWER = 0
+                in_power = 0
             try:
-                OUT_POWER = float(
+                out_power = float(
                     self.sonic_db.get(self.sonic_db.STATE_DB, key, "output_power")
                 )
             except ValueError and TypeError:
-                OUT_POWER = 0
-            logger.debug("export_psu_info : psu_name={}, IN_POWER={}, OUT_POWER={}".format(psu_name, IN_POWER, OUT_POWER))
-            self.metric_psu.labels(psu_name, "input").set(IN_POWER)
-            self.metric_psu.labels(psu_name, "output").set(OUT_POWER)
+                out_power = 0
+            logger.debug("export_psu_info : psu_name={}, in_power={}, out_power={}".format(psu_name, in_power, out_power))
+            # multiply with 1000 for unit to be in mW
+            self.metric_psu.labels(psu_name, "input").set(in_power*1000) 
+            self.metric_psu.labels(psu_name, "output").set(out_power*1000)
 
     def export_sys_info(self):
-        PART_NUMBER = _decode(
+        part_num = _decode(
             self.sonic_db.get(self.sonic_db.STATE_DB, "EEPROM_INFO|0x22", "Value")
         )
-        SERIAL_NUMBER = _decode(
+        serial_num = _decode(
             self.sonic_db.get(self.sonic_db.STATE_DB, "EEPROM_INFO|0x23", "Value")
         )
-        MAC_ADDR = _decode(
+        mac_addr = _decode(
             self.sonic_db.get(self.sonic_db.STATE_DB, "EEPROM_INFO|0x24", "Value")
         )
+        
         self.sys_info.info(
             {
-                "part_name": PART_NUMBER,
-                "serial_name": SERIAL_NUMBER,
-                "mac_address": MAC_ADDR,
+                "part_number": part_num,
+                "serial_number": serial_num,
+                "mac_address": mac_addr,
             }
         )
-        logger.debug("export_sys_info : PART_NUMBER={}, SERIAL_NUMBER={}, MAC_ADDR={}".format(PART_NUMBER, SERIAL_NUMBER, MAC_ADDR))
+        logger.debug("export_sys_info : part_num={}, serial_num={}, mac_addr={}".format(part_num, serial_num, mac_addr))
 
     def export_bgp_peer_status(self):
         # vtysh -c "show ip bgp neighbors Ethernet32 json"
