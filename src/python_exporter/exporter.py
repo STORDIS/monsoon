@@ -487,7 +487,7 @@ class Export:
         # vtysh -c "show ip bgp neighbors Ethernet32 json"
         # get - bgpState and bgpTimerUp (available only when interface is up)
         try:
-            keys = self.sonic_db.keys(self.sonic_db.CONFIG_DB, pattern="BGP_NEIGHBOR*")
+            keys = self.sonic_db.keys(self.sonic_db.CONFIG_DB, pattern="BGP_NEIGHBOR|default|*")
             for key in keys:
                 key = _decode(key)
                 bgp_neighbour = key.split("|")[-1]  # eg Ethernet32
@@ -496,6 +496,11 @@ class Export:
                 )
                 logger.debug("export_bgp_peer_status : command out={}".format(subprocess.getoutput(command)))
                 cmd_out = json.loads(subprocess.getoutput(command))
+                
+                # to handle any BGP_NEIGHBOR defined in redis but not found in vtysh
+                if "bgpNoSuchNeighbor" in cmd_out.keys():
+                    continue
+
                 bgpState = cmd_out[bgp_neighbour]["bgpState"]
                 # states as one of these - "idle","connect","active","opensent","openconfirm","Established"
                 try:
@@ -508,13 +513,13 @@ class Export:
                         "down"
                     )
         except Exception as e:
-            logger.debug("export_bgp_peer_status : Exception={}".format(e))
+            logger.error("export_bgp_peer_status : Exception={}".format(e))
 
     def export_bgp_num_routes(self):
         # vtysh -c "show ip bgp neighbors Ethernet32 prefix-counts  json"
         # get - pfxCounter
         try:
-            keys = self.sonic_db.keys(self.sonic_db.CONFIG_DB, pattern="BGP_NEIGHBOR*")
+            keys = self.sonic_db.keys(self.sonic_db.CONFIG_DB, pattern="BGP_NEIGHBOR|default|*")
             for key in keys:
                 key = _decode(key)
                 bgp_neighbour = key.split("|")[-1]  # eg Ethernet32
@@ -525,10 +530,14 @@ class Export:
                 )
                 logger.debug("export_bgp_num_routes : command out={}".format(subprocess.getoutput(command)))
                 cmd_out = json.loads(subprocess.getoutput(command))
+                # to handle any BGP_NEIGHBOR defined in redis but not found in vtysh
+                if "malformedAddressOrName" in cmd_out.keys():
+                    continue
+
                 bgp_count = cmd_out["pfxCounter"]
                 self.metric_bgp_num_routes.labels(bgp_neighbour).set(bgp_count)
         except Exception as e:
-            logger.debug("export_bgp_num_routes : Exception={}".format(e))
+            logger.error("export_bgp_num_routes : Exception={}".format(e))
 
     def export_system_top10_process(self):
         # read "/usr/local/include/top_process.json" file and get the top process
@@ -545,7 +554,7 @@ class Export:
                         mem_process["pid"], mem_process["cmd"]
                     ).set(mem_process["mem_per"])
         except Exception as e:
-            logger.debug("export_system_top10_process : Exception={}".format(e))
+            logger.error("export_system_top10_process : Exception={}".format(e))
 
     def start_export(self):
         try:
@@ -559,7 +568,7 @@ class Export:
             self.export_bgp_num_routes()
             self.export_system_top10_process()
         except Exception as e:
-            logger.debug("Exception={}".format(e))
+            logger.error("Exception={}".format(e))
 
 
 def main():
