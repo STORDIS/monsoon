@@ -605,9 +605,7 @@ def main():
         exp.start_export()
         time.sleep(data_extract_interval)
 
-
-
-if __name__ == "__main__":
+def cli():
     try:
         file_path = os.path.dirname(__file__)
         if file_path != "":

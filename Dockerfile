@@ -1,9 +1,16 @@
+FROM python:3.9-bullseye
+
+COPY . .
+RUN pip3 install poetry
+RUN poetry export -f requirements.txt -o /home/requirements.txt
+RUN cd src/sonic-py-swsssdk && python setup.py build sdist && cd ../..
+RUN poetry build
+RUN cp dist/sonic_exporter*.tar.gz /home/ && cp src/sonic-py-swsssdk/dist/swsssdk-*.tar.gz /home
+
 FROM python:3.9-slim-bullseye
 
-COPY src/sonic_exporter/exporter.py /usr/local/bin/exporter.py
-COPY src/sonic_exporter/requirements.txt /home/requirements.txt
-RUN pip3 install -r /home/requirements.txt && mkdir -p /src && chmod +x /usr/local/bin/exporter.py
-COPY src/sonic-py-swsssdk /src
-RUN pip3 install /src && rm -rf /src
+COPY --from=0 /home/requirements.txt /home/requirements.txt
+COPY --from=0 /home/*.tar.gz /home/
+RUN pip3 install --pre -r /home/requirements.txt && pip3 install /home/*.tar.gz && mkdir -p /src
 
-CMD /usr/local/bin/exporter.py
+CMD sonic_exporter
