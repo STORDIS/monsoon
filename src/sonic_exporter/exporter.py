@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # Copyright 2021 STORDIS GmbH
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,13 +29,8 @@ COUNTER_QUEUE_MAP = "COUNTERS_QUEUE_NAME_MAP"
 COUNTER_QUEUE_TYPE_MAP = "COUNTERS_QUEUE_TYPE_MAP"
 COUNTER_TABLE_PREFIX = "COUNTERS:"
 
-logger = logging.getLogger("Python_exporter")
-fh = logging.handlers.RotatingFileHandler("/var/log/python_exporter.log", maxBytes=50000000, backupCount=3)
-formatter = logging.Formatter('[%(asctime)s][%(levelname)s][%(name)s] %(message)s')
-fh.setFormatter(formatter)
-logger.addHandler(fh)
-level = os.environ.get("PYTHON_EXPORTER_LOGLEVEL", "INFO")
-logger.setLevel(level)
+level = os.environ.get("SONIC_EXPORTER_LOGLEVEL", "INFO")
+logging.basicConfig(encoding='utf-8',stream=sys.stdout,format='[%(asctime)s][%(levelname)s][%(name)s] %(message)s', level=logging.getLevelName(level))
 
 def _decode(string):
     if hasattr(string, "decode"):
@@ -43,11 +39,13 @@ def _decode(string):
 
 class Export:
     def __init__(self):
-        try :
+        try:
             secret = os.environ.get('REDIS_AUTH')
-            logger.debug(f"Password from ENV: {secret}")
+            logging.debug(f"Password from ENV: {secret}")
+        except KeyboardInterrupt as e:
+            raise e
         except :
-            logger.error("Password ENV REDIS_AUTH is not set ... Exiting")
+            logging.error("Password ENV REDIS_AUTH is not set ... Exiting")
             sys.exit(1)
 
         self.sonic_db = swsssdk.SonicV2Connector(password=secret)
@@ -146,7 +144,7 @@ class Export:
             return
         RX_OCTETS_old = self.rx_octets_dict[ifname]
         TX_OCTETS_old = self.tx_octets_dict[ifname]
-        logger.debug(
+        logging.debug(
             "export_intf_util_bps :ifname={}, RX_OCTETS={}, TX_OCTETS={}, RX_OCTETS_old={}, TX_OCTETS_old={}, delta={}".format(ifname,RX_OCTETS,TX_OCTETS,RX_OCTETS_old,TX_OCTETS_old,delta)
         )  # 12 12 487830 491425 10
         if RX_OCTETS > RX_OCTETS_old and delta != 0:
@@ -161,7 +159,7 @@ class Export:
         self.rx_octets_dict[ifname] = RX_OCTETS
         self.tx_octets_dict[ifname] = TX_OCTETS
 
-        logger.debug("export_intf_util_bps : rx_bps={} tx_bps={}".format(rx_bps, tx_bps))
+        logging.debug("export_intf_util_bps : rx_bps={} tx_bps={}".format(rx_bps, tx_bps))
 
         self.metric_intf_util_bps.labels(ifname, "RX").set(rx_bps)
         self.metric_intf_util_bps.labels(ifname, "TX").set(tx_bps)
@@ -254,11 +252,11 @@ class Export:
     def export_intf_counter(self):
         maps = self.sonic_db.get_all(self.sonic_db.COUNTERS_DB, COUNTER_PORT_MAP)
         old_time = self.curr_time
-        logger.debug("export_intf_counter : old_time ", old_time)
+        logging.debug("export_intf_counter : old_time ", old_time)
         self.curr_time = time.time()
-        logger.debug("export_intf_counter : self.curr_time ", self.curr_time)
+        logging.debug("export_intf_counter : self.curr_time ", self.curr_time)
         delta = int(self.curr_time - old_time)
-        logger.debug("export_intf_counter : delta ", delta)
+        logging.debug("export_intf_counter : delta ", delta)
         for ifname in maps:
             if ifname.lower() == "cpu":
                 continue
@@ -349,7 +347,7 @@ class Export:
             self.metric_intf_err_counter.labels(ifname, "RX").set(RX_ERR)
             self.metric_intf_err_counter.labels(ifname, "TX").set(TX_ERR)
             self.export_intf_util_bps(ifname, RX_OCTETS, TX_OCTETS, delta)
-            logger.debug("export_intf_counter : ifname={}, RX_OK={}, TX_OK={}, RX_ERR={}, TX_ERR={}".format(ifname, RX_OK, TX_OK, RX_ERR, TX_ERR))
+            logging.debug("export_intf_counter : ifname={}, RX_OK={}, TX_OK={}, RX_ERR={}, TX_ERR={}".format(ifname, RX_OK, TX_OK, RX_ERR, TX_ERR))
 
     def export_intf_queue_counters(self):
         maps = self.sonic_db.get_all(self.sonic_db.COUNTERS_DB, COUNTER_QUEUE_MAP)
@@ -383,7 +381,7 @@ class Export:
                 queue_type = "MC" + lane_no
             if packet_type.endswith("UNICAST"):
                 queue_type = "UC" + lane_no
-            logger.debug("export_intf_queue_counters : ifname={}, queue_type={}, QUEUE_STAT_PACKET={}".format(ifname, queue_type, QUEUE_STAT_PACKET))
+            logging.debug("export_intf_queue_counters : ifname={}, queue_type={}, QUEUE_STAT_PACKET={}".format(ifname, queue_type, QUEUE_STAT_PACKET))
             self.metric_intf_queue_counter.labels(ifname, queue_type).set(
                 QUEUE_STAT_PACKET
             )
@@ -392,7 +390,7 @@ class Export:
         keys = self.sonic_db.keys(
             self.sonic_db.STATE_DB, pattern="*TRANSCEIVER_DOM_SENSOR*"
         )
-        logger.debug("export_intf_sensor_data : keys={}".format(keys))
+        logging.debug("export_intf_sensor_data : keys={}".format(keys))
         for key in keys:
             ifname = _decode(key).replace("TRANSCEIVER_DOM_SENSOR|", "")
             transceiver_sensor_data = self.sonic_db.get_all(self.sonic_db.STATE_DB, key)
@@ -460,18 +458,20 @@ class Export:
                 )
             except ValueError and TypeError:
                 out_power = 0
-            logger.debug("export_psu_info : psu_name={}, in_power={}, out_power={}".format(psu_name, in_power, out_power))
+            logging.debug("export_psu_info : psu_name={}, in_power={}, out_power={}".format(psu_name, in_power, out_power))
             # multiply with 1000 for unit to be in mW
             self.metric_psu.labels(psu_name, "input").set(in_power*1000) 
             self.metric_psu.labels(psu_name, "output").set(out_power*1000)
 
     def _get_sonic_version_info(self):
         version = ""
-        try :
+        try:
             version = os.environ.get('SONIC_VERSION')
-            logger.debug(f"sonic version from env: {version}")
+            logging.debug(f"sonic version from env: {version}")
+        except KeyboardInterrupt as e:
+            raise e
         except :
-            logger.error("ENV SONIC_VERSION is not set !. Set env in container to get software version in system info metric.")
+            logging.error("ENV SONIC_VERSION is not set !. Set env in container to get software version in system info metric.")
             return ""
         return "SONiC-OS-{}".format(version)
 
@@ -495,7 +495,7 @@ class Export:
                 "software_version" : software_version,
             }
         )
-        logger.debug("export_sys_info : part_num={}, serial_num={}, mac_addr={}, software_version={}".format(part_num, serial_num, mac_addr, software_version))
+        logging.debug("export_sys_info : part_num={}, serial_num={}, mac_addr={}, software_version={}".format(part_num, serial_num, mac_addr, software_version))
 
     def export_bgp_peer_status(self):
         # vtysh -c "show ip bgp neighbors Ethernet32 json"
@@ -508,7 +508,7 @@ class Export:
                 command = 'vtysh -c "show ip bgp neighbors {} json"'.format(
                     bgp_neighbour
                 )
-                logger.debug("export_bgp_peer_status : command out={}".format(subprocess.getoutput(command)))
+                logging.debug("export_bgp_peer_status : command out={}".format(subprocess.getoutput(command)))
                 cmd_out = json.loads(subprocess.getoutput(command))
                 
                 # to handle any BGP_NEIGHBOR defined in redis but not found in vtysh
@@ -526,8 +526,10 @@ class Export:
                     self.metric_bgp_peer_status.labels(bgp_neighbour, bgpState).state(
                         "down"
                     )
+        except KeyboardInterrupt as e:
+            raise e
         except Exception as e:
-            logger.error("export_bgp_peer_status : Exception={}".format(e))
+            logging.error("export_bgp_peer_status : Exception={}".format(e))
 
     def export_bgp_num_routes(self):
         # vtysh -c "show ip bgp neighbors Ethernet32 prefix-counts  json"
@@ -542,7 +544,7 @@ class Export:
                         bgp_neighbour
                     )
                 )
-                logger.debug("export_bgp_num_routes : command out={}".format(subprocess.getoutput(command)))
+                logging.debug("export_bgp_num_routes : command out={}".format(subprocess.getoutput(command)))
                 cmd_out = json.loads(subprocess.getoutput(command))
                 # to handle any BGP_NEIGHBOR defined in redis but not found in vtysh
                 if "malformedAddressOrName" in cmd_out.keys():
@@ -550,8 +552,10 @@ class Export:
 
                 bgp_count = cmd_out["pfxCounter"]
                 self.metric_bgp_num_routes.labels(bgp_neighbour).set(bgp_count)
+        except KeyboardInterrupt as e:
+            raise e
         except Exception as e:
-            logger.error("export_bgp_num_routes : Exception={}".format(e))
+            logging.error("export_bgp_num_routes : Exception={}".format(e))
 
     def export_system_top10_process(self):
         # read "/usr/local/include/top_process.json" file and get the top process
@@ -567,8 +571,10 @@ class Export:
                     self.metric_system_top10_mem_percent.labels(
                         mem_process["pid"], mem_process["cmd"]
                     ).set(mem_process["mem_per"])
-        except Exception as e:
-            logger.error("export_system_top10_process : Exception={}".format(e))
+        except KeyboardInterrupt as e:
+            raise e
+        except FileNotFoundError as e:
+            logging.error("export_system_top10_process : Exception={}".format(e))
 
     def start_export(self):
         try:
@@ -581,8 +587,10 @@ class Export:
             self.export_bgp_peer_status()
             self.export_bgp_num_routes()
             self.export_system_top10_process()
+        except KeyboardInterrupt as e:
+            raise e
         except Exception as e:
-            logger.error("Exception={}".format(e))
+            logging.error("Exception={}".format(e))
 
 
 def main():
@@ -590,15 +598,20 @@ def main():
     port = 9101 #setting port static as 9101. if required map it to someother port of host by editing compose file.
 
     exp = Export()
-    logger.info("Starting Python exporter server at port 9101")
+    logging.info("Starting Python exporter server at port 9101")
     prom.start_http_server(port)
+
     while True:
         exp.start_export()
         time.sleep(data_extract_interval)
 
 
+
 if __name__ == "__main__":
-    file_path = os.path.dirname(__file__)
-    if file_path != "":
-        os.chdir(file_path)
-    main()
+    try:
+        file_path = os.path.dirname(__file__)
+        if file_path != "":
+            os.chdir(file_path)
+        main()
+    except KeyboardInterrupt:
+        sys.exit(0)

@@ -1,19 +1,21 @@
 # Monsoon - main repository
 
 This repository contains 
-1. Node exporter 
-2. Python exporter
+
+1. SONIC exporter
+
+    * `$ docker run --name sonic_monitoring --network=host --pid=host --privileged --restart=always -d -e SONIC_VERSION=$(cat /etc/sonic/sonic_version.yml | head -n 1 | sed -n "s/^.*:\s*'\(\S*\)'/\1/p") -e REDIS_COLLECTION_INTERVAL=30 -e REDIS_AUTH=$(cat /run/redis/auth/passwd) -v /var/run/redis:/var/run/redis -v /usr/bin/vtysh:/usr/bin/vtysh -v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock  localhost/schiff/sonic_monitoring:0.0.1`
+2. Node Exporter
+    * `$ docker run --name node-exporter --network=host --pid=host --privileged --restart=always -v /proc:/host/proc:ro -v /sys:/host/sys:ro -v /:/rootfs:ro prom/node-exporter:v1.3.0`
+
 
 # Details:
 
 1. src/ folder has below subfolders
-- node_exporter - cloned from [github](https://github.com/prometheus/node_exporter) , contains supervisor conf file `node_exporter.conf`
 - python_exporter - this folder contains - exporter script, requirements.txt and supervisor conf file `python_exporter.conf`
 - sonic-py-swsssdk - this is a git submodule pulled from [github](https://github.com/Azure/sonic-py-swsssdk) as a redis connector used by python_exporter.
 
 2. Dockerfile - This file can be used to build docker image.
-
-3. Makefile -  File to compile source code.
 
 4. makeDockerAndPush.sh -  Build docker image and push to docker hub.
 
