@@ -17,12 +17,28 @@ import re
 import json
 import time
 import prometheus_client as prom
-import swsssdk
+import prometheus_client.utils as promutils
+
+try:
+    import swsssdk
+except ImportError:
+    import sonic_exporter.test.mock_db as swsssdk
 import os
 import subprocess
 import sys
 import logging
 import logging.handlers
+
+
+class CustomCounter(prom.Counter):
+    def set(self, value):
+        """Set gauge to the given value."""
+        self._raise_if_not_observable()
+        self._value.set(float(value))
+
+    def _child_samples(self):
+        return (("_total", {}, self._value.get(), None, self._value.get_exemplar()),)
+
 
 COUNTER_PORT_MAP = "COUNTERS_PORT_NAME_MAP"
 COUNTER_QUEUE_MAP = "COUNTERS_QUEUE_NAME_MAP"
@@ -30,21 +46,28 @@ COUNTER_QUEUE_TYPE_MAP = "COUNTERS_QUEUE_TYPE_MAP"
 COUNTER_TABLE_PREFIX = "COUNTERS:"
 
 level = os.environ.get("SONIC_EXPORTER_LOGLEVEL", "INFO")
-logging.basicConfig(encoding='utf-8',stream=sys.stdout,format='[%(asctime)s][%(levelname)s][%(name)s] %(message)s', level=logging.getLevelName(level))
+logging.basicConfig(
+    encoding="utf-8",
+    stream=sys.stdout,
+    format="[%(asctime)s][%(levelname)s][%(name)s] %(message)s",
+    level=logging.getLevelName(level),
+)
+
 
 def _decode(string):
     if hasattr(string, "decode"):
         return string.decode("utf-8")
     return string
 
+
 class Export:
     def __init__(self):
         try:
-            secret = os.environ.get('REDIS_AUTH')
+            secret = os.environ.get("REDIS_AUTH")
             logging.debug(f"Password from ENV: {secret}")
         except KeyboardInterrupt as e:
             raise e
-        except :
+        except:
             logging.error("Password ENV REDIS_AUTH is not set ... Exiting")
             sys.exit(1)
 
@@ -58,296 +81,358 @@ class Export:
         self._init_metrics()
 
     def _init_metrics(self):
-        self.counter_zero = {}
-        self.queue_counter_zero = {}
         # at start of server get counters data and negate it with current data while exporting
-        self.intf_counter_reset()
-        self.intf_queue_counter_reset()
-
-        self.metric_intf_util_bps = prom.Gauge(
-            "python_interface_util_bps",
-            "Interface current utilization",
-            ["interface_name", "util_type"],
+        # Interface counters
+        interface_labels = ["interface"]
+        self.metric_interface_info = prom.Gauge(
+            "sonic_interface_info",
+            "Interface Information (Description, MTU, Speed)",
+            interface_labels + ["description", "mtu", "speed"]
         )
-        self.metric_intf_counter = prom.Gauge(
-            "python_interface_counters_packets",
-            "Interface Counters",
-            ["interface_name", "counter_type"],
+        self.metric_interface_transmitted_bytes = CustomCounter(
+            "sonic_interface_transmitted_bytes_total",
+            "Total transmitted Bytes by Interface",
+            interface_labels,
         )
-        self.metric_intf_queue_counter = prom.Gauge(
-            "python_interface_queue_counters_packets",
+        self.metric_interface_received_bytes = CustomCounter(
+            "sonic_interface_received_bytes_total",
+            "Total received Bytes by Interface",
+            interface_labels,
+        )
+        self.metric_interface_transmitted_packets = CustomCounter(
+            "sonic_interface_transmitted_packets_total",
+            "Total transmitted Packets by Interface",
+            interface_labels + ["delivery_mode"],
+        )
+        self.metric_interface_received_packets = CustomCounter(
+            "sonic_interface_received_packets_total",
+            "Total received Packets by Interface",
+            interface_labels + ["delivery_mode"],
+        )
+        self.metric_interface_receive_error_input_packets = CustomCounter(
+            "sonic_interface_receive_error_input_packets_total",
+            "Errors in received packets",
+            interface_labels + ["cause"],
+        )
+        self.metric_interface_transmit_error_output_packets = CustomCounter(
+            "sonic_interface_transmit_error_output_packets_total",
+            "Errors in transmitted packets",
+            interface_labels + ["cause"],
+        )
+        self.metric_interface_received_ethernet_packets = CustomCounter(
+            "sonic_interface_received_ethernet_packets",
+            "Size of the Ethernet Frames received",
+            interface_labels + ["packet_size"],
+        )
+        self.metric_interface_transmitted_ethernet_packets = CustomCounter(
+            "sonic_interface_transmitted_ethernet_packets",
+            "Size of the Ethernet Frames transmitted",
+            interface_labels + ["packet_size"],
+        )
+        ## Queue Counters
+        self.metric_interface_queue_processed_packets = CustomCounter(
+            "sonic_interface_queue_processed_packets",
             "Interface queue counters",
-            ["interface_name", "queue_type"],
+            interface_labels + ["queue"] + ["delivery_mode"],
         )
-        self.metric_intf_err_counter = prom.Gauge(
-            "python_interface_error_counters_packets",
-            "RX_ERR and TX_ERR for all the interfaces",
-            ["interface_name", "error_type"],
+        self.metric_interface_queue_processed_bytes = CustomCounter(
+            "sonic_interface_queue_processed_bytes",
+            "Interface queue counters",
+            interface_labels + ["queue"] + ["delivery_mode"],
         )
+        ## Health Information
         self.metric_intf_power = prom.Gauge(
-            "python_interface_power_dbm",
+            "sonic_interface_power_dbm",
             "Power value for all the interfaces",
             ["interface_name", "power_type"],
         )
         self.metric_intf_voltage = prom.Gauge(
-            "python_interface_voltage_volts",
+            "sonic_interface_voltage_volts",
             "Voltage of all the interfaces",
             ["interface_name"],
         )
         self.metric_intf_temp = prom.Gauge(
-            "python_interface_temperature_celsius",
+            "sonic_interface_temperature_celsius",
             "Temperature of all the interfaces",
             ["interface_name"],
         )
         self.metric_intf_cable = prom.Gauge(
-            "python_interface_cable_length",
+            "sonic_interface_cable_length",
             "Cable details for all the interfaces",
             ["interface_name", "cable_type"],
         )
         self.metric_psu = prom.Gauge(
-            "python_env_power_usage_mw",
+            "sonic_env_power_usage_mw",
             "RX_OK and TX_OK for all the interfaces",
             ["psu_name", "power_type"],
         )
         self.sys_info = prom.Info(
-            "python_system",
+            "sonic_system",
             "part name, serial number, MAC address and software vesion of the System",
         )
 
-        self.metric_bgp_peer_status = prom.Enum(
-            "python_bgp_peer_status",
-            "Interface current utilization",
-            ["peer_name", "status"],
-            states=["up", "down"],
-        )
+        # self.metric_bgp_peer_status = prom.Enum(
+        #     "sonic_bgp_peer_status",
+        #     "Interface current utilization",
+        #     ["peer_name", "status"],
+        #     states=["up", "down"],
+        # )
 
-        self.metric_bgp_num_routes = prom.Gauge(
-            "python_bgp_num_routes",
-            "Interface current utilization",
-            ["peer_name"],
-        )
+        # self.metric_bgp_num_routes = prom.Gauge(
+        #     "sonic_bgp_num_routes",
+        #     "Interface current utilization",
+        #     ["peer_name"],
+        # )
 
-        self.metric_system_top10_cpu_percent = prom.Gauge(
-            "python_system_top10_cpu_percent",
-            "system top10 process as per cpu percent",
-            ["pid", "process_name"],
-        )
+        # self.metric_system_top10_cpu_percent = prom.Gauge(
+        #     "sonic_system_top10_cpu_percent",
+        #     "system top10 process as per cpu percent",
+        #     ["pid", "process_name"],
+        # )
 
-        self.metric_system_top10_mem_percent = prom.Gauge(
-            "python_system_top10_mem_percent",
-            "system top10 process as per mem percent",
-            ["pid", "process_name"],
-        )
+        # self.metric_system_top10_mem_percent = prom.Gauge(
+        #     "sonic_system_top10_mem_percent",
+        #     "system top10 process as per mem percent",
+        #     ["pid", "process_name"],
+        # )
 
-    def export_intf_util_bps(self, ifname, RX_OCTETS, TX_OCTETS, delta):
-        if ifname.lower() == "cpu":
-            return
-        RX_OCTETS_old = self.rx_octets_dict[ifname]
-        TX_OCTETS_old = self.tx_octets_dict[ifname]
-        logging.debug(
-            "export_intf_util_bps :ifname={}, RX_OCTETS={}, TX_OCTETS={}, RX_OCTETS_old={}, TX_OCTETS_old={}, delta={}".format(ifname,RX_OCTETS,TX_OCTETS,RX_OCTETS_old,TX_OCTETS_old,delta)
-        )  # 12 12 487830 491425 10
-        if RX_OCTETS > RX_OCTETS_old and delta != 0:
-            rx_bps = round(((RX_OCTETS - RX_OCTETS_old) / delta), 2)
+    def get_portinfo(self, ifname, sub_key):
+        if ifname.startswith("Ethernet"):
+            key = f"PORT|{ifname}"
         else:
-            rx_bps = 0
-        if TX_OCTETS > TX_OCTETS_old and delta != 0:
-            tx_bps = round(((TX_OCTETS - TX_OCTETS_old) / delta), 2)
-        else:
-            tx_bps = 0
+            key = f"PORTCHANNEL|{ifname}"
+        try:
+            return self.sonic_db.get(self.sonic_db.CONFIG_DB, key, sub_key)
+        except (ValueError, KeyError):
+            return ""
 
-        self.rx_octets_dict[ifname] = RX_OCTETS
-        self.tx_octets_dict[ifname] = TX_OCTETS
+    def get_additional_info(self, ifname):
+        return self.get_portinfo(ifname, "alias") or ifname
 
-        logging.debug("export_intf_util_bps : rx_bps={} tx_bps={}".format(rx_bps, tx_bps))
-
-        self.metric_intf_util_bps.labels(ifname, "RX").set(rx_bps)
-        self.metric_intf_util_bps.labels(ifname, "TX").set(tx_bps)
-
-    def intf_counter_reset(self):
+    def export_intf_counter(self):
         maps = self.sonic_db.get_all(self.sonic_db.COUNTERS_DB, COUNTER_PORT_MAP)
         for ifname in maps:
+            if ifname.lower() == "cpu":
+                continue
             counter_key = COUNTER_TABLE_PREFIX + _decode(maps[ifname])
             ifname = _decode(ifname)
-            try:
-                self.counter_zero[ifname, "RX_OK"] = int(
+            self.metric_interface_info.labels(
+                    self.get_additional_info(ifname),
+                    self.get_portinfo(ifname, "description"),
+                    self.get_portinfo(ifname, "mtu"),
+                    f"{'{}Gbps'.format(int(round(int(self.get_portinfo(ifname, 'speed'))) / 1000)) if self.get_portinfo(ifname, 'speed') else ''}",
+            ).set(1)
+            ## RX
+            self.metric_interface_received_bytes.labels(
+                self.get_additional_info(ifname)
+            ).set(
+                int(
+                    self.sonic_db.get(
+                        self.sonic_db.COUNTERS_DB,
+                        counter_key,
+                        "SAI_PORT_STAT_IF_IN_OCTETS",
+                    )
+                )
+            )
+            self.metric_interface_received_packets.labels(
+                self.get_additional_info(ifname), "unicast"
+            ).set(
+                int(
                     self.sonic_db.get(
                         self.sonic_db.COUNTERS_DB,
                         counter_key,
                         "SAI_PORT_STAT_IF_IN_UCAST_PKTS",
                     )
-                ) + int(
+                )
+            )
+            self.metric_interface_received_packets.labels(
+                self.get_additional_info(ifname), "multicast"
+            ).set(
+                int(
                     self.sonic_db.get(
                         self.sonic_db.COUNTERS_DB,
                         counter_key,
-                        "SAI_PORT_STAT_IF_IN_NON_UCAST_PKTS",
+                        "SAI_PORT_STAT_IF_IN_MULTICAST_PKTS",
                     )
                 )
-            except ValueError:
-                self.counter_zero[ifname, "RX_OK"] = 0
-            try:
-                self.counter_zero[ifname, "TX_OK"] = int(
+            )
+            self.metric_interface_received_packets.labels(
+                self.get_additional_info(ifname), "broadcast"
+            ).set(
+                int(
                     self.sonic_db.get(
                         self.sonic_db.COUNTERS_DB,
                         counter_key,
-                        "SAI_PORT_STAT_IF_OUT_UCAST_PKTS",
-                    )
-                ) + int(
-                    self.sonic_db.get(
-                        self.sonic_db.COUNTERS_DB,
-                        counter_key,
-                        "SAI_PORT_STAT_IF_OUT_NON_UCAST_PKTS",
+                        "SAI_PORT_STAT_IF_IN_BROADCAST_PKTS",
                     )
                 )
-            except ValueError:
-                self.counter_zero[ifname, "TX_OK"] = 0
-            try:
-                self.counter_zero[ifname, "RX_ERR"] = int(
+            )
+            for size, key in zip(
+                (64, 127, 255, 511, 1023, 1518, 2047, 4095, 9216, 16383),
+                [
+                    "SAI_PORT_STAT_ETHER_IN_PKTS_64_OCTETS",
+                    "SAI_PORT_STAT_ETHER_IN_PKTS_65_TO_127_OCTETS",
+                    "SAI_PORT_STAT_ETHER_IN_PKTS_128_TO_255_OCTETS",
+                    "SAI_PORT_STAT_ETHER_IN_PKTS_256_TO_511_OCTETS",
+                    "SAI_PORT_STAT_ETHER_IN_PKTS_512_TO_1023_OCTETS",
+                    "SAI_PORT_STAT_ETHER_IN_PKTS_1024_TO_1518_OCTETS",
+                    "SAI_PORT_STAT_ETHER_IN_PKTS_1519_TO_2047_OCTETS",
+                    "SAI_PORT_STAT_ETHER_IN_PKTS_2048_TO_4095_OCTETS",
+                    "SAI_PORT_STAT_ETHER_IN_PKTS_4096_TO_9216_OCTETS",
+                    "SAI_PORT_STAT_ETHER_IN_PKTS_9217_TO_16383_OCTETS",
+                ],
+            ):
+                self.metric_interface_received_ethernet_packets.labels(
+                    self.get_additional_info(ifname), size
+                ).set(
+                    int(self.sonic_db.get(self.sonic_db.COUNTERS_DB, counter_key, key))
+                )
+            ## RX Errors
+            self.metric_interface_receive_error_input_packets.labels(
+                self.get_additional_info(ifname), "error"
+            ).set(
+                int(
                     self.sonic_db.get(
                         self.sonic_db.COUNTERS_DB,
                         counter_key,
                         "SAI_PORT_STAT_IF_IN_ERRORS",
                     )
                 )
-            except ValueError:
-                self.counter_zero[ifname, "RX_ERR"] = 0
-            try:
-                self.counter_zero[ifname, "TX_ERR"] = int(
+            )
+            self.metric_interface_receive_error_input_packets.labels(
+                self.get_additional_info(ifname), "discard"
+            ).set(
+                int(
+                    self.sonic_db.get(
+                        self.sonic_db.COUNTERS_DB,
+                        counter_key,
+                        "SAI_PORT_STAT_IF_IN_DISCARDS",
+                    )
+                )
+            )
+            self.metric_interface_receive_error_input_packets.labels(
+                self.get_additional_info(ifname), "drop"
+            ).set(
+                int(
+                    self.sonic_db.get(
+                        self.sonic_db.COUNTERS_DB,
+                        counter_key,
+                        "SAI_PORT_STAT_IN_DROPPED_PKTS",
+                    )
+                )
+            )
+            self.metric_interface_receive_error_input_packets.labels(
+                self.get_additional_info(ifname), "pause"
+            ).set(
+                int(
+                    self.sonic_db.get(
+                        self.sonic_db.COUNTERS_DB,
+                        counter_key,
+                        "SAI_PORT_STAT_PAUSE_RX_PKTS",
+                    )
+                )
+            )
+            ## TX
+            self.metric_interface_transmitted_bytes.labels(
+                self.get_additional_info(ifname)
+            ).set(
+                int(
+                    self.sonic_db.get(
+                        self.sonic_db.COUNTERS_DB,
+                        counter_key,
+                        "SAI_PORT_STAT_IF_OUT_OCTETS",
+                    )
+                )
+            )
+            self.metric_interface_transmitted_packets.labels(
+                self.get_additional_info(ifname), "unicast"
+            ).set(
+                int(
+                    self.sonic_db.get(
+                        self.sonic_db.COUNTERS_DB,
+                        counter_key,
+                        "SAI_PORT_STAT_IF_OUT_UCAST_PKTS",
+                    )
+                )
+            )
+            self.metric_interface_transmitted_packets.labels(
+                self.get_additional_info(ifname), "multicast"
+            ).set(
+                int(
+                    self.sonic_db.get(
+                        self.sonic_db.COUNTERS_DB,
+                        counter_key,
+                        "SAI_PORT_STAT_IF_OUT_MULTICAST_PKTS",
+                    )
+                )
+            )
+            self.metric_interface_transmitted_packets.labels(
+                self.get_additional_info(ifname), "broadcast"
+            ).set(
+                int(
+                    self.sonic_db.get(
+                        self.sonic_db.COUNTERS_DB,
+                        counter_key,
+                        "SAI_PORT_STAT_IF_OUT_BROADCAST_PKTS",
+                    )
+                )
+            )
+            for size, key in zip(
+                (64, 127, 255, 511, 1023, 1518, 2047, 4095, 9216, 16383),
+                [
+                    "SAI_PORT_STAT_ETHER_OUT_PKTS_64_OCTETS",
+                    "SAI_PORT_STAT_ETHER_OUT_PKTS_65_TO_127_OCTETS",
+                    "SAI_PORT_STAT_ETHER_OUT_PKTS_128_TO_255_OCTETS",
+                    "SAI_PORT_STAT_ETHER_OUT_PKTS_256_TO_511_OCTETS",
+                    "SAI_PORT_STAT_ETHER_OUT_PKTS_512_TO_1023_OCTETS",
+                    "SAI_PORT_STAT_ETHER_OUT_PKTS_1024_TO_1518_OCTETS",
+                    "SAI_PORT_STAT_ETHER_OUT_PKTS_1519_TO_2047_OCTETS",
+                    "SAI_PORT_STAT_ETHER_OUT_PKTS_2048_TO_4095_OCTETS",
+                    "SAI_PORT_STAT_ETHER_OUT_PKTS_4096_TO_9216_OCTETS",
+                    "SAI_PORT_STAT_ETHER_OUT_PKTS_9217_TO_16383_OCTETS",
+                ],
+            ):
+                self.metric_interface_transmitted_ethernet_packets.labels(
+                    self.get_additional_info(ifname), size
+                ).set(
+                    int(self.sonic_db.get(self.sonic_db.COUNTERS_DB, counter_key, key))
+                )
+            # SAI_PORT_STAT_ETHER_TX_OVERSIZE_PKTS
+            ## TX Errors
+            self.metric_interface_transmit_error_output_packets.labels(
+                self.get_additional_info(ifname), "error"
+            ).set(
+                int(
                     self.sonic_db.get(
                         self.sonic_db.COUNTERS_DB,
                         counter_key,
                         "SAI_PORT_STAT_IF_OUT_ERRORS",
                     )
                 )
-            except ValueError:
-                self.counter_zero[ifname, "TX_ERR"] = 0
-
-            self.rx_octets_dict[ifname] = int(
-                self.sonic_db.get(
-                    self.sonic_db.COUNTERS_DB, counter_key, "SAI_PORT_STAT_IF_IN_OCTETS"
-                )
             )
-            self.tx_octets_dict[ifname] = int(
-                self.sonic_db.get(
-                    self.sonic_db.COUNTERS_DB,
-                    counter_key,
-                    "SAI_PORT_STAT_IF_OUT_OCTETS",
-                )
-            )
-
-    def intf_queue_counter_reset(self):
-        maps = self.sonic_db.get_all(self.sonic_db.COUNTERS_DB, COUNTER_QUEUE_MAP)
-        for ifname in maps:
-            counter_key = COUNTER_TABLE_PREFIX + _decode(maps[ifname])
-            ifname = _decode(ifname)
-            try:
-                self.queue_counter_zero[ifname, "QUEUE_STAT_PACKET"] = int(
+            self.metric_interface_transmit_error_output_packets.labels(
+                self.get_additional_info(ifname), "discard"
+            ).set(
+                int(
                     self.sonic_db.get(
-                        self.sonic_db.COUNTERS_DB, counter_key, "SAI_QUEUE_STAT_PACKETS"
+                        self.sonic_db.COUNTERS_DB,
+                        counter_key,
+                        "SAI_PORT_STAT_IF_OUT_DISCARDS",
                     )
-                )
-            except ValueError:
-                self.queue_counter_zero[ifname, "QUEUE_STAT_PACKET"] = 0
-
-    def export_intf_counter(self):
-        maps = self.sonic_db.get_all(self.sonic_db.COUNTERS_DB, COUNTER_PORT_MAP)
-        old_time = self.curr_time
-        logging.debug("export_intf_counter : old_time ", old_time)
-        self.curr_time = time.time()
-        logging.debug("export_intf_counter : self.curr_time ", self.curr_time)
-        delta = int(self.curr_time - old_time)
-        logging.debug("export_intf_counter : delta ", delta)
-        for ifname in maps:
-            if ifname.lower() == "cpu":
-                continue
-            counter_key = COUNTER_TABLE_PREFIX + _decode(maps[ifname])
-            ifname = _decode(ifname)
-            try:
-                RX_OK = (
-                    int(
-                        self.sonic_db.get(
-                            self.sonic_db.COUNTERS_DB,
-                            counter_key,
-                            "SAI_PORT_STAT_IF_IN_UCAST_PKTS",
-                        )
-                    )
-                    + int(
-                        self.sonic_db.get(
-                            self.sonic_db.COUNTERS_DB,
-                            counter_key,
-                            "SAI_PORT_STAT_IF_IN_NON_UCAST_PKTS",
-                        )
-                    )
-                    - self.counter_zero[ifname, "RX_OK"]
-                )
-            except ValueError:
-                RX_OK = 0
-            try:
-                TX_OK = (
-                    int(
-                        self.sonic_db.get(
-                            self.sonic_db.COUNTERS_DB,
-                            counter_key,
-                            "SAI_PORT_STAT_IF_OUT_UCAST_PKTS",
-                        )
-                    )
-                    + int(
-                        self.sonic_db.get(
-                            self.sonic_db.COUNTERS_DB,
-                            counter_key,
-                            "SAI_PORT_STAT_IF_OUT_NON_UCAST_PKTS",
-                        )
-                    )
-                    - self.counter_zero[ifname, "TX_OK"]
-                )
-            except ValueError:
-                TX_OK = 0
-            try:
-                RX_ERR = (
-                    int(
-                        self.sonic_db.get(
-                            self.sonic_db.COUNTERS_DB,
-                            counter_key,
-                            "SAI_PORT_STAT_IF_IN_ERRORS",
-                        )
-                    )
-                    - self.counter_zero[ifname, "RX_ERR"]
-                )
-            except ValueError:
-                RX_ERR = 0
-            try:
-                TX_ERR = (
-                    int(
-                        self.sonic_db.get(
-                            self.sonic_db.COUNTERS_DB,
-                            counter_key,
-                            "SAI_PORT_STAT_IF_OUT_ERRORS",
-                        )
-                    )
-                    - self.counter_zero[ifname, "TX_ERR"]
-                )
-            except ValueError:
-                TX_ERR = 0
-
-            RX_OCTETS = int(
-                self.sonic_db.get(
-                    self.sonic_db.COUNTERS_DB, counter_key, "SAI_PORT_STAT_IF_IN_OCTETS"
                 )
             )
-            TX_OCTETS = int(
-                self.sonic_db.get(
-                    self.sonic_db.COUNTERS_DB,
-                    counter_key,
-                    "SAI_PORT_STAT_IF_OUT_OCTETS",
+            self.metric_interface_transmit_error_output_packets.labels(
+                self.get_additional_info(ifname), "pause"
+            ).set(
+                int(
+                    self.sonic_db.get(
+                        self.sonic_db.COUNTERS_DB,
+                        counter_key,
+                        "SAI_PORT_STAT_PAUSE_TX_PKTS",
+                    )
                 )
             )
-
-            self.metric_intf_counter.labels(ifname, "RX_OK").set(RX_OK)
-            self.metric_intf_counter.labels(ifname, "TX_OK").set(TX_OK)
-            self.metric_intf_err_counter.labels(ifname, "RX").set(RX_ERR)
-            self.metric_intf_err_counter.labels(ifname, "TX").set(TX_ERR)
-            self.export_intf_util_bps(ifname, RX_OCTETS, TX_OCTETS, delta)
-            logging.debug("export_intf_counter : ifname={}, RX_OK={}, TX_OK={}, RX_ERR={}, TX_ERR={}".format(ifname, RX_OK, TX_OK, RX_ERR, TX_ERR))
+            logging.debug("export_intf_counter : ifname={}".format(ifname))
 
     def export_intf_queue_counters(self):
         maps = self.sonic_db.get_all(self.sonic_db.COUNTERS_DB, COUNTER_QUEUE_MAP)
@@ -361,30 +446,36 @@ class Export:
                 )
             )
             ifname = _decode(ifname)
-            try:
-                QUEUE_STAT_PACKET = (
-                    int(
-                        self.sonic_db.get(
-                            self.sonic_db.COUNTERS_DB,
-                            counter_key,
-                            "SAI_QUEUE_STAT_PACKETS",
-                        )
-                    )
-                    - self.queue_counter_zero[ifname, "QUEUE_STAT_PACKET"]
-                )
-            except ValueError:
-                QUEUE_STAT_PACKET = 0
-            queue_type = "N/A"
-            lane_no = ifname.split(":")[1]
-            ifname = ifname.split(":")[0]
-            if packet_type.endswith("MULTICAST"):
-                queue_type = "MC" + lane_no
-            if packet_type.endswith("UNICAST"):
-                queue_type = "UC" + lane_no
-            logging.debug("export_intf_queue_counters : ifname={}, queue_type={}, QUEUE_STAT_PACKET={}".format(ifname, queue_type, QUEUE_STAT_PACKET))
-            self.metric_intf_queue_counter.labels(ifname, queue_type).set(
-                QUEUE_STAT_PACKET
+            QUEUE_STAT_PACKET = self.sonic_db.get(
+                self.sonic_db.COUNTERS_DB,
+                counter_key,
+                "SAI_QUEUE_STAT_PACKETS",
             )
+            QUEUE_STAT_BYTE = self.sonic_db.get(
+                self.sonic_db.COUNTERS_DB,
+                counter_key,
+                "SAI_QUEUE_STAT_BYTES",
+            )
+            queue_type = "N/A"
+            ifname, queue = ifname.split(":")
+            if ifname.lower() == "cpu":
+                continue
+            if packet_type.endswith("MULTICAST"):
+                queue_type = "multicast"
+            if packet_type.endswith("UNICAST"):
+                queue_type = "unicast"
+            logging.debug(
+                "export_intf_queue_counters : ifname={}, queue_type={}, QUEUE_STAT_PACKET={}".format(
+                    ifname, queue_type, QUEUE_STAT_PACKET
+                )
+            )
+            logging.debug(
+                "export_intf_queue_counters : ifname={}, queue_type={}, QUEUE_STAT_BYTE={}".format(
+                    ifname, queue_type, QUEUE_STAT_BYTE
+                )
+            )
+            self.metric_interface_queue_processed_packets.labels(self.get_additional_info(ifname), queue, queue_type).set(QUEUE_STAT_PACKET)
+            self.metric_interface_queue_processed_bytes.labels(self.get_additional_info(ifname), queue, queue_type).set(QUEUE_STAT_BYTE)
 
     def export_intf_sensor_data(self):
         keys = self.sonic_db.keys(
@@ -399,19 +490,15 @@ class Export:
                 if bool(re.match("^rx[0-9]*power$", measure_dec)):
                     value = transceiver_sensor_data[measure]
                     try:
-                        self.metric_intf_power.labels(ifname, measure_dec).set(
-                            float(value)
-                        )
+                        self.metric_intf_power.labels(measure_dec).set(float(value))
                     except ValueError:
-                        self.metric_intf_power.labels(ifname, measure_dec).set(0)
+                        self.metric_intf_power.labels(measure_dec).set(0)
                 if bool(re.match("^tx[0-9]*power$", measure_dec)):
                     value = transceiver_sensor_data[measure]
                     try:
-                        self.metric_intf_power.labels(ifname, measure_dec).set(
-                            float(value)
-                        )
+                        self.metric_intf_power.labels(measure_dec).set(float(value))
                     except ValueError:
-                        self.metric_intf_power.labels(ifname, measure_dec).set(0)
+                        self.metric_intf_power.labels(measure_dec).set(0)
                 if measure_dec == "voltage":
                     value = transceiver_sensor_data[measure]
                     try:
@@ -438,9 +525,9 @@ class Export:
                 CABLE_LEN = float(
                     self.sonic_db.get(self.sonic_db.STATE_DB, key, "cable_length")
                 )
-            except ValueError and TypeError:
+            except (ValueError, TypeError):
                 CABLE_LEN = 0
-            self.metric_intf_cable.labels(ifname, CABLE_TYPE).set(CABLE_LEN)
+            self.metric_intf_cable.labels(CABLE_TYPE).set(CABLE_LEN)
 
     def export_psu_info(self):
         keys = self.sonic_db.keys(self.sonic_db.STATE_DB, pattern="PSU_INFO|PSU*")
@@ -450,28 +537,34 @@ class Export:
                 in_power = float(
                     self.sonic_db.get(self.sonic_db.STATE_DB, key, "input_power")
                 )
-            except ValueError and TypeError:
+            except (ValueError, TypeError):
                 in_power = 0
             try:
                 out_power = float(
                     self.sonic_db.get(self.sonic_db.STATE_DB, key, "output_power")
                 )
-            except ValueError and TypeError:
+            except (ValueError, TypeError):
                 out_power = 0
-            logging.debug("export_psu_info : psu_name={}, in_power={}, out_power={}".format(psu_name, in_power, out_power))
+            logging.debug(
+                "export_psu_info : psu_name={}, in_power={}, out_power={}".format(
+                    psu_name, in_power, out_power
+                )
+            )
             # multiply with 1000 for unit to be in mW
-            self.metric_psu.labels(psu_name, "input").set(in_power*1000) 
-            self.metric_psu.labels(psu_name, "output").set(out_power*1000)
+            self.metric_psu.labels(psu_name, "input").set(in_power * 1000)
+            self.metric_psu.labels(psu_name, "output").set(out_power * 1000)
 
     def _get_sonic_version_info(self):
         version = ""
         try:
-            version = os.environ.get('SONIC_VERSION')
+            version = os.environ.get("SONIC_VERSION")
             logging.debug(f"sonic version from env: {version}")
         except KeyboardInterrupt as e:
             raise e
-        except :
-            logging.error("ENV SONIC_VERSION is not set !. Set env in container to get software version in system info metric.")
+        except:
+            logging.error(
+                "ENV SONIC_VERSION is not set !. Set env in container to get software version in system info metric."
+            )
             return ""
         return "SONiC-OS-{}".format(version)
 
@@ -492,25 +585,35 @@ class Export:
                 "part_number": part_num,
                 "serial_number": serial_num,
                 "mac_address": mac_addr,
-                "software_version" : software_version,
+                "software_version": software_version,
             }
         )
-        logging.debug("export_sys_info : part_num={}, serial_num={}, mac_addr={}, software_version={}".format(part_num, serial_num, mac_addr, software_version))
+        logging.debug(
+            "export_sys_info : part_num={}, serial_num={}, mac_addr={}, software_version={}".format(
+                part_num, serial_num, mac_addr, software_version
+            )
+        )
 
     def export_bgp_peer_status(self):
         # vtysh -c "show ip bgp neighbors Ethernet32 json"
         # get - bgpState and bgpTimerUp (available only when interface is up)
         try:
-            keys = self.sonic_db.keys(self.sonic_db.CONFIG_DB, pattern="BGP_NEIGHBOR|default|*")
+            keys = self.sonic_db.keys(
+                self.sonic_db.CONFIG_DB, pattern="BGP_NEIGHBOR|default|*"
+            )
             for key in keys:
                 key = _decode(key)
                 bgp_neighbour = key.split("|")[-1]  # eg Ethernet32
                 command = 'vtysh -c "show ip bgp neighbors {} json"'.format(
                     bgp_neighbour
                 )
-                logging.debug("export_bgp_peer_status : command out={}".format(subprocess.getoutput(command)))
+                logging.debug(
+                    "export_bgp_peer_status : command out={}".format(
+                        subprocess.getoutput(command)
+                    )
+                )
                 cmd_out = json.loads(subprocess.getoutput(command))
-                
+
                 # to handle any BGP_NEIGHBOR defined in redis but not found in vtysh
                 if "bgpNoSuchNeighbor" in cmd_out.keys():
                     continue
@@ -535,7 +638,9 @@ class Export:
         # vtysh -c "show ip bgp neighbors Ethernet32 prefix-counts  json"
         # get - pfxCounter
         try:
-            keys = self.sonic_db.keys(self.sonic_db.CONFIG_DB, pattern="BGP_NEIGHBOR|default|*")
+            keys = self.sonic_db.keys(
+                self.sonic_db.CONFIG_DB, pattern="BGP_NEIGHBOR|default|*"
+            )
             for key in keys:
                 key = _decode(key)
                 bgp_neighbour = key.split("|")[-1]  # eg Ethernet32
@@ -544,7 +649,11 @@ class Export:
                         bgp_neighbour
                     )
                 )
-                logging.debug("export_bgp_num_routes : command out={}".format(subprocess.getoutput(command)))
+                logging.debug(
+                    "export_bgp_num_routes : command out={}".format(
+                        subprocess.getoutput(command)
+                    )
+                )
                 cmd_out = json.loads(subprocess.getoutput(command))
                 # to handle any BGP_NEIGHBOR defined in redis but not found in vtysh
                 if "malformedAddressOrName" in cmd_out.keys():
@@ -584,18 +693,18 @@ class Export:
             self.export_intf_sensor_data()
             self.export_sys_info()
             self.export_psu_info()
-            self.export_bgp_peer_status()
-            self.export_bgp_num_routes()
-            self.export_system_top10_process()
+            # self.export_bgp_peer_status()
+            # self.export_bgp_num_routes()
+            # self.export_system_top10_process()
         except KeyboardInterrupt as e:
             raise e
-        except Exception as e:
-            logging.error("Exception={}".format(e))
 
 
 def main():
-    data_extract_interval = int(os.environ.get("REDIS_COLLECTION_INTERVAL", 30)) # considering 30 seconds as default collection interval
-    port = 9101 #setting port static as 9101. if required map it to someother port of host by editing compose file.
+    data_extract_interval = int(
+        os.environ.get("REDIS_COLLECTION_INTERVAL", 30)
+    )  # considering 30 seconds as default collection interval
+    port = 9101  # setting port static as 9101. if required map it to someother port of host by editing compose file.
 
     exp = Export()
     logging.info("Starting Python exporter server at port 9101")
@@ -604,6 +713,7 @@ def main():
     while True:
         exp.start_export()
         time.sleep(data_extract_interval)
+
 
 def cli():
     try:
