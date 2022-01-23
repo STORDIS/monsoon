@@ -1,1 +1,4753 @@
-{}
+{
+    "COPP_TABLE:copp-system-arp": {
+        "type": "hash",
+        "value": {
+            "cbs": "3000",
+            "cir": "3000",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "10",
+            "red_action": "drop",
+            "trap_action": "copy",
+            "trap_ids": "arp_req,arp_resp,neigh_discovery",
+            "trap_priority": "10"
+        }
+    },
+    "COPP_TABLE:copp-system-bfd": {
+        "type": "hash",
+        "value": {
+            "cbs": "1500",
+            "cir": "1500",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "20",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_ids": "bfd,bfdv6",
+            "trap_priority": "20"
+        }
+    },
+    "COPP_TABLE:copp-system-bgp": {
+        "type": "hash",
+        "value": {
+            "cbs": "10000",
+            "cir": "10000",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "14",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_ids": "bgp,bgpv6",
+            "trap_priority": "14"
+        }
+    },
+    "COPP_TABLE:copp-system-dhcp": {
+        "type": "hash",
+        "value": {
+            "cbs": "300",
+            "cir": "300",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "9",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_ids": "dhcp,dhcpv6",
+            "trap_priority": "9"
+        }
+    },
+    "COPP_TABLE:copp-system-iccp": {
+        "type": "hash",
+        "value": {
+            "cbs": "5000",
+            "cir": "5000",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "16",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_ids": "iccp",
+            "trap_priority": "16"
+        }
+    },
+    "COPP_TABLE:copp-system-icmp": {
+        "type": "hash",
+        "value": {
+            "cbs": "1000",
+            "cir": "1000",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "8",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_ids": "icmp,icmpv6",
+            "trap_priority": "8"
+        }
+    },
+    "COPP_TABLE:copp-system-igmp": {
+        "type": "hash",
+        "value": {
+            "cbs": "2000",
+            "cir": "2000",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "12",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_ids": "igmp_query",
+            "trap_priority": "12"
+        }
+    },
+    "COPP_TABLE:copp-system-ip2me": {
+        "type": "hash",
+        "value": {
+            "cbs": "6000",
+            "cir": "6000",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "7",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_ids": "ip2me",
+            "trap_priority": "7"
+        }
+    },
+    "COPP_TABLE:copp-system-lacp": {
+        "type": "hash",
+        "value": {
+            "cbs": "500",
+            "cir": "500",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "23",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_ids": "lacp",
+            "trap_priority": "23"
+        }
+    },
+    "COPP_TABLE:copp-system-lldp": {
+        "type": "hash",
+        "value": {
+            "cbs": "500",
+            "cir": "500",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "18",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_ids": "lldp",
+            "trap_priority": "18"
+        }
+    },
+    "COPP_TABLE:copp-system-mtu": {
+        "type": "hash",
+        "value": {
+            "cbs": "500",
+            "cir": "500",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "4",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_ids": "l3_mtu_error",
+            "trap_priority": "4"
+        }
+    },
+    "COPP_TABLE:copp-system-nat": {
+        "type": "hash",
+        "value": {
+            "cbs": "300",
+            "cir": "300",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "5",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_ids": "src_nat_miss,dest_nat_miss",
+            "trap_priority": "5"
+        }
+    },
+    "COPP_TABLE:copp-system-ospf": {
+        "type": "hash",
+        "value": {
+            "cbs": "5000",
+            "cir": "5000",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "15",
+            "red_action": "drop",
+            "trap_action": "copy",
+            "trap_ids": "ospf",
+            "trap_priority": "15"
+        }
+    },
+    "COPP_TABLE:copp-system-pim": {
+        "type": "hash",
+        "value": {
+            "cbs": "5000",
+            "cir": "5000",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "13",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_ids": "pim",
+            "trap_priority": "13"
+        }
+    },
+    "COPP_TABLE:copp-system-ptp": {
+        "type": "hash",
+        "value": {
+            "cbs": "5000",
+            "cir": "5000",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "30",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_ids": "ptp",
+            "trap_priority": "30"
+        }
+    },
+    "COPP_TABLE:copp-system-sflow": {
+        "type": "hash",
+        "value": {
+            "cbs": "8000",
+            "cir": "8000",
+            "genetlink_mcgrp_name": "packets",
+            "genetlink_name": "psample",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "3",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_ids": "sample_packet",
+            "trap_priority": "3"
+        }
+    },
+    "COPP_TABLE:copp-system-stp": {
+        "type": "hash",
+        "value": {
+            "cbs": "16000",
+            "cir": "16000",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "21",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_ids": "stp,pvrst",
+            "trap_priority": "21"
+        }
+    },
+    "COPP_TABLE:copp-system-subnet": {
+        "type": "hash",
+        "value": {
+            "cbs": "2000",
+            "cir": "2000",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "6",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_ids": "subnet",
+            "trap_priority": "6"
+        }
+    },
+    "COPP_TABLE:copp-system-suppress": {
+        "type": "hash",
+        "value": {
+            "cbs": "3000",
+            "cir": "3000",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "11",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_ids": "arp_suppress,nd_suppress",
+            "trap_priority": "11"
+        }
+    },
+    "COPP_TABLE:copp-system-udld": {
+        "type": "hash",
+        "value": {
+            "cbs": "500",
+            "cir": "500",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "22",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_ids": "udld",
+            "trap_priority": "22"
+        }
+    },
+    "COPP_TABLE:copp-system-vrrp": {
+        "type": "hash",
+        "value": {
+            "cbs": "500",
+            "cir": "500",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "17",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_ids": "vrrp,vrrpv6",
+            "trap_priority": "17"
+        }
+    },
+    "COPP_TABLE:default": {
+        "type": "hash",
+        "value": {
+            "cbs": "100",
+            "cir": "100",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "0",
+            "red_action": "drop"
+        }
+    },
+    "DEBUG_RCOMPONENT_TABLE:fdborch": {
+        "type": "hash",
+        "value": {
+            "THREAD": "noOp"
+        }
+    },
+    "DEBUG_RCOMPONENT_TABLE:ipmcorch": {
+        "type": "hash",
+        "value": {
+            "THREAD": "noOp"
+        }
+    },
+    "DEBUG_RCOMPONENT_TABLE:l2mcd_debug": {
+        "type": "hash",
+        "value": {
+            "THREAD": "noOp"
+        }
+    },
+    "DEBUG_RCOMPONENT_TABLE:l2mcorch": {
+        "type": "hash",
+        "value": {
+            "THREAD": "noOp"
+        }
+    },
+    "DEBUG_RCOMPONENT_TABLE:natorch": {
+        "type": "hash",
+        "value": {
+            "THREAD": "noOp"
+        }
+    },
+    "DEBUG_RCOMPONENT_TABLE:neighorch": {
+        "type": "hash",
+        "value": {
+            "THREAD": "noOp"
+        }
+    },
+    "DEBUG_RCOMPONENT_TABLE:routeorch": {
+        "type": "hash",
+        "value": {
+            "THREAD": "noOp"
+        }
+    },
+    "GEARBOX_TABLE_KEY_SET": {
+        "type": "set",
+        "value": [
+            "GearboxConfigDone"
+        ]
+    },
+    "INTF_TABLE:Ethernet0": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet0:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet100": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet100:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet104": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet104:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet108": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet108:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet112": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet112:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet116": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet116:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet12": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet120": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet120:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet124": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet124:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet125": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet125:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet126": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet126:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet12:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet16": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet16:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet20": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet20:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet24": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet24:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet28": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet28:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet32": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet32:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet36": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet36:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet4": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet40": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet40:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet44": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet44:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet48": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet48:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet4:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet52": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet52:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet56": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet56:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet60": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet60:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet64": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet64:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet68": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet68:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet72": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet72:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet76": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet76:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet8": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet80": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet80:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet84": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet84:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet88": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet88:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet8:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet92": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet92:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Ethernet96": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Ethernet96:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "INTF_TABLE:Loopback0": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTF_TABLE:Loopback0:192.168.0.210/32": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "scope": "global"
+        }
+    },
+    "INTF_TABLE:Loopback0:fe80::6f8:f8ff:fee5:e2bd/64": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "link_local_mode": "auto",
+            "scope": "local"
+        }
+    },
+    "L3_INTF_TABLE:Ethernet0": {
+        "type": "hash",
+        "value": {
+            "nlmsg_type": "16",
+            "oper_status": "up"
+        }
+    },
+    "L3_INTF_TABLE:Ethernet100": {
+        "type": "hash",
+        "value": {
+            "nlmsg_type": "16",
+            "oper_status": "up"
+        }
+    },
+    "L3_INTF_TABLE:Ethernet112": {
+        "type": "hash",
+        "value": {
+            "nlmsg_type": "16",
+            "oper_status": "up"
+        }
+    },
+    "L3_INTF_TABLE:Ethernet116": {
+        "type": "hash",
+        "value": {
+            "nlmsg_type": "16",
+            "oper_status": "up"
+        }
+    },
+    "L3_INTF_TABLE:Ethernet12": {
+        "type": "hash",
+        "value": {
+            "nlmsg_type": "16",
+            "oper_status": "up"
+        }
+    },
+    "L3_INTF_TABLE:Ethernet120": {
+        "type": "hash",
+        "value": {
+            "nlmsg_type": "16",
+            "oper_status": "up"
+        }
+    },
+    "L3_INTF_TABLE:Ethernet124": {
+        "type": "hash",
+        "value": {
+            "nlmsg_type": "16",
+            "oper_status": "up"
+        }
+    },
+    "L3_INTF_TABLE:Ethernet16": {
+        "type": "hash",
+        "value": {
+            "nlmsg_type": "16",
+            "oper_status": "up"
+        }
+    },
+    "L3_INTF_TABLE:Ethernet20": {
+        "type": "hash",
+        "value": {
+            "nlmsg_type": "16",
+            "oper_status": "up"
+        }
+    },
+    "L3_INTF_TABLE:Ethernet24": {
+        "type": "hash",
+        "value": {
+            "nlmsg_type": "16",
+            "oper_status": "up"
+        }
+    },
+    "L3_INTF_TABLE:Ethernet28": {
+        "type": "hash",
+        "value": {
+            "nlmsg_type": "16",
+            "oper_status": "up"
+        }
+    },
+    "L3_INTF_TABLE:Ethernet32": {
+        "type": "hash",
+        "value": {
+            "nlmsg_type": "16",
+            "oper_status": "up"
+        }
+    },
+    "L3_INTF_TABLE:Ethernet36": {
+        "type": "hash",
+        "value": {
+            "nlmsg_type": "16",
+            "oper_status": "up"
+        }
+    },
+    "L3_INTF_TABLE:Ethernet4": {
+        "type": "hash",
+        "value": {
+            "nlmsg_type": "16",
+            "oper_status": "up"
+        }
+    },
+    "L3_INTF_TABLE:Ethernet40": {
+        "type": "hash",
+        "value": {
+            "nlmsg_type": "16",
+            "oper_status": "up"
+        }
+    },
+    "L3_INTF_TABLE:Ethernet44": {
+        "type": "hash",
+        "value": {
+            "nlmsg_type": "16",
+            "oper_status": "up"
+        }
+    },
+    "L3_INTF_TABLE:Ethernet48": {
+        "type": "hash",
+        "value": {
+            "nlmsg_type": "16",
+            "oper_status": "up"
+        }
+    },
+    "L3_INTF_TABLE:Ethernet52": {
+        "type": "hash",
+        "value": {
+            "nlmsg_type": "16",
+            "oper_status": "up"
+        }
+    },
+    "L3_INTF_TABLE:Ethernet56": {
+        "type": "hash",
+        "value": {
+            "nlmsg_type": "16",
+            "oper_status": "up"
+        }
+    },
+    "L3_INTF_TABLE:Ethernet60": {
+        "type": "hash",
+        "value": {
+            "nlmsg_type": "16",
+            "oper_status": "up"
+        }
+    },
+    "L3_INTF_TABLE:Ethernet8": {
+        "type": "hash",
+        "value": {
+            "nlmsg_type": "16",
+            "oper_status": "up"
+        }
+    },
+    "L3_INTF_TABLE:Ethernet96": {
+        "type": "hash",
+        "value": {
+            "nlmsg_type": "16",
+            "oper_status": "up"
+        }
+    },
+    "LLDP_ENTRY_TABLE:Ethernet0": {
+        "type": "hash",
+        "value": {
+            "lldp_rem_chassis_id": "04:f8:f8:99:a6:83",
+            "lldp_rem_chassis_id_subtype": "4",
+            "lldp_rem_index": "11",
+            "lldp_rem_man_addr": "10.23.137.212,fe80::6f8:f8ff:fe99:a683",
+            "lldp_rem_port_desc": "m4bneesw0007_Eth1/1",
+            "lldp_rem_port_id": "Ethernet48",
+            "lldp_rem_port_id_subtype": "7",
+            "lldp_rem_sys_cap_enabled": "08 00",
+            "lldp_rem_sys_cap_supported": "28 00",
+            "lldp_rem_sys_desc": "SONiC Software Version: SONiC.3.4.0a-Enterprise_Base - HwSku: Accton-AS7326-56X - Distribution: Debian 9.13 - Kernel: 4.9.0-11-2-amd64",
+            "lldp_rem_sys_name": "t-01-m-09-lf1-01-10.mgmt.refaz.bn.schiff.telekom.de",
+            "lldp_rem_time_mark": "3116028",
+            "lldp_rem_ttl": "120"
+        }
+    },
+    "LLDP_ENTRY_TABLE:Ethernet100": {
+        "type": "hash",
+        "value": {
+            "lldp_rem_chassis_id": "34:ef:b6:3f:59:73",
+            "lldp_rem_chassis_id_subtype": "4",
+            "lldp_rem_index": "34",
+            "lldp_rem_man_addr": "10.23.137.216,fe80::36ef:b6ff:fe3f:5973",
+            "lldp_rem_port_desc": "m4bneesw0007_Eth1/26",
+            "lldp_rem_port_id": "Ethernet0",
+            "lldp_rem_port_id_subtype": "7",
+            "lldp_rem_sys_cap_enabled": "08 00",
+            "lldp_rem_sys_cap_supported": "28 00",
+            "lldp_rem_sys_desc": "SONiC Software Version: SONiC.3.4.0a-Enterprise_Base - HwSku: Accton-AS7726-32X - Distribution: Debian 9.13 - Kernel: 4.9.0-11-2-amd64",
+            "lldp_rem_sys_name": "t-01-m-09-bl1-04-09.mgmt.refaz.bn.schiff.telekom.de",
+            "lldp_rem_time_mark": "2984831",
+            "lldp_rem_ttl": "120"
+        }
+    },
+    "LLDP_ENTRY_TABLE:Ethernet112": {
+        "type": "hash",
+        "value": {
+            "lldp_rem_chassis_id": "f8:8e:a1:fe:75:20",
+            "lldp_rem_chassis_id_subtype": "4",
+            "lldp_rem_index": "19",
+            "lldp_rem_man_addr": "10.23.137.218,fe80::fa8e:a1ff:fefe:7520",
+            "lldp_rem_port_desc": "Eth1/49",
+            "lldp_rem_port_id": "Ethernet48",
+            "lldp_rem_port_id_subtype": "7",
+            "lldp_rem_sys_cap_enabled": "08 00",
+            "lldp_rem_sys_cap_supported": "28 00",
+            "lldp_rem_sys_desc": "SONiC Software Version: SONiC.3.4.0a-Enterprise_Base - HwSku: Accton-AS5835-54T - Distribution: Debian 9.13 - Kernel: 4.9.0-11-2-amd64",
+            "lldp_rem_sys_name": "t-01-m-09-ltb1-04-09.mgmt.refaz.bn.schiff.telekom.de",
+            "lldp_rem_time_mark": "2996771",
+            "lldp_rem_ttl": "120"
+        }
+    },
+    "LLDP_ENTRY_TABLE:Ethernet116": {
+        "type": "hash",
+        "value": {
+            "lldp_rem_chassis_id": "34:ef:b6:28:f4:34",
+            "lldp_rem_chassis_id_subtype": "4",
+            "lldp_rem_index": "15",
+            "lldp_rem_man_addr": "10.23.137.213,fe80::36ef:b6ff:fe28:f434",
+            "lldp_rem_port_desc": "m4bneesw0007_Eth1/30",
+            "lldp_rem_port_id": "Ethernet52",
+            "lldp_rem_port_id_subtype": "7",
+            "lldp_rem_sys_cap_enabled": "08 00",
+            "lldp_rem_sys_cap_supported": "28 00",
+            "lldp_rem_sys_desc": "SONiC Software Version: SONiC.3.4.0a-Enterprise_Base - HwSku: Accton-AS5835-54T - Distribution: Debian 9.13 - Kernel: 4.9.0-11-2-amd64",
+            "lldp_rem_sys_name": "t-01-m-09-ltb1-02-10.mgmt.refaz.bn.schiff.telekom.de",
+            "lldp_rem_time_mark": "3116664",
+            "lldp_rem_ttl": "120"
+        }
+    },
+    "LLDP_ENTRY_TABLE:Ethernet12": {
+        "type": "hash",
+        "value": {
+            "lldp_rem_chassis_id": "04:f8:f8:99:a6:83",
+            "lldp_rem_chassis_id_subtype": "4",
+            "lldp_rem_index": "11",
+            "lldp_rem_man_addr": "10.23.137.212,fe80::6f8:f8ff:fe99:a683",
+            "lldp_rem_port_desc": "m4bneesw0007_Eth1/4",
+            "lldp_rem_port_id": "Ethernet60",
+            "lldp_rem_port_id_subtype": "7",
+            "lldp_rem_sys_cap_enabled": "08 00",
+            "lldp_rem_sys_cap_supported": "28 00",
+            "lldp_rem_sys_desc": "SONiC Software Version: SONiC.3.4.0a-Enterprise_Base - HwSku: Accton-AS7326-56X - Distribution: Debian 9.13 - Kernel: 4.9.0-11-2-amd64",
+            "lldp_rem_sys_name": "t-01-m-09-lf1-01-10.mgmt.refaz.bn.schiff.telekom.de",
+            "lldp_rem_time_mark": "3116030",
+            "lldp_rem_ttl": "120"
+        }
+    },
+    "LLDP_ENTRY_TABLE:Ethernet120": {
+        "type": "hash",
+        "value": {
+            "lldp_rem_chassis_id": "f8:8e:a1:fe:5f:20",
+            "lldp_rem_chassis_id_subtype": "4",
+            "lldp_rem_index": "20",
+            "lldp_rem_man_addr": "10.23.137.220,fe80::fa8e:a1ff:fefe:5f20",
+            "lldp_rem_port_desc": "Eth1/49",
+            "lldp_rem_port_id": "Ethernet48",
+            "lldp_rem_port_id_subtype": "7",
+            "lldp_rem_sys_cap_enabled": "08 00",
+            "lldp_rem_sys_cap_supported": "28 00",
+            "lldp_rem_sys_desc": "SONiC Software Version: SONiC.3.4.0a-Enterprise_Base - HwSku: Accton-AS5835-54T - Distribution: Debian 9.13 - Kernel: 4.9.0-11-2-amd64",
+            "lldp_rem_sys_name": "t-01-m-09-ltb1-04-10.mgmt.refaz.bn.schiff.telekom.de",
+            "lldp_rem_time_mark": "2474673",
+            "lldp_rem_ttl": "120"
+        }
+    },
+    "LLDP_ENTRY_TABLE:Ethernet124": {
+        "type": "hash",
+        "value": {
+            "lldp_rem_chassis_id": "34:ef:b6:28:f9:34",
+            "lldp_rem_chassis_id_subtype": "4",
+            "lldp_rem_index": "13",
+            "lldp_rem_man_addr": "10.23.137.211,fe80::36ef:b6ff:fe28:f934",
+            "lldp_rem_port_desc": "m4bneesw0007_Eth1/32",
+            "lldp_rem_port_id": "Ethernet52",
+            "lldp_rem_port_id_subtype": "7",
+            "lldp_rem_sys_cap_enabled": "08 00",
+            "lldp_rem_sys_cap_supported": "28 00",
+            "lldp_rem_sys_desc": "SONiC Software Version: SONiC.3.4.0a-Enterprise_Base - HwSku: Accton-AS5835-54T - Distribution: Debian 9.13 - Kernel: 4.9.0-11-2-amd64",
+            "lldp_rem_sys_name": "t-01-m-09-ltb1-01-10.mgmt.refaz.bn.schiff.telekom.de",
+            "lldp_rem_time_mark": "3116661",
+            "lldp_rem_ttl": "120"
+        }
+    },
+    "LLDP_ENTRY_TABLE:Ethernet16": {
+        "type": "hash",
+        "value": {
+            "lldp_rem_chassis_id": "34:ef:b6:ea:83:a0",
+            "lldp_rem_chassis_id_subtype": "4",
+            "lldp_rem_index": "4",
+            "lldp_rem_man_addr": "10.23.137.214,fe80::36ef:b6ff:feea:83a0",
+            "lldp_rem_port_desc": "m4bneesw0007_Eth1/5",
+            "lldp_rem_port_id": "Ethernet48",
+            "lldp_rem_port_id_subtype": "7",
+            "lldp_rem_sys_cap_enabled": "08 00",
+            "lldp_rem_sys_cap_supported": "28 00",
+            "lldp_rem_sys_desc": "SONiC Software Version: SONiC.3.4.0a-Enterprise_Base - HwSku: Accton-AS7326-56X - Distribution: Debian 9.13 - Kernel: 4.9.0-11-2-amd64",
+            "lldp_rem_sys_name": "t-01-m-09-lf1-02-10.mgmt.refaz.bn.schiff.telekom.de",
+            "lldp_rem_time_mark": "3116025",
+            "lldp_rem_ttl": "120"
+        }
+    },
+    "LLDP_ENTRY_TABLE:Ethernet20": {
+        "type": "hash",
+        "value": {
+            "lldp_rem_chassis_id": "34:ef:b6:ea:83:a0",
+            "lldp_rem_chassis_id_subtype": "4",
+            "lldp_rem_index": "4",
+            "lldp_rem_man_addr": "10.23.137.214,fe80::36ef:b6ff:feea:83a0",
+            "lldp_rem_port_desc": "m4bneesw0007_Eth1/6",
+            "lldp_rem_port_id": "Ethernet52",
+            "lldp_rem_port_id_subtype": "7",
+            "lldp_rem_sys_cap_enabled": "08 00",
+            "lldp_rem_sys_cap_supported": "28 00",
+            "lldp_rem_sys_desc": "SONiC Software Version: SONiC.3.4.0a-Enterprise_Base - HwSku: Accton-AS7326-56X - Distribution: Debian 9.13 - Kernel: 4.9.0-11-2-amd64",
+            "lldp_rem_sys_name": "t-01-m-09-lf1-02-10.mgmt.refaz.bn.schiff.telekom.de",
+            "lldp_rem_time_mark": "3116025",
+            "lldp_rem_ttl": "120"
+        }
+    },
+    "LLDP_ENTRY_TABLE:Ethernet24": {
+        "type": "hash",
+        "value": {
+            "lldp_rem_chassis_id": "34:ef:b6:ea:83:a0",
+            "lldp_rem_chassis_id_subtype": "4",
+            "lldp_rem_index": "4",
+            "lldp_rem_man_addr": "10.23.137.214,fe80::36ef:b6ff:feea:83a0",
+            "lldp_rem_port_desc": "m4bneesw0007_Eth1/7",
+            "lldp_rem_port_id": "Ethernet56",
+            "lldp_rem_port_id_subtype": "7",
+            "lldp_rem_sys_cap_enabled": "08 00",
+            "lldp_rem_sys_cap_supported": "28 00",
+            "lldp_rem_sys_desc": "SONiC Software Version: SONiC.3.4.0a-Enterprise_Base - HwSku: Accton-AS7326-56X - Distribution: Debian 9.13 - Kernel: 4.9.0-11-2-amd64",
+            "lldp_rem_sys_name": "t-01-m-09-lf1-02-10.mgmt.refaz.bn.schiff.telekom.de",
+            "lldp_rem_time_mark": "3116026",
+            "lldp_rem_ttl": "120"
+        }
+    },
+    "LLDP_ENTRY_TABLE:Ethernet28": {
+        "type": "hash",
+        "value": {
+            "lldp_rem_chassis_id": "34:ef:b6:ea:83:a0",
+            "lldp_rem_chassis_id_subtype": "4",
+            "lldp_rem_index": "4",
+            "lldp_rem_man_addr": "10.23.137.214,fe80::36ef:b6ff:feea:83a0",
+            "lldp_rem_port_desc": "m4bneesw0007_Eth1/8",
+            "lldp_rem_port_id": "Ethernet60",
+            "lldp_rem_port_id_subtype": "7",
+            "lldp_rem_sys_cap_enabled": "08 00",
+            "lldp_rem_sys_cap_supported": "28 00",
+            "lldp_rem_sys_desc": "SONiC Software Version: SONiC.3.4.0a-Enterprise_Base - HwSku: Accton-AS7326-56X - Distribution: Debian 9.13 - Kernel: 4.9.0-11-2-amd64",
+            "lldp_rem_sys_name": "t-01-m-09-lf1-02-10.mgmt.refaz.bn.schiff.telekom.de",
+            "lldp_rem_time_mark": "3116026",
+            "lldp_rem_ttl": "120"
+        }
+    },
+    "LLDP_ENTRY_TABLE:Ethernet32": {
+        "type": "hash",
+        "value": {
+            "lldp_rem_chassis_id": "f8:8e:a1:ed:10:f5",
+            "lldp_rem_chassis_id_subtype": "4",
+            "lldp_rem_index": "26",
+            "lldp_rem_man_addr": "10.23.137.219,fe80::fa8e:a1ff:feed:10f5",
+            "lldp_rem_port_desc": "m4bneesw0007_Eth1/9",
+            "lldp_rem_port_id": "Ethernet48",
+            "lldp_rem_port_id_subtype": "7",
+            "lldp_rem_sys_cap_enabled": "08 00",
+            "lldp_rem_sys_cap_supported": "28 00",
+            "lldp_rem_sys_desc": "SONiC Software Version: SONiC.3.4.1-Enterprise_Base - HwSku: Accton-AS7326-56X - Distribution: Debian 9.13 - Kernel: 4.9.0-11-2-amd64",
+            "lldp_rem_sys_name": "t-01-m-09-lf1-04-09.mgmt.refaz.bn.schiff.telekom.de",
+            "lldp_rem_time_mark": "3112992",
+            "lldp_rem_ttl": "120"
+        }
+    },
+    "LLDP_ENTRY_TABLE:Ethernet36": {
+        "type": "hash",
+        "value": {
+            "lldp_rem_chassis_id": "f8:8e:a1:ed:10:f5",
+            "lldp_rem_chassis_id_subtype": "4",
+            "lldp_rem_index": "26",
+            "lldp_rem_man_addr": "10.23.137.219,fe80::fa8e:a1ff:feed:10f5",
+            "lldp_rem_port_desc": "m4bneesw0007_Eth1/10",
+            "lldp_rem_port_id": "Ethernet52",
+            "lldp_rem_port_id_subtype": "7",
+            "lldp_rem_sys_cap_enabled": "08 00",
+            "lldp_rem_sys_cap_supported": "28 00",
+            "lldp_rem_sys_desc": "SONiC Software Version: SONiC.3.4.1-Enterprise_Base - HwSku: Accton-AS7326-56X - Distribution: Debian 9.13 - Kernel: 4.9.0-11-2-amd64",
+            "lldp_rem_sys_name": "t-01-m-09-lf1-04-09.mgmt.refaz.bn.schiff.telekom.de",
+            "lldp_rem_time_mark": "3112992",
+            "lldp_rem_ttl": "120"
+        }
+    },
+    "LLDP_ENTRY_TABLE:Ethernet4": {
+        "type": "hash",
+        "value": {
+            "lldp_rem_chassis_id": "04:f8:f8:99:a6:83",
+            "lldp_rem_chassis_id_subtype": "4",
+            "lldp_rem_index": "11",
+            "lldp_rem_man_addr": "10.23.137.212,fe80::6f8:f8ff:fe99:a683",
+            "lldp_rem_port_desc": "m4bneesw0007_Eth1/2",
+            "lldp_rem_port_id": "Ethernet52",
+            "lldp_rem_port_id_subtype": "7",
+            "lldp_rem_sys_cap_enabled": "08 00",
+            "lldp_rem_sys_cap_supported": "28 00",
+            "lldp_rem_sys_desc": "SONiC Software Version: SONiC.3.4.0a-Enterprise_Base - HwSku: Accton-AS7326-56X - Distribution: Debian 9.13 - Kernel: 4.9.0-11-2-amd64",
+            "lldp_rem_sys_name": "t-01-m-09-lf1-01-10.mgmt.refaz.bn.schiff.telekom.de",
+            "lldp_rem_time_mark": "3116029",
+            "lldp_rem_ttl": "120"
+        }
+    },
+    "LLDP_ENTRY_TABLE:Ethernet40": {
+        "type": "hash",
+        "value": {
+            "lldp_rem_chassis_id": "f8:8e:a1:ed:10:f5",
+            "lldp_rem_chassis_id_subtype": "4",
+            "lldp_rem_index": "26",
+            "lldp_rem_man_addr": "10.23.137.219,fe80::fa8e:a1ff:feed:10f5",
+            "lldp_rem_port_desc": "Eth1/51",
+            "lldp_rem_port_id": "Ethernet56",
+            "lldp_rem_port_id_subtype": "7",
+            "lldp_rem_sys_cap_enabled": "08 00",
+            "lldp_rem_sys_cap_supported": "28 00",
+            "lldp_rem_sys_desc": "SONiC Software Version: SONiC.3.4.1-Enterprise_Base - HwSku: Accton-AS7326-56X - Distribution: Debian 9.13 - Kernel: 4.9.0-11-2-amd64",
+            "lldp_rem_sys_name": "t-01-m-09-lf1-04-09.mgmt.refaz.bn.schiff.telekom.de",
+            "lldp_rem_time_mark": "3112992",
+            "lldp_rem_ttl": "120"
+        }
+    },
+    "LLDP_ENTRY_TABLE:Ethernet44": {
+        "type": "hash",
+        "value": {
+            "lldp_rem_chassis_id": "f8:8e:a1:ed:10:f5",
+            "lldp_rem_chassis_id_subtype": "4",
+            "lldp_rem_index": "26",
+            "lldp_rem_man_addr": "10.23.137.219,fe80::fa8e:a1ff:feed:10f5",
+            "lldp_rem_port_desc": "Eth1/52",
+            "lldp_rem_port_id": "Ethernet60",
+            "lldp_rem_port_id_subtype": "7",
+            "lldp_rem_sys_cap_enabled": "08 00",
+            "lldp_rem_sys_cap_supported": "28 00",
+            "lldp_rem_sys_desc": "SONiC Software Version: SONiC.3.4.1-Enterprise_Base - HwSku: Accton-AS7326-56X - Distribution: Debian 9.13 - Kernel: 4.9.0-11-2-amd64",
+            "lldp_rem_sys_name": "t-01-m-09-lf1-04-09.mgmt.refaz.bn.schiff.telekom.de",
+            "lldp_rem_time_mark": "3112992",
+            "lldp_rem_ttl": "120"
+        }
+    },
+    "LLDP_ENTRY_TABLE:Ethernet48": {
+        "type": "hash",
+        "value": {
+            "lldp_rem_chassis_id": "f8:8e:a1:ed:15:f5",
+            "lldp_rem_chassis_id_subtype": "4",
+            "lldp_rem_index": "18",
+            "lldp_rem_man_addr": "10.23.137.221,fe80::fa8e:a1ff:feed:15f5",
+            "lldp_rem_port_desc": "m4bneesw0007_Eth1/13",
+            "lldp_rem_port_id": "Ethernet48",
+            "lldp_rem_port_id_subtype": "7",
+            "lldp_rem_sys_cap_enabled": "08 00",
+            "lldp_rem_sys_cap_supported": "28 00",
+            "lldp_rem_sys_desc": "SONiC Software Version: SONiC.3.4.0a-Enterprise_Base - HwSku: Accton-AS7326-56X - Distribution: Debian 9.13 - Kernel: 4.9.0-11-2-amd64",
+            "lldp_rem_sys_name": "t-01-m-09-lf1-04-10.mgmt.refaz.bn.schiff.telekom.de",
+            "lldp_rem_time_mark": "3112971",
+            "lldp_rem_ttl": "120"
+        }
+    },
+    "LLDP_ENTRY_TABLE:Ethernet52": {
+        "type": "hash",
+        "value": {
+            "lldp_rem_chassis_id": "f8:8e:a1:ed:15:f5",
+            "lldp_rem_chassis_id_subtype": "4",
+            "lldp_rem_index": "18",
+            "lldp_rem_man_addr": "10.23.137.221,fe80::fa8e:a1ff:feed:15f5",
+            "lldp_rem_port_desc": "m4bneesw0007_Eth1/14",
+            "lldp_rem_port_id": "Ethernet52",
+            "lldp_rem_port_id_subtype": "7",
+            "lldp_rem_sys_cap_enabled": "08 00",
+            "lldp_rem_sys_cap_supported": "28 00",
+            "lldp_rem_sys_desc": "SONiC Software Version: SONiC.3.4.0a-Enterprise_Base - HwSku: Accton-AS7326-56X - Distribution: Debian 9.13 - Kernel: 4.9.0-11-2-amd64",
+            "lldp_rem_sys_name": "t-01-m-09-lf1-04-10.mgmt.refaz.bn.schiff.telekom.de",
+            "lldp_rem_time_mark": "3112971",
+            "lldp_rem_ttl": "120"
+        }
+    },
+    "LLDP_ENTRY_TABLE:Ethernet56": {
+        "type": "hash",
+        "value": {
+            "lldp_rem_chassis_id": "f8:8e:a1:ed:15:f5",
+            "lldp_rem_chassis_id_subtype": "4",
+            "lldp_rem_index": "18",
+            "lldp_rem_man_addr": "10.23.137.221,fe80::fa8e:a1ff:feed:15f5",
+            "lldp_rem_port_desc": "Eth1/51",
+            "lldp_rem_port_id": "Ethernet56",
+            "lldp_rem_port_id_subtype": "7",
+            "lldp_rem_sys_cap_enabled": "08 00",
+            "lldp_rem_sys_cap_supported": "28 00",
+            "lldp_rem_sys_desc": "SONiC Software Version: SONiC.3.4.0a-Enterprise_Base - HwSku: Accton-AS7326-56X - Distribution: Debian 9.13 - Kernel: 4.9.0-11-2-amd64",
+            "lldp_rem_sys_name": "t-01-m-09-lf1-04-10.mgmt.refaz.bn.schiff.telekom.de",
+            "lldp_rem_time_mark": "3112971",
+            "lldp_rem_ttl": "120"
+        }
+    },
+    "LLDP_ENTRY_TABLE:Ethernet60": {
+        "type": "hash",
+        "value": {
+            "lldp_rem_chassis_id": "f8:8e:a1:ed:15:f5",
+            "lldp_rem_chassis_id_subtype": "4",
+            "lldp_rem_index": "18",
+            "lldp_rem_man_addr": "10.23.137.221,fe80::fa8e:a1ff:feed:15f5",
+            "lldp_rem_port_desc": "Eth1/52",
+            "lldp_rem_port_id": "Ethernet60",
+            "lldp_rem_port_id_subtype": "7",
+            "lldp_rem_sys_cap_enabled": "08 00",
+            "lldp_rem_sys_cap_supported": "28 00",
+            "lldp_rem_sys_desc": "SONiC Software Version: SONiC.3.4.0a-Enterprise_Base - HwSku: Accton-AS7326-56X - Distribution: Debian 9.13 - Kernel: 4.9.0-11-2-amd64",
+            "lldp_rem_sys_name": "t-01-m-09-lf1-04-10.mgmt.refaz.bn.schiff.telekom.de",
+            "lldp_rem_time_mark": "3112979",
+            "lldp_rem_ttl": "120"
+        }
+    },
+    "LLDP_ENTRY_TABLE:Ethernet8": {
+        "type": "hash",
+        "value": {
+            "lldp_rem_chassis_id": "04:f8:f8:99:a6:83",
+            "lldp_rem_chassis_id_subtype": "4",
+            "lldp_rem_index": "11",
+            "lldp_rem_man_addr": "10.23.137.212,fe80::6f8:f8ff:fe99:a683",
+            "lldp_rem_port_desc": "m4bneesw0007_Eth1/3",
+            "lldp_rem_port_id": "Ethernet56",
+            "lldp_rem_port_id_subtype": "7",
+            "lldp_rem_sys_cap_enabled": "08 00",
+            "lldp_rem_sys_cap_supported": "28 00",
+            "lldp_rem_sys_desc": "SONiC Software Version: SONiC.3.4.0a-Enterprise_Base - HwSku: Accton-AS7326-56X - Distribution: Debian 9.13 - Kernel: 4.9.0-11-2-amd64",
+            "lldp_rem_sys_name": "t-01-m-09-lf1-01-10.mgmt.refaz.bn.schiff.telekom.de",
+            "lldp_rem_time_mark": "3116029",
+            "lldp_rem_ttl": "120"
+        }
+    },
+    "LLDP_ENTRY_TABLE:Ethernet96": {
+        "type": "hash",
+        "value": {
+            "lldp_rem_chassis_id": "34:ef:b6:3f:57:73",
+            "lldp_rem_chassis_id_subtype": "4",
+            "lldp_rem_index": "29",
+            "lldp_rem_man_addr": "10.23.137.215,fe80::36ef:b6ff:fe3f:5773",
+            "lldp_rem_port_desc": "m4bneesw0007_Eth1/25",
+            "lldp_rem_port_id": "Ethernet0",
+            "lldp_rem_port_id_subtype": "7",
+            "lldp_rem_sys_cap_enabled": "08 00",
+            "lldp_rem_sys_cap_supported": "28 00",
+            "lldp_rem_sys_desc": "SONiC Software Version: SONiC.3.4.0a-Enterprise_Base - HwSku: Accton-AS7726-32X - Distribution: Debian 9.13 - Kernel: 4.9.0-11-2-amd64",
+            "lldp_rem_sys_name": "t-01-m-09-bl1-01-10.mgmt.refaz.bn.schiff.telekom.de",
+            "lldp_rem_time_mark": "2983596",
+            "lldp_rem_ttl": "120"
+        }
+    },
+    "LLDP_ENTRY_TABLE:eth0": {
+        "type": "hash",
+        "value": {
+            "lldp_rem_chassis_id": "dc:eb:94:c9:b0:8e",
+            "lldp_rem_chassis_id_subtype": "4",
+            "lldp_rem_index": "10",
+            "lldp_rem_man_addr": "",
+            "lldp_rem_port_desc": "t-01-m-09-sp1-01-10;MGMT;DasSchiff",
+            "lldp_rem_port_id": "Eth123/1/45",
+            "lldp_rem_port_id_subtype": "7",
+            "lldp_rem_sys_cap_enabled": "28 00",
+            "lldp_rem_sys_cap_supported": "28 00",
+            "lldp_rem_sys_desc": "Cisco NX-OS(tm) n7700, Software (n7700-s2-dk9), Version 8.4(1), RELEASE SOFTWARE Copyright (c) 2002-2019 by Cisco Systems, Inc. Compiled 6/30/2019 23:00:00",
+            "lldp_rem_sys_name": "TF_SA-TWO--DMZ--Nexus--1",
+            "lldp_rem_time_mark": "65",
+            "lldp_rem_ttl": "120"
+        }
+    },
+    "LLDP_LOC_CHASSIS": {
+        "type": "hash",
+        "value": {
+            "lldp_loc_chassis_id": "04:f8:f8:e5:e2:ba",
+            "lldp_loc_chassis_id_subtype": "4",
+            "lldp_loc_man_addr": "10.23.137.210,fe80::6f8:f8ff:fee5:e2ba",
+            "lldp_loc_sys_cap_enabled": "08 00",
+            "lldp_loc_sys_cap_supported": "28 00",
+            "lldp_loc_sys_desc": "SONiC Software Version: SONiC.3.4.0a-Enterprise_Base - HwSku: Accton-AS7726-32X - Distribution: Debian 9.13 - Kernel: 4.9.0-11-2-amd64",
+            "lldp_loc_sys_name": "t-01-m-09-sp1-01-10.mgmt.refaz.bn.schiff.telekom.de"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet0": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "0",
+            "rx": "109717",
+            "rx_discarded_cnt": "0",
+            "rx_unrecognized_cnt": "0",
+            "tx": "109719"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet100": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "10",
+            "rx": "109726",
+            "rx_discarded_cnt": "0",
+            "rx_unrecognized_cnt": "0",
+            "tx": "109713"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet104": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "0",
+            "rx": "0",
+            "rx_discarded_cnt": "1",
+            "rx_unrecognized_cnt": "0",
+            "tx": "0"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet108": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "0",
+            "rx": "1",
+            "rx_discarded_cnt": "1",
+            "rx_unrecognized_cnt": "0",
+            "tx": "0"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet112": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "2",
+            "rx": "107066",
+            "rx_discarded_cnt": "0",
+            "rx_unrecognized_cnt": "0",
+            "tx": "107073"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet116": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "2",
+            "rx": "109720",
+            "rx_discarded_cnt": "0",
+            "rx_unrecognized_cnt": "0",
+            "tx": "109715"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet12": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "0",
+            "rx": "109715",
+            "rx_discarded_cnt": "0",
+            "rx_unrecognized_cnt": "0",
+            "tx": "109716"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet120": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "1",
+            "rx": "107069",
+            "rx_discarded_cnt": "0",
+            "rx_unrecognized_cnt": "0",
+            "tx": "107066"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet124": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "1",
+            "rx": "109715",
+            "rx_discarded_cnt": "0",
+            "rx_unrecognized_cnt": "0",
+            "tx": "109705"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet125": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "0",
+            "rx": "1",
+            "rx_discarded_cnt": "1",
+            "rx_unrecognized_cnt": "0",
+            "tx": "0"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet126": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "0",
+            "rx": "0",
+            "rx_discarded_cnt": "1",
+            "rx_unrecognized_cnt": "0",
+            "tx": "0"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet16": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "0",
+            "rx": "109716",
+            "rx_discarded_cnt": "0",
+            "rx_unrecognized_cnt": "0",
+            "tx": "109721"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet20": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "0",
+            "rx": "109716",
+            "rx_discarded_cnt": "0",
+            "rx_unrecognized_cnt": "0",
+            "tx": "109722"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet24": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "0",
+            "rx": "109715",
+            "rx_discarded_cnt": "0",
+            "rx_unrecognized_cnt": "0",
+            "tx": "109716"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet28": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "0",
+            "rx": "109716",
+            "rx_discarded_cnt": "0",
+            "rx_unrecognized_cnt": "0",
+            "tx": "109717"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet32": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "5",
+            "rx": "109566",
+            "rx_discarded_cnt": "0",
+            "rx_unrecognized_cnt": "0",
+            "tx": "109713"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet36": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "5",
+            "rx": "109566",
+            "rx_discarded_cnt": "0",
+            "rx_unrecognized_cnt": "0",
+            "tx": "109753"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet4": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "0",
+            "rx": "109717",
+            "rx_discarded_cnt": "0",
+            "rx_unrecognized_cnt": "0",
+            "tx": "109717"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet40": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "6",
+            "rx": "90362",
+            "rx_discarded_cnt": "1",
+            "rx_unrecognized_cnt": "0",
+            "tx": "90365"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet44": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "6",
+            "rx": "90354",
+            "rx_discarded_cnt": "1",
+            "rx_unrecognized_cnt": "0",
+            "tx": "90356"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet48": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "1",
+            "rx": "109517",
+            "rx_discarded_cnt": "0",
+            "rx_unrecognized_cnt": "0",
+            "tx": "109714"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet52": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "1",
+            "rx": "109518",
+            "rx_discarded_cnt": "0",
+            "rx_unrecognized_cnt": "0",
+            "tx": "109762"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet56": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "0",
+            "rx": "90357",
+            "rx_discarded_cnt": "1",
+            "rx_unrecognized_cnt": "0",
+            "tx": "90357"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet60": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "0",
+            "rx": "90355",
+            "rx_discarded_cnt": "1",
+            "rx_unrecognized_cnt": "0",
+            "tx": "90356"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet64": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "0",
+            "rx": "0",
+            "rx_discarded_cnt": "1",
+            "rx_unrecognized_cnt": "0",
+            "tx": "0"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet68": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "0",
+            "rx": "0",
+            "rx_discarded_cnt": "1",
+            "rx_unrecognized_cnt": "0",
+            "tx": "0"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet72": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "0",
+            "rx": "0",
+            "rx_discarded_cnt": "1",
+            "rx_unrecognized_cnt": "0",
+            "tx": "0"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet76": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "0",
+            "rx": "0",
+            "rx_discarded_cnt": "1",
+            "rx_unrecognized_cnt": "0",
+            "tx": "0"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet8": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "0",
+            "rx": "109717",
+            "rx_discarded_cnt": "0",
+            "rx_unrecognized_cnt": "0",
+            "tx": "109717"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet80": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "0",
+            "rx": "0",
+            "rx_discarded_cnt": "1",
+            "rx_unrecognized_cnt": "0",
+            "tx": "0"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet84": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "0",
+            "rx": "0",
+            "rx_discarded_cnt": "1",
+            "rx_unrecognized_cnt": "0",
+            "tx": "0"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet88": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "0",
+            "rx": "0",
+            "rx_discarded_cnt": "1",
+            "rx_unrecognized_cnt": "0",
+            "tx": "0"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet92": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "0",
+            "rx": "1",
+            "rx_discarded_cnt": "1",
+            "rx_unrecognized_cnt": "0",
+            "tx": "0"
+        }
+    },
+    "LLDP_PORT_TABLE:Ethernet96": {
+        "type": "hash",
+        "value": {
+            "ageout_cnt": "2",
+            "rx": "109718",
+            "rx_discarded_cnt": "0",
+            "rx_unrecognized_cnt": "0",
+            "tx": "109714"
+        }
+    },
+    "LOOPBACK_TABLE:Loopback0": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up"
+        }
+    },
+    "MGMT_INTF_TABLE:eth0:10.23.137.210/28": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "MGMT_INTF_TABLE:eth0:fe80::6f8:f8ff:fee5:e2ba/64": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "MGMT_PORT_TABLE:eth0": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autoneg": "true",
+            "description": "Management0",
+            "mtu": "1500",
+            "speed": "1000"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet0:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "flags": "0",
+            "neigh": "04:f8:f8:99:a6:86",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "128",
+            "type": "1"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet0:fe80::6f8:f8ff:fe99:a686": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "128",
+            "neigh": "04:f8:f8:99:a6:86",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "2",
+            "type": "2"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet0:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet100:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "flags": "0",
+            "neigh": "34:ef:b6:3f:59:76",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "128",
+            "type": "1"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet100:fe80::36ef:b6ff:fe3f:5976": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "128",
+            "neigh": "34:ef:b6:3f:59:76",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "2",
+            "type": "2"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet100:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet104:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet108:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet112:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "flags": "0",
+            "neigh": "f8:8e:a1:fe:75:23",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "128",
+            "type": "1"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet112:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet112:fe80::fa8e:a1ff:fefe:7523": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "128",
+            "neigh": "f8:8e:a1:fe:75:23",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "2",
+            "type": "2"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet116:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "flags": "0",
+            "neigh": "34:ef:b6:28:f4:37",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "128",
+            "type": "1"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet116:fe80::36ef:b6ff:fe28:f437": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "128",
+            "neigh": "34:ef:b6:28:f4:37",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "2",
+            "type": "2"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet116:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet120:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "flags": "0",
+            "neigh": "f8:8e:a1:fe:5f:23",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "128",
+            "type": "1"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet120:fe80::36ef:b6ff:fe28:f937": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "none",
+            "nlmsg_type": "28",
+            "state": "32"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet120:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet120:fe80::fa8e:a1ff:fefe:5f23": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "128",
+            "neigh": "f8:8e:a1:fe:5f:23",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "2",
+            "type": "2"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet124:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "flags": "0",
+            "neigh": "34:ef:b6:28:f9:37",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "128",
+            "type": "1"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet124:fe80::36ef:b6ff:fe28:f937": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "128",
+            "neigh": "34:ef:b6:28:f9:37",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "2",
+            "type": "2"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet124:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet125:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet126:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet12:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "flags": "0",
+            "neigh": "04:f8:f8:99:a6:86",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "128",
+            "type": "1"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet12:fe80::6f8:f8ff:fe99:a686": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "128",
+            "neigh": "04:f8:f8:99:a6:86",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "2",
+            "type": "2"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet12:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet16:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "flags": "0",
+            "neigh": "34:ef:b6:ea:83:a3",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "128",
+            "type": "1"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet16:fe80::36ef:b6ff:feea:83a3": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "128",
+            "neigh": "34:ef:b6:ea:83:a3",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "2",
+            "type": "2"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet16:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet20:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "flags": "0",
+            "neigh": "34:ef:b6:ea:83:a3",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "128",
+            "type": "1"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet20:fe80::36ef:b6ff:feea:83a3": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "128",
+            "neigh": "34:ef:b6:ea:83:a3",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "2",
+            "type": "2"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet20:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet24:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "flags": "0",
+            "neigh": "34:ef:b6:ea:83:a3",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "128",
+            "type": "1"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet24:fe80::36ef:b6ff:feea:83a3": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "128",
+            "neigh": "34:ef:b6:ea:83:a3",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "2",
+            "type": "2"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet24:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet28:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "flags": "0",
+            "neigh": "34:ef:b6:ea:83:a3",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "128",
+            "type": "1"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet28:fe80::36ef:b6ff:feea:83a3": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "128",
+            "neigh": "34:ef:b6:ea:83:a3",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "2",
+            "type": "2"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet28:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet32:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "flags": "0",
+            "neigh": "f8:8e:a1:ed:10:f8",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "128",
+            "type": "1"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet32:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet32:fe80::fa8e:a1ff:feed:10f8": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "128",
+            "neigh": "f8:8e:a1:ed:10:f8",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "2",
+            "type": "2"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet36:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "flags": "0",
+            "neigh": "f8:8e:a1:ed:10:f8",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "128",
+            "type": "1"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet36:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet36:fe80::fa8e:a1ff:feed:10f8": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "128",
+            "neigh": "f8:8e:a1:ed:10:f8",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "2",
+            "type": "2"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet40:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "flags": "0",
+            "neigh": "f8:8e:a1:ed:10:f8",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "128",
+            "type": "1"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet40:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet40:fe80::fa8e:a1ff:feed:10f8": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "128",
+            "neigh": "f8:8e:a1:ed:10:f8",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "2",
+            "type": "2"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet44:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "flags": "0",
+            "neigh": "f8:8e:a1:ed:10:f8",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "128",
+            "type": "1"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet44:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet44:fe80::fa8e:a1ff:feed:10f8": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "128",
+            "neigh": "f8:8e:a1:ed:10:f8",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "2",
+            "type": "2"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet48:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "flags": "0",
+            "neigh": "f8:8e:a1:ed:15:f8",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "128",
+            "type": "1"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet48:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet48:fe80::fa8e:a1ff:feed:15f8": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "128",
+            "neigh": "f8:8e:a1:ed:15:f8",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "2",
+            "type": "2"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet4:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "flags": "0",
+            "neigh": "04:f8:f8:99:a6:86",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "128",
+            "type": "1"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet4:fe80::6f8:f8ff:fe99:a686": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "128",
+            "neigh": "04:f8:f8:99:a6:86",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "2",
+            "type": "2"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet4:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet52:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "flags": "0",
+            "neigh": "f8:8e:a1:ed:15:f8",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "128",
+            "type": "1"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet52:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet52:fe80::fa8e:a1ff:feed:15f8": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "128",
+            "neigh": "f8:8e:a1:ed:15:f8",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "2",
+            "type": "2"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet56:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "flags": "0",
+            "neigh": "f8:8e:a1:ed:15:f8",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "128",
+            "type": "1"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet56:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet56:fe80::fa8e:a1ff:feed:15f8": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "128",
+            "neigh": "f8:8e:a1:ed:15:f8",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "2",
+            "type": "2"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet60:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "flags": "0",
+            "neigh": "f8:8e:a1:ed:15:f8",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "128",
+            "type": "1"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet60:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet60:fe80::fa8e:a1ff:feed:15f8": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "128",
+            "neigh": "f8:8e:a1:ed:15:f8",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "2",
+            "type": "2"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet64:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet68:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet72:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet76:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet80:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet84:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet88:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet8:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "flags": "0",
+            "neigh": "04:f8:f8:99:a6:86",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "128",
+            "type": "1"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet8:fe80::6f8:f8ff:fe99:a686": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "128",
+            "neigh": "04:f8:f8:99:a6:86",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "2",
+            "type": "2"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet8:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet92:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet96:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "flags": "0",
+            "neigh": "34:ef:b6:3f:57:76",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "128",
+            "type": "1"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet96:fe80::36ef:b6ff:fe3f:5776": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "128",
+            "neigh": "34:ef:b6:3f:57:76",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "2",
+            "type": "2"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:Ethernet96:fe80::6f8:f8ff:fee5:e2bd": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "flags": "0",
+            "neigh": "ff:ff:ff:ff:ff:ff",
+            "nlmsg_type": "28",
+            "state": "128"
+        }
+    },
+    "NEIGH_REFRESH_TABLE:eth0:10.23.137.209": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "flags": "0",
+            "neigh": "00:09:0f:09:10:22",
+            "nlmsg_type": "28",
+            "remote": "0",
+            "state": "2",
+            "type": "2"
+        }
+    },
+    "NEIGH_TABLE:Ethernet0:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "neigh": "04:f8:f8:99:a6:86",
+            "remote": "0",
+            "type": "1"
+        }
+    },
+    "NEIGH_TABLE:Ethernet0:fe80::6f8:f8ff:fe99:a686": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "neigh": "04:f8:f8:99:a6:86",
+            "remote": "0",
+            "type": "2"
+        }
+    },
+    "NEIGH_TABLE:Ethernet100:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "neigh": "34:ef:b6:3f:59:76",
+            "remote": "0",
+            "type": "1"
+        }
+    },
+    "NEIGH_TABLE:Ethernet100:fe80::36ef:b6ff:fe3f:5976": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "neigh": "34:ef:b6:3f:59:76",
+            "remote": "0",
+            "type": "2"
+        }
+    },
+    "NEIGH_TABLE:Ethernet112:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "neigh": "f8:8e:a1:fe:75:23",
+            "remote": "0",
+            "type": "1"
+        }
+    },
+    "NEIGH_TABLE:Ethernet112:fe80::fa8e:a1ff:fefe:7523": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "neigh": "f8:8e:a1:fe:75:23",
+            "remote": "0",
+            "type": "2"
+        }
+    },
+    "NEIGH_TABLE:Ethernet116:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "neigh": "34:ef:b6:28:f4:37",
+            "remote": "0",
+            "type": "1"
+        }
+    },
+    "NEIGH_TABLE:Ethernet116:fe80::36ef:b6ff:fe28:f437": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "neigh": "34:ef:b6:28:f4:37",
+            "remote": "0",
+            "type": "2"
+        }
+    },
+    "NEIGH_TABLE:Ethernet120:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "neigh": "f8:8e:a1:fe:5f:23",
+            "remote": "0",
+            "type": "1"
+        }
+    },
+    "NEIGH_TABLE:Ethernet120:fe80::fa8e:a1ff:fefe:5f23": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "neigh": "f8:8e:a1:fe:5f:23",
+            "remote": "0",
+            "type": "2"
+        }
+    },
+    "NEIGH_TABLE:Ethernet124:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "neigh": "34:ef:b6:28:f9:37",
+            "remote": "0",
+            "type": "1"
+        }
+    },
+    "NEIGH_TABLE:Ethernet124:fe80::36ef:b6ff:fe28:f937": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "neigh": "34:ef:b6:28:f9:37",
+            "remote": "0",
+            "type": "2"
+        }
+    },
+    "NEIGH_TABLE:Ethernet12:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "neigh": "04:f8:f8:99:a6:86",
+            "remote": "0",
+            "type": "1"
+        }
+    },
+    "NEIGH_TABLE:Ethernet12:fe80::6f8:f8ff:fe99:a686": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "neigh": "04:f8:f8:99:a6:86",
+            "remote": "0",
+            "type": "2"
+        }
+    },
+    "NEIGH_TABLE:Ethernet16:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "neigh": "34:ef:b6:ea:83:a3",
+            "remote": "0",
+            "type": "1"
+        }
+    },
+    "NEIGH_TABLE:Ethernet16:fe80::36ef:b6ff:feea:83a3": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "neigh": "34:ef:b6:ea:83:a3",
+            "remote": "0",
+            "type": "2"
+        }
+    },
+    "NEIGH_TABLE:Ethernet20:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "neigh": "34:ef:b6:ea:83:a3",
+            "remote": "0",
+            "type": "1"
+        }
+    },
+    "NEIGH_TABLE:Ethernet20:fe80::36ef:b6ff:feea:83a3": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "neigh": "34:ef:b6:ea:83:a3",
+            "remote": "0",
+            "type": "2"
+        }
+    },
+    "NEIGH_TABLE:Ethernet24:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "neigh": "34:ef:b6:ea:83:a3",
+            "remote": "0",
+            "type": "1"
+        }
+    },
+    "NEIGH_TABLE:Ethernet24:fe80::36ef:b6ff:feea:83a3": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "neigh": "34:ef:b6:ea:83:a3",
+            "remote": "0",
+            "type": "2"
+        }
+    },
+    "NEIGH_TABLE:Ethernet28:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "neigh": "34:ef:b6:ea:83:a3",
+            "remote": "0",
+            "type": "1"
+        }
+    },
+    "NEIGH_TABLE:Ethernet28:fe80::36ef:b6ff:feea:83a3": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "neigh": "34:ef:b6:ea:83:a3",
+            "remote": "0",
+            "type": "2"
+        }
+    },
+    "NEIGH_TABLE:Ethernet32:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "neigh": "f8:8e:a1:ed:10:f8",
+            "remote": "0",
+            "type": "1"
+        }
+    },
+    "NEIGH_TABLE:Ethernet32:fe80::fa8e:a1ff:feed:10f8": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "neigh": "f8:8e:a1:ed:10:f8",
+            "remote": "0",
+            "type": "2"
+        }
+    },
+    "NEIGH_TABLE:Ethernet36:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "neigh": "f8:8e:a1:ed:10:f8",
+            "remote": "0",
+            "type": "1"
+        }
+    },
+    "NEIGH_TABLE:Ethernet36:fe80::fa8e:a1ff:feed:10f8": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "neigh": "f8:8e:a1:ed:10:f8",
+            "remote": "0",
+            "type": "2"
+        }
+    },
+    "NEIGH_TABLE:Ethernet40:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "neigh": "f8:8e:a1:ed:10:f8",
+            "remote": "0",
+            "type": "1"
+        }
+    },
+    "NEIGH_TABLE:Ethernet40:fe80::fa8e:a1ff:feed:10f8": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "neigh": "f8:8e:a1:ed:10:f8",
+            "remote": "0",
+            "type": "2"
+        }
+    },
+    "NEIGH_TABLE:Ethernet44:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "neigh": "f8:8e:a1:ed:10:f8",
+            "remote": "0",
+            "type": "1"
+        }
+    },
+    "NEIGH_TABLE:Ethernet44:fe80::fa8e:a1ff:feed:10f8": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "neigh": "f8:8e:a1:ed:10:f8",
+            "remote": "0",
+            "type": "2"
+        }
+    },
+    "NEIGH_TABLE:Ethernet48:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "neigh": "f8:8e:a1:ed:15:f8",
+            "remote": "0",
+            "type": "1"
+        }
+    },
+    "NEIGH_TABLE:Ethernet48:fe80::fa8e:a1ff:feed:15f8": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "neigh": "f8:8e:a1:ed:15:f8",
+            "remote": "0",
+            "type": "2"
+        }
+    },
+    "NEIGH_TABLE:Ethernet4:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "neigh": "04:f8:f8:99:a6:86",
+            "remote": "0",
+            "type": "1"
+        }
+    },
+    "NEIGH_TABLE:Ethernet4:fe80::6f8:f8ff:fe99:a686": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "neigh": "04:f8:f8:99:a6:86",
+            "remote": "0",
+            "type": "2"
+        }
+    },
+    "NEIGH_TABLE:Ethernet52:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "neigh": "f8:8e:a1:ed:15:f8",
+            "remote": "0",
+            "type": "1"
+        }
+    },
+    "NEIGH_TABLE:Ethernet52:fe80::fa8e:a1ff:feed:15f8": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "neigh": "f8:8e:a1:ed:15:f8",
+            "remote": "0",
+            "type": "2"
+        }
+    },
+    "NEIGH_TABLE:Ethernet56:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "neigh": "f8:8e:a1:ed:15:f8",
+            "remote": "0",
+            "type": "1"
+        }
+    },
+    "NEIGH_TABLE:Ethernet56:fe80::fa8e:a1ff:feed:15f8": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "neigh": "f8:8e:a1:ed:15:f8",
+            "remote": "0",
+            "type": "2"
+        }
+    },
+    "NEIGH_TABLE:Ethernet60:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "neigh": "f8:8e:a1:ed:15:f8",
+            "remote": "0",
+            "type": "1"
+        }
+    },
+    "NEIGH_TABLE:Ethernet60:fe80::fa8e:a1ff:feed:15f8": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "neigh": "f8:8e:a1:ed:15:f8",
+            "remote": "0",
+            "type": "2"
+        }
+    },
+    "NEIGH_TABLE:Ethernet8:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "neigh": "04:f8:f8:99:a6:86",
+            "remote": "0",
+            "type": "1"
+        }
+    },
+    "NEIGH_TABLE:Ethernet8:fe80::6f8:f8ff:fe99:a686": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "neigh": "04:f8:f8:99:a6:86",
+            "remote": "0",
+            "type": "2"
+        }
+    },
+    "NEIGH_TABLE:Ethernet96:169.254.0.1": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "neigh": "34:ef:b6:3f:57:76",
+            "remote": "0",
+            "type": "1"
+        }
+    },
+    "NEIGH_TABLE:Ethernet96:fe80::36ef:b6ff:fe3f:5776": {
+        "type": "hash",
+        "value": {
+            "family": "IPv6",
+            "neigh": "34:ef:b6:3f:57:76",
+            "remote": "0",
+            "type": "2"
+        }
+    },
+    "NEIGH_TABLE:eth0:10.23.137.209": {
+        "type": "hash",
+        "value": {
+            "family": "IPv4",
+            "neigh": "00:09:0f:09:10:22",
+            "remote": "0",
+            "type": "2"
+        }
+    },
+    "PORT_APP_STATUS_TABLE:Ethernet0": {
+        "type": "hash",
+        "value": {
+            "xcvr_status": "up"
+        }
+    },
+    "PORT_APP_STATUS_TABLE:Ethernet100": {
+        "type": "hash",
+        "value": {
+            "xcvr_status": "up"
+        }
+    },
+    "PORT_APP_STATUS_TABLE:Ethernet112": {
+        "type": "hash",
+        "value": {
+            "xcvr_status": "up"
+        }
+    },
+    "PORT_APP_STATUS_TABLE:Ethernet116": {
+        "type": "hash",
+        "value": {
+            "xcvr_status": "up"
+        }
+    },
+    "PORT_APP_STATUS_TABLE:Ethernet12": {
+        "type": "hash",
+        "value": {
+            "xcvr_status": "up"
+        }
+    },
+    "PORT_APP_STATUS_TABLE:Ethernet120": {
+        "type": "hash",
+        "value": {
+            "xcvr_status": "up"
+        }
+    },
+    "PORT_APP_STATUS_TABLE:Ethernet124": {
+        "type": "hash",
+        "value": {
+            "xcvr_status": "up"
+        }
+    },
+    "PORT_APP_STATUS_TABLE:Ethernet16": {
+        "type": "hash",
+        "value": {
+            "xcvr_status": "up"
+        }
+    },
+    "PORT_APP_STATUS_TABLE:Ethernet20": {
+        "type": "hash",
+        "value": {
+            "xcvr_status": "up"
+        }
+    },
+    "PORT_APP_STATUS_TABLE:Ethernet24": {
+        "type": "hash",
+        "value": {
+            "xcvr_status": "up"
+        }
+    },
+    "PORT_APP_STATUS_TABLE:Ethernet28": {
+        "type": "hash",
+        "value": {
+            "xcvr_status": "up"
+        }
+    },
+    "PORT_APP_STATUS_TABLE:Ethernet32": {
+        "type": "hash",
+        "value": {
+            "xcvr_status": "up"
+        }
+    },
+    "PORT_APP_STATUS_TABLE:Ethernet36": {
+        "type": "hash",
+        "value": {
+            "xcvr_status": "up"
+        }
+    },
+    "PORT_APP_STATUS_TABLE:Ethernet4": {
+        "type": "hash",
+        "value": {
+            "xcvr_status": "up"
+        }
+    },
+    "PORT_APP_STATUS_TABLE:Ethernet40": {
+        "type": "hash",
+        "value": {
+            "xcvr_status": "up"
+        }
+    },
+    "PORT_APP_STATUS_TABLE:Ethernet44": {
+        "type": "hash",
+        "value": {
+            "xcvr_status": "up"
+        }
+    },
+    "PORT_APP_STATUS_TABLE:Ethernet48": {
+        "type": "hash",
+        "value": {
+            "xcvr_status": "up"
+        }
+    },
+    "PORT_APP_STATUS_TABLE:Ethernet52": {
+        "type": "hash",
+        "value": {
+            "xcvr_status": "up"
+        }
+    },
+    "PORT_APP_STATUS_TABLE:Ethernet56": {
+        "type": "hash",
+        "value": {
+            "xcvr_status": "up"
+        }
+    },
+    "PORT_APP_STATUS_TABLE:Ethernet60": {
+        "type": "hash",
+        "value": {
+            "xcvr_status": "up"
+        }
+    },
+    "PORT_APP_STATUS_TABLE:Ethernet8": {
+        "type": "hash",
+        "value": {
+            "xcvr_status": "up"
+        }
+    },
+    "PORT_APP_STATUS_TABLE:Ethernet96": {
+        "type": "hash",
+        "value": {
+            "xcvr_status": "up"
+        }
+    },
+    "PORT_TABLE:Ethernet0": {
+        "type": "hash",
+        "value": {
+            "": "",
+            "admin_status": "up",
+            "alias": "Eth1/1",
+            "description": "m4bneesw0003_Eth1/49",
+            "index": "1",
+            "lanes": "1,2,3,4",
+            "mtu": "9100",
+            "oper_status": "up",
+            "oper_status_change_uptime": "60",
+            "port_load_interval": "10",
+            "preemphasis": "0x004a1a,0x004a1a,0x004a1a,0x004a1a",
+            "speed": "100000",
+            "unlos_xcvr_supported": "off",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet100": {
+        "type": "hash",
+        "value": {
+            "": "",
+            "admin_status": "up",
+            "alias": "Eth1/26",
+            "description": "t-01-m-09-bl1-04-09.mgmt.refaz.bn.schiff.telekom.de_Eth1/1",
+            "index": "26",
+            "lanes": "101,102,103,104",
+            "mtu": "9100",
+            "oper_status": "up",
+            "oper_status_change_uptime": "2984230",
+            "port_load_interval": "10",
+            "preemphasis": "0x044c12,0x04460f,0x04460f,0x044c12",
+            "speed": "100000",
+            "unlos_xcvr_supported": "off",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet104": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/27",
+            "description": "",
+            "index": "27",
+            "lanes": "105,106,107,108",
+            "mtu": "9100",
+            "oper_status": "down",
+            "oper_status_change_uptime": "0",
+            "port_load_interval": "10",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet108": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/28",
+            "description": "",
+            "index": "28",
+            "lanes": "109,110,111,112",
+            "mtu": "9100",
+            "oper_status": "down",
+            "oper_status_change_uptime": "0",
+            "port_load_interval": "10",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet112": {
+        "type": "hash",
+        "value": {
+            "": "",
+            "admin_status": "up",
+            "alias": "Eth1/29",
+            "description": "m4bneesw0006_Eth1/49",
+            "index": "29",
+            "lanes": "113,114,115,116",
+            "mtu": "9100",
+            "oper_status": "up",
+            "oper_status_change_uptime": "2996171",
+            "port_load_interval": "10",
+            "preemphasis": "0x044b15,0x044b15,0x044b15,0x044c14",
+            "speed": "100000",
+            "unlos_xcvr_supported": "off",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet116": {
+        "type": "hash",
+        "value": {
+            "": "",
+            "admin_status": "up",
+            "alias": "Eth1/30",
+            "description": "m4bneesw0006_Eth1/50",
+            "index": "30",
+            "lanes": "117,118,119,120",
+            "mtu": "9100",
+            "oper_status": "up",
+            "oper_status_change_uptime": "11171",
+            "port_load_interval": "10",
+            "preemphasis": "0x044a16,0x044a16,0x044a16,0x044a16",
+            "speed": "100000",
+            "unlos_xcvr_supported": "off",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet12": {
+        "type": "hash",
+        "value": {
+            "": "",
+            "admin_status": "up",
+            "alias": "Eth1/4",
+            "description": "m4bneesw0003_Eth1/52",
+            "index": "4",
+            "lanes": "13,14,15,16",
+            "mtu": "9100",
+            "oper_status": "up",
+            "oper_status_change_uptime": "60",
+            "port_load_interval": "10",
+            "preemphasis": "0x044c14,0x024c16,0x044b13,0x044a16",
+            "speed": "100000",
+            "unlos_xcvr_supported": "off",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet120": {
+        "type": "hash",
+        "value": {
+            "": "",
+            "admin_status": "up",
+            "alias": "Eth1/31",
+            "description": "m4bneesw0005_Eth1/49",
+            "index": "31",
+            "lanes": "121,122,123,124",
+            "mtu": "9100",
+            "oper_status": "up",
+            "oper_status_change_uptime": "580983",
+            "port_load_interval": "10",
+            "preemphasis": "0x044818,0x044818,0x044818,0x044818",
+            "speed": "100000",
+            "unlos_xcvr_supported": "off",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet124": {
+        "type": "hash",
+        "value": {
+            "": "",
+            "admin_status": "up",
+            "alias": "Eth1/32",
+            "description": "m4bneesw0005_Eth1/50",
+            "index": "32",
+            "lanes": "125,126,127,128",
+            "mtu": "9100",
+            "oper_status": "up",
+            "oper_status_change_uptime": "501245",
+            "port_load_interval": "10",
+            "preemphasis": "0x044818,0x044818,0x044818,0x044818",
+            "speed": "100000",
+            "unlos_xcvr_supported": "off",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet125": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/33",
+            "description": "",
+            "index": "33",
+            "lanes": "128",
+            "mtu": "9100",
+            "oper_status": "down",
+            "oper_status_change_uptime": "0",
+            "port_load_interval": "10",
+            "speed": "10000"
+        }
+    },
+    "PORT_TABLE:Ethernet126": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/34",
+            "description": "",
+            "index": "34",
+            "lanes": "129",
+            "mtu": "9100",
+            "oper_status": "down",
+            "oper_status_change_uptime": "0",
+            "port_load_interval": "10",
+            "speed": "10000"
+        }
+    },
+    "PORT_TABLE:Ethernet16": {
+        "type": "hash",
+        "value": {
+            "": "",
+            "admin_status": "up",
+            "alias": "Eth1/5",
+            "description": "m4bneesw0004_Eth1/49",
+            "index": "5",
+            "lanes": "17,18,19,20",
+            "mtu": "9100",
+            "oper_status": "up",
+            "oper_status_change_uptime": "60",
+            "port_load_interval": "10",
+            "preemphasis": "0x044e12,0x044e12,0x04410e,0x044b11",
+            "speed": "100000",
+            "unlos_xcvr_supported": "off",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet20": {
+        "type": "hash",
+        "value": {
+            "": "",
+            "admin_status": "up",
+            "alias": "Eth1/6",
+            "description": "m4bneesw0004_Eth1/50",
+            "index": "6",
+            "lanes": "21,22,23,24",
+            "mtu": "9100",
+            "oper_status": "up",
+            "oper_status_change_uptime": "61",
+            "port_load_interval": "10",
+            "preemphasis": "0x044610,0x044a11,0x04410e,0x044411",
+            "speed": "100000",
+            "unlos_xcvr_supported": "off",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet24": {
+        "type": "hash",
+        "value": {
+            "": "",
+            "admin_status": "up",
+            "alias": "Eth1/7",
+            "description": "m4bneesw0004_Eth1/51",
+            "index": "7",
+            "lanes": "25,26,27,28",
+            "mtu": "9100",
+            "oper_status": "up",
+            "oper_status_change_uptime": "61",
+            "port_load_interval": "10",
+            "preemphasis": "0x044410,0x04420e,0x043e0c,0x04460f",
+            "speed": "100000",
+            "unlos_xcvr_supported": "off",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet28": {
+        "type": "hash",
+        "value": {
+            "": "",
+            "admin_status": "up",
+            "alias": "Eth1/8",
+            "description": "m4bneesw0004_Eth1/52",
+            "index": "8",
+            "lanes": "29,30,31,32",
+            "mtu": "9100",
+            "oper_status": "up",
+            "oper_status_change_uptime": "61",
+            "port_load_interval": "10",
+            "preemphasis": "0x04440f,0x04420d,0x04420e,0x04440f",
+            "speed": "100000",
+            "unlos_xcvr_supported": "off",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet32": {
+        "type": "hash",
+        "value": {
+            "": "",
+            "admin_status": "up",
+            "alias": "Eth1/9",
+            "description": "t-01-m-09-lf1-04-09.mgmt.refaz.bn.schiff.telekom.de_Eth1/49",
+            "index": "9",
+            "lanes": "33,34,35,36",
+            "mtu": "9100",
+            "oper_status": "up",
+            "oper_status_change_uptime": "2484950",
+            "port_load_interval": "10",
+            "preemphasis": "0x044a11,0x04440e,0x04440e,0x044a11",
+            "speed": "100000",
+            "unlos_xcvr_supported": "off",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet36": {
+        "type": "hash",
+        "value": {
+            "": "",
+            "admin_status": "up",
+            "alias": "Eth1/10",
+            "description": "t-01-m-09-lf1-04-09.mgmt.refaz.bn.schiff.telekom.de_Eth1/50",
+            "index": "10",
+            "lanes": "37,38,39,40",
+            "mtu": "9100",
+            "oper_status": "up",
+            "oper_status_change_uptime": "2484950",
+            "port_load_interval": "10",
+            "preemphasis": "0x044410,0x044a10,0x043e0c,0x044a11",
+            "speed": "100000",
+            "unlos_xcvr_supported": "off",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet4": {
+        "type": "hash",
+        "value": {
+            "": "",
+            "admin_status": "up",
+            "alias": "Eth1/2",
+            "description": "m4bneesw0003_Eth1/50",
+            "index": "2",
+            "lanes": "5,6,7,8",
+            "mtu": "9100",
+            "oper_status": "up",
+            "oper_status_change_uptime": "60",
+            "port_load_interval": "10",
+            "preemphasis": "0x004a1a,0x004a1a,0x004a1a,0x004a1a",
+            "speed": "100000",
+            "unlos_xcvr_supported": "off",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet40": {
+        "type": "hash",
+        "value": {
+            "": "",
+            "NULL": "NULL",
+            "admin_status": "up",
+            "alias": "Eth1/11",
+            "description": "t-01-m-09-lf1-04-09.mgmt.refaz.bn.schiff.telekom.de_Eth1/51",
+            "index": "11",
+            "lanes": "41,42,43,44",
+            "mtu": "9100",
+            "oper_status": "up",
+            "oper_status_change_uptime": "2484950",
+            "port_load_interval": "10",
+            "preemphasis": "0x044810,0x04460f,0x04480f,0x044c12",
+            "speed": "100000",
+            "unlos_xcvr_supported": "off",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet44": {
+        "type": "hash",
+        "value": {
+            "": "",
+            "NULL": "NULL",
+            "admin_status": "up",
+            "alias": "Eth1/12",
+            "description": "t-01-m-09-lf1-04-09.mgmt.refaz.bn.schiff.telekom.de_Eth1/52",
+            "index": "12",
+            "lanes": "45,46,47,48",
+            "mtu": "9100",
+            "oper_status": "up",
+            "oper_status_change_uptime": "2484950",
+            "port_load_interval": "10",
+            "preemphasis": "0x044610,0x044610,0x04410d,0x044a12",
+            "speed": "100000",
+            "unlos_xcvr_supported": "off",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet48": {
+        "type": "hash",
+        "value": {
+            "": "",
+            "admin_status": "up",
+            "alias": "Eth1/13",
+            "description": "t-01-m-09-lf1-04-10.mgmt.refaz.bn.schiff.telekom.de_Eth1/49",
+            "index": "13",
+            "lanes": "49,50,51,52",
+            "mtu": "9100",
+            "oper_status": "up",
+            "oper_status_change_uptime": "504562",
+            "port_load_interval": "10",
+            "preemphasis": "0x044810,0x044810,0x04440e,0x04440e",
+            "speed": "100000",
+            "unlos_xcvr_supported": "off",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet52": {
+        "type": "hash",
+        "value": {
+            "": "",
+            "admin_status": "up",
+            "alias": "Eth1/14",
+            "description": "t-01-m-09-lf1-04-10.mgmt.refaz.bn.schiff.telekom.de_Eth1/50",
+            "index": "14",
+            "lanes": "53,54,55,56",
+            "mtu": "9100",
+            "oper_status": "up",
+            "oper_status_change_uptime": "504562",
+            "port_load_interval": "10",
+            "preemphasis": "0x04400d,0x043c0b,0x04380a,0x04400d",
+            "speed": "100000",
+            "unlos_xcvr_supported": "off",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet56": {
+        "type": "hash",
+        "value": {
+            "": "",
+            "NULL": "NULL",
+            "admin_status": "up",
+            "alias": "Eth1/15",
+            "description": "",
+            "index": "15",
+            "lanes": "57,58,59,60",
+            "mtu": "9100",
+            "oper_status": "up",
+            "oper_status_change_uptime": "580849",
+            "port_load_interval": "10",
+            "preemphasis": "0x043c0a,0x043a0a,0x02390a,0x023a01",
+            "speed": "100000",
+            "unlos_xcvr_supported": "off",
+            "valid_speeds": "100000,40000"
+        }
+    },
+    "PORT_TABLE:Ethernet60": {
+        "type": "hash",
+        "value": {
+            "": "",
+            "NULL": "NULL",
+            "admin_status": "up",
+            "alias": "Eth1/16",
+            "description": "t-01-m-09-lf1-04-10.mgmt.refaz.bn.schiff.telekom.de_Eth1/52",
+            "index": "16",
+            "lanes": "61,62,63,64",
+            "mtu": "9100",
+            "oper_status": "up",
+            "oper_status_change_uptime": "580884",
+            "port_load_interval": "10",
+            "preemphasis": "0x043e0c,0x04390a,0x043409,0x043c0c",
+            "speed": "100000",
+            "unlos_xcvr_supported": "off",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet64": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/17",
+            "description": "",
+            "index": "17",
+            "lanes": "65,66,67,68",
+            "mtu": "9100",
+            "oper_status": "down",
+            "oper_status_change_uptime": "0",
+            "port_load_interval": "10",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet68": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/18",
+            "description": "",
+            "index": "18",
+            "lanes": "69,70,71,72",
+            "mtu": "9100",
+            "oper_status": "down",
+            "oper_status_change_uptime": "0",
+            "port_load_interval": "10",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet72": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/19",
+            "description": "",
+            "index": "19",
+            "lanes": "73,74,75,76",
+            "mtu": "9100",
+            "oper_status": "down",
+            "oper_status_change_uptime": "0",
+            "port_load_interval": "10",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet76": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/20",
+            "description": "",
+            "index": "20",
+            "lanes": "77,78,79,80",
+            "mtu": "9100",
+            "oper_status": "down",
+            "oper_status_change_uptime": "0",
+            "port_load_interval": "10",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet8": {
+        "type": "hash",
+        "value": {
+            "": "",
+            "admin_status": "up",
+            "alias": "Eth1/3",
+            "description": "m4bneesw0003_Eth1/51",
+            "index": "3",
+            "lanes": "9,10,11,12",
+            "mtu": "9100",
+            "oper_status": "up",
+            "oper_status_change_uptime": "60",
+            "port_load_interval": "10",
+            "preemphasis": "0x044c14,0x044c14,0x044c14,0x044c14",
+            "speed": "100000",
+            "unlos_xcvr_supported": "off",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet80": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/21",
+            "description": "",
+            "index": "21",
+            "lanes": "81,82,83,84",
+            "mtu": "9100",
+            "oper_status": "down",
+            "oper_status_change_uptime": "0",
+            "port_load_interval": "10",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet84": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/22",
+            "description": "",
+            "index": "22",
+            "lanes": "85,86,87,88",
+            "mtu": "9100",
+            "oper_status": "down",
+            "oper_status_change_uptime": "0",
+            "port_load_interval": "10",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet88": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/23",
+            "description": "",
+            "index": "23",
+            "lanes": "89,90,91,92",
+            "mtu": "9100",
+            "oper_status": "down",
+            "oper_status_change_uptime": "0",
+            "port_load_interval": "10",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet92": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/24",
+            "description": "",
+            "index": "24",
+            "lanes": "93,94,95,96",
+            "mtu": "9100",
+            "oper_status": "down",
+            "oper_status_change_uptime": "0",
+            "port_load_interval": "10",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:Ethernet96": {
+        "type": "hash",
+        "value": {
+            "": "",
+            "admin_status": "up",
+            "alias": "Eth1/25",
+            "description": "t-01-m-09-bl1-01-10.mgmt.refaz.bn.schiff.telekom.de_Eth1/1",
+            "index": "25",
+            "lanes": "97,98,99,100",
+            "mtu": "9100",
+            "oper_status": "up",
+            "oper_status_change_uptime": "2982967",
+            "port_load_interval": "10",
+            "preemphasis": "0x04420d,0x04420e,0x04420d,0x044410",
+            "speed": "100000",
+            "unlos_xcvr_supported": "off",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT_TABLE:PortConfigDone": {
+        "type": "hash",
+        "value": {
+            "count": "34"
+        }
+    },
+    "PORT_TABLE:PortInitDone": {
+        "type": "hash",
+        "value": {
+            "lanes": "0"
+        }
+    },
+    "ROUTE_TABLE:192.168.0.210/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Loopback0",
+            "nexthop": "0.0.0.0",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.0.211/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet124",
+            "nexthop": "fe80::36ef:b6ff:fe28:f937",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.0.212/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet0,Ethernet4,Ethernet8,Ethernet12",
+            "nexthop": "fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.0.213/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet116",
+            "nexthop": "fe80::36ef:b6ff:fe28:f437",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.0.214/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet16,Ethernet20,Ethernet24,Ethernet28",
+            "nexthop": "fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.0.215/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet96",
+            "nexthop": "fe80::36ef:b6ff:fe3f:5776",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.0.216/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet100",
+            "nexthop": "fe80::36ef:b6ff:fe3f:5976",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.0.218/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet112",
+            "nexthop": "fe80::fa8e:a1ff:fefe:7523",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.0.219/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet32,Ethernet36,Ethernet40,Ethernet44",
+            "nexthop": "fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.0.220/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet120",
+            "nexthop": "fe80::fa8e:a1ff:fefe:5f23",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.0.221/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet48,Ethernet52,Ethernet56,Ethernet60",
+            "nexthop": "fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.1/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet116,Ethernet124",
+            "nexthop": "fe80::36ef:b6ff:fe28:f437,fe80::36ef:b6ff:fe28:f937",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.10/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28",
+            "nexthop": "fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.11/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet116,Ethernet124",
+            "nexthop": "fe80::36ef:b6ff:fe28:f437,fe80::36ef:b6ff:fe28:f937",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.12/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28",
+            "nexthop": "fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.13/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28",
+            "nexthop": "fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.14/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28",
+            "nexthop": "fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.15/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28",
+            "nexthop": "fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.16/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28",
+            "nexthop": "fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.17/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28",
+            "nexthop": "fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.19/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet116,Ethernet124",
+            "nexthop": "fe80::36ef:b6ff:fe28:f437,fe80::36ef:b6ff:fe28:f937",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.2/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet116,Ethernet124",
+            "nexthop": "fe80::36ef:b6ff:fe28:f437,fe80::36ef:b6ff:fe28:f937",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.22/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet32,Ethernet36,Ethernet40,Ethernet44,Ethernet48,Ethernet52,Ethernet56,Ethernet60",
+            "nexthop": "fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.23/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet32,Ethernet36,Ethernet40,Ethernet44,Ethernet48,Ethernet52,Ethernet56,Ethernet60",
+            "nexthop": "fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.24/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet116,Ethernet124",
+            "nexthop": "fe80::36ef:b6ff:fe28:f437,fe80::36ef:b6ff:fe28:f937",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.25/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet116,Ethernet124",
+            "nexthop": "fe80::36ef:b6ff:fe28:f437,fe80::36ef:b6ff:fe28:f937",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.26/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet116,Ethernet124",
+            "nexthop": "fe80::36ef:b6ff:fe28:f437,fe80::36ef:b6ff:fe28:f937",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.27/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet116,Ethernet124",
+            "nexthop": "fe80::36ef:b6ff:fe28:f437,fe80::36ef:b6ff:fe28:f937",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.28/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet116,Ethernet124",
+            "nexthop": "fe80::36ef:b6ff:fe28:f437,fe80::36ef:b6ff:fe28:f937",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.29/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28",
+            "nexthop": "fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.3/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet116,Ethernet124",
+            "nexthop": "fe80::36ef:b6ff:fe28:f437,fe80::36ef:b6ff:fe28:f937",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.30/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28",
+            "nexthop": "fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.31/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet116,Ethernet124",
+            "nexthop": "fe80::36ef:b6ff:fe28:f437,fe80::36ef:b6ff:fe28:f937",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.32/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet32,Ethernet36,Ethernet40,Ethernet44,Ethernet48,Ethernet52,Ethernet56,Ethernet60",
+            "nexthop": "fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.33/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet32,Ethernet36,Ethernet40,Ethernet44,Ethernet48,Ethernet52,Ethernet56,Ethernet60",
+            "nexthop": "fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.34/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet32,Ethernet36,Ethernet40,Ethernet44,Ethernet48,Ethernet52,Ethernet56,Ethernet60",
+            "nexthop": "fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.35/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet32,Ethernet36,Ethernet40,Ethernet44,Ethernet48,Ethernet52,Ethernet56,Ethernet60",
+            "nexthop": "fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.36/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet32,Ethernet36,Ethernet40,Ethernet44,Ethernet48,Ethernet52,Ethernet56,Ethernet60",
+            "nexthop": "fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.37/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet116,Ethernet124",
+            "nexthop": "fe80::36ef:b6ff:fe28:f437,fe80::36ef:b6ff:fe28:f937",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.38/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28",
+            "nexthop": "fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.39/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet116,Ethernet124",
+            "nexthop": "fe80::36ef:b6ff:fe28:f437,fe80::36ef:b6ff:fe28:f937",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.4/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet116,Ethernet124",
+            "nexthop": "fe80::36ef:b6ff:fe28:f437,fe80::36ef:b6ff:fe28:f937",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.40/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet116,Ethernet124",
+            "nexthop": "fe80::36ef:b6ff:fe28:f437,fe80::36ef:b6ff:fe28:f937",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.6/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28",
+            "nexthop": "fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.7/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28",
+            "nexthop": "fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.8/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet116,Ethernet124",
+            "nexthop": "fe80::36ef:b6ff:fe28:f437,fe80::36ef:b6ff:fe28:f937",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.2.9/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet116,Ethernet124",
+            "nexthop": "fe80::36ef:b6ff:fe28:f437,fe80::36ef:b6ff:fe28:f937",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.100/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet32,Ethernet36,Ethernet40,Ethernet44",
+            "nexthop": "fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.102/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet32,Ethernet36,Ethernet40,Ethernet44,Ethernet48,Ethernet52,Ethernet56,Ethernet60",
+            "nexthop": "fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.103/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet32,Ethernet36,Ethernet40,Ethernet44,Ethernet48,Ethernet52,Ethernet56,Ethernet60",
+            "nexthop": "fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.104/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet32,Ethernet36,Ethernet40,Ethernet44,Ethernet48,Ethernet52,Ethernet56,Ethernet60",
+            "nexthop": "fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.105/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet32,Ethernet36,Ethernet40,Ethernet44,Ethernet48,Ethernet52,Ethernet56,Ethernet60",
+            "nexthop": "fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.108/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet32,Ethernet36,Ethernet40,Ethernet44",
+            "nexthop": "fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.109/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet32,Ethernet36,Ethernet40,Ethernet44,Ethernet48,Ethernet52,Ethernet56,Ethernet60",
+            "nexthop": "fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.110/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet32,Ethernet36,Ethernet40,Ethernet44,Ethernet48,Ethernet52,Ethernet56,Ethernet60",
+            "nexthop": "fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.111/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet32,Ethernet36,Ethernet40,Ethernet44,Ethernet48,Ethernet52,Ethernet56,Ethernet60",
+            "nexthop": "fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.115/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet32,Ethernet36,Ethernet40,Ethernet44,Ethernet48,Ethernet52,Ethernet56,Ethernet60",
+            "nexthop": "fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.116/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet32,Ethernet36,Ethernet40,Ethernet44,Ethernet48,Ethernet52,Ethernet56,Ethernet60",
+            "nexthop": "fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.117/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet32,Ethernet36,Ethernet40,Ethernet44,Ethernet48,Ethernet52,Ethernet56,Ethernet60",
+            "nexthop": "fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.118/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet32,Ethernet36,Ethernet40,Ethernet44,Ethernet48,Ethernet52,Ethernet56,Ethernet60",
+            "nexthop": "fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.119/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet32,Ethernet36,Ethernet40,Ethernet44,Ethernet48,Ethernet52,Ethernet56,Ethernet60",
+            "nexthop": "fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.12/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet120,Ethernet112",
+            "nexthop": "fe80::fa8e:a1ff:fefe:5f23,fe80::fa8e:a1ff:fefe:7523",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.120/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28",
+            "nexthop": "fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.13/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet120,Ethernet112",
+            "nexthop": "fe80::fa8e:a1ff:fefe:5f23,fe80::fa8e:a1ff:fefe:7523",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.15/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28",
+            "nexthop": "fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.19/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28",
+            "nexthop": "fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.31/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28",
+            "nexthop": "fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.36/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28",
+            "nexthop": "fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.49/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet120,Ethernet112",
+            "nexthop": "fe80::fa8e:a1ff:fefe:5f23,fe80::fa8e:a1ff:fefe:7523",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.54/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28",
+            "nexthop": "fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.56/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet116,Ethernet124",
+            "nexthop": "fe80::36ef:b6ff:fe28:f437,fe80::36ef:b6ff:fe28:f937",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.58/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet116,Ethernet124",
+            "nexthop": "fe80::36ef:b6ff:fe28:f437,fe80::36ef:b6ff:fe28:f937",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.60/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet116,Ethernet124",
+            "nexthop": "fe80::36ef:b6ff:fe28:f437,fe80::36ef:b6ff:fe28:f937",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.61/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet120,Ethernet112",
+            "nexthop": "fe80::fa8e:a1ff:fefe:5f23,fe80::fa8e:a1ff:fefe:7523",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.62/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet120,Ethernet112",
+            "nexthop": "fe80::fa8e:a1ff:fefe:5f23,fe80::fa8e:a1ff:fefe:7523",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.63/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet120,Ethernet112",
+            "nexthop": "fe80::fa8e:a1ff:fefe:5f23,fe80::fa8e:a1ff:fefe:7523",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.64/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet120,Ethernet112",
+            "nexthop": "fe80::fa8e:a1ff:fefe:5f23,fe80::fa8e:a1ff:fefe:7523",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.65/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet120,Ethernet112",
+            "nexthop": "fe80::fa8e:a1ff:fefe:5f23,fe80::fa8e:a1ff:fefe:7523",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.67/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet120,Ethernet112",
+            "nexthop": "fe80::fa8e:a1ff:fefe:5f23,fe80::fa8e:a1ff:fefe:7523",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.68/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet120,Ethernet112",
+            "nexthop": "fe80::fa8e:a1ff:fefe:5f23,fe80::fa8e:a1ff:fefe:7523",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.69/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet120,Ethernet112",
+            "nexthop": "fe80::fa8e:a1ff:fefe:5f23,fe80::fa8e:a1ff:fefe:7523",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.70/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet120,Ethernet112",
+            "nexthop": "fe80::fa8e:a1ff:fefe:5f23,fe80::fa8e:a1ff:fefe:7523",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.71/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet120,Ethernet112",
+            "nexthop": "fe80::fa8e:a1ff:fefe:5f23,fe80::fa8e:a1ff:fefe:7523",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.72/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet120,Ethernet112",
+            "nexthop": "fe80::fa8e:a1ff:fefe:5f23,fe80::fa8e:a1ff:fefe:7523",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.73/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet120,Ethernet112",
+            "nexthop": "fe80::fa8e:a1ff:fefe:5f23,fe80::fa8e:a1ff:fefe:7523",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.74/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet120,Ethernet112",
+            "nexthop": "fe80::fa8e:a1ff:fefe:5f23,fe80::fa8e:a1ff:fefe:7523",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.75/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet120,Ethernet112",
+            "nexthop": "fe80::fa8e:a1ff:fefe:5f23,fe80::fa8e:a1ff:fefe:7523",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.76/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet120,Ethernet112",
+            "nexthop": "fe80::fa8e:a1ff:fefe:5f23,fe80::fa8e:a1ff:fefe:7523",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.77/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet120,Ethernet112",
+            "nexthop": "fe80::fa8e:a1ff:fefe:5f23,fe80::fa8e:a1ff:fefe:7523",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.98/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet32,Ethernet36,Ethernet40,Ethernet44,Ethernet48,Ethernet52,Ethernet56,Ethernet60",
+            "nexthop": "fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:10f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8,fe80::fa8e:a1ff:feed:15f8",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.7.1/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28",
+            "nexthop": "fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.7.11/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28",
+            "nexthop": "fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.7.12/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28",
+            "nexthop": "fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.7.13/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28",
+            "nexthop": "fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.7.14/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet0,Ethernet4,Ethernet8,Ethernet12,Ethernet16,Ethernet20,Ethernet24,Ethernet28",
+            "nexthop": "fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::6f8:f8ff:fe99:a686,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3,fe80::36ef:b6ff:feea:83a3",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:fe80::/64": {
+        "type": "hash",
+        "value": {
+            "ifname": "Loopback0",
+            "nexthop": "::",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "SWITCH_TABLE:switch": {
+        "type": "hash",
+        "value": {
+            "ecmp_hash_fields_ipv4": "ipv4_dst_ip,ipv4_src_ip,ipv4_l4_dst_port,ipv4_l4_src_port,ipv4_protocol",
+            "ecmp_hash_fields_ipv6": "ipv6_next_hdr,ipv6_l4_dst_port,ipv6_l4_src_port,ipv6_dst_ip,ipv6_src_ip",
+            "ecmp_hash_mode_ipv4": "",
+            "ecmp_hash_mode_ipv6": "",
+            "ecmp_hash_seed": "10",
+            "fdb_aging_time": "600",
+            "lag_hash_seed": "10",
+            "port_load_interval": "10",
+            "queue_load_interval": "10",
+            "snapshot_supported": "True",
+            "stp_supported": "true",
+            "subinterface_supported": "true",
+            "tam_int_ifa_ts_supported": "True",
+            "threshold_supported": "True"
+        }
+    },
+    "SWSS_DB_FLUSH_DONE": {
+        "type": "string",
+        "value": "1"
+    },
+    "TAM_APPL_SWITCH_TABLE:global": {
+        "type": "hash",
+        "value": {
+            "op-enterprise-id": "17427",
+            "op-switch-id": "17427"
+        }
+    },
+    "_GEARBOX_TABLE:GearboxConfigDone": {
+        "type": "hash",
+        "value": {
+            "success": "1"
+        }
+    }
+}

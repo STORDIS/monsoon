@@ -51,7 +51,7 @@ class SonicV2Connector:
         return self.db[db][key]["value"][sub_key]
 
     def keys(self, db: DB, pattern: str = None):
-        regex = re.compile(r"^{}$".format(pattern.replace("*", ".+?")))
+        regex = re.compile(r"^{}$".format(pattern.replace("*", ".+?").replace('|', '\|')))
         for key in self.db[db].keys():
             if regex.match(str(key)):
                 yield key

@@ -1,211 +1,183 @@
 {
-    "COPP_GROUP|copp-system-iccp": {
+    "BGP_GLOBALS_AF_NETWORK|default|ipv4_unicast|192.168.0.210/32": {
         "type": "hash",
         "value": {
-            "cbs": "5000",
-            "trap_action": "trap",
-            "queue": "16",
-            "cir": "5000",
-            "meter_type": "packets",
-            "mode": "sr_tcm",
-            "trap_priority": "16",
-            "red_action": "drop"
+            "NULL": "NULL"
         }
     },
-    "ECMP_LOADSHARE_TABLE_IPV6|ipv6": {
+    "BGP_GLOBALS_AF|default|ipv4_unicast": {
         "type": "hash",
         "value": {
-            "ipv6_next_hdr": "true",
-            "ipv6_l4_dst_port": "true",
-            "ipv6_l4_src_port": "true",
-            "ipv6_dst_ip": "true",
-            "ipv6_src_ip": "true"
+            "ibgp_equal_cluster_length": "false",
+            "max_ebgp_paths": "64",
+            "max_ibgp_paths": "64",
+            "route_flap_dampen": "false"
         }
     },
-    "DEVICE_METADATA|localhost": {
+    "BGP_GLOBALS_AF|default|l2vpn_evpn": {
         "type": "hash",
         "value": {
-            "hwsku": "Accton-AS7726-32X",
-            "default_config_profile": "l3",
-            "type": "LeafRouter",
-            "hostname": "t-01-m-09-sp1-01-10.mgmt.refaz.bn.schiff.telekom.de",
-            "platform": "x86_64-accton_as7726_32x-r0",
-            "mac": "04:f8:f8:e5:e2:bd",
-            "docker_routing_config_mode": "separated"
+            "advertise-all-vni": "true"
         }
     },
-    "COPP_GROUP|copp-system-udld": {
+    "BGP_GLOBALS|default": {
         "type": "hash",
         "value": {
-            "cbs": "500",
-            "trap_action": "trap",
-            "queue": "22",
-            "cir": "500",
-            "meter_type": "packets",
-            "mode": "sr_tcm",
-            "trap_priority": "22",
-            "red_action": "drop"
+            "always_compare_med": "false",
+            "as_path_mp_as_set": "false",
+            "external_compare_router_id": "false",
+            "fast_external_failover": "true",
+            "holdtime": "3",
+            "ignore_as_path_length": "false",
+            "keepalive": "1",
+            "load_balance_mp_relax": "true",
+            "local_asn": "4200065132",
+            "log_nbr_state_changes": "true",
+            "network_import_check": "true",
+            "router_id": "192.168.0.210"
         }
     },
-    "INTERFACE|Ethernet44": {
+    "BGP_NEIGHBOR|default|Ethernet0": {
         "type": "hash",
         "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "COPP_GROUP|copp-system-stp": {
-        "type": "hash",
-        "value": {
-            "cbs": "16000",
-            "trap_action": "trap",
-            "queue": "21",
-            "cir": "16000",
-            "meter_type": "packets",
-            "mode": "sr_tcm",
-            "trap_priority": "21",
-            "red_action": "drop"
-        }
-    },
-    "QUEUE|CPU|3": {
-        "type": "hash",
-        "value": {
-            "scheduler": "[SCHEDULER|copp-scheduler-policy@3]"
-        }
-    },
-    "SCHEDULER|copp-scheduler-policy@19": {
-        "type": "hash",
-        "value": {
-            "meter_type": "packets",
-            "pir": "5000",
-            "type": "WRR",
-            "weight": "3"
-        }
-    },
-    "PORT|Ethernet28": {
-        "type": "hash",
-        "value": {
-            "index": "8",
-            "lanes": "29,30,31,32",
-            "description": "m4bneesw0004_Eth1/52",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/8",
-            "admin_status": "up",
-            "speed": "100000"
-        }
-    },
-    "INTERFACE|Ethernet60": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "COPP_GROUP|default": {
-        "type": "hash",
-        "value": {
-            "cbs": "100",
-            "queue": "0",
-            "cir": "100",
-            "meter_type": "packets",
-            "mode": "sr_tcm",
-            "red_action": "drop"
-        }
-    },
-    "QUEUE|CPU|7": {
-        "type": "hash",
-        "value": {
-            "scheduler": "[SCHEDULER|copp-scheduler-policy@7]"
-        }
-    },
-    "PORT|Ethernet96": {
-        "type": "hash",
-        "value": {
-            "index": "25",
-            "lanes": "97,98,99,100",
-            "description": "t-01-m-09-bl1-01-10.mgmt.refaz.bn.schiff.telekom.de_Eth1/1",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/25",
-            "admin_status": "up",
-            "speed": "100000"
-        }
-    },
-    "VERSIONS|DATABASE": {
-        "type": "hash",
-        "value": {
-            "VERSION": "version_3_3_1"
-        }
-    },
-    "CONFIG_DB_INITIALIZED": {
-        "type": "string",
-        "value": "1"
-    },
-    "SCHEDULER|copp-scheduler-policy@16": {
-        "type": "hash",
-        "value": {
-            "meter_type": "packets",
-            "pir": "5000",
-            "type": "WRR",
-            "weight": "4"
-        }
-    },
-    "FEATURE|stp": {
-        "type": "hash",
-        "value": {
-            "state": "enabled"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-lf1-01-10|l2vpn_evpn": {
-        "type": "hash",
-        "value": {
-            "admin_status": "true",
-            "soft_reconfiguration_in": "true"
-        }
-    },
-    "BREAKOUT_PORTS|Ethernet56": {
-        "type": "hash",
-        "value": {
-            "master": "Ethernet56"
-        }
-    },
-    "PORT|Ethernet4": {
-        "type": "hash",
-        "value": {
-            "index": "2",
-            "lanes": "5,6,7,8",
-            "description": "m4bneesw0003_Eth1/50",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/2",
-            "admin_status": "up",
-            "speed": "100000"
-        }
-    },
-    "SCHEDULER|copp-scheduler-policy@7": {
-        "type": "hash",
-        "value": {
-            "meter_type": "packets",
-            "pir": "6000",
-            "type": "WRR",
-            "weight": "2"
-        }
-    },
-    "QUEUE|CPU|0": {
-        "type": "hash",
-        "value": {
-            "scheduler": "[SCHEDULER|copp-scheduler-policy@0]"
-        }
-    },
-    "INTERFACE|Ethernet20": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
+            "peer_group_name": "t-01-m-09-lf1-01-10"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet100": {
         "type": "hash",
         "value": {
             "peer_group_name": "t-01-m-09-bl1-04-09"
+        }
+    },
+    "BGP_NEIGHBOR|default|Ethernet112": {
+        "type": "hash",
+        "value": {
+            "peer_group_name": "t-01-m-09-ltb1-02-10"
+        }
+    },
+    "BGP_NEIGHBOR|default|Ethernet116": {
+        "type": "hash",
+        "value": {
+            "peer_group_name": "t-01-m-09-ltb1-02-10"
+        }
+    },
+    "BGP_NEIGHBOR|default|Ethernet12": {
+        "type": "hash",
+        "value": {
+            "peer_group_name": "t-01-m-09-lf1-01-10"
+        }
+    },
+    "BGP_NEIGHBOR|default|Ethernet120": {
+        "type": "hash",
+        "value": {
+            "peer_group_name": "t-01-m-09-ltb1-01-10"
+        }
+    },
+    "BGP_NEIGHBOR|default|Ethernet124": {
+        "type": "hash",
+        "value": {
+            "peer_group_name": "t-01-m-09-ltb1-01-10"
+        }
+    },
+    "BGP_NEIGHBOR|default|Ethernet16": {
+        "type": "hash",
+        "value": {
+            "peer_group_name": "t-01-m-09-lf1-02-10"
+        }
+    },
+    "BGP_NEIGHBOR|default|Ethernet20": {
+        "type": "hash",
+        "value": {
+            "peer_group_name": "t-01-m-09-lf1-02-10"
+        }
+    },
+    "BGP_NEIGHBOR|default|Ethernet24": {
+        "type": "hash",
+        "value": {
+            "peer_group_name": "t-01-m-09-lf1-02-10"
+        }
+    },
+    "BGP_NEIGHBOR|default|Ethernet28": {
+        "type": "hash",
+        "value": {
+            "peer_group_name": "t-01-m-09-lf1-02-10"
+        }
+    },
+    "BGP_NEIGHBOR|default|Ethernet32": {
+        "type": "hash",
+        "value": {
+            "peer_group_name": "t-01-m-09-lf1-04-09"
+        }
+    },
+    "BGP_NEIGHBOR|default|Ethernet36": {
+        "type": "hash",
+        "value": {
+            "peer_group_name": "t-01-m-09-lf1-04-09"
+        }
+    },
+    "BGP_NEIGHBOR|default|Ethernet4": {
+        "type": "hash",
+        "value": {
+            "peer_group_name": "t-01-m-09-lf1-01-10"
+        }
+    },
+    "BGP_NEIGHBOR|default|Ethernet40": {
+        "type": "hash",
+        "value": {
+            "peer_group_name": "t-01-m-09-lf1-04-09"
+        }
+    },
+    "BGP_NEIGHBOR|default|Ethernet44": {
+        "type": "hash",
+        "value": {
+            "peer_group_name": "t-01-m-09-lf1-04-09"
+        }
+    },
+    "BGP_NEIGHBOR|default|Ethernet48": {
+        "type": "hash",
+        "value": {
+            "peer_group_name": "t-01-m-09-lf1-04-10"
+        }
+    },
+    "BGP_NEIGHBOR|default|Ethernet52": {
+        "type": "hash",
+        "value": {
+            "peer_group_name": "t-01-m-09-lf1-04-10"
+        }
+    },
+    "BGP_NEIGHBOR|default|Ethernet56": {
+        "type": "hash",
+        "value": {
+            "peer_group_name": "t-01-m-09-lf1-04-10"
+        }
+    },
+    "BGP_NEIGHBOR|default|Ethernet60": {
+        "type": "hash",
+        "value": {
+            "peer_group_name": "t-01-m-09-lf1-04-10"
+        }
+    },
+    "BGP_NEIGHBOR|default|Ethernet8": {
+        "type": "hash",
+        "value": {
+            "peer_group_name": "t-01-m-09-lf1-01-10"
+        }
+    },
+    "BGP_NEIGHBOR|default|Ethernet96": {
+        "type": "hash",
+        "value": {
+            "peer_group_name": "t-01-m-09-bl1-01-10"
+        }
+    },
+    "BGP_PEER_GROUP_AF|default|t-01-m-09-bl1-01-10|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "max_prefix_warning_only": "false",
+            "rrclient": "false",
+            "send_community": "both",
+            "send_default_route": "false",
+            "soft_reconfiguration_in": "true"
         }
     },
     "BGP_PEER_GROUP_AF|default|t-01-m-09-bl1-01-10|l2vpn_evpn": {
@@ -215,142 +187,51 @@
             "soft_reconfiguration_in": "true"
         }
     },
-    "CLASSIFIER_TABLE|class-oob-ipv6-multicast": {
+    "BGP_PEER_GROUP_AF|default|t-01-m-09-bl1-04-09|ipv4_unicast": {
         "type": "hash",
         "value": {
-            "DESCRIPTION": "",
-            "MATCH_TYPE": "FIELDS",
-            "ETHER_TYPE": "0x86DD",
-            "DST_IPV6": "ff00::/8"
+            "admin_status": "true",
+            "max_prefix_warning_only": "false",
+            "rrclient": "false",
+            "send_community": "both",
+            "send_default_route": "false",
+            "soft_reconfiguration_in": "true"
         }
     },
-    "CLASSIFIER_TABLE|class-oob-dhcp-client": {
+    "BGP_PEER_GROUP_AF|default|t-01-m-09-bl1-04-09|l2vpn_evpn": {
         "type": "hash",
         "value": {
-            "IP_PROTOCOL": "17",
-            "L4_DST_PORT": "68",
-            "MATCH_TYPE": "FIELDS",
-            "ETHER_TYPE": "0x800",
-            "DESCRIPTION": ""
+            "admin_status": "true",
+            "soft_reconfiguration_in": "true"
         }
     },
-    "POLICY_SECTIONS_TABLE|oob-qos-policy|class-oob-arp": {
+    "BGP_PEER_GROUP_AF|default|t-01-m-09-lf1-01-10|ipv4_unicast": {
         "type": "hash",
         "value": {
-            "PRIORITY": "1010",
-            "SET_POLICER_CIR": "256000",
-            "DESCRIPTION": ""
+            "admin_status": "true",
+            "max_prefix_warning_only": "false",
+            "rrclient": "false",
+            "send_community": "both",
+            "send_default_route": "false",
+            "soft_reconfiguration_in": "true"
         }
     },
-    "SCHEDULER|copp-scheduler-policy@23": {
+    "BGP_PEER_GROUP_AF|default|t-01-m-09-lf1-01-10|l2vpn_evpn": {
         "type": "hash",
         "value": {
-            "meter_type": "packets",
-            "pir": "500",
-            "type": "WRR",
-            "weight": "10"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet124": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-ltb1-01-10"
-        }
-    },
-    "SCHEDULER|copp-scheduler-policy@9": {
-        "type": "hash",
-        "value": {
-            "meter_type": "packets",
-            "pir": "300",
-            "type": "WRR",
-            "weight": "2"
+            "admin_status": "true",
+            "soft_reconfiguration_in": "true"
         }
     },
     "BGP_PEER_GROUP_AF|default|t-01-m-09-lf1-02-10|ipv4_unicast": {
         "type": "hash",
         "value": {
-            "rrclient": "false",
-            "soft_reconfiguration_in": "true",
-            "send_default_route": "false",
-            "send_community": "both",
+            "admin_status": "true",
             "max_prefix_warning_only": "false",
-            "admin_status": "true"
-        }
-    },
-    "SCHEDULER|copp-scheduler-policy@255": {
-        "type": "hash",
-        "value": {
-            "meter_type": "packets"
-        }
-    },
-    "COPP_GROUP|copp-system-vrrp": {
-        "type": "hash",
-        "value": {
-            "cbs": "500",
-            "trap_action": "trap",
-            "queue": "17",
-            "cir": "500",
-            "meter_type": "packets",
-            "mode": "sr_tcm",
-            "trap_priority": "17",
-            "red_action": "drop"
-        }
-    },
-    "PORT|Ethernet120": {
-        "type": "hash",
-        "value": {
-            "index": "31",
-            "lanes": "121,122,123,124",
-            "description": "m4bneesw0005_Eth1/49",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/31",
-            "admin_status": "up",
-            "speed": "100000"
-        }
-    },
-    "INTERFACE|Ethernet92": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "QUEUE|CPU|2": {
-        "type": "hash",
-        "value": {
-            "scheduler": "[SCHEDULER|copp-scheduler-policy@2]"
-        }
-    },
-    "PORT|Ethernet108": {
-        "type": "hash",
-        "value": {
-            "index": "28",
-            "lanes": "109,110,111,112",
-            "description": "",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/28",
-            "admin_status": "down",
-            "speed": "100000"
-        }
-    },
-    "FEATURE|telemetry": {
-        "type": "hash",
-        "value": {
-            "state": "enabled"
-        }
-    },
-    "COPP_GROUP|copp-system-igmp": {
-        "type": "hash",
-        "value": {
-            "cbs": "2000",
-            "trap_action": "trap",
-            "queue": "12",
-            "cir": "2000",
-            "meter_type": "packets",
-            "mode": "sr_tcm",
-            "trap_priority": "12",
-            "red_action": "drop"
+            "rrclient": "false",
+            "send_community": "both",
+            "send_default_route": "false",
+            "soft_reconfiguration_in": "true"
         }
     },
     "BGP_PEER_GROUP_AF|default|t-01-m-09-lf1-02-10|l2vpn_evpn": {
@@ -360,7 +241,1072 @@
             "soft_reconfiguration_in": "true"
         }
     },
+    "BGP_PEER_GROUP_AF|default|t-01-m-09-lf1-04-09|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "max_prefix_warning_only": "false",
+            "rrclient": "false",
+            "send_community": "both",
+            "send_default_route": "false",
+            "soft_reconfiguration_in": "true"
+        }
+    },
+    "BGP_PEER_GROUP_AF|default|t-01-m-09-lf1-04-09|l2vpn_evpn": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "soft_reconfiguration_in": "true"
+        }
+    },
+    "BGP_PEER_GROUP_AF|default|t-01-m-09-lf1-04-10|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "max_prefix_warning_only": "false",
+            "rrclient": "false",
+            "send_community": "both",
+            "send_default_route": "false",
+            "soft_reconfiguration_in": "true"
+        }
+    },
+    "BGP_PEER_GROUP_AF|default|t-01-m-09-lf1-04-10|l2vpn_evpn": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "soft_reconfiguration_in": "true"
+        }
+    },
+    "BGP_PEER_GROUP_AF|default|t-01-m-09-ltb1-01-10|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "max_prefix_warning_only": "false",
+            "rrclient": "false",
+            "send_community": "both",
+            "send_default_route": "false",
+            "soft_reconfiguration_in": "true"
+        }
+    },
+    "BGP_PEER_GROUP_AF|default|t-01-m-09-ltb1-01-10|l2vpn_evpn": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "soft_reconfiguration_in": "true"
+        }
+    },
+    "BGP_PEER_GROUP_AF|default|t-01-m-09-ltb1-02-10|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "max_prefix_warning_only": "false",
+            "rrclient": "false",
+            "send_community": "both",
+            "send_default_route": "false",
+            "soft_reconfiguration_in": "true"
+        }
+    },
+    "BGP_PEER_GROUP_AF|default|t-01-m-09-ltb1-02-10|l2vpn_evpn": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "soft_reconfiguration_in": "true"
+        }
+    },
+    "BGP_PEER_GROUP_AF|default|t-01-m-09-ltb1-04-09|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "max_prefix_warning_only": "false",
+            "rrclient": "false",
+            "send_community": "both",
+            "send_default_route": "false",
+            "soft_reconfiguration_in": "true"
+        }
+    },
+    "BGP_PEER_GROUP_AF|default|t-01-m-09-ltb1-04-09|l2vpn_evpn": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "soft_reconfiguration_in": "true"
+        }
+    },
+    "BGP_PEER_GROUP_AF|default|t-01-m-09-ltb1-04-10|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "max_prefix_warning_only": "false",
+            "rrclient": "false",
+            "send_community": "both",
+            "send_default_route": "false",
+            "soft_reconfiguration_in": "true"
+        }
+    },
+    "BGP_PEER_GROUP_AF|default|t-01-m-09-ltb1-04-10|l2vpn_evpn": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "soft_reconfiguration_in": "true"
+        }
+    },
+    "BGP_PEER_GROUP|default|t-01-m-09-bl1-01-10": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "bfd": "true",
+            "conn_retry": "30",
+            "ebgp_multihop": "false",
+            "holdtime": "3",
+            "keepalive": "1",
+            "min_adv_interval": "0",
+            "passive_mode": "false",
+            "peer_type": "external"
+        }
+    },
+    "BGP_PEER_GROUP|default|t-01-m-09-bl1-04-09": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "bfd": "true",
+            "conn_retry": "30",
+            "ebgp_multihop": "false",
+            "holdtime": "3",
+            "keepalive": "1",
+            "min_adv_interval": "0",
+            "passive_mode": "false",
+            "peer_type": "external"
+        }
+    },
+    "BGP_PEER_GROUP|default|t-01-m-09-lf1-01-10": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "bfd": "true",
+            "conn_retry": "30",
+            "ebgp_multihop": "false",
+            "holdtime": "3",
+            "keepalive": "1",
+            "min_adv_interval": "0",
+            "passive_mode": "false",
+            "peer_type": "external"
+        }
+    },
+    "BGP_PEER_GROUP|default|t-01-m-09-lf1-02-10": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "bfd": "true",
+            "conn_retry": "30",
+            "ebgp_multihop": "false",
+            "holdtime": "3",
+            "keepalive": "1",
+            "min_adv_interval": "0",
+            "passive_mode": "false",
+            "peer_type": "external"
+        }
+    },
+    "BGP_PEER_GROUP|default|t-01-m-09-lf1-04-09": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "bfd": "true",
+            "conn_retry": "30",
+            "ebgp_multihop": "false",
+            "holdtime": "3",
+            "keepalive": "1",
+            "min_adv_interval": "0",
+            "passive_mode": "false",
+            "peer_type": "external"
+        }
+    },
+    "BGP_PEER_GROUP|default|t-01-m-09-lf1-04-10": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "bfd": "true",
+            "conn_retry": "30",
+            "ebgp_multihop": "false",
+            "holdtime": "3",
+            "keepalive": "1",
+            "min_adv_interval": "0",
+            "passive_mode": "false",
+            "peer_type": "external"
+        }
+    },
+    "BGP_PEER_GROUP|default|t-01-m-09-ltb1-01-10": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "bfd": "true",
+            "conn_retry": "30",
+            "ebgp_multihop": "false",
+            "holdtime": "3",
+            "keepalive": "1",
+            "min_adv_interval": "0",
+            "passive_mode": "false",
+            "peer_type": "external"
+        }
+    },
+    "BGP_PEER_GROUP|default|t-01-m-09-ltb1-02-10": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "bfd": "true",
+            "conn_retry": "30",
+            "ebgp_multihop": "false",
+            "holdtime": "3",
+            "keepalive": "1",
+            "min_adv_interval": "0",
+            "passive_mode": "false",
+            "peer_type": "external"
+        }
+    },
+    "BGP_PEER_GROUP|default|t-01-m-09-ltb1-04-09": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "bfd": "true",
+            "conn_retry": "30",
+            "ebgp_multihop": "false",
+            "holdtime": "3",
+            "keepalive": "1",
+            "min_adv_interval": "0",
+            "passive_mode": "false",
+            "peer_type": "external"
+        }
+    },
+    "BGP_PEER_GROUP|default|t-01-m-09-ltb1-04-10": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "bfd": "true",
+            "conn_retry": "30",
+            "ebgp_multihop": "false",
+            "holdtime": "3",
+            "keepalive": "1",
+            "min_adv_interval": "0",
+            "passive_mode": "false",
+            "peer_type": "external"
+        }
+    },
+    "BREAKOUT_CFG|Ethernet56": {
+        "type": "hash",
+        "value": {
+            "brkout_mode": "1x100G",
+            "lanes": "57,58,59,60",
+            "port": "1/15"
+        }
+    },
+    "BREAKOUT_PORTS|Ethernet56": {
+        "type": "hash",
+        "value": {
+            "master": "Ethernet56"
+        }
+    },
+    "BREAKOUT_PORTS|Ethernet57": {
+        "type": "hash",
+        "value": {
+            "master": "Ethernet56"
+        }
+    },
+    "BREAKOUT_PORTS|Ethernet58": {
+        "type": "hash",
+        "value": {
+            "master": "Ethernet56"
+        }
+    },
+    "BREAKOUT_PORTS|Ethernet59": {
+        "type": "hash",
+        "value": {
+            "master": "Ethernet56"
+        }
+    },
+    "CLASSIFIER_TABLE|class-oob-arp": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "",
+            "ETHER_TYPE": "0x806",
+            "MATCH_TYPE": "FIELDS"
+        }
+    },
+    "CLASSIFIER_TABLE|class-oob-dhcp-client": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "",
+            "ETHER_TYPE": "0x800",
+            "IP_PROTOCOL": "17",
+            "L4_DST_PORT": "68",
+            "MATCH_TYPE": "FIELDS"
+        }
+    },
+    "CLASSIFIER_TABLE|class-oob-dhcp-server": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "",
+            "ETHER_TYPE": "0x800",
+            "IP_PROTOCOL": "17",
+            "L4_DST_PORT": "67",
+            "MATCH_TYPE": "FIELDS"
+        }
+    },
+    "CLASSIFIER_TABLE|class-oob-ip-multicast": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "",
+            "DST_IP": "224.0.0.0/4",
+            "ETHER_TYPE": "0x800",
+            "MATCH_TYPE": "FIELDS"
+        }
+    },
+    "CLASSIFIER_TABLE|class-oob-ipv6-multicast": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "",
+            "DST_IPV6": "ff00::/8",
+            "ETHER_TYPE": "0x86DD",
+            "MATCH_TYPE": "FIELDS"
+        }
+    },
+    "CONFIG_DB_INITIALIZED": {
+        "type": "string",
+        "value": "1"
+    },
+    "CONFIG_DB_UPDATED": {
+        "type": "string",
+        "value": "1"
+    },
+    "CONFIG_DB_UPDATED_INTERFACE": {
+        "type": "string",
+        "value": "1"
+    },
+    "CONFIG_DB_UPDATED_PORT": {
+        "type": "string",
+        "value": "1"
+    },
+    "COPP_GROUP|copp-system-arp": {
+        "type": "hash",
+        "value": {
+            "cbs": "3000",
+            "cir": "3000",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "10",
+            "red_action": "drop",
+            "trap_action": "copy",
+            "trap_priority": "10"
+        }
+    },
+    "COPP_GROUP|copp-system-bfd": {
+        "type": "hash",
+        "value": {
+            "cbs": "1500",
+            "cir": "1500",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "20",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_priority": "20"
+        }
+    },
+    "COPP_GROUP|copp-system-bgp": {
+        "type": "hash",
+        "value": {
+            "cbs": "10000",
+            "cir": "10000",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "14",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_priority": "14"
+        }
+    },
+    "COPP_GROUP|copp-system-dhcp": {
+        "type": "hash",
+        "value": {
+            "cbs": "300",
+            "cir": "300",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "9",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_priority": "9"
+        }
+    },
+    "COPP_GROUP|copp-system-iccp": {
+        "type": "hash",
+        "value": {
+            "cbs": "5000",
+            "cir": "5000",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "16",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_priority": "16"
+        }
+    },
+    "COPP_GROUP|copp-system-icmp": {
+        "type": "hash",
+        "value": {
+            "cbs": "1000",
+            "cir": "1000",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "8",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_priority": "8"
+        }
+    },
+    "COPP_GROUP|copp-system-igmp": {
+        "type": "hash",
+        "value": {
+            "cbs": "2000",
+            "cir": "2000",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "12",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_priority": "12"
+        }
+    },
+    "COPP_GROUP|copp-system-ip2me": {
+        "type": "hash",
+        "value": {
+            "cbs": "6000",
+            "cir": "6000",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "7",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_priority": "7"
+        }
+    },
+    "COPP_GROUP|copp-system-lacp": {
+        "type": "hash",
+        "value": {
+            "cbs": "500",
+            "cir": "500",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "23",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_priority": "23"
+        }
+    },
+    "COPP_GROUP|copp-system-lldp": {
+        "type": "hash",
+        "value": {
+            "cbs": "500",
+            "cir": "500",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "18",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_priority": "18"
+        }
+    },
+    "COPP_GROUP|copp-system-mtu": {
+        "type": "hash",
+        "value": {
+            "cbs": "500",
+            "cir": "500",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "4",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_priority": "4"
+        }
+    },
+    "COPP_GROUP|copp-system-nat": {
+        "type": "hash",
+        "value": {
+            "cbs": "300",
+            "cir": "300",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "5",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_priority": "5"
+        }
+    },
+    "COPP_GROUP|copp-system-ospf": {
+        "type": "hash",
+        "value": {
+            "cbs": "5000",
+            "cir": "5000",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "15",
+            "red_action": "drop",
+            "trap_action": "copy",
+            "trap_priority": "15"
+        }
+    },
+    "COPP_GROUP|copp-system-pim": {
+        "type": "hash",
+        "value": {
+            "cbs": "5000",
+            "cir": "5000",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "13",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_priority": "13"
+        }
+    },
+    "COPP_GROUP|copp-system-ptp": {
+        "type": "hash",
+        "value": {
+            "cbs": "5000",
+            "cir": "5000",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "30",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_priority": "30"
+        }
+    },
+    "COPP_GROUP|copp-system-sflow": {
+        "type": "hash",
+        "value": {
+            "cbs": "8000",
+            "cir": "8000",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "3",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_priority": "3"
+        }
+    },
+    "COPP_GROUP|copp-system-stp": {
+        "type": "hash",
+        "value": {
+            "cbs": "16000",
+            "cir": "16000",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "21",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_priority": "21"
+        }
+    },
+    "COPP_GROUP|copp-system-subnet": {
+        "type": "hash",
+        "value": {
+            "cbs": "2000",
+            "cir": "2000",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "6",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_priority": "6"
+        }
+    },
+    "COPP_GROUP|copp-system-suppress": {
+        "type": "hash",
+        "value": {
+            "cbs": "3000",
+            "cir": "3000",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "11",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_priority": "11"
+        }
+    },
+    "COPP_GROUP|copp-system-udld": {
+        "type": "hash",
+        "value": {
+            "cbs": "500",
+            "cir": "500",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "22",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_priority": "22"
+        }
+    },
+    "COPP_GROUP|copp-system-vrrp": {
+        "type": "hash",
+        "value": {
+            "cbs": "500",
+            "cir": "500",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "17",
+            "red_action": "drop",
+            "trap_action": "trap",
+            "trap_priority": "17"
+        }
+    },
+    "COPP_GROUP|default": {
+        "type": "hash",
+        "value": {
+            "cbs": "100",
+            "cir": "100",
+            "meter_type": "packets",
+            "mode": "sr_tcm",
+            "queue": "0",
+            "red_action": "drop"
+        }
+    },
+    "COPP_TRAP|copp-system-arp": {
+        "type": "hash",
+        "value": {
+            "trap_group": "copp-system-arp",
+            "trap_ids": "arp_req,arp_resp,neigh_discovery"
+        }
+    },
+    "COPP_TRAP|copp-system-bfd": {
+        "type": "hash",
+        "value": {
+            "trap_group": "copp-system-bfd",
+            "trap_ids": "bfd,bfdv6"
+        }
+    },
+    "COPP_TRAP|copp-system-bgp": {
+        "type": "hash",
+        "value": {
+            "trap_group": "copp-system-bgp",
+            "trap_ids": "bgp,bgpv6"
+        }
+    },
+    "COPP_TRAP|copp-system-dhcp": {
+        "type": "hash",
+        "value": {
+            "trap_group": "copp-system-dhcp",
+            "trap_ids": "dhcp,dhcpv6"
+        }
+    },
+    "COPP_TRAP|copp-system-dhcpl2": {
+        "type": "hash",
+        "value": {
+            "trap_group": "NULL",
+            "trap_ids": "dhcp_l2,dhcpv6_l2"
+        }
+    },
+    "COPP_TRAP|copp-system-iccp": {
+        "type": "hash",
+        "value": {
+            "trap_group": "copp-system-iccp",
+            "trap_ids": "iccp"
+        }
+    },
+    "COPP_TRAP|copp-system-icmp": {
+        "type": "hash",
+        "value": {
+            "trap_group": "copp-system-icmp",
+            "trap_ids": "icmp,icmpv6"
+        }
+    },
+    "COPP_TRAP|copp-system-igmp": {
+        "type": "hash",
+        "value": {
+            "trap_group": "copp-system-igmp",
+            "trap_ids": "igmp_query"
+        }
+    },
+    "COPP_TRAP|copp-system-ip2me": {
+        "type": "hash",
+        "value": {
+            "trap_group": "copp-system-ip2me",
+            "trap_ids": "ip2me"
+        }
+    },
+    "COPP_TRAP|copp-system-lacp": {
+        "type": "hash",
+        "value": {
+            "trap_group": "copp-system-lacp",
+            "trap_ids": "lacp"
+        }
+    },
+    "COPP_TRAP|copp-system-lldp": {
+        "type": "hash",
+        "value": {
+            "trap_group": "copp-system-lldp",
+            "trap_ids": "lldp"
+        }
+    },
+    "COPP_TRAP|copp-system-mtu": {
+        "type": "hash",
+        "value": {
+            "trap_group": "copp-system-mtu",
+            "trap_ids": "l3_mtu_error"
+        }
+    },
+    "COPP_TRAP|copp-system-nat": {
+        "type": "hash",
+        "value": {
+            "trap_group": "copp-system-nat",
+            "trap_ids": "src_nat_miss,dest_nat_miss"
+        }
+    },
+    "COPP_TRAP|copp-system-ospf": {
+        "type": "hash",
+        "value": {
+            "trap_group": "copp-system-ospf",
+            "trap_ids": "ospf"
+        }
+    },
+    "COPP_TRAP|copp-system-pim": {
+        "type": "hash",
+        "value": {
+            "trap_group": "copp-system-pim",
+            "trap_ids": "pim"
+        }
+    },
+    "COPP_TRAP|copp-system-ptp": {
+        "type": "hash",
+        "value": {
+            "trap_group": "copp-system-ptp",
+            "trap_ids": "ptp"
+        }
+    },
+    "COPP_TRAP|copp-system-sflow": {
+        "type": "hash",
+        "value": {
+            "trap_group": "copp-system-sflow",
+            "trap_ids": "sample_packet"
+        }
+    },
+    "COPP_TRAP|copp-system-stp": {
+        "type": "hash",
+        "value": {
+            "trap_group": "copp-system-stp",
+            "trap_ids": "stp,pvrst"
+        }
+    },
+    "COPP_TRAP|copp-system-subnet": {
+        "type": "hash",
+        "value": {
+            "trap_group": "copp-system-subnet",
+            "trap_ids": "subnet"
+        }
+    },
+    "COPP_TRAP|copp-system-suppress": {
+        "type": "hash",
+        "value": {
+            "trap_group": "copp-system-suppress",
+            "trap_ids": "arp_suppress,nd_suppress"
+        }
+    },
+    "COPP_TRAP|copp-system-udld": {
+        "type": "hash",
+        "value": {
+            "trap_group": "copp-system-udld",
+            "trap_ids": "udld"
+        }
+    },
+    "COPP_TRAP|copp-system-vrrp": {
+        "type": "hash",
+        "value": {
+            "trap_group": "copp-system-vrrp",
+            "trap_ids": "vrrp,vrrpv6"
+        }
+    },
+    "COPP_TRAP|default": {
+        "type": "hash",
+        "value": {
+            "trap_group": "default"
+        }
+    },
+    "COREDUMP|config": {
+        "type": "hash",
+        "value": {
+            "enabled": "true"
+        }
+    },
+    "DEVICE_METADATA|localhost": {
+        "type": "hash",
+        "value": {
+            "default_config_profile": "l3",
+            "docker_routing_config_mode": "separated",
+            "hostname": "t-01-m-09-sp1-01-10.mgmt.refaz.bn.schiff.telekom.de",
+            "hwsku": "Accton-AS7726-32X",
+            "mac": "04:f8:f8:e5:e2:bd",
+            "platform": "x86_64-accton_as7726_32x-r0",
+            "type": "LeafRouter"
+        }
+    },
+    "ECMP_LOADSHARE_TABLE_IPV4|ipv4": {
+        "type": "hash",
+        "value": {
+            "ipv4_dst_ip": "true",
+            "ipv4_l4_dst_port": "true",
+            "ipv4_l4_src_port": "true",
+            "ipv4_protocol": "true",
+            "ipv4_src_ip": "true"
+        }
+    },
+    "ECMP_LOADSHARE_TABLE_IPV6|ipv6": {
+        "type": "hash",
+        "value": {
+            "ipv6_dst_ip": "true",
+            "ipv6_l4_dst_port": "true",
+            "ipv6_l4_src_port": "true",
+            "ipv6_next_hdr": "true",
+            "ipv6_src_ip": "true"
+        }
+    },
+    "FEATURE|bgp": {
+        "type": "hash",
+        "value": {
+            "state": "always_enabled"
+        }
+    },
+    "FEATURE|database": {
+        "type": "hash",
+        "value": {
+            "state": "always_enabled"
+        }
+    },
+    "FEATURE|dhcp_relay": {
+        "type": "hash",
+        "value": {
+            "state": "enabled"
+        }
+    },
+    "FEATURE|iccpd": {
+        "type": "hash",
+        "value": {
+            "state": "enabled"
+        }
+    },
+    "FEATURE|l2mcd": {
+        "type": "hash",
+        "value": {
+            "state": "enabled"
+        }
+    },
+    "FEATURE|lldp": {
+        "type": "hash",
+        "value": {
+            "state": "enabled"
+        }
+    },
+    "FEATURE|mgmt-framework": {
+        "type": "hash",
+        "value": {
+            "state": "always_enabled"
+        }
+    },
+    "FEATURE|nat": {
+        "type": "hash",
+        "value": {
+            "state": "enabled"
+        }
+    },
+    "FEATURE|pmon": {
+        "type": "hash",
+        "value": {
+            "state": "always_enabled"
+        }
+    },
+    "FEATURE|radv": {
+        "type": "hash",
+        "value": {
+            "state": "enabled"
+        }
+    },
+    "FEATURE|sflow": {
+        "type": "hash",
+        "value": {
+            "state": "enabled"
+        }
+    },
+    "FEATURE|snmp": {
+        "type": "hash",
+        "value": {
+            "state": "enabled"
+        }
+    },
+    "FEATURE|stp": {
+        "type": "hash",
+        "value": {
+            "state": "enabled"
+        }
+    },
+    "FEATURE|swss": {
+        "type": "hash",
+        "value": {
+            "state": "always_enabled"
+        }
+    },
+    "FEATURE|syncd": {
+        "type": "hash",
+        "value": {
+            "state": "always_enabled"
+        }
+    },
+    "FEATURE|tam": {
+        "type": "hash",
+        "value": {
+            "state": "enabled"
+        }
+    },
+    "FEATURE|teamd": {
+        "type": "hash",
+        "value": {
+            "state": "always_enabled"
+        }
+    },
+    "FEATURE|telemetry": {
+        "type": "hash",
+        "value": {
+            "state": "enabled"
+        }
+    },
+    "FEATURE|udld": {
+        "type": "hash",
+        "value": {
+            "state": "enabled"
+        }
+    },
+    "FEATURE|vrrp": {
+        "type": "hash",
+        "value": {
+            "state": "enabled"
+        }
+    },
+    "FLEX_COUNTER_TABLE|PFCWD": {
+        "type": "hash",
+        "value": {
+            "FLEX_COUNTER_STATUS": "enable"
+        }
+    },
+    "FLEX_COUNTER_TABLE|PORT": {
+        "type": "hash",
+        "value": {
+            "FLEX_COUNTER_STATUS": "enable"
+        }
+    },
+    "FLEX_COUNTER_TABLE|QUEUE": {
+        "type": "hash",
+        "value": {
+            "FLEX_COUNTER_STATUS": "enable"
+        }
+    },
+    "HARDWARE|ACCESS_LIST": {
+        "type": "hash",
+        "value": {
+            "COUNTER_MODE": "per-rule",
+            "LOOKUP_MODE": "optimized"
+        }
+    },
+    "INTERFACE|Ethernet0": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTERFACE|Ethernet100": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTERFACE|Ethernet104": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTERFACE|Ethernet108": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTERFACE|Ethernet112": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTERFACE|Ethernet116": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTERFACE|Ethernet12": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTERFACE|Ethernet120": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTERFACE|Ethernet124": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTERFACE|Ethernet125": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
     "INTERFACE|Ethernet126": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTERFACE|Ethernet16": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTERFACE|Ethernet20": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTERFACE|Ethernet24": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTERFACE|Ethernet28": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTERFACE|Ethernet32": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTERFACE|Ethernet36": {
         "type": "hash",
         "value": {
             "ipv6_use_link_local_only": "enable"
@@ -372,121 +1318,40 @@
             "ipv6_use_link_local_only": "enable"
         }
     },
-    "COPP_TRAP|copp-system-dhcp": {
+    "INTERFACE|Ethernet40": {
         "type": "hash",
         "value": {
-            "trap_ids": "dhcp,dhcpv6",
-            "trap_group": "copp-system-dhcp"
+            "ipv6_use_link_local_only": "enable"
         }
     },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-lf1-04-10|l2vpn_evpn": {
+    "INTERFACE|Ethernet44": {
         "type": "hash",
         "value": {
-            "admin_status": "true",
-            "soft_reconfiguration_in": "true"
+            "ipv6_use_link_local_only": "enable"
         }
     },
-    "PORT|Ethernet56": {
+    "INTERFACE|Ethernet48": {
         "type": "hash",
         "value": {
-            "index": "15",
-            "lanes": "57,58,59,60",
-            "valid_speeds": "100000,40000",
-            "mtu": "9100",
-            "alias": "Eth1/15",
-            "admin_status": "up",
-            "NULL": "NULL",
-            "speed": "100000"
+            "ipv6_use_link_local_only": "enable"
         }
     },
-    "COPP_TRAP|copp-system-bfd": {
+    "INTERFACE|Ethernet52": {
         "type": "hash",
         "value": {
-            "trap_ids": "bfd,bfdv6",
-            "trap_group": "copp-system-bfd"
+            "ipv6_use_link_local_only": "enable"
         }
     },
-    "PORT|Ethernet60": {
+    "INTERFACE|Ethernet56": {
         "type": "hash",
         "value": {
-            "index": "16",
-            "lanes": "61,62,63,64",
-            "description": "t-01-m-09-lf1-04-10.mgmt.refaz.bn.schiff.telekom.de_Eth1/52",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/16",
-            "admin_status": "up",
-            "NULL": "NULL",
-            "speed": "100000"
+            "ipv6_use_link_local_only": "enable"
         }
     },
-    "ZTP|config": {
+    "INTERFACE|Ethernet60": {
         "type": "hash",
         "value": {
-            "admin-mode": "false"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet28": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-lf1-02-10"
-        }
-    },
-    "BGP_GLOBALS|default": {
-        "type": "hash",
-        "value": {
-            "router_id": "192.168.0.210",
-            "as_path_mp_as_set": "false",
-            "local_asn": "4200065132",
-            "log_nbr_state_changes": "true",
-            "always_compare_med": "false",
-            "external_compare_router_id": "false",
-            "fast_external_failover": "true",
-            "network_import_check": "true",
-            "load_balance_mp_relax": "true",
-            "holdtime": "3",
-            "ignore_as_path_length": "false",
-            "keepalive": "1"
-        }
-    },
-    "POLICY_SECTIONS_TABLE|oob-qos-policy|class-oob-dhcp-client": {
-        "type": "hash",
-        "value": {
-            "PRIORITY": "1020",
-            "SET_POLICER_CIR": "512000",
-            "DESCRIPTION": ""
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-bl1-01-10|ipv4_unicast": {
-        "type": "hash",
-        "value": {
-            "rrclient": "false",
-            "soft_reconfiguration_in": "true",
-            "send_default_route": "false",
-            "send_community": "both",
-            "max_prefix_warning_only": "false",
-            "admin_status": "true"
-        }
-    },
-    "PORT|Ethernet40": {
-        "type": "hash",
-        "value": {
-            "index": "11",
-            "lanes": "41,42,43,44",
-            "description": "t-01-m-09-lf1-04-09.mgmt.refaz.bn.schiff.telekom.de_Eth1/51",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/11",
-            "admin_status": "up",
-            "NULL": "NULL",
-            "speed": "100000"
-        }
-    },
-    "POLICY_TABLE|oob-qos-policy": {
-        "type": "hash",
-        "value": {
-            "TYPE": "QOS",
-            "DESCRIPTION": "QoS Ratelimiting policy for OOB port"
+            "ipv6_use_link_local_only": "enable"
         }
     },
     "INTERFACE|Ethernet64": {
@@ -495,44 +1360,849 @@
             "ipv6_use_link_local_only": "enable"
         }
     },
-    "PORT|Ethernet8": {
+    "INTERFACE|Ethernet68": {
         "type": "hash",
         "value": {
-            "index": "3",
-            "lanes": "9,10,11,12",
-            "description": "m4bneesw0003_Eth1/51",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/3",
-            "admin_status": "up",
-            "speed": "100000"
+            "ipv6_use_link_local_only": "enable"
         }
     },
-    "BGP_PEER_GROUP|default|t-01-m-09-lf1-04-09": {
+    "INTERFACE|Ethernet72": {
         "type": "hash",
         "value": {
-            "min_adv_interval": "0",
-            "ebgp_multihop": "false",
-            "bfd": "true",
-            "peer_type": "external",
-            "passive_mode": "false",
-            "admin_status": "true",
-            "conn_retry": "30",
-            "holdtime": "3",
-            "keepalive": "1"
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTERFACE|Ethernet76": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTERFACE|Ethernet8": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTERFACE|Ethernet80": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTERFACE|Ethernet84": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTERFACE|Ethernet88": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTERFACE|Ethernet92": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTERFACE|Ethernet96": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "KDUMP|config": {
+        "type": "hash",
+        "value": {
+            "enabled": "true",
+            "memory": "0M-2G:256M,2G-4G:320M,4G-8G:384M,8G-:448M",
+            "num_dumps": "3"
+        }
+    },
+    "LLDP|GLOBAL": {
+        "type": "hash",
+        "value": {
+            "enabled": "true"
+        }
+    },
+    "LOOPBACK_INTERFACE|Loopback0": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "LOOPBACK_INTERFACE|Loopback0|192.168.0.210/32": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "LOOPBACK|Loopback0": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "MGMT_PORT|eth0": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autoneg": "true",
+            "description": "Management0",
+            "mtu": "1500",
+            "speed": "1000"
+        }
+    },
+    "MGMT_VRF_CONFIG|vrf_global": {
+        "type": "hash",
+        "value": {
+            "mgmtVrfEnabled": "true"
+        }
+    },
+    "NAT_GLOBAL|Values": {
+        "type": "hash",
+        "value": {
+            "admin_mode": "disabled",
+            "nat_tcp_timeout": "86400",
+            "nat_timeout": "600",
+            "nat_udp_timeout": "300"
+        }
+    },
+    "NTP_SERVER|172.22.13.10": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "NTP_SERVER|172.22.13.11": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "NTP_SERVER|172.22.13.12": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "NTP_SERVER|172.22.13.13": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "NTP_SERVER|172.22.13.14": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "NTP|global": {
+        "type": "hash",
+        "value": {
+            "auth_enabled": "false",
+            "vrf": "mgmt"
+        }
+    },
+    "POLICY_BINDING_TABLE|CtrlPlane": {
+        "type": "hash",
+        "value": {
+            "INGRESS_QOS_POLICY": "oob-qos-policy"
+        }
+    },
+    "POLICY_SECTIONS_TABLE|oob-qos-policy|class-oob-arp": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "",
+            "PRIORITY": "1010",
+            "SET_POLICER_CIR": "256000"
+        }
+    },
+    "POLICY_SECTIONS_TABLE|oob-qos-policy|class-oob-dhcp-client": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "",
+            "PRIORITY": "1020",
+            "SET_POLICER_CIR": "512000"
+        }
+    },
+    "POLICY_SECTIONS_TABLE|oob-qos-policy|class-oob-dhcp-server": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "",
+            "PRIORITY": "1015",
+            "SET_POLICER_CIR": "512000"
+        }
+    },
+    "POLICY_SECTIONS_TABLE|oob-qos-policy|class-oob-ip-multicast": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "",
+            "PRIORITY": "1000",
+            "SET_POLICER_CIR": "256000"
+        }
+    },
+    "POLICY_SECTIONS_TABLE|oob-qos-policy|class-oob-ipv6-multicast": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "",
+            "PRIORITY": "1005",
+            "SET_POLICER_CIR": "256000"
+        }
+    },
+    "POLICY_TABLE|oob-qos-policy": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "QoS Ratelimiting policy for OOB port",
+            "TYPE": "QOS"
+        }
+    },
+    "PORT_QOS_MAP|CPU": {
+        "type": "hash",
+        "value": {
+            "scheduler": "[SCHEDULER|copp-scheduler-policy@255]"
+        }
+    },
+    "PORT|Ethernet0": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "alias": "Eth1/1",
+            "description": "m4bneesw0003_Eth1/49",
+            "index": "1",
+            "lanes": "1,2,3,4",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
         }
     },
     "PORT|Ethernet100": {
         "type": "hash",
         "value": {
+            "admin_status": "up",
+            "alias": "Eth1/26",
+            "description": "t-01-m-09-bl1-04-09.mgmt.refaz.bn.schiff.telekom.de_Eth1/1",
             "index": "26",
             "lanes": "101,102,103,104",
-            "description": "t-01-m-09-bl1-04-09.mgmt.refaz.bn.schiff.telekom.de_Eth1/1",
-            "valid_speeds": "100000, 40000",
             "mtu": "9100",
-            "alias": "Eth1/26",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT|Ethernet104": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/27",
+            "description": "",
+            "index": "27",
+            "lanes": "105,106,107,108",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT|Ethernet108": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/28",
+            "description": "",
+            "index": "28",
+            "lanes": "109,110,111,112",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT|Ethernet112": {
+        "type": "hash",
+        "value": {
             "admin_status": "up",
-            "speed": "100000"
+            "alias": "Eth1/29",
+            "description": "m4bneesw0006_Eth1/49",
+            "index": "29",
+            "lanes": "113,114,115,116",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT|Ethernet116": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "alias": "Eth1/30",
+            "description": "m4bneesw0006_Eth1/50",
+            "index": "30",
+            "lanes": "117,118,119,120",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT|Ethernet12": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "alias": "Eth1/4",
+            "description": "m4bneesw0003_Eth1/52",
+            "index": "4",
+            "lanes": "13,14,15,16",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT|Ethernet120": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "alias": "Eth1/31",
+            "description": "m4bneesw0005_Eth1/49",
+            "index": "31",
+            "lanes": "121,122,123,124",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT|Ethernet124": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "alias": "Eth1/32",
+            "description": "m4bneesw0005_Eth1/50",
+            "index": "32",
+            "lanes": "125,126,127,128",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT|Ethernet125": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/33",
+            "description": "",
+            "index": "33",
+            "lanes": "128",
+            "mtu": "9100",
+            "speed": "10000"
+        }
+    },
+    "PORT|Ethernet126": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/34",
+            "description": "",
+            "index": "34",
+            "lanes": "129",
+            "mtu": "9100",
+            "speed": "10000"
+        }
+    },
+    "PORT|Ethernet16": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "alias": "Eth1/5",
+            "description": "m4bneesw0004_Eth1/49",
+            "index": "5",
+            "lanes": "17,18,19,20",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT|Ethernet20": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "alias": "Eth1/6",
+            "description": "m4bneesw0004_Eth1/50",
+            "index": "6",
+            "lanes": "21,22,23,24",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT|Ethernet24": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "alias": "Eth1/7",
+            "description": "m4bneesw0004_Eth1/51",
+            "index": "7",
+            "lanes": "25,26,27,28",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT|Ethernet28": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "alias": "Eth1/8",
+            "description": "m4bneesw0004_Eth1/52",
+            "index": "8",
+            "lanes": "29,30,31,32",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT|Ethernet32": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "alias": "Eth1/9",
+            "description": "t-01-m-09-lf1-04-09.mgmt.refaz.bn.schiff.telekom.de_Eth1/49",
+            "index": "9",
+            "lanes": "33,34,35,36",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT|Ethernet36": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "alias": "Eth1/10",
+            "description": "t-01-m-09-lf1-04-09.mgmt.refaz.bn.schiff.telekom.de_Eth1/50",
+            "index": "10",
+            "lanes": "37,38,39,40",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT|Ethernet4": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "alias": "Eth1/2",
+            "description": "m4bneesw0003_Eth1/50",
+            "index": "2",
+            "lanes": "5,6,7,8",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT|Ethernet40": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL",
+            "admin_status": "up",
+            "alias": "Eth1/11",
+            "description": "t-01-m-09-lf1-04-09.mgmt.refaz.bn.schiff.telekom.de_Eth1/51",
+            "index": "11",
+            "lanes": "41,42,43,44",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT|Ethernet44": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL",
+            "admin_status": "up",
+            "alias": "Eth1/12",
+            "description": "t-01-m-09-lf1-04-09.mgmt.refaz.bn.schiff.telekom.de_Eth1/52",
+            "index": "12",
+            "lanes": "45,46,47,48",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT|Ethernet48": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "alias": "Eth1/13",
+            "description": "t-01-m-09-lf1-04-10.mgmt.refaz.bn.schiff.telekom.de_Eth1/49",
+            "index": "13",
+            "lanes": "49,50,51,52",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT|Ethernet52": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "alias": "Eth1/14",
+            "description": "t-01-m-09-lf1-04-10.mgmt.refaz.bn.schiff.telekom.de_Eth1/50",
+            "index": "14",
+            "lanes": "53,54,55,56",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT|Ethernet56": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL",
+            "admin_status": "up",
+            "alias": "Eth1/15",
+            "index": "15",
+            "lanes": "57,58,59,60",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000,40000"
+        }
+    },
+    "PORT|Ethernet60": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL",
+            "admin_status": "up",
+            "alias": "Eth1/16",
+            "description": "t-01-m-09-lf1-04-10.mgmt.refaz.bn.schiff.telekom.de_Eth1/52",
+            "index": "16",
+            "lanes": "61,62,63,64",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT|Ethernet64": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/17",
+            "description": "",
+            "index": "17",
+            "lanes": "65,66,67,68",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT|Ethernet68": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/18",
+            "description": "",
+            "index": "18",
+            "lanes": "69,70,71,72",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT|Ethernet72": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/19",
+            "description": "",
+            "index": "19",
+            "lanes": "73,74,75,76",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT|Ethernet76": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/20",
+            "description": "",
+            "index": "20",
+            "lanes": "77,78,79,80",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT|Ethernet8": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "alias": "Eth1/3",
+            "description": "m4bneesw0003_Eth1/51",
+            "index": "3",
+            "lanes": "9,10,11,12",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT|Ethernet80": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/21",
+            "description": "",
+            "index": "21",
+            "lanes": "81,82,83,84",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT|Ethernet84": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/22",
+            "description": "",
+            "index": "22",
+            "lanes": "85,86,87,88",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT|Ethernet88": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/23",
+            "description": "",
+            "index": "23",
+            "lanes": "89,90,91,92",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT|Ethernet92": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/24",
+            "description": "",
+            "index": "24",
+            "lanes": "93,94,95,96",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "PORT|Ethernet96": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "alias": "Eth1/25",
+            "description": "t-01-m-09-bl1-01-10.mgmt.refaz.bn.schiff.telekom.de_Eth1/1",
+            "index": "25",
+            "lanes": "97,98,99,100",
+            "mtu": "9100",
+            "speed": "100000",
+            "valid_speeds": "100000, 40000"
+        }
+    },
+    "QUEUE|CPU|0": {
+        "type": "hash",
+        "value": {
+            "scheduler": "[SCHEDULER|copp-scheduler-policy@0]"
+        }
+    },
+    "QUEUE|CPU|1": {
+        "type": "hash",
+        "value": {
+            "scheduler": "[SCHEDULER|copp-scheduler-policy@1]"
+        }
+    },
+    "QUEUE|CPU|10": {
+        "type": "hash",
+        "value": {
+            "scheduler": "[SCHEDULER|copp-scheduler-policy@10]"
+        }
+    },
+    "QUEUE|CPU|11": {
+        "type": "hash",
+        "value": {
+            "scheduler": "[SCHEDULER|copp-scheduler-policy@11]"
+        }
+    },
+    "QUEUE|CPU|12": {
+        "type": "hash",
+        "value": {
+            "scheduler": "[SCHEDULER|copp-scheduler-policy@12]"
+        }
+    },
+    "QUEUE|CPU|13": {
+        "type": "hash",
+        "value": {
+            "scheduler": "[SCHEDULER|copp-scheduler-policy@13]"
+        }
+    },
+    "QUEUE|CPU|14": {
+        "type": "hash",
+        "value": {
+            "scheduler": "[SCHEDULER|copp-scheduler-policy@14]"
+        }
+    },
+    "QUEUE|CPU|15": {
+        "type": "hash",
+        "value": {
+            "scheduler": "[SCHEDULER|copp-scheduler-policy@15]"
+        }
+    },
+    "QUEUE|CPU|16": {
+        "type": "hash",
+        "value": {
+            "scheduler": "[SCHEDULER|copp-scheduler-policy@16]"
+        }
+    },
+    "QUEUE|CPU|17": {
+        "type": "hash",
+        "value": {
+            "scheduler": "[SCHEDULER|copp-scheduler-policy@17]"
+        }
+    },
+    "QUEUE|CPU|18": {
+        "type": "hash",
+        "value": {
+            "scheduler": "[SCHEDULER|copp-scheduler-policy@18]"
+        }
+    },
+    "QUEUE|CPU|19": {
+        "type": "hash",
+        "value": {
+            "scheduler": "[SCHEDULER|copp-scheduler-policy@19]"
+        }
+    },
+    "QUEUE|CPU|2": {
+        "type": "hash",
+        "value": {
+            "scheduler": "[SCHEDULER|copp-scheduler-policy@2]"
+        }
+    },
+    "QUEUE|CPU|20": {
+        "type": "hash",
+        "value": {
+            "scheduler": "[SCHEDULER|copp-scheduler-policy@20]"
+        }
+    },
+    "QUEUE|CPU|21": {
+        "type": "hash",
+        "value": {
+            "scheduler": "[SCHEDULER|copp-scheduler-policy@21]"
+        }
+    },
+    "QUEUE|CPU|22": {
+        "type": "hash",
+        "value": {
+            "scheduler": "[SCHEDULER|copp-scheduler-policy@22]"
+        }
+    },
+    "QUEUE|CPU|23": {
+        "type": "hash",
+        "value": {
+            "scheduler": "[SCHEDULER|copp-scheduler-policy@23]"
+        }
+    },
+    "QUEUE|CPU|24": {
+        "type": "hash",
+        "value": {
+            "scheduler": "[SCHEDULER|copp-scheduler-policy@24]"
+        }
+    },
+    "QUEUE|CPU|3": {
+        "type": "hash",
+        "value": {
+            "scheduler": "[SCHEDULER|copp-scheduler-policy@3]"
+        }
+    },
+    "QUEUE|CPU|4": {
+        "type": "hash",
+        "value": {
+            "scheduler": "[SCHEDULER|copp-scheduler-policy@4]"
+        }
+    },
+    "QUEUE|CPU|5": {
+        "type": "hash",
+        "value": {
+            "scheduler": "[SCHEDULER|copp-scheduler-policy@5]"
+        }
+    },
+    "QUEUE|CPU|6": {
+        "type": "hash",
+        "value": {
+            "scheduler": "[SCHEDULER|copp-scheduler-policy@6]"
+        }
+    },
+    "QUEUE|CPU|7": {
+        "type": "hash",
+        "value": {
+            "scheduler": "[SCHEDULER|copp-scheduler-policy@7]"
+        }
+    },
+    "QUEUE|CPU|8": {
+        "type": "hash",
+        "value": {
+            "scheduler": "[SCHEDULER|copp-scheduler-policy@8]"
+        }
+    },
+    "QUEUE|CPU|9": {
+        "type": "hash",
+        "value": {
+            "scheduler": "[SCHEDULER|copp-scheduler-policy@9]"
+        }
+    },
+    "SCHEDULER|copp-scheduler-policy@0": {
+        "type": "hash",
+        "value": {
+            "meter_type": "packets",
+            "pir": "100",
+            "type": "WRR",
+            "weight": "1"
+        }
+    },
+    "SCHEDULER|copp-scheduler-policy@1": {
+        "type": "hash",
+        "value": {
+            "meter_type": "packets",
+            "pir": "100",
+            "type": "WRR",
+            "weight": "1"
+        }
+    },
+    "SCHEDULER|copp-scheduler-policy@10": {
+        "type": "hash",
+        "value": {
+            "meter_type": "packets",
+            "pir": "3000",
+            "type": "WRR",
+            "weight": "2"
+        }
+    },
+    "SCHEDULER|copp-scheduler-policy@11": {
+        "type": "hash",
+        "value": {
+            "meter_type": "packets",
+            "pir": "3000",
+            "type": "WRR",
+            "weight": "2"
+        }
+    },
+    "SCHEDULER|copp-scheduler-policy@12": {
+        "type": "hash",
+        "value": {
+            "meter_type": "packets",
+            "pir": "2000",
+            "type": "WRR",
+            "weight": "2"
         }
     },
     "SCHEDULER|copp-scheduler-policy@13": {
@@ -544,487 +2214,31 @@
             "weight": "2"
         }
     },
-    "QUEUE|CPU|22": {
-        "type": "hash",
-        "value": {
-            "scheduler": "[SCHEDULER|copp-scheduler-policy@22]"
-        }
-    },
-    "INTERFACE|Ethernet32": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "QUEUE|CPU|14": {
-        "type": "hash",
-        "value": {
-            "scheduler": "[SCHEDULER|copp-scheduler-policy@14]"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet112": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-ltb1-02-10"
-        }
-    },
-    "COPP_TRAP|copp-system-icmp": {
-        "type": "hash",
-        "value": {
-            "trap_ids": "icmp,icmpv6",
-            "trap_group": "copp-system-icmp"
-        }
-    },
-    "COPP_GROUP|copp-system-mtu": {
-        "type": "hash",
-        "value": {
-            "cbs": "500",
-            "trap_action": "trap",
-            "queue": "4",
-            "cir": "500",
-            "meter_type": "packets",
-            "mode": "sr_tcm",
-            "trap_priority": "4",
-            "red_action": "drop"
-        }
-    },
-    "POLICY_BINDING_TABLE|CtrlPlane": {
-        "type": "hash",
-        "value": {
-            "INGRESS_QOS_POLICY": "oob-qos-policy"
-        }
-    },
-    "FEATURE|l2mcd": {
-        "type": "hash",
-        "value": {
-            "state": "enabled"
-        }
-    },
-    "BGP_GLOBALS_AF|default|l2vpn_evpn": {
-        "type": "hash",
-        "value": {
-            "advertise-all-vni": "true"
-        }
-    },
-    "COPP_GROUP|copp-system-suppress": {
-        "type": "hash",
-        "value": {
-            "cbs": "3000",
-            "trap_action": "trap",
-            "queue": "11",
-            "cir": "3000",
-            "meter_type": "packets",
-            "mode": "sr_tcm",
-            "trap_priority": "11",
-            "red_action": "drop"
-        }
-    },
-    "QUEUE|CPU|20": {
-        "type": "hash",
-        "value": {
-            "scheduler": "[SCHEDULER|copp-scheduler-policy@20]"
-        }
-    },
-    "INTERFACE|Ethernet88": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "SCHEDULER|copp-scheduler-policy@22": {
+    "SCHEDULER|copp-scheduler-policy@14": {
         "type": "hash",
         "value": {
             "meter_type": "packets",
-            "pir": "500",
+            "pir": "10000",
             "type": "WRR",
-            "weight": "10"
+            "weight": "6"
         }
     },
-    "COPP_TRAP|copp-system-igmp": {
-        "type": "hash",
-        "value": {
-            "trap_ids": "igmp_query",
-            "trap_group": "copp-system-igmp"
-        }
-    },
-    "COPP_GROUP|copp-system-lldp": {
-        "type": "hash",
-        "value": {
-            "cbs": "500",
-            "trap_action": "trap",
-            "queue": "18",
-            "cir": "500",
-            "meter_type": "packets",
-            "mode": "sr_tcm",
-            "trap_priority": "18",
-            "red_action": "drop"
-        }
-    },
-    "BREAKOUT_PORTS|Ethernet57": {
-        "type": "hash",
-        "value": {
-            "master": "Ethernet56"
-        }
-    },
-    "QUEUE|CPU|1": {
-        "type": "hash",
-        "value": {
-            "scheduler": "[SCHEDULER|copp-scheduler-policy@1]"
-        }
-    },
-    "FEATURE|database": {
-        "type": "hash",
-        "value": {
-            "state": "always_enabled"
-        }
-    },
-    "COPP_TRAP|copp-system-iccp": {
-        "type": "hash",
-        "value": {
-            "trap_ids": "iccp",
-            "trap_group": "copp-system-iccp"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet24": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-lf1-02-10"
-        }
-    },
-    "PORT|Ethernet44": {
-        "type": "hash",
-        "value": {
-            "index": "12",
-            "lanes": "45,46,47,48",
-            "description": "t-01-m-09-lf1-04-09.mgmt.refaz.bn.schiff.telekom.de_Eth1/52",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/12",
-            "admin_status": "up",
-            "NULL": "NULL",
-            "speed": "100000"
-        }
-    },
-    "QUEUE|CPU|4": {
-        "type": "hash",
-        "value": {
-            "scheduler": "[SCHEDULER|copp-scheduler-policy@4]"
-        }
-    },
-    "INTERFACE|Ethernet52": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet52": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-lf1-04-10"
-        }
-    },
-    "COPP_GROUP|copp-system-pim": {
-        "type": "hash",
-        "value": {
-            "cbs": "5000",
-            "trap_action": "trap",
-            "queue": "13",
-            "cir": "5000",
-            "meter_type": "packets",
-            "mode": "sr_tcm",
-            "trap_priority": "13",
-            "red_action": "drop"
-        }
-    },
-    "COPP_GROUP|copp-system-icmp": {
-        "type": "hash",
-        "value": {
-            "cbs": "1000",
-            "trap_action": "trap",
-            "queue": "8",
-            "cir": "1000",
-            "meter_type": "packets",
-            "mode": "sr_tcm",
-            "trap_priority": "8",
-            "red_action": "drop"
-        }
-    },
-    "COPP_TRAP|default": {
-        "type": "hash",
-        "value": {
-            "trap_group": "default"
-        }
-    },
-    "SWITCH|switch": {
-        "type": "hash",
-        "value": {
-            "fdb_aging_time": "600"
-        }
-    },
-    "BGP_PEER_GROUP|default|t-01-m-09-lf1-02-10": {
-        "type": "hash",
-        "value": {
-            "min_adv_interval": "0",
-            "ebgp_multihop": "false",
-            "bfd": "true",
-            "peer_type": "external",
-            "passive_mode": "false",
-            "admin_status": "true",
-            "conn_retry": "30",
-            "holdtime": "3",
-            "keepalive": "1"
-        }
-    },
-    "LOOPBACK|Loopback0": {
-        "type": "hash",
-        "value": {
-            "NULL": "NULL"
-        }
-    },
-    "CLASSIFIER_TABLE|class-oob-ip-multicast": {
-        "type": "hash",
-        "value": {
-            "DST_IP": "224.0.0.0/4",
-            "MATCH_TYPE": "FIELDS",
-            "DESCRIPTION": "",
-            "ETHER_TYPE": "0x800"
-        }
-    },
-    "CLASSIFIER_TABLE|class-oob-dhcp-server": {
-        "type": "hash",
-        "value": {
-            "IP_PROTOCOL": "17",
-            "L4_DST_PORT": "67",
-            "MATCH_TYPE": "FIELDS",
-            "ETHER_TYPE": "0x800",
-            "DESCRIPTION": ""
-        }
-    },
-    "FEATURE|udld": {
-        "type": "hash",
-        "value": {
-            "state": "enabled"
-        }
-    },
-    "INTERFACE|Ethernet24": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet12": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-lf1-01-10"
-        }
-    },
-    "SCHEDULER|copp-scheduler-policy@3": {
+    "SCHEDULER|copp-scheduler-policy@15": {
         "type": "hash",
         "value": {
             "meter_type": "packets",
-            "pir": "8000",
+            "pir": "5000",
             "type": "WRR",
-            "weight": "1"
+            "weight": "4"
         }
     },
-    "COPP_TRAP|copp-system-ospf": {
-        "type": "hash",
-        "value": {
-            "trap_ids": "ospf",
-            "trap_group": "copp-system-ospf"
-        }
-    },
-    "PORT|Ethernet84": {
-        "type": "hash",
-        "value": {
-            "index": "22",
-            "lanes": "85,86,87,88",
-            "description": "",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/22",
-            "admin_status": "down",
-            "speed": "100000"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-bl1-04-09|l2vpn_evpn": {
-        "type": "hash",
-        "value": {
-            "admin_status": "true",
-            "soft_reconfiguration_in": "true"
-        }
-    },
-    "COPP_GROUP|copp-system-subnet": {
-        "type": "hash",
-        "value": {
-            "cbs": "2000",
-            "trap_action": "trap",
-            "queue": "6",
-            "cir": "2000",
-            "meter_type": "packets",
-            "mode": "sr_tcm",
-            "trap_priority": "6",
-            "red_action": "drop"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-lf1-01-10|ipv4_unicast": {
-        "type": "hash",
-        "value": {
-            "rrclient": "false",
-            "soft_reconfiguration_in": "true",
-            "send_default_route": "false",
-            "send_community": "both",
-            "max_prefix_warning_only": "false",
-            "admin_status": "true"
-        }
-    },
-    "PORT|Ethernet20": {
-        "type": "hash",
-        "value": {
-            "index": "6",
-            "lanes": "21,22,23,24",
-            "description": "m4bneesw0004_Eth1/50",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/6",
-            "admin_status": "up",
-            "speed": "100000"
-        }
-    },
-    "BREAKOUT_PORTS|Ethernet58": {
-        "type": "hash",
-        "value": {
-            "master": "Ethernet56"
-        }
-    },
-    "NTP|global": {
-        "type": "hash",
-        "value": {
-            "auth_enabled": "false",
-            "vrf": "mgmt"
-        }
-    },
-    "INTERFACE|Ethernet68": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet40": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-lf1-04-09"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-lf1-04-09|l2vpn_evpn": {
-        "type": "hash",
-        "value": {
-            "admin_status": "true",
-            "soft_reconfiguration_in": "true"
-        }
-    },
-    "LLDP|GLOBAL": {
-        "type": "hash",
-        "value": {
-            "enabled": "true"
-        }
-    },
-    "INTERFACE|Ethernet96": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "NTP_SERVER|172.22.13.10": {
-        "type": "hash",
-        "value": {
-            "NULL": "NULL"
-        }
-    },
-    "NAT_GLOBAL|Values": {
-        "type": "hash",
-        "value": {
-            "nat_timeout": "600",
-            "admin_mode": "disabled",
-            "nat_udp_timeout": "300",
-            "nat_tcp_timeout": "86400"
-        }
-    },
-    "PORT|Ethernet116": {
-        "type": "hash",
-        "value": {
-            "index": "30",
-            "lanes": "117,118,119,120",
-            "description": "m4bneesw0006_Eth1/50",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/30",
-            "admin_status": "up",
-            "speed": "100000"
-        }
-    },
-    "QUEUE|CPU|10": {
-        "type": "hash",
-        "value": {
-            "scheduler": "[SCHEDULER|copp-scheduler-policy@10]"
-        }
-    },
-    "INTERFACE|Ethernet8": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "QUEUE|CPU|13": {
-        "type": "hash",
-        "value": {
-            "scheduler": "[SCHEDULER|copp-scheduler-policy@13]"
-        }
-    },
-    "BGP_GLOBALS_AF|default|ipv4_unicast": {
-        "type": "hash",
-        "value": {
-            "ibgp_equal_cluster_length": "false",
-            "route_flap_dampen": "false",
-            "max_ebgp_paths": "64",
-            "max_ibgp_paths": "64"
-        }
-    },
-    "COPP_TRAP|copp-system-pim": {
-        "type": "hash",
-        "value": {
-            "trap_ids": "pim",
-            "trap_group": "copp-system-pim"
-        }
-    },
-    "SCHEDULER|copp-scheduler-policy@20": {
+    "SCHEDULER|copp-scheduler-policy@16": {
         "type": "hash",
         "value": {
             "meter_type": "packets",
-            "pir": "1500",
+            "pir": "5000",
             "type": "WRR",
-            "weight": "10"
-        }
-    },
-    "INTERFACE|Ethernet84": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "SCHEDULER|copp-scheduler-policy@2": {
-        "type": "hash",
-        "value": {
-            "meter_type": "packets",
-            "pir": "600",
-            "type": "WRR",
-            "weight": "2"
-        }
-    },
-    "INTERFACE|Ethernet100": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
+            "weight": "4"
         }
     },
     "SCHEDULER|copp-scheduler-policy@17": {
@@ -1036,74 +2250,100 @@
             "weight": "2"
         }
     },
-    "FEATURE|vrrp": {
+    "SCHEDULER|copp-scheduler-policy@18": {
         "type": "hash",
         "value": {
-            "state": "enabled"
+            "meter_type": "packets",
+            "pir": "500",
+            "type": "WRR",
+            "weight": "2"
         }
     },
-    "PORT|Ethernet64": {
+    "SCHEDULER|copp-scheduler-policy@19": {
         "type": "hash",
         "value": {
-            "index": "17",
-            "lanes": "65,66,67,68",
-            "description": "",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/17",
-            "admin_status": "down",
-            "speed": "100000"
+            "meter_type": "packets",
+            "pir": "5000",
+            "type": "WRR",
+            "weight": "3"
         }
     },
-    "QUEUE|CPU|19": {
+    "SCHEDULER|copp-scheduler-policy@2": {
         "type": "hash",
         "value": {
-            "scheduler": "[SCHEDULER|copp-scheduler-policy@19]"
+            "meter_type": "packets",
+            "pir": "600",
+            "type": "WRR",
+            "weight": "2"
         }
     },
-    "COPP_TRAP|copp-system-subnet": {
+    "SCHEDULER|copp-scheduler-policy@20": {
         "type": "hash",
         "value": {
-            "trap_ids": "subnet",
-            "trap_group": "copp-system-subnet"
+            "meter_type": "packets",
+            "pir": "1500",
+            "type": "WRR",
+            "weight": "10"
         }
     },
-    "FEATURE|nat": {
+    "SCHEDULER|copp-scheduler-policy@21": {
         "type": "hash",
         "value": {
-            "state": "enabled"
+            "meter_type": "packets",
+            "pir": "16000",
+            "type": "WRR",
+            "weight": "30"
         }
     },
-    "PORT|Ethernet88": {
+    "SCHEDULER|copp-scheduler-policy@22": {
         "type": "hash",
         "value": {
-            "index": "23",
-            "lanes": "89,90,91,92",
-            "description": "",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/23",
-            "admin_status": "down",
-            "speed": "100000"
+            "meter_type": "packets",
+            "pir": "500",
+            "type": "WRR",
+            "weight": "10"
         }
     },
-    "BGP_NEIGHBOR|default|Ethernet32": {
+    "SCHEDULER|copp-scheduler-policy@23": {
         "type": "hash",
         "value": {
-            "peer_group_name": "t-01-m-09-lf1-04-09"
+            "meter_type": "packets",
+            "pir": "500",
+            "type": "WRR",
+            "weight": "10"
         }
     },
-    "PORT|Ethernet32": {
+    "SCHEDULER|copp-scheduler-policy@24": {
         "type": "hash",
         "value": {
-            "index": "9",
-            "lanes": "33,34,35,36",
-            "description": "t-01-m-09-lf1-04-09.mgmt.refaz.bn.schiff.telekom.de_Eth1/49",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/9",
-            "admin_status": "up",
-            "speed": "100000"
+            "meter_type": "packets",
+            "pir": "5000",
+            "type": "WRR",
+            "weight": "3"
+        }
+    },
+    "SCHEDULER|copp-scheduler-policy@255": {
+        "type": "hash",
+        "value": {
+            "meter_type": "packets"
+        }
+    },
+    "SCHEDULER|copp-scheduler-policy@3": {
+        "type": "hash",
+        "value": {
+            "meter_type": "packets",
+            "pir": "8000",
+            "type": "WRR",
+            "weight": "1"
+        }
+    },
+    "SCHEDULER|copp-scheduler-policy@4": {
+        "type": "hash",
+        "value": {
+            "meter_type": "packets",
+            "pir": "500",
+            "type": "WRR",
+            "weight": "1"
         }
     },
     "SCHEDULER|copp-scheduler-policy@5": {
@@ -1115,29 +2355,20 @@
             "weight": "1"
         }
     },
-    "QUEUE|CPU|17": {
-        "type": "hash",
-        "value": {
-            "scheduler": "[SCHEDULER|copp-scheduler-policy@17]"
-        }
-    },
-    "NTP_SERVER|172.22.13.14": {
-        "type": "hash",
-        "value": {
-            "NULL": "NULL"
-        }
-    },
-    "TELEMETRY|gnmi": {
-        "type": "hash",
-        "value": {
-            "port": "8080"
-        }
-    },
-    "SCHEDULER|copp-scheduler-policy@11": {
+    "SCHEDULER|copp-scheduler-policy@6": {
         "type": "hash",
         "value": {
             "meter_type": "packets",
-            "pir": "3000",
+            "pir": "2000",
+            "type": "WRR",
+            "weight": "2"
+        }
+    },
+    "SCHEDULER|copp-scheduler-policy@7": {
+        "type": "hash",
+        "value": {
+            "meter_type": "packets",
+            "pir": "6000",
             "type": "WRR",
             "weight": "2"
         }
@@ -1151,992 +2382,31 @@
             "weight": "2"
         }
     },
-    "POLICY_SECTIONS_TABLE|oob-qos-policy|class-oob-ipv6-multicast": {
-        "type": "hash",
-        "value": {
-            "PRIORITY": "1005",
-            "SET_POLICER_CIR": "256000",
-            "DESCRIPTION": ""
-        }
-    },
-    "POLICY_SECTIONS_TABLE|oob-qos-policy|class-oob-dhcp-server": {
-        "type": "hash",
-        "value": {
-            "PRIORITY": "1015",
-            "SET_POLICER_CIR": "512000",
-            "DESCRIPTION": ""
-        }
-    },
-    "INTERFACE|Ethernet104": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "COPP_GROUP|copp-system-ptp": {
-        "type": "hash",
-        "value": {
-            "cbs": "5000",
-            "trap_action": "trap",
-            "queue": "30",
-            "cir": "5000",
-            "meter_type": "packets",
-            "mode": "sr_tcm",
-            "trap_priority": "30",
-            "red_action": "drop"
-        }
-    },
-    "PORT|Ethernet24": {
-        "type": "hash",
-        "value": {
-            "index": "7",
-            "lanes": "25,26,27,28",
-            "description": "m4bneesw0004_Eth1/51",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/7",
-            "admin_status": "up",
-            "speed": "100000"
-        }
-    },
-    "BGP_PEER_GROUP|default|t-01-m-09-bl1-01-10": {
-        "type": "hash",
-        "value": {
-            "min_adv_interval": "0",
-            "ebgp_multihop": "false",
-            "bfd": "true",
-            "peer_type": "external",
-            "passive_mode": "false",
-            "admin_status": "true",
-            "conn_retry": "30",
-            "holdtime": "3",
-            "keepalive": "1"
-        }
-    },
-    "INTERFACE|Ethernet80": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "CONFIG_DB_UPDATED_PORT": {
-        "type": "string",
-        "value": "1"
-    },
-    "INTERFACE|Ethernet120": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "FEATURE|snmp": {
-        "type": "hash",
-        "value": {
-            "state": "enabled"
-        }
-    },
-    "INTERFACE|Ethernet124": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "SCHEDULER|copp-scheduler-policy@0": {
+    "SCHEDULER|copp-scheduler-policy@9": {
         "type": "hash",
         "value": {
             "meter_type": "packets",
-            "pir": "100",
-            "type": "WRR",
-            "weight": "1"
-        }
-    },
-    "SCHEDULER|copp-scheduler-policy@15": {
-        "type": "hash",
-        "value": {
-            "meter_type": "packets",
-            "pir": "5000",
-            "type": "WRR",
-            "weight": "4"
-        }
-    },
-    "BGP_PEER_GROUP|default|t-01-m-09-bl1-04-09": {
-        "type": "hash",
-        "value": {
-            "min_adv_interval": "0",
-            "ebgp_multihop": "false",
-            "bfd": "true",
-            "peer_type": "external",
-            "passive_mode": "false",
-            "admin_status": "true",
-            "conn_retry": "30",
-            "holdtime": "3",
-            "keepalive": "1"
-        }
-    },
-    "COPP_TRAP|copp-system-sflow": {
-        "type": "hash",
-        "value": {
-            "trap_ids": "sample_packet",
-            "trap_group": "copp-system-sflow"
-        }
-    },
-    "INTERFACE|Ethernet72": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "FEATURE|swss": {
-        "type": "hash",
-        "value": {
-            "state": "always_enabled"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet56": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-lf1-04-10"
-        }
-    },
-    "NTP_SERVER|172.22.13.12": {
-        "type": "hash",
-        "value": {
-            "NULL": "NULL"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-ltb1-04-10|ipv4_unicast": {
-        "type": "hash",
-        "value": {
-            "rrclient": "false",
-            "soft_reconfiguration_in": "true",
-            "send_default_route": "false",
-            "send_community": "both",
-            "max_prefix_warning_only": "false",
-            "admin_status": "true"
-        }
-    },
-    "FLEX_COUNTER_TABLE|PFCWD": {
-        "type": "hash",
-        "value": {
-            "FLEX_COUNTER_STATUS": "enable"
-        }
-    },
-    "NTP_SERVER|172.22.13.11": {
-        "type": "hash",
-        "value": {
-            "NULL": "NULL"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-bl1-04-09|ipv4_unicast": {
-        "type": "hash",
-        "value": {
-            "rrclient": "false",
-            "soft_reconfiguration_in": "true",
-            "send_default_route": "false",
-            "send_community": "both",
-            "max_prefix_warning_only": "false",
-            "admin_status": "true"
-        }
-    },
-    "BGP_PEER_GROUP|default|t-01-m-09-ltb1-02-10": {
-        "type": "hash",
-        "value": {
-            "min_adv_interval": "0",
-            "ebgp_multihop": "false",
-            "bfd": "true",
-            "peer_type": "external",
-            "passive_mode": "false",
-            "admin_status": "true",
-            "conn_retry": "30",
-            "holdtime": "3",
-            "keepalive": "1"
-        }
-    },
-    "PORT|Ethernet124": {
-        "type": "hash",
-        "value": {
-            "index": "32",
-            "lanes": "125,126,127,128",
-            "description": "m4bneesw0005_Eth1/50",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/32",
-            "admin_status": "up",
-            "speed": "100000"
-        }
-    },
-    "COPP_GROUP|copp-system-bfd": {
-        "type": "hash",
-        "value": {
-            "cbs": "1500",
-            "trap_action": "trap",
-            "queue": "20",
-            "cir": "1500",
-            "meter_type": "packets",
-            "mode": "sr_tcm",
-            "trap_priority": "20",
-            "red_action": "drop"
-        }
-    },
-    "QUEUE|CPU|16": {
-        "type": "hash",
-        "value": {
-            "scheduler": "[SCHEDULER|copp-scheduler-policy@16]"
-        }
-    },
-    "FEATURE|lldp": {
-        "type": "hash",
-        "value": {
-            "state": "enabled"
-        }
-    },
-    "COPP_TRAP|copp-system-dhcpl2": {
-        "type": "hash",
-        "value": {
-            "trap_ids": "dhcp_l2,dhcpv6_l2",
-            "trap_group": "NULL"
-        }
-    },
-    "PORT|Ethernet80": {
-        "type": "hash",
-        "value": {
-            "index": "21",
-            "lanes": "81,82,83,84",
-            "description": "",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/21",
-            "admin_status": "down",
-            "speed": "100000"
-        }
-    },
-    "COPP_TRAP|copp-system-lldp": {
-        "type": "hash",
-        "value": {
-            "trap_ids": "lldp",
-            "trap_group": "copp-system-lldp"
-        }
-    },
-    "INTERFACE|Ethernet36": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "PORT|Ethernet36": {
-        "type": "hash",
-        "value": {
-            "index": "10",
-            "lanes": "37,38,39,40",
-            "description": "t-01-m-09-lf1-04-09.mgmt.refaz.bn.schiff.telekom.de_Eth1/50",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/10",
-            "admin_status": "up",
-            "speed": "100000"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet60": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-lf1-04-10"
-        }
-    },
-    "FLEX_COUNTER_TABLE|PORT": {
-        "type": "hash",
-        "value": {
-            "FLEX_COUNTER_STATUS": "enable"
-        }
-    },
-    "COPP_TRAP|copp-system-ptp": {
-        "type": "hash",
-        "value": {
-            "trap_ids": "ptp",
-            "trap_group": "copp-system-ptp"
-        }
-    },
-    "QUEUE|CPU|12": {
-        "type": "hash",
-        "value": {
-            "scheduler": "[SCHEDULER|copp-scheduler-policy@12]"
-        }
-    },
-    "PORT|Ethernet0": {
-        "type": "hash",
-        "value": {
-            "index": "1",
-            "lanes": "1,2,3,4",
-            "description": "m4bneesw0003_Eth1/49",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/1",
-            "admin_status": "up",
-            "speed": "100000"
-        }
-    },
-    "QUEUE|CPU|15": {
-        "type": "hash",
-        "value": {
-            "scheduler": "[SCHEDULER|copp-scheduler-policy@15]"
-        }
-    },
-    "QUEUE|CPU|21": {
-        "type": "hash",
-        "value": {
-            "scheduler": "[SCHEDULER|copp-scheduler-policy@21]"
-        }
-    },
-    "COPP_TRAP|copp-system-mtu": {
-        "type": "hash",
-        "value": {
-            "trap_ids": "l3_mtu_error",
-            "trap_group": "copp-system-mtu"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet4": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-lf1-01-10"
-        }
-    },
-    "FEATURE|radv": {
-        "type": "hash",
-        "value": {
-            "state": "enabled"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-ltb1-04-10|l2vpn_evpn": {
-        "type": "hash",
-        "value": {
-            "admin_status": "true",
-            "soft_reconfiguration_in": "true"
-        }
-    },
-    "FEATURE|teamd": {
-        "type": "hash",
-        "value": {
-            "state": "always_enabled"
-        }
-    },
-    "PORT|Ethernet52": {
-        "type": "hash",
-        "value": {
-            "index": "14",
-            "lanes": "53,54,55,56",
-            "description": "t-01-m-09-lf1-04-10.mgmt.refaz.bn.schiff.telekom.de_Eth1/50",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/14",
-            "admin_status": "up",
-            "speed": "100000"
-        }
-    },
-    "COPP_TRAP|copp-system-udld": {
-        "type": "hash",
-        "value": {
-            "trap_ids": "udld",
-            "trap_group": "copp-system-udld"
-        }
-    },
-    "BGP_PEER_GROUP|default|t-01-m-09-lf1-01-10": {
-        "type": "hash",
-        "value": {
-            "min_adv_interval": "0",
-            "ebgp_multihop": "false",
-            "bfd": "true",
-            "peer_type": "external",
-            "passive_mode": "false",
-            "admin_status": "true",
-            "conn_retry": "30",
-            "holdtime": "3",
-            "keepalive": "1"
-        }
-    },
-    "QUEUE|CPU|5": {
-        "type": "hash",
-        "value": {
-            "scheduler": "[SCHEDULER|copp-scheduler-policy@5]"
-        }
-    },
-    "INTERFACE|Ethernet56": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "PORT|Ethernet48": {
-        "type": "hash",
-        "value": {
-            "index": "13",
-            "lanes": "49,50,51,52",
-            "description": "t-01-m-09-lf1-04-10.mgmt.refaz.bn.schiff.telekom.de_Eth1/49",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/13",
-            "admin_status": "up",
-            "speed": "100000"
-        }
-    },
-    "COPP_TRAP|copp-system-vrrp": {
-        "type": "hash",
-        "value": {
-            "trap_ids": "vrrp,vrrpv6",
-            "trap_group": "copp-system-vrrp"
-        }
-    },
-    "BGP_PEER_GROUP|default|t-01-m-09-ltb1-04-09": {
-        "type": "hash",
-        "value": {
-            "min_adv_interval": "0",
-            "ebgp_multihop": "false",
-            "bfd": "true",
-            "peer_type": "external",
-            "passive_mode": "false",
-            "admin_status": "true",
-            "conn_retry": "30",
-            "holdtime": "3",
-            "keepalive": "1"
-        }
-    },
-    "COPP_TRAP|copp-system-bgp": {
-        "type": "hash",
-        "value": {
-            "trap_ids": "bgp,bgpv6",
-            "trap_group": "copp-system-bgp"
-        }
-    },
-    "INTERFACE|Ethernet48": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "BGP_PEER_GROUP|default|t-01-m-09-ltb1-04-10": {
-        "type": "hash",
-        "value": {
-            "min_adv_interval": "0",
-            "ebgp_multihop": "false",
-            "bfd": "true",
-            "peer_type": "external",
-            "passive_mode": "false",
-            "admin_status": "true",
-            "conn_retry": "30",
-            "holdtime": "3",
-            "keepalive": "1"
-        }
-    },
-    "PORT|Ethernet68": {
-        "type": "hash",
-        "value": {
-            "index": "18",
-            "lanes": "69,70,71,72",
-            "description": "",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/18",
-            "admin_status": "down",
-            "speed": "100000"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-ltb1-04-09|l2vpn_evpn": {
-        "type": "hash",
-        "value": {
-            "admin_status": "true",
-            "soft_reconfiguration_in": "true"
-        }
-    },
-    "FEATURE|syncd": {
-        "type": "hash",
-        "value": {
-            "state": "always_enabled"
-        }
-    },
-    "BREAKOUT_PORTS|Ethernet59": {
-        "type": "hash",
-        "value": {
-            "master": "Ethernet56"
-        }
-    },
-    "PORT|Ethernet125": {
-        "type": "hash",
-        "value": {
-            "index": "33",
-            "lanes": "128",
-            "description": "",
-            "mtu": "9100",
-            "alias": "Eth1/33",
-            "admin_status": "down",
-            "speed": "10000"
-        }
-    },
-    "COPP_GROUP|copp-system-ospf": {
-        "type": "hash",
-        "value": {
-            "cbs": "5000",
-            "trap_action": "copy",
-            "queue": "15",
-            "cir": "5000",
-            "meter_type": "packets",
-            "mode": "sr_tcm",
-            "trap_priority": "15",
-            "red_action": "drop"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet16": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-lf1-02-10"
-        }
-    },
-    "PORT|Ethernet72": {
-        "type": "hash",
-        "value": {
-            "index": "19",
-            "lanes": "73,74,75,76",
-            "description": "",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/19",
-            "admin_status": "down",
-            "speed": "100000"
-        }
-    },
-    "COPP_GROUP|copp-system-dhcp": {
-        "type": "hash",
-        "value": {
-            "cbs": "300",
-            "trap_action": "trap",
-            "queue": "9",
-            "cir": "300",
-            "meter_type": "packets",
-            "mode": "sr_tcm",
-            "trap_priority": "9",
-            "red_action": "drop"
-        }
-    },
-    "FEATURE|bgp": {
-        "type": "hash",
-        "value": {
-            "state": "always_enabled"
-        }
-    },
-    "LOOPBACK_INTERFACE|Loopback0": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "BGP_GLOBALS_AF_NETWORK|default|ipv4_unicast|192.168.0.210/32": {
-        "type": "hash",
-        "value": {
-            "NULL": "NULL"
-        }
-    },
-    "SCHEDULER|copp-scheduler-policy@24": {
-        "type": "hash",
-        "value": {
-            "meter_type": "packets",
-            "pir": "5000",
-            "type": "WRR",
-            "weight": "3"
-        }
-    },
-    "COPP_GROUP|copp-system-arp": {
-        "type": "hash",
-        "value": {
-            "cbs": "3000",
-            "trap_action": "copy",
-            "queue": "10",
-            "cir": "3000",
-            "meter_type": "packets",
-            "mode": "sr_tcm",
-            "trap_priority": "10",
-            "red_action": "drop"
-        }
-    },
-    "COPP_TRAP|copp-system-nat": {
-        "type": "hash",
-        "value": {
-            "trap_ids": "src_nat_miss,dest_nat_miss",
-            "trap_group": "copp-system-nat"
-        }
-    },
-    "QUEUE|CPU|8": {
-        "type": "hash",
-        "value": {
-            "scheduler": "[SCHEDULER|copp-scheduler-policy@8]"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet44": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-lf1-04-09"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet116": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-ltb1-02-10"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-ltb1-01-10|ipv4_unicast": {
-        "type": "hash",
-        "value": {
-            "rrclient": "false",
-            "soft_reconfiguration_in": "true",
-            "send_default_route": "false",
-            "send_community": "both",
-            "max_prefix_warning_only": "false",
-            "admin_status": "true"
-        }
-    },
-    "QUEUE|CPU|24": {
-        "type": "hash",
-        "value": {
-            "scheduler": "[SCHEDULER|copp-scheduler-policy@24]"
-        }
-    },
-    "BGP_PEER_GROUP|default|t-01-m-09-lf1-04-10": {
-        "type": "hash",
-        "value": {
-            "min_adv_interval": "0",
-            "ebgp_multihop": "false",
-            "bfd": "true",
-            "peer_type": "external",
-            "passive_mode": "false",
-            "admin_status": "true",
-            "conn_retry": "30",
-            "holdtime": "3",
-            "keepalive": "1"
-        }
-    },
-    "INTERFACE|Ethernet28": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "SCHEDULER|copp-scheduler-policy@6": {
-        "type": "hash",
-        "value": {
-            "meter_type": "packets",
-            "pir": "2000",
+            "pir": "300",
             "type": "WRR",
             "weight": "2"
         }
     },
-    "PORT|Ethernet76": {
+    "SWITCH|switch": {
         "type": "hash",
         "value": {
-            "index": "20",
-            "lanes": "77,78,79,80",
-            "description": "",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/20",
-            "admin_status": "down",
-            "speed": "100000"
+            "fdb_aging_time": "600"
         }
     },
-    "SCHEDULER|copp-scheduler-policy@4": {
+    "TELEMETRY|gnmi": {
         "type": "hash",
         "value": {
-            "meter_type": "packets",
-            "pir": "500",
-            "type": "WRR",
-            "weight": "1"
+            "port": "8080"
         }
     },
-    "SCHEDULER|copp-scheduler-policy@21": {
+    "VERSIONS|DATABASE": {
         "type": "hash",
         "value": {
-            "meter_type": "packets",
-            "pir": "16000",
-            "type": "WRR",
-            "weight": "30"
-        }
-    },
-    "PORT|Ethernet126": {
-        "type": "hash",
-        "value": {
-            "index": "34",
-            "lanes": "129",
-            "description": "",
-            "mtu": "9100",
-            "alias": "Eth1/34",
-            "admin_status": "down",
-            "speed": "10000"
-        }
-    },
-    "COPP_TRAP|copp-system-lacp": {
-        "type": "hash",
-        "value": {
-            "trap_ids": "lacp",
-            "trap_group": "copp-system-lacp"
-        }
-    },
-    "INTERFACE|Ethernet112": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "CONFIG_DB_UPDATED": {
-        "type": "string",
-        "value": "1"
-    },
-    "PORT|Ethernet104": {
-        "type": "hash",
-        "value": {
-            "index": "27",
-            "lanes": "105,106,107,108",
-            "description": "",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/27",
-            "admin_status": "down",
-            "speed": "100000"
-        }
-    },
-    "INTERFACE|Ethernet116": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "ECMP_LOADSHARE_TABLE_IPV4|ipv4": {
-        "type": "hash",
-        "value": {
-            "ipv4_dst_ip": "true",
-            "ipv4_src_ip": "true",
-            "ipv4_l4_dst_port": "true",
-            "ipv4_l4_src_port": "true",
-            "ipv4_protocol": "true"
-        }
-    },
-    "PORT|Ethernet12": {
-        "type": "hash",
-        "value": {
-            "index": "4",
-            "lanes": "13,14,15,16",
-            "description": "m4bneesw0003_Eth1/52",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/4",
-            "admin_status": "up",
-            "speed": "100000"
-        }
-    },
-    "POLICY_SECTIONS_TABLE|oob-qos-policy|class-oob-ip-multicast": {
-        "type": "hash",
-        "value": {
-            "PRIORITY": "1000",
-            "SET_POLICER_CIR": "256000",
-            "DESCRIPTION": ""
-        }
-    },
-    "COPP_TRAP|copp-system-stp": {
-        "type": "hash",
-        "value": {
-            "trap_ids": "stp,pvrst",
-            "trap_group": "copp-system-stp"
-        }
-    },
-    "CLASSIFIER_TABLE|class-oob-arp": {
-        "type": "hash",
-        "value": {
-            "MATCH_TYPE": "FIELDS",
-            "DESCRIPTION": "",
-            "ETHER_TYPE": "0x806"
-        }
-    },
-    "COPP_TRAP|copp-system-suppress": {
-        "type": "hash",
-        "value": {
-            "trap_ids": "arp_suppress,nd_suppress",
-            "trap_group": "copp-system-suppress"
-        }
-    },
-    "PORT|Ethernet92": {
-        "type": "hash",
-        "value": {
-            "index": "24",
-            "lanes": "93,94,95,96",
-            "description": "",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/24",
-            "admin_status": "down",
-            "speed": "100000"
-        }
-    },
-    "SCHEDULER|copp-scheduler-policy@14": {
-        "type": "hash",
-        "value": {
-            "meter_type": "packets",
-            "pir": "10000",
-            "type": "WRR",
-            "weight": "6"
-        }
-    },
-    "FEATURE|iccpd": {
-        "type": "hash",
-        "value": {
-            "state": "enabled"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet48": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-lf1-04-10"
-        }
-    },
-    "KDUMP|config": {
-        "type": "hash",
-        "value": {
-            "enabled": "true",
-            "num_dumps": "3",
-            "memory": "0M-2G:256M,2G-4G:320M,4G-8G:384M,8G-:448M"
-        }
-    },
-    "INTERFACE|Ethernet12": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet0": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-lf1-01-10"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet120": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-ltb1-01-10"
-        }
-    },
-    "SCHEDULER|copp-scheduler-policy@18": {
-        "type": "hash",
-        "value": {
-            "meter_type": "packets",
-            "pir": "500",
-            "type": "WRR",
-            "weight": "2"
-        }
-    },
-    "FEATURE|pmon": {
-        "type": "hash",
-        "value": {
-            "state": "always_enabled"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-ltb1-02-10|l2vpn_evpn": {
-        "type": "hash",
-        "value": {
-            "admin_status": "true",
-            "soft_reconfiguration_in": "true"
-        }
-    },
-    "QUEUE|CPU|18": {
-        "type": "hash",
-        "value": {
-            "scheduler": "[SCHEDULER|copp-scheduler-policy@18]"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-ltb1-04-09|ipv4_unicast": {
-        "type": "hash",
-        "value": {
-            "rrclient": "false",
-            "soft_reconfiguration_in": "true",
-            "send_default_route": "false",
-            "send_community": "both",
-            "max_prefix_warning_only": "false",
-            "admin_status": "true"
-        }
-    },
-    "PORT|Ethernet16": {
-        "type": "hash",
-        "value": {
-            "index": "5",
-            "lanes": "17,18,19,20",
-            "description": "m4bneesw0004_Eth1/49",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/5",
-            "admin_status": "up",
-            "speed": "100000"
-        }
-    },
-    "FEATURE|dhcp_relay": {
-        "type": "hash",
-        "value": {
-            "state": "enabled"
-        }
-    },
-    "SCHEDULER|copp-scheduler-policy@10": {
-        "type": "hash",
-        "value": {
-            "meter_type": "packets",
-            "pir": "3000",
-            "type": "WRR",
-            "weight": "2"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-lf1-04-10|ipv4_unicast": {
-        "type": "hash",
-        "value": {
-            "rrclient": "false",
-            "soft_reconfiguration_in": "true",
-            "send_default_route": "false",
-            "send_community": "both",
-            "max_prefix_warning_only": "false",
-            "admin_status": "true"
-        }
-    },
-    "INTERFACE|Ethernet16": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "FEATURE|mgmt-framework": {
-        "type": "hash",
-        "value": {
-            "state": "always_enabled"
-        }
-    },
-    "SCHEDULER|copp-scheduler-policy@12": {
-        "type": "hash",
-        "value": {
-            "meter_type": "packets",
-            "pir": "2000",
-            "type": "WRR",
-            "weight": "2"
-        }
-    },
-    "QUEUE|CPU|9": {
-        "type": "hash",
-        "value": {
-            "scheduler": "[SCHEDULER|copp-scheduler-policy@9]"
-        }
-    },
-    "INTERFACE|Ethernet108": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-ltb1-02-10|ipv4_unicast": {
-        "type": "hash",
-        "value": {
-            "rrclient": "false",
-            "soft_reconfiguration_in": "true",
-            "send_default_route": "false",
-            "send_community": "both",
-            "max_prefix_warning_only": "false",
-            "admin_status": "true"
+            "VERSION": "version_3_3_1"
         }
     },
     "VRF|default": {
@@ -2146,280 +2416,10 @@
             "vni": "0"
         }
     },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-ltb1-01-10|l2vpn_evpn": {
+    "ZTP|config": {
         "type": "hash",
         "value": {
-            "admin_status": "true",
-            "soft_reconfiguration_in": "true"
+            "admin-mode": "false"
         }
-    },
-    "SCHEDULER|copp-scheduler-policy@1": {
-        "type": "hash",
-        "value": {
-            "meter_type": "packets",
-            "pir": "100",
-            "type": "WRR",
-            "weight": "1"
-        }
-    },
-    "COPP_TRAP|copp-system-arp": {
-        "type": "hash",
-        "value": {
-            "trap_ids": "arp_req,arp_resp,neigh_discovery",
-            "trap_group": "copp-system-arp"
-        }
-    },
-    "COPP_TRAP|copp-system-ip2me": {
-        "type": "hash",
-        "value": {
-            "trap_ids": "ip2me",
-            "trap_group": "copp-system-ip2me"
-        }
-    },
-    "NTP_SERVER|172.22.13.13": {
-        "type": "hash",
-        "value": {
-            "NULL": "NULL"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet20": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-lf1-02-10"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet36": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-lf1-04-09"
-        }
-    },
-    "QUEUE|CPU|23": {
-        "type": "hash",
-        "value": {
-            "scheduler": "[SCHEDULER|copp-scheduler-policy@23]"
-        }
-    },
-    "MGMT_PORT|eth0": {
-        "type": "hash",
-        "value": {
-            "admin_status": "up",
-            "speed": "1000",
-            "description": "Management0",
-            "autoneg": "true",
-            "mtu": "1500"
-        }
-    },
-    "INTERFACE|Ethernet40": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "FLEX_COUNTER_TABLE|QUEUE": {
-        "type": "hash",
-        "value": {
-            "FLEX_COUNTER_STATUS": "enable"
-        }
-    },
-    "INTERFACE|Ethernet0": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet8": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-lf1-01-10"
-        }
-    },
-    "BGP_PEER_GROUP|default|t-01-m-09-ltb1-01-10": {
-        "type": "hash",
-        "value": {
-            "min_adv_interval": "0",
-            "ebgp_multihop": "false",
-            "bfd": "true",
-            "peer_type": "external",
-            "passive_mode": "false",
-            "admin_status": "true",
-            "conn_retry": "30",
-            "holdtime": "3",
-            "keepalive": "1"
-        }
-    },
-    "INTERFACE|Ethernet125": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "MGMT_VRF_CONFIG|vrf_global": {
-        "type": "hash",
-        "value": {
-            "mgmtVrfEnabled": "true"
-        }
-    },
-    "COPP_GROUP|copp-system-bgp": {
-        "type": "hash",
-        "value": {
-            "cbs": "10000",
-            "trap_action": "trap",
-            "queue": "14",
-            "cir": "10000",
-            "meter_type": "packets",
-            "mode": "sr_tcm",
-            "trap_priority": "14",
-            "red_action": "drop"
-        }
-    },
-    "COPP_GROUP|copp-system-lacp": {
-        "type": "hash",
-        "value": {
-            "cbs": "500",
-            "trap_action": "trap",
-            "queue": "23",
-            "cir": "500",
-            "meter_type": "packets",
-            "mode": "sr_tcm",
-            "trap_priority": "23",
-            "red_action": "drop"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet96": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-bl1-01-10"
-        }
-    },
-    "FEATURE|sflow": {
-        "type": "hash",
-        "value": {
-            "state": "enabled"
-        }
-    },
-    "COREDUMP|config": {
-        "type": "hash",
-        "value": {
-            "enabled": "true"
-        }
-    },
-    "COPP_GROUP|copp-system-sflow": {
-        "type": "hash",
-        "value": {
-            "cbs": "8000",
-            "trap_action": "trap",
-            "queue": "3",
-            "cir": "8000",
-            "meter_type": "packets",
-            "mode": "sr_tcm",
-            "trap_priority": "3",
-            "red_action": "drop"
-        }
-    },
-    "LOOPBACK_INTERFACE|Loopback0|192.168.0.210/32": {
-        "type": "hash",
-        "value": {
-            "NULL": "NULL"
-        }
-    },
-    "HARDWARE|ACCESS_LIST": {
-        "type": "hash",
-        "value": {
-            "COUNTER_MODE": "per-rule",
-            "LOOKUP_MODE": "optimized"
-        }
-    },
-    "BREAKOUT_CFG|Ethernet56": {
-        "type": "hash",
-        "value": {
-            "brkout_mode": "1x100G",
-            "lanes": "57,58,59,60",
-            "port": "1/15"
-        }
-    },
-    "INTERFACE|Ethernet76": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "FEATURE|tam": {
-        "type": "hash",
-        "value": {
-            "state": "enabled"
-        }
-    },
-    "QUEUE|CPU|11": {
-        "type": "hash",
-        "value": {
-            "scheduler": "[SCHEDULER|copp-scheduler-policy@11]"
-        }
-    },
-    "PORT|Ethernet112": {
-        "type": "hash",
-        "value": {
-            "index": "29",
-            "lanes": "113,114,115,116",
-            "description": "m4bneesw0006_Eth1/49",
-            "valid_speeds": "100000, 40000",
-            "mtu": "9100",
-            "alias": "Eth1/29",
-            "admin_status": "up",
-            "speed": "100000"
-        }
-    },
-    "PORT_QOS_MAP|CPU": {
-        "type": "hash",
-        "value": {
-            "scheduler": "[SCHEDULER|copp-scheduler-policy@255]"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-lf1-04-09|ipv4_unicast": {
-        "type": "hash",
-        "value": {
-            "rrclient": "false",
-            "soft_reconfiguration_in": "true",
-            "send_default_route": "false",
-            "send_community": "both",
-            "max_prefix_warning_only": "false",
-            "admin_status": "true"
-        }
-    },
-    "COPP_GROUP|copp-system-nat": {
-        "type": "hash",
-        "value": {
-            "cbs": "300",
-            "trap_action": "trap",
-            "queue": "5",
-            "cir": "300",
-            "meter_type": "packets",
-            "mode": "sr_tcm",
-            "trap_priority": "5",
-            "red_action": "drop"
-        }
-    },
-    "QUEUE|CPU|6": {
-        "type": "hash",
-        "value": {
-            "scheduler": "[SCHEDULER|copp-scheduler-policy@6]"
-        }
-    },
-    "COPP_GROUP|copp-system-ip2me": {
-        "type": "hash",
-        "value": {
-            "cbs": "6000",
-            "trap_action": "trap",
-            "queue": "7",
-            "cir": "6000",
-            "meter_type": "packets",
-            "mode": "sr_tcm",
-            "trap_priority": "7",
-            "red_action": "drop"
-        }
-    },
-    "CONFIG_DB_UPDATED_INTERFACE": {
-        "type": "string",
-        "value": "1"
     }
 }
