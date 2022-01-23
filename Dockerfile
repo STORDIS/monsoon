@@ -1,4 +1,4 @@
-FROM python:3.9-bullseye
+FROM python:3.10-bullseye
 
 COPY . .
 RUN pip3 install poetry
@@ -7,7 +7,7 @@ RUN cd src/sonic-py-swsssdk && python setup.py build sdist && cd ../..
 RUN poetry build
 RUN cp dist/sonic_exporter*.tar.gz /home/ && cp src/sonic-py-swsssdk/dist/swsssdk-*.tar.gz /home
 
-FROM python:3.9-slim-bullseye
+FROM python:3.10-slim-bullseye
 
 COPY --from=0 /home/requirements.txt /home/requirements.txt
 COPY --from=0 /home/*.tar.gz /home/
