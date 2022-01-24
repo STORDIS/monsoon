@@ -1,5 +1,6 @@
 import prometheus_client as prom
 
+
 class CustomCounter(prom.Counter):
     def set(self, value):
         """Set gauge to the given value."""
@@ -8,5 +9,3 @@ class CustomCounter(prom.Counter):
 
     def _child_samples(self):
         return (("_total", {}, self._value.get(), None, self._value.get_exemplar()),)
-
-

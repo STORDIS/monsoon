@@ -4,7 +4,7 @@ This repository contains
 
 1. SONIC exporter
 
-    * `$ docker run --name sonic_monitoring --network=host --pid=host --privileged --restart=always -d -e SONIC_VERSION=$(cat /etc/sonic/sonic_version.yml | head -n 1 | sed -n "s/^.*:\s*'\(\S*\)'/\1/p") -e REDIS_COLLECTION_INTERVAL=30 -e REDIS_AUTH=$(cat /run/redis/auth/passwd) -v /var/run/redis:/var/run/redis -v /usr/bin/vtysh:/usr/bin/vtysh -v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock  stordis/sonic_monitoring:0.1.0`
+    * `$ docker run --name sonic_monitoring --network=host --pid=host --privileged --restart=always -d  -e REDIS_COLLECTION_INTERVAL=30 -e REDIS_AUTH=$(cat /run/redis/auth/passwd) -v /var/run/redis:/var/run/redis -v /usr/bin/vtysh:/usr/bin/vtysh -v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock  stordis/sonic_monitoring:0.1.0`
 2. Node Exporter
     * `$ docker run --name node-exporter --network=host --pid=host --privileged --restart=always -v /proc:/host/proc:ro -v /sys:/host/sys:ro -v /:/rootfs:ro prom/node-exporter:v1.3.0`
 
