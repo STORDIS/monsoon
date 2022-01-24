@@ -28,7 +28,9 @@ from sonic_exporter.constants import (
     COUNTER_TABLE_PREFIX,
     FAN_INFO_PATTERN,
     PORT_TABLE_PREFIX,
+    PROCESS_STATS,
     PROCESS_STATS_PATTERN,
+    PROCESS_STATS_IGNORE,
     PSU_INFO,
     PSU_INFO_PATTERN,
     TEMPERATURE_INFO_PATTERN,
@@ -36,6 +38,8 @@ from sonic_exporter.constants import (
     TRANSCEIVER_DOM_SENSOR_PATTERN,
     TRANSCEIVER_INFO,
     TRANSCEIVER_INFO_PATTERN,
+    VXLAN_TUNNEL_TABLE,
+    VXLAN_TUNNEL_TABLE_PATTERN,
 )
 from sonic_exporter.converters import boolify, floatify, get_uptime, to_timestamp
 
@@ -315,6 +319,12 @@ class Export:
             "Thresholds for the temperature sensors (high_alarm, high_warning, low_alarm, low_warning)",
             ["name"] + ["alarm_type"],
         )
+        ## VXLAN Tunnel Info
+        self.metric_vxlan_operational_status = prom.Gauge(
+            "sonic_vxlan_operational_status",
+            "Reports the status of the VXLAN Tunnel to Endpoints (0(DOWN)/1(UP))",
+            ["neighbour"]
+        )
         ## System Info
         self.system_uptime = prom.Gauge(
             "sonic_device_uptime_seconds", "The uptime of the device in seconds"
@@ -367,6 +377,18 @@ class Export:
 
     def get_additional_info(self, ifname):
         return self.get_portinfo(ifname, "alias") or ifname
+
+    def export_vxlan_tunnel_info(self):
+        keys = self.sonic_db.keys(self.sonic_db.STATE_DB, pattern=VXLAN_TUNNEL_TABLE_PATTERN)
+        for key in keys:
+            try:
+                neighbour = ""
+                _, neighbour = tuple(key.replace(VXLAN_TUNNEL_TABLE, "").split("_"))
+                is_operational = boolify(_decode(self.sonic_db.get(self.sonic_db.STATE_DB, key, "operstatus")))
+                self.metric_vxlan_operational_status.labels(neighbour).set(is_operational)
+                logging.debug(f"export_vxlan_tunnel : neighbour={neighbour}, is_operational={is_operational}")
+            except ValueError as e:
+                pass
 
     def export_interface_counter(self):
         maps = self.sonic_db.get_all(self.sonic_db.COUNTERS_DB, COUNTER_PORT_MAP)
@@ -1062,7 +1084,7 @@ class Export:
                 ),
             )
             for key in keys
-            if not key.lower().endswith("lastupdatetime")
+            if not key.replace(PROCESS_STATS, "").lower() in PROCESS_STATS_IGNORE
         ]
         cpu_usage = sum(cpu_usage for cpu_usage, _ in cpu_memory_usages)
         memory_usage = sum(memory_usage for _, memory_usage in cpu_memory_usages)
@@ -1151,6 +1173,7 @@ class Export:
             self.export_psu_info()
             self.export_fan_info()
             self.export_temp_info()
+            self.export_vxlan_tunnel_info()
             # self.export_bgp_peer_status()
             # self.export_bgp_num_routes()
             # self.export_system_top10_process()
