@@ -42,6 +42,7 @@ from sonic_exporter.constants import (
     VXLAN_TUNNEL_TABLE_PATTERN,
 )
 from sonic_exporter.converters import boolify, floatify, get_uptime, to_timestamp
+from sonic_exporter.utilities import timed_cache
 
 try:
     import swsssdk
@@ -53,7 +54,7 @@ import sys
 import logging
 from sonic_exporter.custom_metric_types import CustomCounter
 import logging.handlers
-
+import socket
 
 level = os.environ.get("SONIC_EXPORTER_LOGLEVEL", "INFO")
 logging.basicConfig(
@@ -86,6 +87,16 @@ class Export:
         if name.startswith("PortChannel"):
             raise ValueError(f"{name} is not a physical interface")
         return f"{PORT_TABLE_PREFIX}{name}"
+
+    @staticmethod
+    @timed_cache(seconds=600)
+    def dns_lookup(ip: str) -> str:
+        if ip is None:
+            return ""
+        try:
+            return socket.gethostbyaddr(ip)[0]
+        except (socket.herror):
+            return ip
 
     def __init__(self):
         try:
@@ -323,7 +334,7 @@ class Export:
         self.metric_vxlan_operational_status = prom.Gauge(
             "sonic_vxlan_operational_status",
             "Reports the status of the VXLAN Tunnel to Endpoints (0(DOWN)/1(UP))",
-            ["neighbour"]
+            ["neighbour"],
         )
         ## System Info
         self.system_uptime = prom.Gauge(
@@ -379,14 +390,24 @@ class Export:
         return self.get_portinfo(ifname, "alias") or ifname
 
     def export_vxlan_tunnel_info(self):
-        keys = self.sonic_db.keys(self.sonic_db.STATE_DB, pattern=VXLAN_TUNNEL_TABLE_PATTERN)
+        keys = self.sonic_db.keys(
+            self.sonic_db.STATE_DB, pattern=VXLAN_TUNNEL_TABLE_PATTERN
+        )
         for key in keys:
             try:
                 neighbour = ""
                 _, neighbour = tuple(key.replace(VXLAN_TUNNEL_TABLE, "").split("_"))
-                is_operational = boolify(_decode(self.sonic_db.get(self.sonic_db.STATE_DB, key, "operstatus")))
-                self.metric_vxlan_operational_status.labels(neighbour).set(is_operational)
-                logging.debug(f"export_vxlan_tunnel : neighbour={neighbour}, is_operational={is_operational}")
+                is_operational = boolify(
+                    _decode(
+                        self.sonic_db.get(self.sonic_db.STATE_DB, key, "operstatus")
+                    )
+                )
+                self.metric_vxlan_operational_status.labels(self.dns_lookup(neighbour)).set(
+                    is_operational
+                )
+                logging.debug(
+                    f"export_vxlan_tunnel : neighbour={neighbour}, is_operational={is_operational}"
+                )
             except ValueError as e:
                 pass
 
@@ -1193,6 +1214,7 @@ def main():
 
     while True:
         exp.start_export()
+        logging.info("Export Done!")
         time.sleep(data_extract_interval)
 
 
