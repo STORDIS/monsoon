@@ -15,10 +15,8 @@
 # 
 import re
 import json
-from sqlite3 import converters
 import time
 import prometheus_client as prom
-import prometheus_client.utils as promutils
 
 from sonic_exporter.constants import (
     COUNTER_IGNORE,
@@ -42,13 +40,19 @@ from sonic_exporter.constants import (
     VXLAN_TUNNEL_TABLE_PATTERN,
 )
 from sonic_exporter.converters import boolify, floatify, get_uptime, to_timestamp
-from sonic_exporter.utilities import timed_cache
+from sonic_exporter.utilities import frr_installed, timed_cache
+
+if frr_installed():
+    from sonic_exporter.vtysh import VtySH
+else:
+    from sonic_exporter.test.mock_vtysh import VtySH
 
 try:
     import swsssdk
 except ImportError:
     import sonic_exporter.test.mock_db as swsssdk
 import os
+import ipaddress
 import subprocess
 import sys
 import logging
@@ -91,6 +95,10 @@ class Export:
     @staticmethod
     @timed_cache(seconds=600)
     def dns_lookup(ip: str) -> str:
+        try:
+            ipaddress.ip_address(ip)
+        except ValueError:
+            return ip
         if ip is None:
             return ""
         try:
@@ -113,13 +121,21 @@ class Export:
         self.sonic_db.connect(self.sonic_db.STATE_DB)
         self.sonic_db.connect(self.sonic_db.APPL_DB)
         self.sonic_db.connect(self.sonic_db.CONFIG_DB)
-        self.curr_time = time.time()
+        self.vtysh = VtySH()
         self._init_metrics()
 
     def _init_metrics(self):
         # at start of server get counters data and negate it with current data while exporting
         # Interface counters
         interface_labels = ["interface"]
+        bgp_labels = [
+            "vrf",
+            "peer_name",
+            "neighbor",
+            "peer_family_type",
+            "protocol_family_advertised",
+            "remote_as",
+        ]
         self.metric_interface_info = prom.Gauge(
             "sonic_interface_info",
             "Interface Information (Description, MTU, Speed)",
@@ -177,7 +193,7 @@ class Export:
             "The Configuration Status reported from the Device (0(DOWN)/1(UP))",
             interface_labels,
         )
-        self.metric_interface_last_flapped_seconds = prom.Gauge(
+        self.metric_interface_last_flapped_seconds = CustomCounter(
             "sonic_interface_last_flapped_seconds",
             "The Timestamp as Unix Timestamp since the last flap of the interface.",
             interface_labels,
@@ -334,10 +350,10 @@ class Export:
         self.metric_vxlan_operational_status = prom.Gauge(
             "sonic_vxlan_operational_status",
             "Reports the status of the VXLAN Tunnel to Endpoints (0(DOWN)/1(UP))",
-            ["neighbour"],
+            ["neighbor"],
         )
         ## System Info
-        self.system_uptime = prom.Gauge(
+        self.system_uptime = CustomCounter(
             "sonic_device_uptime_seconds", "The uptime of the device in seconds"
         )
         self.system_info = prom.Info(
@@ -351,6 +367,39 @@ class Export:
             "sonic_device_cpu_ratio", "CPU Usage of the device in percentage 0-1"
         )
 
+        self.metric_bgp_peer_uptime_seconds = CustomCounter(
+            "sonic_bgp_peer_uptime_seconds",
+            "Uptime of the session with the other BGP Peer",
+            bgp_labels,
+        )
+        self.metric_bgp_peer_status = prom.Gauge(
+            "sonic_bgp_peer_status",
+            "The Session Status to the other BGP Peer",
+            bgp_labels,
+        )
+        self.metric_bgp_prefixes_received = CustomCounter(
+            "sonic_bgp_prefixes_received",
+            "The Prefixes Received from the other peer.",
+            bgp_labels
+        )
+        self.metric_bgp_prefixes_transmitted = CustomCounter(
+            "sonic_bgp_prefixes_transmitted"
+            "The Prefixes Transmitted to the other peer.",
+            bgp_labels
+        )
+        self.metric_bgp_messages_received = CustomCounter(
+            "sonic_bgp_messages_received",
+            "The messages Received from the other peer.",
+            bgp_labels
+        )
+        self.metric_bgp_messages_transmitted = CustomCounter(
+            "sonic_bgp_messages_transmitted"
+            "The messages Transmitted to the other peer.",
+            bgp_labels
+        )
+        # Received Prefixes
+        # Sent Prefixes
+        # status
         # self.metric_bgp_peer_status = prom.Enum(
         #     "sonic_bgp_peer_status",
         #     "Interface current utilization",
@@ -362,18 +411,6 @@ class Export:
         #     "sonic_bgp_num_routes",
         #     "Interface current utilization",
         #     ["peer_name"],
-        # )
-
-        # self.metric_system_top10_cpu_percent = prom.Gauge(
-        #     "sonic_system_top10_cpu_percent",
-        #     "system top10 process as per cpu percent",
-        #     ["pid", "process_name"],
-        # )
-
-        # self.metric_system_top10_mem_percent = prom.Gauge(
-        #     "sonic_system_top10_mem_percent",
-        #     "system top10 process as per mem percent",
-        #     ["pid", "process_name"],
         # )
 
     def get_portinfo(self, ifname, sub_key):
@@ -395,23 +432,23 @@ class Export:
         )
         for key in keys:
             try:
-                neighbour = ""
-                _, neighbour = tuple(key.replace(VXLAN_TUNNEL_TABLE, "").split("_"))
+                neighbor = ""
+                _, neighbor = tuple(key.replace(VXLAN_TUNNEL_TABLE, "").split("_"))
                 is_operational = boolify(
                     _decode(
                         self.sonic_db.get(self.sonic_db.STATE_DB, key, "operstatus")
                     )
                 )
-                self.metric_vxlan_operational_status.labels(self.dns_lookup(neighbour)).set(
-                    is_operational
-                )
+                self.metric_vxlan_operational_status.labels(
+                    self.dns_lookup(neighbor)
+                ).set(is_operational)
                 logging.debug(
-                    f"export_vxlan_tunnel : neighbour={neighbour}, is_operational={is_operational}"
+                    f"export_vxlan_tunnel : neighbor={neighbor}, is_operational={is_operational}"
                 )
             except ValueError as e:
                 pass
 
-    def export_interface_counter(self):
+    def export_interface_counters(self):
         maps = self.sonic_db.get_all(self.sonic_db.COUNTERS_DB, COUNTER_PORT_MAP)
         for ifname in maps:
             counter_key = Export.get_counter_key(_decode(maps[ifname]))
@@ -657,7 +694,6 @@ class Export:
                         self.sonic_db.APPL_DB, port_table_key, "oper_status"
                     )
                 )
-                converters.get
                 last_flapped_seconds = to_timestamp(
                     floatify(
                         _decode(
@@ -1112,59 +1148,160 @@ class Export:
         self.system_cpu_ratio.set(cpu_usage / 100)
         self.system_memory_ratio.set(memory_usage / 100)
 
-    def export_bgp_peer_status(self):
-        # vtysh -c "show ip bgp neighbors Ethernet32 json"
-        # get - bgpState and bgpTimerUp (available only when interface is up)
-        try:
-            keys = self.sonic_db.keys(
-                self.sonic_db.CONFIG_DB, pattern="BGP_NEIGHBOR|default|*"
-            )
-            for key in keys:
-                key = _decode(key)
-                bgp_neighbour = key.split("|")[-1]  # eg Ethernet32
-                command = 'vtysh -c "show ip bgp neighbors {} json"'.format(
-                    bgp_neighbour
-                )
-                logging.debug(
-                    "export_bgp_peer_status : command out={}".format(
-                        subprocess.getoutput(command)
-                    )
-                )
-                cmd_out = json.loads(subprocess.getoutput(command))
-
-                # to handle any BGP_NEIGHBOR defined in redis but not found in vtysh
-                if "bgpNoSuchNeighbor" in cmd_out.keys():
-                    continue
-
-                bgpState = cmd_out[bgp_neighbour]["bgpState"]
-                # states as one of these - "idle","connect","active","opensent","openconfirm","Established"
+    def export_bgp_peer_info(self):
+        # vtysh -c "show bgp vrf all ipv4 unicast summary json"
+        # vtysh -c "show bgp vrf all ipv6 unicast summary json"
+        # vtysh -c "show bgp vrf all l2vpn evpn summary json"
+        #
+        ## BGP Peerings
+        ##
+        ## Labels
+        # peer_type = ipv4/ipv6
+        # vrf = vrf_namen
+        # neighbor = dns namen / ip | hostname for servers
+        # remote_as = as_nummer
+        # bgp_protocol_type = evpn/ipv4/ipv6
+        ## Metrik
+        # Uptime
+        # Received Prefixes
+        # Sent Prefixes
+        # status
+        """
+        "connectionsDropped": 1,
+        "connectionsEstablished": 2,
+        "hostname": "t-01-m-09-sp1-04-09.mgmt.refaz.bn.schiff.telekom.de",
+        "idType": "interface",
+        "inq": 0,
+        "msgRcvd": 441497,
+        "msgSent": 429778,
+        "outq": 0,
+        "peerUptime": "3d02h49m",
+        "peerUptimeEstablishedEpoch": 1643108941,
+        "peerUptimeMsec": 269350000,
+        "pfxRcd": 88,
+        "pfxSnt": 89,
+        "prefixReceivedCount": 88,
+        "remoteAs": 4200065133,
+        "state": "Established",
+        "tableVersion": 0,
+        "version": 4
+        """
+        bgp_vrf_all = self.vtysh.show_bgp_vrf_all_summary()
+        for vrf in bgp_vrf_all:
+            for family in self.vtysh.AddressFamily:
+                family_data = None
                 try:
-                    _ = floatify(cmd_out[bgp_neighbour]["bgpTimerUp"])
-                    self.metric_bgp_peer_status.labels(bgp_neighbour, bgpState).state(
-                        "up"
-                    )
+                    family_data = bgp_vrf_all[vrf][family.value]
+                    for peername, peerdata in family_data['peers'].items():
+                        # ["vrf", "peername", "neighbor", "peer_family_type", "protocol_family_advertised", "remote_as"]
+                        self.metric_bgp_peer_uptime_seconds.labels(
+                            vrf,
+                            peername,
+                            peerdata.get("hostname", self.dns_lookup(peername)),
+                            peerdata.get("idType", ""),
+                            VtySH.addressfamily(family),
+                            str(peerdata.get("remoteAs")),
+                        ).set(floatify(peerdata.get("peerUptimeMsec", 1000) / 1000))
+                        self.metric_bgp_peer_status.labels(
+                           vrf,
+                            peername,
+                            peerdata.get("hostname", self.dns_lookup(peername)),
+                            peerdata.get("idType", ""),
+                            VtySH.addressfamily(family),
+                            str(peerdata.get("remoteAs")),
+                        ).set(boolify(peerdata.get("state", "")))
+                        self.metric_bgp_prefixes_received.labels(
+                           vrf,
+                            peername,
+                            peerdata.get("hostname", self.dns_lookup(peername)),
+                            peerdata.get("idType", ""),
+                            VtySH.addressfamily(family),
+                            str(peerdata.get("remoteAs")),
+                        ).set(floatify(peerdata.get('pfxRcd', 0)))
+                        self.metric_bgp_prefixes_transmitted.labels(
+                           vrf,
+                            peername,
+                            peerdata.get("hostname", self.dns_lookup(peername)),
+                            peerdata.get("idType", ""),
+                            VtySH.addressfamily(family),
+                            str(peerdata.get("remoteAs")),
+                        ).set(floatify(peerdata.get('pfxSnt', 0)))
+                        self.metric_bgp_messages_received.labels(
+                           vrf,
+                            peername,
+                            peerdata.get("hostname", self.dns_lookup(peername)),
+                            peerdata.get("idType", ""),
+                            VtySH.addressfamily(family),
+                            str(peerdata.get("remoteAs")),
+                        ).set(floatify(peerdata.get('msgRcvd', 0)))
+                        self.metric_bgp_messages_transmitted.labels(
+                           vrf,
+                            peername,
+                            peerdata.get("hostname", self.dns_lookup(peername)),
+                            peerdata.get("idType", ""),
+                            VtySH.addressfamily(family),
+                            str(peerdata.get("remoteAs")),
+                        ).set(floatify(peerdata.get('pfxSnt', 0)))
                 except KeyError:
-                    self.metric_bgp_peer_status.labels(bgp_neighbour, bgpState).state(
-                        "down"
-                    )
-        except KeyboardInterrupt as e:
-            raise e
-        except Exception as e:
-            logging.error("export_bgp_peer_status : Exception={}".format(e))
+                    pass
+
+        # for key in keys:
+        #     bgp_neighbor
+
+        #     for key in keys:
+        #         key = _decode(key)
+        #         bgp_neighbor = key.split("|")[-1]  # eg Ethernet32
+        #         command = 'vtysh -c "show ip bgp neighbors {} json"'.format(
+        #             bgp_neighbor
+        #         )
+        #         logging.debug(
+        #             "export_bgp_peer_status : command out={}".format(
+        #                 subprocess.getoutput(command)
+        #             )
+        #         )
+        #         cmd_out = json.loads(subprocess.getoutput(command))
+
+        #         # to handle any BGP_NEIGHBOR defined in redis but not found in vtysh
+        #         if "bgpNoSuchNeighbor" in cmd_out.keys():
+        #             continue
+
+        #         bgpState = cmd_out[bgp_neighbor]["bgpState"]
+        #         # states as one of these - "idle","connect","active","opensent","openconfirm","Established"
+        #         try:
+        #             _ = floatify(cmd_out[bgp_neighbor]["bgpTimerUp"])
+        #             self.metric_bgp_peer_status.labels(bgp_neighbor, bgpState).state(
+        #                 "up"
+        #             )
+        #         except KeyError:
+        #             self.metric_bgp_peer_status.labels(bgp_neighbor, bgpState).state(
+        #                 "down"
+        #             )
+        # except KeyboardInterrupt as e:
+        #     raise e
+        # except Exception as e:
+        #     logging.error("export_bgp_peer_status : Exception={}".format(e))
+
+    def export_evpn_vni_info(self):
+        pass
+        # vtysh -c "show evpn vni detail json"
+        ## Labels
+        # VNI
+        # transport_type = l2 l3
+        # VRF
+        ## Metrik
+        # status
+        # numRemoteVTEPs
+        #
 
     def export_bgp_num_routes(self):
-        # vtysh -c "show ip bgp neighbors Ethernet32 prefix-counts  json"
-        # get - pfxCounter
+
         try:
-            keys = self.sonic_db.keys(
-                self.sonic_db.CONFIG_DB, pattern="BGP_NEIGHBOR|default|*"
-            )
             for key in keys:
                 key = _decode(key)
-                bgp_neighbour = key.split("|")[-1]  # eg Ethernet32
+                bgp_neighbor = key.split("|")[-1]  # eg Ethernet32
                 command = (
                     'vtysh -c "show ip bgp neighbors {} prefix-counts json"'.format(
-                        bgp_neighbour
+                        bgp_neighbor
                     )
                 )
                 logging.debug(
@@ -1178,7 +1315,7 @@ class Export:
                     continue
 
                 bgp_count = cmd_out["pfxCounter"]
-                self.metric_bgp_num_routes.labels(bgp_neighbour).set(bgp_count)
+                self.metric_bgp_num_routes.labels(bgp_neighbor).set(bgp_count)
         except KeyboardInterrupt as e:
             raise e
         except Exception as e:
@@ -1186,7 +1323,7 @@ class Export:
 
     def start_export(self):
         try:
-            self.export_interface_counter()
+            self.export_interface_counters()
             self.export_interface_queue_counters()
             self.export_interface_cable_data()
             self.export_interface_optic_data()
@@ -1195,9 +1332,9 @@ class Export:
             self.export_fan_info()
             self.export_temp_info()
             self.export_vxlan_tunnel_info()
+            self.export_bgp_peer_info()
             # self.export_bgp_peer_status()
             # self.export_bgp_num_routes()
-            # self.export_system_top10_process()
         except KeyboardInterrupt as e:
             raise e
 

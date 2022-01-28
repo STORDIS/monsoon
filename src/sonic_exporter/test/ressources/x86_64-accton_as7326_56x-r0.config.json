@@ -11,7 +11,7 @@
             "ibgp_equal_cluster_length": "false",
             "max_ebgp_paths": "64",
             "max_ibgp_paths": "64",
-            "route_flap_dampen": "true"
+            "route_flap_dampen": "false"
         }
     },
     "BGP_GLOBALS_AF|default|l2vpn_evpn": {
@@ -41,203 +41,174 @@
     "BGP_NEIGHBOR|default|Ethernet0": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet10": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet11": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet12": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet13": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet14": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet15": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet16": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet17": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet18": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet19": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet2": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet20": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet22": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet24": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet26": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet28": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet29": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet30": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet31": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet32": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet33": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet34": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet35": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet36": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet37": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet38": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet39": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet4": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
@@ -262,7 +233,6 @@
     "BGP_NEIGHBOR|default|Ethernet6": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
@@ -299,14 +269,12 @@
     "BGP_NEIGHBOR|default|Ethernet8": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet9": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "peer_group_name": "worker"
         }
     },
@@ -460,43 +428,11 @@
         "type": "string",
         "value": "1"
     },
-    "CONFIG_DB_UPDATED_BGP_GLOBALS": {
+    "CONFIG_DB_UPDATED_LOOPBACK": {
         "type": "string",
         "value": "1"
     },
-    "CONFIG_DB_UPDATED_BGP_NEIGHBOR": {
-        "type": "string",
-        "value": "1"
-    },
-    "CONFIG_DB_UPDATED_MIRROR_SESSION": {
-        "type": "string",
-        "value": "1"
-    },
-    "CONFIG_DB_UPDATED_PORT": {
-        "type": "string",
-        "value": "1"
-    },
-    "CONFIG_DB_UPDATED_PORTCHANNEL": {
-        "type": "string",
-        "value": "1"
-    },
-    "CONFIG_DB_UPDATED_PORTCHANNEL_MEMBER": {
-        "type": "string",
-        "value": "1"
-    },
-    "CONFIG_DB_UPDATED_SAG_GLOBAL": {
-        "type": "string",
-        "value": "1"
-    },
-    "CONFIG_DB_UPDATED_VLAN": {
-        "type": "string",
-        "value": "1"
-    },
-    "CONFIG_DB_UPDATED_VXLAN_TUNNEL": {
-        "type": "string",
-        "value": "1"
-    },
-    "CONFIG_DB_UPDATED_VXLAN_TUNNEL_MAP": {
+    "CONFIG_DB_UPDATED_SFLOW_COLLECTOR": {
         "type": "string",
         "value": "1"
     },
@@ -1441,6 +1377,12 @@
             "NULL": "NULL"
         }
     },
+    "LOOPBACK|Loopback100": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
     "MCLAG_DOMAIN|10": {
         "type": "hash",
         "value": {
@@ -2254,7 +2196,6 @@
     "PORT|Ethernet46": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "admin_status": "up",
             "alias": "Eth1/47",
             "description": "",
@@ -2268,7 +2209,6 @@
     "PORT|Ethernet47": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "admin_status": "up",
             "alias": "Eth1/48",
             "description": "",
@@ -3426,7 +3366,6 @@
     "VXLAN_TUNNEL|vtep1": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "src_ip": "192.168.0.212"
         }
     },

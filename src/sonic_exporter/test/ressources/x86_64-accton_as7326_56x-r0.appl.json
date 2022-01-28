@@ -378,12 +378,6 @@
             "vni": "5101"
         }
     },
-    "EVPN_REMOTE_VNI_TABLE:Vlan2300:192.168.2.12": {
-        "type": "hash",
-        "value": {
-            "vni": "5101"
-        }
-    },
     "EVPN_REMOTE_VNI_TABLE:Vlan2300:192.168.2.14": {
         "type": "hash",
         "value": {
@@ -391,6 +385,12 @@
         }
     },
     "EVPN_REMOTE_VNI_TABLE:Vlan2300:192.168.2.17": {
+        "type": "hash",
+        "value": {
+            "vni": "5101"
+        }
+    },
+    "EVPN_REMOTE_VNI_TABLE:Vlan2300:192.168.2.5": {
         "type": "hash",
         "value": {
             "vni": "5101"
@@ -432,12 +432,6 @@
             "vni": "5102"
         }
     },
-    "EVPN_REMOTE_VNI_TABLE:Vlan2301:192.168.2.12": {
-        "type": "hash",
-        "value": {
-            "vni": "5102"
-        }
-    },
     "EVPN_REMOTE_VNI_TABLE:Vlan2301:192.168.2.14": {
         "type": "hash",
         "value": {
@@ -445,6 +439,12 @@
         }
     },
     "EVPN_REMOTE_VNI_TABLE:Vlan2301:192.168.2.17": {
+        "type": "hash",
+        "value": {
+            "vni": "5102"
+        }
+    },
+    "EVPN_REMOTE_VNI_TABLE:Vlan2301:192.168.2.5": {
         "type": "hash",
         "value": {
             "vni": "5102"
@@ -486,12 +486,6 @@
             "vni": "5103"
         }
     },
-    "EVPN_REMOTE_VNI_TABLE:Vlan2302:192.168.2.12": {
-        "type": "hash",
-        "value": {
-            "vni": "5103"
-        }
-    },
     "EVPN_REMOTE_VNI_TABLE:Vlan2302:192.168.2.14": {
         "type": "hash",
         "value": {
@@ -499,6 +493,12 @@
         }
     },
     "EVPN_REMOTE_VNI_TABLE:Vlan2302:192.168.2.17": {
+        "type": "hash",
+        "value": {
+            "vni": "5103"
+        }
+    },
+    "EVPN_REMOTE_VNI_TABLE:Vlan2302:192.168.2.5": {
         "type": "hash",
         "value": {
             "vni": "5103"
@@ -540,12 +540,6 @@
             "vni": "5104"
         }
     },
-    "EVPN_REMOTE_VNI_TABLE:Vlan2303:192.168.2.12": {
-        "type": "hash",
-        "value": {
-            "vni": "5104"
-        }
-    },
     "EVPN_REMOTE_VNI_TABLE:Vlan2303:192.168.2.14": {
         "type": "hash",
         "value": {
@@ -553,6 +547,12 @@
         }
     },
     "EVPN_REMOTE_VNI_TABLE:Vlan2303:192.168.2.17": {
+        "type": "hash",
+        "value": {
+            "vni": "5104"
+        }
+    },
+    "EVPN_REMOTE_VNI_TABLE:Vlan2303:192.168.2.5": {
         "type": "hash",
         "value": {
             "vni": "5104"
@@ -594,12 +594,6 @@
             "vni": "5106"
         }
     },
-    "EVPN_REMOTE_VNI_TABLE:Vlan2305:192.168.2.12": {
-        "type": "hash",
-        "value": {
-            "vni": "5106"
-        }
-    },
     "EVPN_REMOTE_VNI_TABLE:Vlan2305:192.168.2.14": {
         "type": "hash",
         "value": {
@@ -607,6 +601,12 @@
         }
     },
     "EVPN_REMOTE_VNI_TABLE:Vlan2305:192.168.2.17": {
+        "type": "hash",
+        "value": {
+            "vni": "5106"
+        }
+    },
+    "EVPN_REMOTE_VNI_TABLE:Vlan2305:192.168.2.5": {
         "type": "hash",
         "value": {
             "vni": "5106"
@@ -648,12 +648,6 @@
             "vni": "5107"
         }
     },
-    "EVPN_REMOTE_VNI_TABLE:Vlan2306:192.168.2.12": {
-        "type": "hash",
-        "value": {
-            "vni": "5107"
-        }
-    },
     "EVPN_REMOTE_VNI_TABLE:Vlan2306:192.168.2.14": {
         "type": "hash",
         "value": {
@@ -661,6 +655,12 @@
         }
     },
     "EVPN_REMOTE_VNI_TABLE:Vlan2306:192.168.2.17": {
+        "type": "hash",
+        "value": {
+            "vni": "5107"
+        }
+    },
+    "EVPN_REMOTE_VNI_TABLE:Vlan2306:192.168.2.5": {
         "type": "hash",
         "value": {
             "vni": "5107"
@@ -702,12 +702,6 @@
             "vni": "5108"
         }
     },
-    "EVPN_REMOTE_VNI_TABLE:Vlan2307:192.168.2.12": {
-        "type": "hash",
-        "value": {
-            "vni": "5108"
-        }
-    },
     "EVPN_REMOTE_VNI_TABLE:Vlan2307:192.168.2.14": {
         "type": "hash",
         "value": {
@@ -715,6 +709,12 @@
         }
     },
     "EVPN_REMOTE_VNI_TABLE:Vlan2307:192.168.2.17": {
+        "type": "hash",
+        "value": {
+            "vni": "5108"
+        }
+    },
+    "EVPN_REMOTE_VNI_TABLE:Vlan2307:192.168.2.5": {
         "type": "hash",
         "value": {
             "vni": "5108"
@@ -786,25 +786,19 @@
             "vni": "400"
         }
     },
+    "EVPN_REMOTE_VNI_TABLE:Vlan400:192.168.2.20": {
+        "type": "hash",
+        "value": {
+            "vni": "400"
+        }
+    },
     "EVPN_REMOTE_VNI_TABLE:Vlan400:192.168.2.21": {
         "type": "hash",
         "value": {
             "vni": "400"
         }
     },
-    "EVPN_REMOTE_VNI_TABLE:Vlan400:192.168.2.22": {
-        "type": "hash",
-        "value": {
-            "vni": "400"
-        }
-    },
     "EVPN_REMOTE_VNI_TABLE:Vlan400:192.168.2.23": {
-        "type": "hash",
-        "value": {
-            "vni": "400"
-        }
-    },
-    "EVPN_REMOTE_VNI_TABLE:Vlan400:192.168.2.26": {
         "type": "hash",
         "value": {
             "vni": "400"
@@ -828,6 +822,12 @@
             "vni": "400"
         }
     },
+    "EVPN_REMOTE_VNI_TABLE:Vlan400:192.168.2.3": {
+        "type": "hash",
+        "value": {
+            "vni": "400"
+        }
+    },
     "EVPN_REMOTE_VNI_TABLE:Vlan400:192.168.2.30": {
         "type": "hash",
         "value": {
@@ -840,25 +840,7 @@
             "vni": "400"
         }
     },
-    "EVPN_REMOTE_VNI_TABLE:Vlan400:192.168.2.32": {
-        "type": "hash",
-        "value": {
-            "vni": "400"
-        }
-    },
-    "EVPN_REMOTE_VNI_TABLE:Vlan400:192.168.2.33": {
-        "type": "hash",
-        "value": {
-            "vni": "400"
-        }
-    },
-    "EVPN_REMOTE_VNI_TABLE:Vlan400:192.168.2.34": {
-        "type": "hash",
-        "value": {
-            "vni": "400"
-        }
-    },
-    "EVPN_REMOTE_VNI_TABLE:Vlan400:192.168.2.35": {
+    "EVPN_REMOTE_VNI_TABLE:Vlan400:192.168.2.39": {
         "type": "hash",
         "value": {
             "vni": "400"
@@ -877,12 +859,6 @@
         }
     },
     "EVPN_REMOTE_VNI_TABLE:Vlan400:192.168.2.7": {
-        "type": "hash",
-        "value": {
-            "vni": "400"
-        }
-    },
-    "EVPN_REMOTE_VNI_TABLE:Vlan400:192.168.2.8": {
         "type": "hash",
         "value": {
             "vni": "400"
@@ -1913,13 +1889,6 @@
             "oper_status": "up"
         }
     },
-    "L3_INTF_TABLE:PortChannel101": {
-        "type": "hash",
-        "value": {
-            "nlmsg_type": "16",
-            "oper_status": "up"
-        }
-    },
     "L3_INTF_TABLE:PortChannel103": {
         "type": "hash",
         "value": {
@@ -2020,7 +1989,7 @@
     "LAG_MEMBER_TABLE:PortChannel101:Ethernet3": {
         "type": "hash",
         "value": {
-            "status": "enabled"
+            "status": "disabled"
         }
     },
     "LAG_MEMBER_TABLE:PortChannel102:Ethernet5": {
@@ -2038,7 +2007,7 @@
     "LAG_MEMBER_TABLE:PortChannel104:Ethernet21": {
         "type": "hash",
         "value": {
-            "status": "disabled"
+            "status": "enabled"
         }
     },
     "LAG_MEMBER_TABLE:PortChannel105:Ethernet23": {
@@ -2083,10 +2052,10 @@
             "fallback_operational": "true",
             "mtu": "9100",
             "name": "lacp",
-            "oper_status": "up",
+            "oper_status": "down",
             "port_load_interval": "10",
             "speed": "25000",
-            "traffic_disable": "false"
+            "traffic_disable": "true"
         }
     },
     "LAG_TABLE:PortChannel102": {
@@ -2128,10 +2097,10 @@
             "fallback_operational": "true",
             "mtu": "9100",
             "name": "lacp",
-            "oper_status": "down",
+            "oper_status": "up",
             "port_load_interval": "10",
             "speed": "25000",
-            "traffic_disable": "true"
+            "traffic_disable": "false"
         }
     },
     "LAG_TABLE:PortChannel105": {
@@ -2253,7 +2222,7 @@
         "type": "hash",
         "value": {
             "ageout_cnt": "0",
-            "rx": "1",
+            "rx": "0",
             "rx_discarded_cnt": "0",
             "rx_unrecognized_cnt": "0",
             "tx": "0"
@@ -2333,7 +2302,7 @@
         "type": "hash",
         "value": {
             "ageout_cnt": "0",
-            "rx": "1",
+            "rx": "0",
             "rx_discarded_cnt": "0",
             "rx_unrecognized_cnt": "0",
             "tx": "0"
@@ -2383,7 +2352,7 @@
         "type": "hash",
         "value": {
             "ageout_cnt": "0",
-            "rx": "1",
+            "rx": "0",
             "rx_discarded_cnt": "1",
             "rx_unrecognized_cnt": "0",
             "tx": "0"
@@ -2393,7 +2362,7 @@
         "type": "hash",
         "value": {
             "ageout_cnt": "0",
-            "rx": "0",
+            "rx": "1",
             "rx_discarded_cnt": "0",
             "rx_unrecognized_cnt": "0",
             "tx": "0"
@@ -2403,7 +2372,7 @@
         "type": "hash",
         "value": {
             "ageout_cnt": "0",
-            "rx": "1",
+            "rx": "0",
             "rx_discarded_cnt": "0",
             "rx_unrecognized_cnt": "0",
             "tx": "0"
@@ -2413,7 +2382,7 @@
         "type": "hash",
         "value": {
             "ageout_cnt": "0",
-            "rx": "0",
+            "rx": "1",
             "rx_discarded_cnt": "1",
             "rx_unrecognized_cnt": "0",
             "tx": "0"
@@ -2423,7 +2392,7 @@
         "type": "hash",
         "value": {
             "ageout_cnt": "0",
-            "rx": "1",
+            "rx": "0",
             "rx_discarded_cnt": "0",
             "rx_unrecognized_cnt": "0",
             "tx": "0"
@@ -2453,7 +2422,7 @@
         "type": "hash",
         "value": {
             "ageout_cnt": "0",
-            "rx": "0",
+            "rx": "1",
             "rx_discarded_cnt": "0",
             "rx_unrecognized_cnt": "0",
             "tx": "0"
@@ -2493,7 +2462,7 @@
         "type": "hash",
         "value": {
             "ageout_cnt": "0",
-            "rx": "0",
+            "rx": "1",
             "rx_discarded_cnt": "0",
             "rx_unrecognized_cnt": "0",
             "tx": "0"
@@ -2513,7 +2482,7 @@
         "type": "hash",
         "value": {
             "ageout_cnt": "0",
-            "rx": "0",
+            "rx": "1",
             "rx_discarded_cnt": "0",
             "rx_unrecognized_cnt": "0",
             "tx": "0"
@@ -2533,7 +2502,7 @@
         "type": "hash",
         "value": {
             "ageout_cnt": "0",
-            "rx": "1",
+            "rx": "0",
             "rx_discarded_cnt": "0",
             "rx_unrecognized_cnt": "0",
             "tx": "0"
@@ -2583,7 +2552,7 @@
         "type": "hash",
         "value": {
             "ageout_cnt": "0",
-            "rx": "0",
+            "rx": "1",
             "rx_discarded_cnt": "0",
             "rx_unrecognized_cnt": "0",
             "tx": "0"
@@ -2594,7 +2563,7 @@
         "value": {
             "ageout_cnt": "0",
             "rx": "0",
-            "rx_discarded_cnt": "1",
+            "rx_discarded_cnt": "0",
             "rx_unrecognized_cnt": "0",
             "tx": "0"
         }
@@ -2604,7 +2573,7 @@
         "value": {
             "ageout_cnt": "0",
             "rx": "0",
-            "rx_discarded_cnt": "1",
+            "rx_discarded_cnt": "0",
             "rx_unrecognized_cnt": "0",
             "tx": "0"
         }
@@ -2673,7 +2642,7 @@
         "type": "hash",
         "value": {
             "ageout_cnt": "0",
-            "rx": "1",
+            "rx": "0",
             "rx_discarded_cnt": "0",
             "rx_unrecognized_cnt": "0",
             "tx": "0"
@@ -2703,7 +2672,7 @@
         "type": "hash",
         "value": {
             "ageout_cnt": "0",
-            "rx": "0",
+            "rx": "1",
             "rx_discarded_cnt": "0",
             "rx_unrecognized_cnt": "0",
             "tx": "0"
@@ -2765,32 +2734,10 @@
             "admin_status": "up"
         }
     },
-    "MCLAG_FDB_TABLE:Vlan2302:42:82:63:1f:ef:66:local": {
+    "LOOPBACK_TABLE:Loopback100": {
         "type": "hash",
         "value": {
-            "port": "PortChannel103",
-            "type": "dynamic_local"
-        }
-    },
-    "MCLAG_FDB_TABLE:Vlan2302:42:82:63:1f:ef:66:remote": {
-        "type": "hash",
-        "value": {
-            "port": "PortChannel103",
-            "type": "dynamic"
-        }
-    },
-    "MCLAG_FDB_TABLE:Vlan2303:0a:1b:ff:7d:65:81:remote": {
-        "type": "hash",
-        "value": {
-            "port": "PortChannel103",
-            "type": "dynamic"
-        }
-    },
-    "MCLAG_FDB_TABLE:Vlan2305:0e:01:59:61:0a:14:remote": {
-        "type": "hash",
-        "value": {
-            "port": "PortChannel103",
-            "type": "dynamic"
+            "admin_status": "up"
         }
     },
     "MGMT_INTF_TABLE:eth0:10.23.137.212/28": {
@@ -4275,18 +4222,6 @@
             "type": "2"
         }
     },
-    "NEIGH_REFRESH_TABLE:Vlan400:192.168.255.1": {
-        "type": "hash",
-        "value": {
-            "family": "IPv4",
-            "flags": "16",
-            "neigh": "16:0d:63:d1:d6:98",
-            "nlmsg_type": "28",
-            "remote": "1",
-            "state": "64",
-            "type": "2"
-        }
-    },
     "NEIGH_REFRESH_TABLE:Vlan400:192.168.255.10": {
         "type": "hash",
         "value": {
@@ -4328,7 +4263,7 @@
         "value": {
             "family": "IPv4",
             "flags": "16",
-            "neigh": "36:3b:97:be:93:08",
+            "neigh": "ce:82:2e:05:4f:0b",
             "nlmsg_type": "28",
             "remote": "1",
             "state": "64",
@@ -4340,7 +4275,7 @@
         "value": {
             "family": "IPv4",
             "flags": "16",
-            "neigh": "4a:ab:df:af:ba:64",
+            "neigh": "c6:08:af:b4:25:96",
             "nlmsg_type": "28",
             "remote": "1",
             "state": "64",
@@ -4352,7 +4287,7 @@
         "value": {
             "family": "IPv4",
             "flags": "16",
-            "neigh": "16:f3:7b:8e:80:f9",
+            "neigh": "f6:59:01:4d:ae:e9",
             "nlmsg_type": "28",
             "remote": "1",
             "state": "64",
@@ -4364,7 +4299,7 @@
         "value": {
             "family": "IPv4",
             "flags": "16",
-            "neigh": "0a:fd:a9:2a:2e:db",
+            "neigh": "92:8b:ae:6e:4f:3e",
             "nlmsg_type": "28",
             "remote": "1",
             "state": "64",
@@ -4388,7 +4323,7 @@
         "value": {
             "family": "IPv4",
             "flags": "16",
-            "neigh": "32:08:b6:e9:17:3e",
+            "neigh": "8e:50:a7:5a:26:0c",
             "nlmsg_type": "28",
             "remote": "1",
             "state": "64",
@@ -4400,7 +4335,7 @@
         "value": {
             "family": "IPv4",
             "flags": "16",
-            "neigh": "c6:6d:3e:8f:6a:3e",
+            "neigh": "12:4d:46:e6:25:83",
             "nlmsg_type": "28",
             "remote": "1",
             "state": "64",
@@ -4413,18 +4348,6 @@
             "family": "IPv4",
             "flags": "16",
             "neigh": "96:5a:a6:b4:20:0f",
-            "nlmsg_type": "28",
-            "remote": "1",
-            "state": "64",
-            "type": "2"
-        }
-    },
-    "NEIGH_REFRESH_TABLE:Vlan400:192.168.255.20": {
-        "type": "hash",
-        "value": {
-            "family": "IPv4",
-            "flags": "16",
-            "neigh": "c2:cf:da:a8:37:c5",
             "nlmsg_type": "28",
             "remote": "1",
             "state": "64",
@@ -4448,7 +4371,7 @@
         "value": {
             "family": "IPv4",
             "flags": "16",
-            "neigh": "46:60:07:26:8b:b0",
+            "neigh": "2e:b6:21:e5:8f:8f",
             "nlmsg_type": "28",
             "remote": "1",
             "state": "64",
@@ -4460,7 +4383,7 @@
         "value": {
             "family": "IPv4",
             "flags": "16",
-            "neigh": "26:e0:3c:81:89:dd",
+            "neigh": "7a:73:9b:dd:53:06",
             "nlmsg_type": "28",
             "remote": "1",
             "state": "64",
@@ -4479,36 +4402,12 @@
             "type": "2"
         }
     },
-    "NEIGH_REFRESH_TABLE:Vlan400:192.168.255.7": {
-        "type": "hash",
-        "value": {
-            "family": "IPv4",
-            "flags": "16",
-            "neigh": "32:71:fe:12:56:8b",
-            "nlmsg_type": "28",
-            "remote": "1",
-            "state": "64",
-            "type": "2"
-        }
-    },
     "NEIGH_REFRESH_TABLE:Vlan400:192.168.255.8": {
         "type": "hash",
         "value": {
             "family": "IPv4",
             "flags": "16",
             "neigh": "b6:e2:aa:03:1d:63",
-            "nlmsg_type": "28",
-            "remote": "1",
-            "state": "64",
-            "type": "2"
-        }
-    },
-    "NEIGH_REFRESH_TABLE:Vlan400:192.168.255.9": {
-        "type": "hash",
-        "value": {
-            "family": "IPv4",
-            "flags": "16",
-            "neigh": "fa:40:b2:d8:ed:78",
             "nlmsg_type": "28",
             "remote": "1",
             "state": "64",
@@ -5292,15 +5191,6 @@
             "type": "2"
         }
     },
-    "NEIGH_TABLE:Vlan400:192.168.255.1": {
-        "type": "hash",
-        "value": {
-            "family": "IPv4",
-            "neigh": "16:0d:63:d1:d6:98",
-            "remote": "1",
-            "type": "2"
-        }
-    },
     "NEIGH_TABLE:Vlan400:192.168.255.10": {
         "type": "hash",
         "value": {
@@ -5332,7 +5222,7 @@
         "type": "hash",
         "value": {
             "family": "IPv4",
-            "neigh": "36:3b:97:be:93:08",
+            "neigh": "ce:82:2e:05:4f:0b",
             "remote": "1",
             "type": "2"
         }
@@ -5341,7 +5231,7 @@
         "type": "hash",
         "value": {
             "family": "IPv4",
-            "neigh": "4a:ab:df:af:ba:64",
+            "neigh": "c6:08:af:b4:25:96",
             "remote": "1",
             "type": "2"
         }
@@ -5350,7 +5240,7 @@
         "type": "hash",
         "value": {
             "family": "IPv4",
-            "neigh": "16:f3:7b:8e:80:f9",
+            "neigh": "f6:59:01:4d:ae:e9",
             "remote": "1",
             "type": "2"
         }
@@ -5359,7 +5249,7 @@
         "type": "hash",
         "value": {
             "family": "IPv4",
-            "neigh": "0a:fd:a9:2a:2e:db",
+            "neigh": "92:8b:ae:6e:4f:3e",
             "remote": "1",
             "type": "2"
         }
@@ -5377,7 +5267,7 @@
         "type": "hash",
         "value": {
             "family": "IPv4",
-            "neigh": "32:08:b6:e9:17:3e",
+            "neigh": "8e:50:a7:5a:26:0c",
             "remote": "1",
             "type": "2"
         }
@@ -5386,7 +5276,7 @@
         "type": "hash",
         "value": {
             "family": "IPv4",
-            "neigh": "c6:6d:3e:8f:6a:3e",
+            "neigh": "12:4d:46:e6:25:83",
             "remote": "1",
             "type": "2"
         }
@@ -5396,15 +5286,6 @@
         "value": {
             "family": "IPv4",
             "neigh": "96:5a:a6:b4:20:0f",
-            "remote": "1",
-            "type": "2"
-        }
-    },
-    "NEIGH_TABLE:Vlan400:192.168.255.20": {
-        "type": "hash",
-        "value": {
-            "family": "IPv4",
-            "neigh": "c2:cf:da:a8:37:c5",
             "remote": "1",
             "type": "2"
         }
@@ -5422,7 +5303,7 @@
         "type": "hash",
         "value": {
             "family": "IPv4",
-            "neigh": "46:60:07:26:8b:b0",
+            "neigh": "2e:b6:21:e5:8f:8f",
             "remote": "1",
             "type": "2"
         }
@@ -5431,7 +5312,7 @@
         "type": "hash",
         "value": {
             "family": "IPv4",
-            "neigh": "26:e0:3c:81:89:dd",
+            "neigh": "7a:73:9b:dd:53:06",
             "remote": "1",
             "type": "2"
         }
@@ -5445,29 +5326,11 @@
             "type": "2"
         }
     },
-    "NEIGH_TABLE:Vlan400:192.168.255.7": {
-        "type": "hash",
-        "value": {
-            "family": "IPv4",
-            "neigh": "32:71:fe:12:56:8b",
-            "remote": "1",
-            "type": "2"
-        }
-    },
     "NEIGH_TABLE:Vlan400:192.168.255.8": {
         "type": "hash",
         "value": {
             "family": "IPv4",
             "neigh": "b6:e2:aa:03:1d:63",
-            "remote": "1",
-            "type": "2"
-        }
-    },
-    "NEIGH_TABLE:Vlan400:192.168.255.9": {
-        "type": "hash",
-        "value": {
-            "family": "IPv4",
-            "neigh": "fa:40:b2:d8:ed:78",
             "remote": "1",
             "type": "2"
         }
@@ -5718,14 +5581,12 @@
     "PORT_APP_STATUS_TABLE:Ethernet46": {
         "type": "hash",
         "value": {
-            "lag_status": "up",
             "xcvr_status": "up"
         }
     },
     "PORT_APP_STATUS_TABLE:Ethernet47": {
         "type": "hash",
         "value": {
-            "lag_status": "up",
             "xcvr_status": "up"
         }
     },
@@ -5818,7 +5679,7 @@
             "lanes": "3",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1746293",
+            "oper_status_change_uptime": "71",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -5836,7 +5697,7 @@
             "lanes": "2",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1746293",
+            "oper_status_change_uptime": "72",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -5854,7 +5715,7 @@
             "lanes": "13",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1737827",
+            "oper_status_change_uptime": "72",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -5872,7 +5733,7 @@
             "lanes": "15",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1737827",
+            "oper_status_change_uptime": "72",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -5890,7 +5751,7 @@
             "lanes": "23",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "928791",
+            "oper_status_change_uptime": "71",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -5908,7 +5769,7 @@
             "lanes": "22",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "928791",
+            "oper_status_change_uptime": "72",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -5926,7 +5787,7 @@
             "lanes": "24",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1742319",
+            "oper_status_change_uptime": "71",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -5944,7 +5805,7 @@
             "lanes": "32",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1742319",
+            "oper_status_change_uptime": "72",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -5962,7 +5823,7 @@
             "lanes": "31",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1739228",
+            "oper_status_change_uptime": "61279",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -5980,7 +5841,7 @@
             "lanes": "21",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1739228",
+            "oper_status_change_uptime": "61279",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -5998,7 +5859,7 @@
             "lanes": "29",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "2414377",
+            "oper_status_change_uptime": "72",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -6016,7 +5877,7 @@
             "lanes": "36",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "2414377",
+            "oper_status_change_uptime": "73",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -6034,7 +5895,7 @@
             "lanes": "4",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1732110",
+            "oper_status_change_uptime": "71",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -6052,7 +5913,7 @@
             "lanes": "30",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1748696",
+            "oper_status_change_uptime": "72",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -6070,7 +5931,7 @@
             "lanes": "34",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1748696",
+            "oper_status_change_uptime": "71",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -6088,7 +5949,7 @@
             "lanes": "33",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1740656",
+            "oper_status_change_uptime": "72",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -6106,7 +5967,7 @@
             "lanes": "35",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1740656",
+            "oper_status_change_uptime": "73",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -6124,7 +5985,7 @@
             "lanes": "43",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1734640",
+            "oper_status_change_uptime": "72",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -6142,7 +6003,7 @@
             "lanes": "42",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1734640",
+            "oper_status_change_uptime": "72",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -6160,7 +6021,7 @@
             "lanes": "44",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1724602",
+            "oper_status_change_uptime": "72",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -6178,7 +6039,7 @@
             "lanes": "52",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1724602",
+            "oper_status_change_uptime": "72",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -6196,7 +6057,7 @@
             "lanes": "51",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1744691",
+            "oper_status_change_uptime": "72",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -6214,7 +6075,7 @@
             "lanes": "41",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1744691",
+            "oper_status_change_uptime": "72",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -6232,7 +6093,7 @@
             "lanes": "8",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "2988441",
+            "oper_status_change_uptime": "71",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -6250,7 +6111,7 @@
             "lanes": "49",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1744625",
+            "oper_status_change_uptime": "60648",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -6268,7 +6129,7 @@
             "lanes": "60",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1744625",
+            "oper_status_change_uptime": "60648",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -6286,7 +6147,7 @@
             "lanes": "50",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1737824",
+            "oper_status_change_uptime": "73153",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -6322,7 +6183,7 @@
             "lanes": "57",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1746892",
+            "oper_status_change_uptime": "72",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -6340,7 +6201,7 @@
             "lanes": "59",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1746892",
+            "oper_status_change_uptime": "72",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -6358,7 +6219,7 @@
             "lanes": "62",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1734010",
+            "oper_status_change_uptime": "73",
             "port_load_interval": "10",
             "preemphasis": "0x002806",
             "speed": "10000",
@@ -6377,7 +6238,7 @@
             "lanes": "63",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1734010",
+            "oper_status_change_uptime": "73",
             "port_load_interval": "10",
             "preemphasis": "0x002805",
             "speed": "10000",
@@ -6396,7 +6257,7 @@
             "lanes": "64",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1738420",
+            "oper_status_change_uptime": "73",
             "port_load_interval": "10",
             "preemphasis": "0x002806",
             "speed": "10000",
@@ -6415,7 +6276,7 @@
             "lanes": "65",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1738420",
+            "oper_status_change_uptime": "73",
             "port_load_interval": "10",
             "preemphasis": "0x002805",
             "speed": "10000",
@@ -6434,7 +6295,7 @@
             "lanes": "7",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1860703",
+            "oper_status_change_uptime": "72",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -6453,7 +6314,7 @@
             "lanes": "66",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "76",
+            "oper_status_change_uptime": "70",
             "port_load_interval": "10",
             "preemphasis": "0x002805",
             "speed": "10000",
@@ -6473,7 +6334,7 @@
             "lanes": "61",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "76",
+            "oper_status_change_uptime": "70",
             "port_load_interval": "10",
             "preemphasis": "0x002806",
             "speed": "10000",
@@ -6493,7 +6354,7 @@
             "lanes": "68",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "2279761",
+            "oper_status_change_uptime": "70",
             "port_load_interval": "10",
             "preemphasis": "0x002805",
             "speed": "10000",
@@ -6513,7 +6374,7 @@
             "lanes": "69",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "76",
+            "oper_status_change_uptime": "70",
             "port_load_interval": "10",
             "preemphasis": "0x002805",
             "speed": "10000",
@@ -6557,7 +6418,6 @@
         "type": "hash",
         "value": {
             "": "",
-            "NULL": "NULL",
             "admin_status": "up",
             "alias": "Eth1/47",
             "description": "",
@@ -6565,7 +6425,7 @@
             "lanes": "72",
             "mtu": "9100",
             "oper_status": "down",
-            "oper_status_change_uptime": "67678",
+            "oper_status_change_uptime": "0",
             "port_load_interval": "10",
             "preemphasis": "0x002806",
             "speed": "10000",
@@ -6577,7 +6437,6 @@
         "type": "hash",
         "value": {
             "": "",
-            "NULL": "NULL",
             "admin_status": "up",
             "alias": "Eth1/48",
             "description": "",
@@ -6585,7 +6444,7 @@
             "lanes": "70",
             "mtu": "9100",
             "oper_status": "down",
-            "oper_status_change_uptime": "67685",
+            "oper_status_change_uptime": "0",
             "port_load_interval": "10",
             "preemphasis": "0x002806",
             "speed": "10000",
@@ -6604,7 +6463,7 @@
             "lanes": "77,78,79,80",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1689",
+            "oper_status_change_uptime": "70",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114,0x0a4114,0x0a4114,0x0a4114",
             "speed": "100000",
@@ -6623,7 +6482,7 @@
             "lanes": "1",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1860703",
+            "oper_status_change_uptime": "72",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -6641,7 +6500,7 @@
             "lanes": "85,86,87,88",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1689",
+            "oper_status_change_uptime": "70",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114,0x0a4114,0x0a4114,0x0a4114",
             "speed": "100000",
@@ -6660,7 +6519,7 @@
             "lanes": "93,94,95,96",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1689",
+            "oper_status_change_uptime": "70",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114,0x0a4114,0x0a4114,0x0a4114",
             "speed": "100000",
@@ -6679,7 +6538,7 @@
             "lanes": "5",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1722412",
+            "oper_status_change_uptime": "71",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -6697,7 +6556,7 @@
             "lanes": "97,98,99,100",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1689",
+            "oper_status_change_uptime": "70",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114,0x0a4114,0x0a4114,0x0a4114",
             "speed": "100000",
@@ -6716,7 +6575,7 @@
             "lanes": "105,106,107,108",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "76",
+            "oper_status_change_uptime": "70",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114,0x0a4114,0x0a4114,0x0a4114",
             "speed": "100000",
@@ -6735,7 +6594,7 @@
             "lanes": "113,114,115,116",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "76",
+            "oper_status_change_uptime": "70",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114,0x0a4114,0x0a4114,0x0a4114",
             "speed": "100000",
@@ -6754,7 +6613,7 @@
             "lanes": "16",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1722412",
+            "oper_status_change_uptime": "71",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -6772,7 +6631,7 @@
             "lanes": "121,122,123,124",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "583108",
+            "oper_status_change_uptime": "70",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114,0x0a4114,0x0a4114,0x0a4114",
             "speed": "100000",
@@ -6791,7 +6650,7 @@
             "lanes": "125,126,127,128",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "583099",
+            "oper_status_change_uptime": "70",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114,0x0a4114,0x0a4114,0x0a4114",
             "speed": "100000",
@@ -6810,7 +6669,7 @@
             "lanes": "6",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1734349",
+            "oper_status_change_uptime": "72897",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -6860,7 +6719,7 @@
             "lanes": "14",
             "mtu": "9100",
             "oper_status": "up",
-            "oper_status_change_uptime": "1734349",
+            "oper_status_change_uptime": "72897",
             "port_load_interval": "10",
             "preemphasis": "0x0a4114",
             "speed": "25000",
@@ -6918,8 +6777,8 @@
     "ROUTE_TABLE:192.168.0.214/32": {
         "type": "hash",
         "value": {
-            "ifname": "Ethernet48,Ethernet52,Ethernet56,Ethernet60,Ethernet64,Ethernet68,Ethernet72,Ethernet76,Ethernet18,Ethernet19,Ethernet0,Ethernet20,Ethernet24,Ethernet2,Ethernet22,Ethernet39,Ethernet37,Ethernet31,Ethernet29,Ethernet30,Ethernet38,Ethernet28,Ethernet26,Ethernet35,Ethernet17,Ethernet6,Ethernet8,Ethernet34,Ethernet32,Ethernet16,Ethernet36,Ethernet12,Ethernet10,Ethernet14,Ethernet9,Ethernet11,Ethernet15",
-            "nexthop": "fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::8ae9:a4ff:fe26:cb68,fe80::8ae9:a4ff:fe27:d011,fe80::9640:c9ff:fe8a:9454,fe80::9640:c9ff:fe8a:946d,fe80::9640:c9ff:fe8f:1e2d,fe80::9640:c9ff:fe8f:3fe4,fe80::9640:c9ff:fe8f:7ec1,fe80::9640:c9ff:feba:62a8,fe80::9640:c9ff:febb:384,fe80::9640:c9ff:febb:450,fe80::9640:c9ff:febb:454,fe80::9640:c9ff:febb:1305,fe80::9640:c9ff:febb:1315,fe80::9640:c9ff:febb:1321,fe80::9640:c9ff:febb:1325,fe80::9640:c9ff:febb:1440,fe80::9640:c9ff:febb:3365,fe80::9640:c9ff:febb:5364,fe80::9640:c9ff:febb:5368,fe80::9640:c9ff:febb:5375,fe80::9640:c9ff:febb:5379,fe80::9640:c9ff:febb:53f8,fe80::9640:c9ff:febb:c391,fe80::9640:c9ff:febb:c394,fe80::9640:c9ff:febb:c3ec,fe80::9640:c9ff:febb:c3f0,fe80::9640:c9ff:febb:d275,fe80::9640:c9ff:febb:d285,fe80::9640:c9ff:febb:e23d",
+            "ifname": "Ethernet48,Ethernet52,Ethernet56,Ethernet60,Ethernet64,Ethernet68,Ethernet72,Ethernet76,Ethernet18,Ethernet19,Ethernet0,Ethernet20,Ethernet24,Ethernet2,Ethernet22,Ethernet39,Ethernet37,Ethernet31,Ethernet29,Ethernet30,Ethernet38,Ethernet28,Ethernet26,Ethernet35,Ethernet17,Ethernet6,Ethernet8,Ethernet34,Ethernet32,Ethernet16,Ethernet36,Ethernet12,Ethernet10,Ethernet14,Ethernet9,Ethernet11,Ethernet15,Ethernet13",
+            "nexthop": "fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::8ae9:a4ff:fe26:cb68,fe80::8ae9:a4ff:fe27:d011,fe80::9640:c9ff:fe8a:9454,fe80::9640:c9ff:fe8a:946d,fe80::9640:c9ff:fe8f:1e2d,fe80::9640:c9ff:fe8f:3fe4,fe80::9640:c9ff:fe8f:7ec1,fe80::9640:c9ff:feba:62a8,fe80::9640:c9ff:febb:384,fe80::9640:c9ff:febb:450,fe80::9640:c9ff:febb:454,fe80::9640:c9ff:febb:1305,fe80::9640:c9ff:febb:1315,fe80::9640:c9ff:febb:1321,fe80::9640:c9ff:febb:1325,fe80::9640:c9ff:febb:1440,fe80::9640:c9ff:febb:3365,fe80::9640:c9ff:febb:5364,fe80::9640:c9ff:febb:5368,fe80::9640:c9ff:febb:5375,fe80::9640:c9ff:febb:5379,fe80::9640:c9ff:febb:53f8,fe80::9640:c9ff:febb:c391,fe80::9640:c9ff:febb:c394,fe80::9640:c9ff:febb:c3ec,fe80::9640:c9ff:febb:c3f0,fe80::9640:c9ff:febb:d275,fe80::9640:c9ff:febb:d285,fe80::9640:c9ff:febb:e23d,fe80::9640:c9ff:febb:e261",
             "router_mac": "",
             "vni_label": ""
         }
@@ -6938,6 +6797,15 @@
         "value": {
             "ifname": "Ethernet48,Ethernet52,Ethernet56,Ethernet60,Ethernet64,Ethernet68,Ethernet72,Ethernet76",
             "nexthop": "fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.0.217/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet64,Ethernet68,Ethernet72,Ethernet76",
+            "nexthop": "fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776",
             "router_mac": "",
             "vni_label": ""
         }
@@ -6996,20 +6864,11 @@
             "vni_label": ""
         }
     },
-    "ROUTE_TABLE:192.168.2.11/32": {
-        "type": "hash",
-        "value": {
-            "ifname": "Ethernet48,Ethernet52,Ethernet56,Ethernet60,Ethernet64,Ethernet68,Ethernet72,Ethernet76",
-            "nexthop": "fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776",
-            "router_mac": "",
-            "vni_label": ""
-        }
-    },
     "ROUTE_TABLE:192.168.2.12/32": {
         "type": "hash",
         "value": {
-            "ifname": "Ethernet2",
-            "nexthop": "fe80::9640:c9ff:fe8f:3fe4",
+            "ifname": "Ethernet32",
+            "nexthop": "fe80::9640:c9ff:febb:5379",
             "router_mac": "",
             "vni_label": ""
         }
@@ -7059,15 +6918,6 @@
             "vni_label": ""
         }
     },
-    "ROUTE_TABLE:192.168.2.18/32": {
-        "type": "hash",
-        "value": {
-            "ifname": "Ethernet48,Ethernet52,Ethernet56,Ethernet60,Ethernet64,Ethernet68,Ethernet72,Ethernet76",
-            "nexthop": "fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776",
-            "router_mac": "",
-            "vni_label": ""
-        }
-    },
     "ROUTE_TABLE:192.168.2.19/32": {
         "type": "hash",
         "value": {
@@ -7080,8 +6930,8 @@
     "ROUTE_TABLE:192.168.2.2/32": {
         "type": "hash",
         "value": {
-            "ifname": "Ethernet17,Ethernet16",
-            "nexthop": "fe80::9640:c9ff:febb:3365,fe80::9640:c9ff:febb:53f8",
+            "ifname": "Ethernet48,Ethernet52,Ethernet56,Ethernet60,Ethernet64,Ethernet68,Ethernet72,Ethernet76",
+            "nexthop": "fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776",
             "router_mac": "",
             "vni_label": ""
         }
@@ -7170,8 +7020,8 @@
     "ROUTE_TABLE:192.168.2.29/32": {
         "type": "hash",
         "value": {
-            "ifname": "Ethernet8,Ethernet9",
-            "nexthop": "fe80::9640:c9ff:febb:5368,fe80::9640:c9ff:febb:d275",
+            "ifname": "Ethernet14,Ethernet15",
+            "nexthop": "fe80::9640:c9ff:febb:c3f0,fe80::9640:c9ff:febb:e23d",
             "router_mac": "",
             "vni_label": ""
         }
@@ -7188,22 +7038,13 @@
     "ROUTE_TABLE:192.168.2.30/32": {
         "type": "hash",
         "value": {
-            "ifname": "Ethernet48,Ethernet52,Ethernet56,Ethernet60,Ethernet64,Ethernet68,Ethernet72,Ethernet76",
-            "nexthop": "fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776",
+            "ifname": "Ethernet17,Ethernet16",
+            "nexthop": "fe80::9640:c9ff:febb:3365,fe80::9640:c9ff:febb:53f8",
             "router_mac": "",
             "vni_label": ""
         }
     },
     "ROUTE_TABLE:192.168.2.31/32": {
-        "type": "hash",
-        "value": {
-            "ifname": "Ethernet48,Ethernet52,Ethernet56,Ethernet60,Ethernet64,Ethernet68,Ethernet72,Ethernet76",
-            "nexthop": "fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776",
-            "router_mac": "",
-            "vni_label": ""
-        }
-    },
-    "ROUTE_TABLE:192.168.2.32/32": {
         "type": "hash",
         "value": {
             "ifname": "Ethernet48,Ethernet52,Ethernet56,Ethernet60,Ethernet64,Ethernet68,Ethernet72,Ethernet76",
@@ -7221,7 +7062,7 @@
             "vni_label": ""
         }
     },
-    "ROUTE_TABLE:192.168.2.34/32": {
+    "ROUTE_TABLE:192.168.2.39/32": {
         "type": "hash",
         "value": {
             "ifname": "Ethernet48,Ethernet52,Ethernet56,Ethernet60,Ethernet64,Ethernet68,Ethernet72,Ethernet76",
@@ -7230,16 +7071,7 @@
             "vni_label": ""
         }
     },
-    "ROUTE_TABLE:192.168.2.35/32": {
-        "type": "hash",
-        "value": {
-            "ifname": "Ethernet48,Ethernet52,Ethernet56,Ethernet60,Ethernet64,Ethernet68,Ethernet72,Ethernet76",
-            "nexthop": "fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776",
-            "router_mac": "",
-            "vni_label": ""
-        }
-    },
-    "ROUTE_TABLE:192.168.2.4/32": {
+    "ROUTE_TABLE:192.168.2.40/32": {
         "type": "hash",
         "value": {
             "ifname": "Ethernet48,Ethernet52,Ethernet56,Ethernet60,Ethernet64,Ethernet68,Ethernet72,Ethernet76",
@@ -7251,8 +7083,8 @@
     "ROUTE_TABLE:192.168.2.5/32": {
         "type": "hash",
         "value": {
-            "ifname": "Ethernet32",
-            "nexthop": "fe80::9640:c9ff:febb:5379",
+            "ifname": "Ethernet20",
+            "nexthop": "fe80::9640:c9ff:fe8a:946d",
             "router_mac": "",
             "vni_label": ""
         }
@@ -7302,6 +7134,15 @@
             "vni_label": ""
         }
     },
+    "ROUTE_TABLE:192.168.4.101/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet48,Ethernet52,Ethernet56,Ethernet60,Ethernet64,Ethernet68,Ethernet72,Ethernet76",
+            "nexthop": "fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
     "ROUTE_TABLE:192.168.4.102/32": {
         "type": "hash",
         "value": {
@@ -7330,6 +7171,15 @@
         }
     },
     "ROUTE_TABLE:192.168.4.105/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet48,Ethernet52,Ethernet56,Ethernet60,Ethernet64,Ethernet68,Ethernet72,Ethernet76",
+            "nexthop": "fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.107/32": {
         "type": "hash",
         "value": {
             "ifname": "Ethernet48,Ethernet52,Ethernet56,Ethernet60,Ethernet64,Ethernet68,Ethernet72,Ethernet76",
@@ -7464,11 +7314,11 @@
             "vni_label": ""
         }
     },
-    "ROUTE_TABLE:192.168.4.21/32": {
+    "ROUTE_TABLE:192.168.4.19/32": {
         "type": "hash",
         "value": {
-            "ifname": "Ethernet48,Ethernet52,Ethernet56,Ethernet60,Ethernet64,Ethernet68,Ethernet72,Ethernet76",
-            "nexthop": "fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776",
+            "ifname": "Ethernet8,Ethernet9",
+            "nexthop": "fe80::9640:c9ff:febb:5368,fe80::9640:c9ff:febb:d275",
             "router_mac": "",
             "vni_label": ""
         }
@@ -7491,11 +7341,20 @@
             "vni_label": ""
         }
     },
-    "ROUTE_TABLE:192.168.4.32/32": {
+    "ROUTE_TABLE:192.168.4.39/32": {
         "type": "hash",
         "value": {
             "ifname": "Ethernet48,Ethernet52,Ethernet56,Ethernet60,Ethernet64,Ethernet68,Ethernet72,Ethernet76",
             "nexthop": "fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.46/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet2",
+            "nexthop": "fe80::9640:c9ff:fe8f:3fe4",
             "router_mac": "",
             "vni_label": ""
         }
@@ -7509,25 +7368,16 @@
             "vni_label": ""
         }
     },
-    "ROUTE_TABLE:192.168.4.52/32": {
-        "type": "hash",
-        "value": {
-            "ifname": "Ethernet14,Ethernet15",
-            "nexthop": "fe80::9640:c9ff:febb:c3f0,fe80::9640:c9ff:febb:e23d",
-            "router_mac": "",
-            "vni_label": ""
-        }
-    },
-    "ROUTE_TABLE:192.168.4.54/32": {
-        "type": "hash",
-        "value": {
-            "ifname": "Ethernet20",
-            "nexthop": "fe80::9640:c9ff:fe8a:946d",
-            "router_mac": "",
-            "vni_label": ""
-        }
-    },
     "ROUTE_TABLE:192.168.4.57/32": {
+        "type": "hash",
+        "value": {
+            "ifname": "Ethernet48,Ethernet52,Ethernet56,Ethernet60,Ethernet64,Ethernet68,Ethernet72,Ethernet76",
+            "nexthop": "fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::6f8:f8ff:fee5:e2bd,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776,fe80::36ef:b6ff:fe3f:6776",
+            "router_mac": "",
+            "vni_label": ""
+        }
+    },
+    "ROUTE_TABLE:192.168.4.59/32": {
         "type": "hash",
         "value": {
             "ifname": "Ethernet48,Ethernet52,Ethernet56,Ethernet60,Ethernet64,Ethernet68,Ethernet72,Ethernet76",
@@ -7692,44 +7542,8 @@
     "ROUTE_TABLE:192.168.7.1/32": {
         "type": "hash",
         "value": {
-            "ifname": "Ethernet12",
-            "nexthop": "fe80::9640:c9ff:febb:c394",
-            "router_mac": "",
-            "vni_label": ""
-        }
-    },
-    "ROUTE_TABLE:192.168.7.11/32": {
-        "type": "hash",
-        "value": {
-            "ifname": "Ethernet12",
-            "nexthop": "fe80::9640:c9ff:febb:c394",
-            "router_mac": "",
-            "vni_label": ""
-        }
-    },
-    "ROUTE_TABLE:192.168.7.12/32": {
-        "type": "hash",
-        "value": {
-            "ifname": "Ethernet12",
-            "nexthop": "fe80::9640:c9ff:febb:c394",
-            "router_mac": "",
-            "vni_label": ""
-        }
-    },
-    "ROUTE_TABLE:192.168.7.13/32": {
-        "type": "hash",
-        "value": {
-            "ifname": "Ethernet12",
-            "nexthop": "fe80::9640:c9ff:febb:c394",
-            "router_mac": "",
-            "vni_label": ""
-        }
-    },
-    "ROUTE_TABLE:192.168.7.14/32": {
-        "type": "hash",
-        "value": {
-            "ifname": "Ethernet12",
-            "nexthop": "fe80::9640:c9ff:febb:c394",
+            "ifname": "Ethernet12,Ethernet13",
+            "nexthop": "fe80::9640:c9ff:febb:c394,fe80::9640:c9ff:febb:e261",
             "router_mac": "",
             "vni_label": ""
         }
@@ -8268,26 +8082,10 @@
             "vni": "5108"
         }
     },
-    "VXLAN_FDB_TABLE:Vlan400:0a:fd:a9:2a:2e:db": {
+    "VXLAN_FDB_TABLE:Vlan400:12:4d:46:e6:25:83": {
         "type": "hash",
         "value": {
-            "remote_vtep": "192.168.2.34",
-            "type": "dynamic",
-            "vni": "400"
-        }
-    },
-    "VXLAN_FDB_TABLE:Vlan400:16:0d:63:d1:d6:98": {
-        "type": "hash",
-        "value": {
-            "remote_vtep": "192.168.2.8",
-            "type": "dynamic",
-            "vni": "400"
-        }
-    },
-    "VXLAN_FDB_TABLE:Vlan400:16:f3:7b:8e:80:f9": {
-        "type": "hash",
-        "value": {
-            "remote_vtep": "192.168.2.29",
+            "remote_vtep": "192.168.2.21",
             "type": "dynamic",
             "vni": "400"
         }
@@ -8324,31 +8122,7 @@
             "vni": "400"
         }
     },
-    "VXLAN_FDB_TABLE:Vlan400:26:e0:3c:81:89:dd": {
-        "type": "hash",
-        "value": {
-            "remote_vtep": "192.168.2.9",
-            "type": "dynamic",
-            "vni": "400"
-        }
-    },
-    "VXLAN_FDB_TABLE:Vlan400:32:08:b6:e9:17:3e": {
-        "type": "hash",
-        "value": {
-            "remote_vtep": "192.168.2.23",
-            "type": "dynamic",
-            "vni": "400"
-        }
-    },
-    "VXLAN_FDB_TABLE:Vlan400:32:71:fe:12:56:8b": {
-        "type": "hash",
-        "value": {
-            "remote_vtep": "192.168.2.12",
-            "type": "dynamic",
-            "vni": "400"
-        }
-    },
-    "VXLAN_FDB_TABLE:Vlan400:36:3b:97:be:93:08": {
+    "VXLAN_FDB_TABLE:Vlan400:2e:b6:21:e5:8f:8f": {
         "type": "hash",
         "value": {
             "remote_vtep": "192.168.2.2",
@@ -8368,22 +8142,6 @@
         "type": "hash",
         "value": {
             "remote_vtep": "192.168.2.13",
-            "type": "dynamic",
-            "vni": "400"
-        }
-    },
-    "VXLAN_FDB_TABLE:Vlan400:46:60:07:26:8b:b0": {
-        "type": "hash",
-        "value": {
-            "remote_vtep": "192.168.2.22",
-            "type": "dynamic",
-            "vni": "400"
-        }
-    },
-    "VXLAN_FDB_TABLE:Vlan400:4a:ab:df:af:ba:64": {
-        "type": "hash",
-        "value": {
-            "remote_vtep": "192.168.2.33",
             "type": "dynamic",
             "vni": "400"
         }
@@ -8412,6 +8170,30 @@
             "vni": "400"
         }
     },
+    "VXLAN_FDB_TABLE:Vlan400:7a:73:9b:dd:53:06": {
+        "type": "hash",
+        "value": {
+            "remote_vtep": "192.168.2.5",
+            "type": "dynamic",
+            "vni": "400"
+        }
+    },
+    "VXLAN_FDB_TABLE:Vlan400:8e:50:a7:5a:26:0c": {
+        "type": "hash",
+        "value": {
+            "remote_vtep": "192.168.2.30",
+            "type": "dynamic",
+            "vni": "400"
+        }
+    },
+    "VXLAN_FDB_TABLE:Vlan400:92:8b:ae:6e:4f:3e": {
+        "type": "hash",
+        "value": {
+            "remote_vtep": "192.168.2.23",
+            "type": "dynamic",
+            "vni": "400"
+        }
+    },
     "VXLAN_FDB_TABLE:Vlan400:96:5a:a6:b4:20:0f": {
         "type": "hash",
         "value": {
@@ -8436,26 +8218,26 @@
             "vni": "400"
         }
     },
-    "VXLAN_FDB_TABLE:Vlan400:c2:cf:da:a8:37:c5": {
+    "VXLAN_FDB_TABLE:Vlan400:c6:08:af:b4:25:96": {
         "type": "hash",
         "value": {
-            "remote_vtep": "192.168.2.35",
+            "remote_vtep": "192.168.2.20",
             "type": "dynamic",
             "vni": "400"
         }
     },
-    "VXLAN_FDB_TABLE:Vlan400:c6:6d:3e:8f:6a:3e": {
+    "VXLAN_FDB_TABLE:Vlan400:ce:82:2e:05:4f:0b": {
         "type": "hash",
         "value": {
-            "remote_vtep": "192.168.2.32",
+            "remote_vtep": "192.168.2.12",
             "type": "dynamic",
             "vni": "400"
         }
     },
-    "VXLAN_FDB_TABLE:Vlan400:fa:40:b2:d8:ed:78": {
+    "VXLAN_FDB_TABLE:Vlan400:f6:59:01:4d:ae:e9": {
         "type": "hash",
         "value": {
-            "remote_vtep": "192.168.2.5",
+            "remote_vtep": "192.168.2.29",
             "type": "dynamic",
             "vni": "400"
         }

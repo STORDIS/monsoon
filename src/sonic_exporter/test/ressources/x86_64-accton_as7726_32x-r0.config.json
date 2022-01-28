@@ -1,8 +1,843 @@
 {
-    "BGP_GLOBALS_AF_NETWORK|default|ipv4_unicast|192.168.0.210/32": {
+    "ACL_RULE|acl_vlan100_in|RULE_10": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "Schiff-CP",
+            "DST_IP": "10.27.49.128/25",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65526",
+            "SRC_IP": "172.23.166.0/25"
+        }
+    },
+    "ACL_RULE|acl_vlan100_in|RULE_100": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "Ref-DNS",
+            "DST_IP": "10.102.102.133/32",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65436",
+            "SRC_IP": "172.23.166.0/25"
+        }
+    },
+    "ACL_RULE|acl_vlan100_in|RULE_105": {
+        "type": "hash",
+        "value": {
+            "DST_IP": "10.92.244.18/32",
+            "IP_PROTOCOL": "6",
+            "L4_SRC_PORT": "22",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65431",
+            "SRC_IP": "172.23.166.0/25",
+            "TCP_FLAGS@": "0x10/0x10,0x4/0x4"
+        }
+    },
+    "ACL_RULE|acl_vlan100_in|RULE_15": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "Schiff-CP",
+            "DST_IP": "10.27.50.128/25",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65521",
+            "SRC_IP": "172.23.166.0/25"
+        }
+    },
+    "ACL_RULE|acl_vlan100_in|RULE_20": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "Schiff-CP",
+            "DST_IP": "10.27.53.192/26",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65516",
+            "SRC_IP": "172.23.166.0/25"
+        }
+    },
+    "ACL_RULE|acl_vlan100_in|RULE_25": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "Schiff-CP",
+            "DST_IP": "10.27.54.192/26",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65511",
+            "SRC_IP": "172.23.166.0/25"
+        }
+    },
+    "ACL_RULE|acl_vlan100_in|RULE_30": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "Infoblox-BLN",
+            "DST_IP": "10.90.106.224/28",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65506",
+            "SRC_IP": "172.23.166.0/25"
+        }
+    },
+    "ACL_RULE|acl_vlan100_in|RULE_35": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "Infoblox-FFM",
+            "DST_IP": "10.90.107.128/28",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65501",
+            "SRC_IP": "172.23.166.0/25"
+        }
+    },
+    "ACL_RULE|acl_vlan100_in|RULE_40": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "M2M-Proxy",
+            "DST_IP": "10.90.221.254/32",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65496",
+            "SRC_IP": "172.23.166.0/25"
+        }
+    },
+    "ACL_RULE|acl_vlan100_in|RULE_45": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "M2M-Proxy-Ref",
+            "DST_IP": "172.22.59.6/32",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65491",
+            "SRC_IP": "172.23.166.0/25"
+        }
+    },
+    "ACL_RULE|acl_vlan100_in|RULE_5": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "Schiff-CP-Ref",
+            "DST_IP": "172.22.130.192/26",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65531",
+            "SRC_IP": "172.23.166.0/25"
+        }
+    },
+    "ACL_RULE|acl_vlan100_in|RULE_50": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "DNS",
+            "DST_IP": "10.90.24.1/32",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65486",
+            "SRC_IP": "172.23.166.0/25"
+        }
+    },
+    "ACL_RULE|acl_vlan100_in|RULE_55": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "DNS",
+            "DST_IP": "10.90.24.17/32",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65481",
+            "SRC_IP": "172.23.166.0/25"
+        }
+    },
+    "ACL_RULE|acl_vlan100_in|RULE_60": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "Taste-OS-Ref",
+            "DST_IP": "172.22.191.1/32",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65476",
+            "SRC_IP": "172.23.166.0/25"
+        }
+    },
+    "ACL_RULE|acl_vlan100_in|RULE_65": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "NTP",
+            "DST_IP": "172.22.13.10/32",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65471",
+            "SRC_IP": "172.23.166.0/25"
+        }
+    },
+    "ACL_RULE|acl_vlan100_in|RULE_70": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "NTP",
+            "DST_IP": "172.22.13.11/32",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65466",
+            "SRC_IP": "172.23.166.0/25"
+        }
+    },
+    "ACL_RULE|acl_vlan100_in|RULE_75": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "NTP",
+            "DST_IP": "172.22.13.12/32",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65461",
+            "SRC_IP": "172.23.166.0/25"
+        }
+    },
+    "ACL_RULE|acl_vlan100_in|RULE_80": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "NTP",
+            "DST_IP": "172.22.13.13/32",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65456",
+            "SRC_IP": "172.23.166.0/25"
+        }
+    },
+    "ACL_RULE|acl_vlan100_in|RULE_85": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "NTP",
+            "DST_IP": "172.22.13.14/32",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65451",
+            "SRC_IP": "172.23.166.0/25"
+        }
+    },
+    "ACL_RULE|acl_vlan100_in|RULE_90": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "JOS2011",
+            "DST_IP": "10.92.244.18/32",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65446",
+            "SRC_IP": "172.23.166.0/25"
+        }
+    },
+    "ACL_RULE|acl_vlan100_in|RULE_95": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "Ref-DNS",
+            "DST_IP": "10.102.102.132/32",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65441",
+            "SRC_IP": "172.23.166.0/25"
+        }
+    },
+    "ACL_RULE|acl_vlan200_in|RULE_10": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "Schiff-CP",
+            "DST_IP": "10.27.49.128/25",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65526",
+            "SRC_IP": "172.23.166.128/25"
+        }
+    },
+    "ACL_RULE|acl_vlan200_in|RULE_100": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "Ref-DNS",
+            "DST_IP": "10.102.102.133/32",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65436",
+            "SRC_IP": "172.23.166.128/25"
+        }
+    },
+    "ACL_RULE|acl_vlan200_in|RULE_15": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "Schiff-CP",
+            "DST_IP": "10.27.50.128/25",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65521",
+            "SRC_IP": "172.23.166.128/25"
+        }
+    },
+    "ACL_RULE|acl_vlan200_in|RULE_20": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "Schiff-CP",
+            "DST_IP": "10.27.53.192/26",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65516",
+            "SRC_IP": "172.23.166.128/25"
+        }
+    },
+    "ACL_RULE|acl_vlan200_in|RULE_200": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "SCHIFFLAB",
+            "DST_IP": "0.0.0.0/0",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65336",
+            "SRC_IP": "172.22.140.0/27"
+        }
+    },
+    "ACL_RULE|acl_vlan200_in|RULE_25": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "Schiff-CP",
+            "DST_IP": "10.27.54.192/26",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65511",
+            "SRC_IP": "172.23.166.128/25"
+        }
+    },
+    "ACL_RULE|acl_vlan200_in|RULE_30": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "Infoblox-BLN",
+            "DST_IP": "10.90.106.224/28",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65506",
+            "SRC_IP": "172.23.166.128/25"
+        }
+    },
+    "ACL_RULE|acl_vlan200_in|RULE_35": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "Infoblox-FFM",
+            "DST_IP": "10.90.107.128/28",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65501",
+            "SRC_IP": "172.23.166.128/25"
+        }
+    },
+    "ACL_RULE|acl_vlan200_in|RULE_40": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "M2M-Proxy",
+            "DST_IP": "10.90.221.254/32",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65496",
+            "SRC_IP": "172.23.166.128/25"
+        }
+    },
+    "ACL_RULE|acl_vlan200_in|RULE_45": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "M2M-Proxy-Ref",
+            "DST_IP": "172.22.59.6/32",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65491",
+            "SRC_IP": "172.23.166.128/25"
+        }
+    },
+    "ACL_RULE|acl_vlan200_in|RULE_5": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "Schiff-CP-Ref",
+            "DST_IP": "172.22.130.192/26",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65531",
+            "SRC_IP": "172.23.166.128/25"
+        }
+    },
+    "ACL_RULE|acl_vlan200_in|RULE_50": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "DNS",
+            "DST_IP": "10.90.24.1/32",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65486",
+            "SRC_IP": "172.23.166.128/25"
+        }
+    },
+    "ACL_RULE|acl_vlan200_in|RULE_55": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "DNS",
+            "DST_IP": "10.90.24.17/32",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65481",
+            "SRC_IP": "172.23.166.128/25"
+        }
+    },
+    "ACL_RULE|acl_vlan200_in|RULE_60": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "Taste-OS-Ref",
+            "DST_IP": "172.22.191.1/32",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65476",
+            "SRC_IP": "172.23.166.128/25"
+        }
+    },
+    "ACL_RULE|acl_vlan200_in|RULE_65": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "NTP",
+            "DST_IP": "172.22.13.10/32",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65471",
+            "SRC_IP": "172.23.166.128/25"
+        }
+    },
+    "ACL_RULE|acl_vlan200_in|RULE_70": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "NTP",
+            "DST_IP": "172.22.13.11/32",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65466",
+            "SRC_IP": "172.23.166.128/25"
+        }
+    },
+    "ACL_RULE|acl_vlan200_in|RULE_75": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "NTP",
+            "DST_IP": "172.22.13.12/32",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65461",
+            "SRC_IP": "172.23.166.128/25"
+        }
+    },
+    "ACL_RULE|acl_vlan200_in|RULE_80": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "NTP",
+            "DST_IP": "172.22.13.13/32",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65456",
+            "SRC_IP": "172.23.166.128/25"
+        }
+    },
+    "ACL_RULE|acl_vlan200_in|RULE_85": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "NTP",
+            "DST_IP": "172.22.13.14/32",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65451",
+            "SRC_IP": "172.23.166.128/25"
+        }
+    },
+    "ACL_RULE|acl_vlan200_in|RULE_90": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "JOS2011",
+            "DST_IP": "10.92.244.18/32",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65446",
+            "SRC_IP": "172.23.166.128/25"
+        }
+    },
+    "ACL_RULE|acl_vlan200_in|RULE_95": {
+        "type": "hash",
+        "value": {
+            "DESCRIPTION": "Ref-DNS",
+            "DST_IP": "10.102.102.132/32",
+            "PACKET_ACTION": "FORWARD",
+            "PRIORITY": "65441",
+            "SRC_IP": "172.23.166.128/25"
+        }
+    },
+    "ACL_TABLE|acl_vlan100_in": {
+        "type": "hash",
+        "value": {
+            "ports@": "Vlan100",
+            "stage": "INGRESS",
+            "type": "L3"
+        }
+    },
+    "ACL_TABLE|acl_vlan200_in": {
+        "type": "hash",
+        "value": {
+            "type": "L3"
+        }
+    },
+    "BGP_GLOBALS_AF_NETWORK|Vrf_ip_bilsecrf|ipv4_unicast|10.112.137.64/27": {
         "type": "hash",
         "value": {
             "NULL": "NULL"
+        }
+    },
+    "BGP_GLOBALS_AF_NETWORK|Vrf_ip_bilsecrf|ipv4_unicast|10.112.137.96/27": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "BGP_GLOBALS_AF_NETWORK|Vrf_ip_internet|ipv4_unicast|37.50.221.0/24": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "BGP_GLOBALS_AF_NETWORK|Vrf_ip_m2msecrf|ipv4_unicast|10.112.137.128/26": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "BGP_GLOBALS_AF_NETWORK|Vrf_ip_m2msecrf|ipv4_unicast|10.112.137.64/27": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "BGP_GLOBALS_AF_NETWORK|Vrf_ip_sigsecrf|ipv4_unicast|10.111.64.0/27": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "BGP_GLOBALS_AF_NETWORK|Vrf_ip_sigsecrf|ipv4_unicast|10.112.136.192/29": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "BGP_GLOBALS_AF_NETWORK|Vrf_ip_tdgiref|ipv4_unicast|10.112.136.128/26": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "BGP_GLOBALS_AF_NETWORK|Vrf_ip_teutracp|ipv4_unicast|10.112.136.64/26": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "BGP_GLOBALS_AF_NETWORK|Vrf_ip_tgn|ipv4_unicast|10.112.136.0/26": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "BGP_GLOBALS_AF_NETWORK|Vrf_ip_tgn|ipv4_unicast|10.112.137.0/29": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "BGP_GLOBALS_AF_NETWORK|Vrf_ip_tmm2mref|ipv4_unicast|10.111.64.0/24": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "BGP_GLOBALS_AF_NETWORK|Vrf_ip_tmm2mref|ipv4_unicast|10.111.65.0/27": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "BGP_GLOBALS_AF_NETWORK|Vrf_ip_tmm2mref|ipv4_unicast|10.112.136.0/22": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "BGP_GLOBALS_AF_NETWORK|Vrf_om_refm2m|ipv4_unicast|10.23.75.208/29": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "BGP_GLOBALS_AF_NETWORK|Vrf_om_refm2m|ipv4_unicast|172.22.140.0/24": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "BGP_GLOBALS_AF_NETWORK|Vrf_om_refm2m|ipv4_unicast|172.22.156.0/24": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "BGP_GLOBALS_AF_NETWORK|Vrf_om_refm2m|ipv4_unicast|172.23.166.0/24": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "BGP_GLOBALS_AF_NETWORK|default|ipv4_unicast|192.168.0.215/32": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_ip_bilsecrf|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "ibgp_equal_cluster_length": "false",
+            "import_vrf@": "Vrf_pcf",
+            "import_vrf_route_map": "rm_import_customers_to_Vrf_ip_bilsecrf",
+            "max_ebgp_paths": "64",
+            "max_ibgp_paths": "64",
+            "route_flap_dampen": "false"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_ip_bilsecrf|l2vpn_evpn": {
+        "type": "hash",
+        "value": {
+            "advertise-ipv4-unicast": "true"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_ip_internet|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "ibgp_equal_cluster_length": "false",
+            "max_ebgp_paths": "64",
+            "max_ibgp_paths": "64",
+            "route_flap_dampen": "false"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_ip_internet|ipv6_unicast": {
+        "type": "hash",
+        "value": {
+            "max_ebgp_paths": "1",
+            "max_ibgp_paths": "1"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_ip_m2msecrf|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "ibgp_equal_cluster_length": "false",
+            "import_vrf@": "Vrf_udm-ausf,Vrf_pcf",
+            "import_vrf_route_map": "rm_import_customers_to_Vrf_ip_m2msecrf",
+            "max_ebgp_paths": "64",
+            "max_ibgp_paths": "64",
+            "route_flap_dampen": "false"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_ip_m2msecrf|l2vpn_evpn": {
+        "type": "hash",
+        "value": {
+            "advertise-ipv4-unicast": "true"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_ip_sigsecrf|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "ibgp_equal_cluster_length": "false",
+            "import_vrf_route_map": "rm_import_customers_to_Vrf_ip_sigsecrf",
+            "max_ebgp_paths": "64",
+            "max_ibgp_paths": "64",
+            "route_flap_dampen": "false"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_ip_sigsecrf|l2vpn_evpn": {
+        "type": "hash",
+        "value": {
+            "advertise-ipv4-unicast": "true"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_ip_tdgiref|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "ibgp_equal_cluster_length": "false",
+            "import_vrf_route_map": "rm_import_customers_to_Vrf_ip_tdgiref",
+            "max_ebgp_paths": "64",
+            "max_ibgp_paths": "64",
+            "route_flap_dampen": "false"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_ip_tdgiref|ipv6_unicast": {
+        "type": "hash",
+        "value": {
+            "ibgp_equal_cluster_length": "false",
+            "import_vrf_route_map": "rm_ipv6_import_customers_to_Vrf_ip_tdgiref",
+            "max_ebgp_paths": "64",
+            "max_ibgp_paths": "64"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_ip_teutracp|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "ibgp_equal_cluster_length": "false",
+            "import_vrf_route_map": "rm_import_customers_to_Vrf_ip_teutracp",
+            "max_ebgp_paths": "64",
+            "max_ibgp_paths": "64",
+            "route_flap_dampen": "false"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_ip_tgn|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "ibgp_equal_cluster_length": "false",
+            "import_vrf_route_map": "rm_import_customers_to_Vrf_ip_tgn",
+            "max_ebgp_paths": "64",
+            "max_ibgp_paths": "64",
+            "route_flap_dampen": "false"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_ip_tmm2mref|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "ibgp_equal_cluster_length": "false",
+            "import_vrf@": "Vrf_udm-ausf,Vrf_pcf,Vrf_smops",
+            "import_vrf_route_map": "rm_import_customers_to_Vrf_ip_tmm2mref",
+            "max_ebgp_paths": "64",
+            "max_ibgp_paths": "64",
+            "route_flap_dampen": "false"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_ip_tmm2mref|l2vpn_evpn": {
+        "type": "hash",
+        "value": {
+            "advertise-ipv4-unicast": "true"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_ipa|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL",
+            "ibgp_equal_cluster_length": "false",
+            "import_vrf@": "Vrf_om_refm2m",
+            "import_vrf_route_map": "rm_import_VRFs_to_ipa",
+            "max_ebgp_paths": "64",
+            "max_ibgp_paths": "64",
+            "route_flap_dampen": "false"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_ipa|ipv6_unicast": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL",
+            "ibgp_equal_cluster_length": "false",
+            "max_ebgp_paths": "64",
+            "max_ibgp_paths": "64"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_ipa|l2vpn_evpn": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL",
+            "advertise-ipv4-unicast": "true"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_om_refm2m|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL",
+            "ibgp_equal_cluster_length": "false",
+            "import_vrf@": "Vrf_udm-ausf,Vrf_pcf,Vrf_smops,Vrf_t5g-campus,Vrf_t5g,Vrf_ipa",
+            "import_vrf_route_map": "rm_import_customers_to_Vrf_om_refm2m",
+            "max_ebgp_paths": "64",
+            "max_ibgp_paths": "64",
+            "route_flap_dampen": "false"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_om_refm2m|l2vpn_evpn": {
+        "type": "hash",
+        "value": {
+            "advertise-ipv4-unicast": "true"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_pcf|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "ibgp_equal_cluster_length": "false",
+            "import_vrf@": "Vrf_ip_tmm2mref,Vrf_ip_bilsecrf,Vrf_om_refm2m,Vrf_ip_m2msecrf",
+            "import_vrf_route_map": "rm_import_VRFs_to_pcf",
+            "max_ebgp_paths": "64",
+            "max_ibgp_paths": "64",
+            "route_flap_dampen": "false"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_pcf|l2vpn_evpn": {
+        "type": "hash",
+        "value": {
+            "advertise-ipv4-unicast": "true"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_schifflab-1|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "ibgp_equal_cluster_length": "false",
+            "max_ebgp_paths": "64",
+            "max_ibgp_paths": "64",
+            "route_flap_dampen": "false"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_schifflab-1|l2vpn_evpn": {
+        "type": "hash",
+        "value": {
+            "advertise-ipv4-unicast": "true"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_smops|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "ibgp_equal_cluster_length": "false",
+            "import_vrf@": "Vrf_om_refm2m,Vrf_ip_tmm2mref",
+            "import_vrf_route_map": "rm_import_VRFs_to_smops",
+            "max_ebgp_paths": "64",
+            "max_ibgp_paths": "64",
+            "route_flap_dampen": "false"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_smops|ipv6_unicast": {
+        "type": "hash",
+        "value": {
+            "max_ebgp_paths": "1",
+            "max_ibgp_paths": "1"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_smops|l2vpn_evpn": {
+        "type": "hash",
+        "value": {
+            "advertise-ipv4-unicast": "true"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_t5g-campus|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "ibgp_equal_cluster_length": "false",
+            "import_vrf@": "Vrf_om_refm2m",
+            "import_vrf_route_map": "rm_import_VRFs_to_t5g-campus",
+            "max_ebgp_paths": "64",
+            "max_ibgp_paths": "64",
+            "route_flap_dampen": "false"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_t5g-campus|ipv6_unicast": {
+        "type": "hash",
+        "value": {
+            "ibgp_equal_cluster_length": "false",
+            "max_ebgp_paths": "64",
+            "max_ibgp_paths": "64"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_t5g-campus|l2vpn_evpn": {
+        "type": "hash",
+        "value": {
+            "advertise-ipv4-unicast": "true"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_t5g|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "ibgp_equal_cluster_length": "false",
+            "import_vrf@": "Vrf_om_refm2m",
+            "import_vrf_route_map": "rm_import_VRFs_to_t5g",
+            "max_ebgp_paths": "64",
+            "max_ibgp_paths": "64",
+            "route_flap_dampen": "false"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_t5g|ipv6_unicast": {
+        "type": "hash",
+        "value": {
+            "ibgp_equal_cluster_length": "false",
+            "max_ebgp_paths": "64",
+            "max_ibgp_paths": "64"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_t5g|l2vpn_evpn": {
+        "type": "hash",
+        "value": {
+            "advertise-ipv4-unicast": "true"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_udm-ausf|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "ibgp_equal_cluster_length": "false",
+            "import_vrf@": "Vrf_ip_m2msecrf,Vrf_om_refm2m,Vrf_ip_tmm2mref",
+            "import_vrf_route_map": "rm_import_VRFs_to_udm-ausf",
+            "max_ebgp_paths": "64",
+            "max_ibgp_paths": "64",
+            "route_flap_dampen": "false"
+        }
+    },
+    "BGP_GLOBALS_AF|Vrf_udm-ausf|l2vpn_evpn": {
+        "type": "hash",
+        "value": {
+            "advertise-ipv4-unicast": "true"
         }
     },
     "BGP_GLOBALS_AF|default|ipv4_unicast": {
@@ -17,7 +852,281 @@
     "BGP_GLOBALS_AF|default|l2vpn_evpn": {
         "type": "hash",
         "value": {
-            "advertise-all-vni": "true"
+            "advertise-all-vni": "true",
+            "advertise-svi-ip": "true"
+        }
+    },
+    "BGP_GLOBALS|Vrf_ip_bilsecrf": {
+        "type": "hash",
+        "value": {
+            "always_compare_med": "false",
+            "external_compare_router_id": "false",
+            "fast_external_failover": "true",
+            "holdtime": "3",
+            "ignore_as_path_length": "false",
+            "keepalive": "1",
+            "load_balance_mp_relax": "false",
+            "local_asn": "65403",
+            "log_nbr_state_changes": "true",
+            "max_med_time": "60",
+            "network_import_check": "true",
+            "router_id": "192.168.0.215"
+        }
+    },
+    "BGP_GLOBALS|Vrf_ip_internet": {
+        "type": "hash",
+        "value": {
+            "always_compare_med": "false",
+            "external_compare_router_id": "false",
+            "fast_external_failover": "true",
+            "holdtime": "3",
+            "ignore_as_path_length": "false",
+            "keepalive": "1",
+            "load_balance_mp_relax": "false",
+            "local_asn": "65403",
+            "log_nbr_state_changes": "true",
+            "max_med_time": "60",
+            "network_import_check": "true"
+        }
+    },
+    "BGP_GLOBALS|Vrf_ip_m2msecrf": {
+        "type": "hash",
+        "value": {
+            "always_compare_med": "false",
+            "external_compare_router_id": "false",
+            "fast_external_failover": "true",
+            "holdtime": "3",
+            "ignore_as_path_length": "false",
+            "keepalive": "1",
+            "load_balance_mp_relax": "false",
+            "local_asn": "65403",
+            "log_nbr_state_changes": "true",
+            "max_med_time": "60",
+            "network_import_check": "true",
+            "router_id": "192.168.0.215"
+        }
+    },
+    "BGP_GLOBALS|Vrf_ip_sigsecrf": {
+        "type": "hash",
+        "value": {
+            "always_compare_med": "false",
+            "external_compare_router_id": "false",
+            "fast_external_failover": "true",
+            "holdtime": "3",
+            "ignore_as_path_length": "false",
+            "keepalive": "1",
+            "load_balance_mp_relax": "false",
+            "local_asn": "65403",
+            "log_nbr_state_changes": "true",
+            "max_med_time": "60",
+            "network_import_check": "true",
+            "router_id": "192.168.0.215"
+        }
+    },
+    "BGP_GLOBALS|Vrf_ip_tdgiref": {
+        "type": "hash",
+        "value": {
+            "always_compare_med": "false",
+            "external_compare_router_id": "false",
+            "fast_external_failover": "true",
+            "holdtime": "3",
+            "ignore_as_path_length": "false",
+            "keepalive": "1",
+            "load_balance_mp_relax": "false",
+            "local_asn": "65403",
+            "log_nbr_state_changes": "true",
+            "max_med_time": "60",
+            "network_import_check": "true"
+        }
+    },
+    "BGP_GLOBALS|Vrf_ip_teutracp": {
+        "type": "hash",
+        "value": {
+            "always_compare_med": "false",
+            "external_compare_router_id": "false",
+            "fast_external_failover": "true",
+            "holdtime": "3",
+            "ignore_as_path_length": "false",
+            "keepalive": "1",
+            "load_balance_mp_relax": "false",
+            "local_asn": "65403",
+            "log_nbr_state_changes": "true",
+            "max_med_time": "60",
+            "network_import_check": "true"
+        }
+    },
+    "BGP_GLOBALS|Vrf_ip_tgn": {
+        "type": "hash",
+        "value": {
+            "always_compare_med": "false",
+            "external_compare_router_id": "false",
+            "fast_external_failover": "true",
+            "holdtime": "3",
+            "ignore_as_path_length": "false",
+            "keepalive": "1",
+            "load_balance_mp_relax": "false",
+            "local_asn": "65403",
+            "log_nbr_state_changes": "true",
+            "max_med_time": "60",
+            "network_import_check": "true"
+        }
+    },
+    "BGP_GLOBALS|Vrf_ip_tmm2mref": {
+        "type": "hash",
+        "value": {
+            "always_compare_med": "false",
+            "external_compare_router_id": "false",
+            "fast_external_failover": "true",
+            "holdtime": "3",
+            "ignore_as_path_length": "false",
+            "keepalive": "1",
+            "load_balance_mp_relax": "false",
+            "local_asn": "65403",
+            "log_nbr_state_changes": "true",
+            "max_med_time": "60",
+            "network_import_check": "true"
+        }
+    },
+    "BGP_GLOBALS|Vrf_ipa": {
+        "type": "hash",
+        "value": {
+            "always_compare_med": "false",
+            "as_path_mp_as_set": "false",
+            "external_compare_router_id": "false",
+            "fast_external_failover": "true",
+            "holdtime": "3",
+            "ignore_as_path_length": "false",
+            "keepalive": "1",
+            "load_balance_mp_relax": "true",
+            "local_asn": "65403",
+            "log_nbr_state_changes": "true",
+            "max_med_time": "60",
+            "network_import_check": "true",
+            "router_id": "192.168.0.215"
+        }
+    },
+    "BGP_GLOBALS|Vrf_om_refm2m": {
+        "type": "hash",
+        "value": {
+            "always_compare_med": "false",
+            "external_compare_router_id": "false",
+            "fast_external_failover": "true",
+            "holdtime": "3",
+            "ignore_as_path_length": "false",
+            "keepalive": "1",
+            "load_balance_mp_relax": "false",
+            "local_asn": "65403",
+            "log_nbr_state_changes": "true",
+            "max_med_time": "60",
+            "network_import_check": "true",
+            "router_id": "192.168.0.215"
+        }
+    },
+    "BGP_GLOBALS|Vrf_pcf": {
+        "type": "hash",
+        "value": {
+            "always_compare_med": "false",
+            "as_path_mp_as_set": "false",
+            "external_compare_router_id": "false",
+            "fast_external_failover": "true",
+            "holdtime": "3",
+            "ignore_as_path_length": "false",
+            "keepalive": "1",
+            "load_balance_mp_relax": "true",
+            "local_asn": "65403",
+            "log_nbr_state_changes": "true",
+            "max_med_time": "60",
+            "network_import_check": "true",
+            "router_id": "192.168.0.215"
+        }
+    },
+    "BGP_GLOBALS|Vrf_schifflab-1": {
+        "type": "hash",
+        "value": {
+            "always_compare_med": "false",
+            "external_compare_router_id": "false",
+            "fast_external_failover": "true",
+            "holdtime": "3",
+            "ignore_as_path_length": "false",
+            "keepalive": "1",
+            "load_balance_mp_relax": "false",
+            "local_asn": "65403",
+            "log_nbr_state_changes": "true",
+            "max_med_time": "60",
+            "network_import_check": "true",
+            "router_id": "192.168.0.215"
+        }
+    },
+    "BGP_GLOBALS|Vrf_smops": {
+        "type": "hash",
+        "value": {
+            "always_compare_med": "false",
+            "as_path_mp_as_set": "false",
+            "external_compare_router_id": "false",
+            "fast_external_failover": "true",
+            "holdtime": "3",
+            "ignore_as_path_length": "false",
+            "keepalive": "1",
+            "load_balance_mp_relax": "true",
+            "local_asn": "65403",
+            "log_nbr_state_changes": "true",
+            "max_med_time": "60",
+            "network_import_check": "true",
+            "router_id": "192.168.0.215"
+        }
+    },
+    "BGP_GLOBALS|Vrf_t5g": {
+        "type": "hash",
+        "value": {
+            "always_compare_med": "false",
+            "as_path_mp_as_set": "false",
+            "external_compare_router_id": "false",
+            "fast_external_failover": "true",
+            "holdtime": "3",
+            "ignore_as_path_length": "false",
+            "keepalive": "1",
+            "load_balance_mp_relax": "true",
+            "local_asn": "65403",
+            "log_nbr_state_changes": "true",
+            "max_med_time": "60",
+            "network_import_check": "true",
+            "router_id": "192.168.0.215"
+        }
+    },
+    "BGP_GLOBALS|Vrf_t5g-campus": {
+        "type": "hash",
+        "value": {
+            "always_compare_med": "false",
+            "as_path_mp_as_set": "false",
+            "external_compare_router_id": "false",
+            "fast_external_failover": "true",
+            "holdtime": "3",
+            "ignore_as_path_length": "false",
+            "keepalive": "1",
+            "load_balance_mp_relax": "true",
+            "local_asn": "65403",
+            "log_nbr_state_changes": "true",
+            "max_med_time": "60",
+            "network_import_check": "true",
+            "router_id": "192.168.0.215"
+        }
+    },
+    "BGP_GLOBALS|Vrf_udm-ausf": {
+        "type": "hash",
+        "value": {
+            "always_compare_med": "false",
+            "as_path_mp_as_set": "false",
+            "external_compare_router_id": "false",
+            "fast_external_failover": "true",
+            "holdtime": "3",
+            "ignore_as_path_length": "false",
+            "keepalive": "1",
+            "load_balance_mp_relax": "true",
+            "local_asn": "65403",
+            "log_nbr_state_changes": "true",
+            "max_med_time": "60",
+            "network_import_check": "true",
+            "router_id": "192.168.0.215"
         }
     },
     "BGP_GLOBALS|default": {
@@ -31,148 +1140,250 @@
             "ignore_as_path_length": "false",
             "keepalive": "1",
             "load_balance_mp_relax": "true",
-            "local_asn": "4200065132",
+            "local_asn": "65403",
             "log_nbr_state_changes": "true",
+            "max_med_time": "60",
             "network_import_check": "true",
-            "router_id": "192.168.0.210"
+            "router_id": "192.168.0.215"
+        }
+    },
+    "BGP_NEIGHBOR_AF|Vrf_ip_bilsecrf|192.168.9.25|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "prefix_list_in": "pl_ip_tm_bil_sec_ref_in",
+            "prefix_list_out": "pl_ip_tm_bil_sec_ref_out",
+            "remove_private_as_enabled": "true",
+            "soft_reconfiguration_in": "true"
+        }
+    },
+    "BGP_NEIGHBOR_AF|Vrf_ip_internet|192.168.8.229|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "prefix_list_in": "pl_ip_tmde_internet_in",
+            "prefix_list_out": "pl_ip_tmde_internet_out",
+            "remove_private_as_enabled": "true",
+            "soft_reconfiguration_in": "true"
+        }
+    },
+    "BGP_NEIGHBOR_AF|Vrf_ip_internet|2a01:598:0:1e14:192:168:8:229|ipv6_unicast": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "prefix_list_in": "pl_ipv6_ip_tmde_internet_in",
+            "prefix_list_out": "pl_ipv6_ip_tmde_internet_out",
+            "remove_private_as_enabled": "true",
+            "soft_reconfiguration_in": "true"
+        }
+    },
+    "BGP_NEIGHBOR_AF|Vrf_ip_m2msecrf|192.168.9.33|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "prefix_list_in": "pl_ip_tmde_m2m_sec_ref_in",
+            "prefix_list_out": "pl_ip_tmde_m2m_sec_ref_out",
+            "remove_private_as_enabled": "true",
+            "soft_reconfiguration_in": "true"
+        }
+    },
+    "BGP_NEIGHBOR_AF|Vrf_ip_sigsecrf|192.168.8.193|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "prefix_list_in": "pl_ip_tm_sig_sec_ref_in",
+            "prefix_list_out": "pl_ip_tm_sig_sec_ref_out",
+            "remove_private_as_enabled": "true",
+            "soft_reconfiguration_in": "true"
+        }
+    },
+    "BGP_NEIGHBOR_AF|Vrf_ip_tdgiref|192.168.8.205|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "prefix_list_in": "pl_ip_td_gi_ref_in",
+            "prefix_list_out": "pl_ip_td_gi_ref_out",
+            "remove_private_as_enabled": "true",
+            "soft_reconfiguration_in": "true"
+        }
+    },
+    "BGP_NEIGHBOR_AF|Vrf_ip_tdgiref|2a01:598:0:1e12:192:168:8:205|ipv6_unicast": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "prefix_list_in": "pl_ipv6_ip_td_gi_ref_in",
+            "prefix_list_out": "pl_ipv6_ip_td_gi_ref_out",
+            "remove_private_as_enabled": "true",
+            "soft_reconfiguration_in": "true"
+        }
+    },
+    "BGP_NEIGHBOR_AF|Vrf_ip_teutracp|192.168.8.237|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "prefix_list_in": "pl_ip_t_eutra_cp_in",
+            "prefix_list_out": "pl_ip_t_eutra_cp_out",
+            "remove_private_as_enabled": "true",
+            "soft_reconfiguration_in": "true"
+        }
+    },
+    "BGP_NEIGHBOR_AF|Vrf_ip_tgn|192.168.8.201|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "prefix_list_in": "pl_ip_t_gn_in",
+            "prefix_list_out": "pl_ip_t_gn_out",
+            "remove_private_as_enabled": "true",
+            "soft_reconfiguration_in": "true"
+        }
+    },
+    "BGP_NEIGHBOR_AF|Vrf_ip_tmm2mref|192.168.8.233|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "prefix_list_in": "pl_ip_tm_m2m_ref_in",
+            "prefix_list_out": "pl_ip_tm_m2m_ref_out",
+            "remove_private_as_enabled": "true",
+            "soft_reconfiguration_in": "true"
+        }
+    },
+    "BGP_NEIGHBOR_AF|Vrf_om_refm2m|192.168.8.225|ipv4_unicast": {
+        "type": "hash",
+        "value": {
+            "admin_status": "true",
+            "prefix_list_in": "pl_om_ref_dcn_m2m_in",
+            "prefix_list_out": "pl_om_ref_dcn_m2m_out",
+            "remove_private_as_enabled": "true",
+            "soft_reconfiguration_in": "true"
+        }
+    },
+    "BGP_NEIGHBOR|Vrf_ip_bilsecrf|192.168.9.25": {
+        "type": "hash",
+        "value": {
+            "asn": "65402",
+            "auth_password": "d35222da76f46967ca01625ab87fc7102a87ef4944ac0ab1c7a9417e833a03e907a3cda0939deb0e5940d8178184dd8cb610a2d846ff8111333d7d71ed2ca5862088bddee9787ece5434cf6304e716f9",
+            "bfd": "true",
+            "holdtime": "30",
+            "keepalive": "10"
+        }
+    },
+    "BGP_NEIGHBOR|Vrf_ip_internet|192.168.8.229": {
+        "type": "hash",
+        "value": {
+            "asn": "65402",
+            "auth_password": "d35222da76f46967ca01625ab87fc7102a87ef4944ac0ab1c7a9417e833a03e907a3cda0939deb0e5940d8178184dd8cb610a2d846ff8111333d7d71ed2ca5862088bddee9787ece5434cf6304e716f9",
+            "bfd": "true",
+            "holdtime": "30",
+            "keepalive": "10"
+        }
+    },
+    "BGP_NEIGHBOR|Vrf_ip_internet|2a01:598:0:1e14:192:168:8:229": {
+        "type": "hash",
+        "value": {
+            "asn": "65402",
+            "auth_password": "d35222da76f46967ca01625ab87fc7102a87ef4944ac0ab1c7a9417e833a03e907a3cda0939deb0e5940d8178184dd8cb610a2d846ff8111333d7d71ed2ca5862088bddee9787ece5434cf6304e716f9",
+            "bfd": "true",
+            "holdtime": "30",
+            "keepalive": "10"
+        }
+    },
+    "BGP_NEIGHBOR|Vrf_ip_m2msecrf|192.168.9.33": {
+        "type": "hash",
+        "value": {
+            "asn": "65402",
+            "auth_password": "d35222da76f46967ca01625ab87fc7102a87ef4944ac0ab1c7a9417e833a03e907a3cda0939deb0e5940d8178184dd8cb610a2d846ff8111333d7d71ed2ca5862088bddee9787ece5434cf6304e716f9",
+            "bfd": "true",
+            "holdtime": "30",
+            "keepalive": "10"
+        }
+    },
+    "BGP_NEIGHBOR|Vrf_ip_sigsecrf|192.168.8.193": {
+        "type": "hash",
+        "value": {
+            "asn": "65402",
+            "auth_password": "d35222da76f46967ca01625ab87fc7102a87ef4944ac0ab1c7a9417e833a03e907a3cda0939deb0e5940d8178184dd8cb610a2d846ff8111333d7d71ed2ca5862088bddee9787ece5434cf6304e716f9",
+            "bfd": "true",
+            "holdtime": "30",
+            "keepalive": "10"
+        }
+    },
+    "BGP_NEIGHBOR|Vrf_ip_tdgiref|192.168.8.205": {
+        "type": "hash",
+        "value": {
+            "asn": "65402",
+            "auth_password": "d35222da76f46967ca01625ab87fc7102a87ef4944ac0ab1c7a9417e833a03e907a3cda0939deb0e5940d8178184dd8cb610a2d846ff8111333d7d71ed2ca5862088bddee9787ece5434cf6304e716f9",
+            "bfd": "true",
+            "holdtime": "30",
+            "keepalive": "10"
+        }
+    },
+    "BGP_NEIGHBOR|Vrf_ip_tdgiref|2a01:598:0:1e12:192:168:8:205": {
+        "type": "hash",
+        "value": {
+            "asn": "65402",
+            "auth_password": "d35222da76f46967ca01625ab87fc7102a87ef4944ac0ab1c7a9417e833a03e907a3cda0939deb0e5940d8178184dd8cb610a2d846ff8111333d7d71ed2ca5862088bddee9787ece5434cf6304e716f9",
+            "bfd": "true",
+            "holdtime": "30",
+            "keepalive": "10"
+        }
+    },
+    "BGP_NEIGHBOR|Vrf_ip_teutracp|192.168.8.237": {
+        "type": "hash",
+        "value": {
+            "asn": "65402",
+            "auth_password": "d35222da76f46967ca01625ab87fc7102a87ef4944ac0ab1c7a9417e833a03e907a3cda0939deb0e5940d8178184dd8cb610a2d846ff8111333d7d71ed2ca5862088bddee9787ece5434cf6304e716f9",
+            "bfd": "true",
+            "holdtime": "30",
+            "keepalive": "10"
+        }
+    },
+    "BGP_NEIGHBOR|Vrf_ip_tgn|192.168.8.201": {
+        "type": "hash",
+        "value": {
+            "asn": "65402",
+            "auth_password": "d35222da76f46967ca01625ab87fc7102a87ef4944ac0ab1c7a9417e833a03e907a3cda0939deb0e5940d8178184dd8cb610a2d846ff8111333d7d71ed2ca5862088bddee9787ece5434cf6304e716f9",
+            "bfd": "true",
+            "holdtime": "30",
+            "keepalive": "10"
+        }
+    },
+    "BGP_NEIGHBOR|Vrf_ip_tmm2mref|192.168.8.233": {
+        "type": "hash",
+        "value": {
+            "asn": "65402",
+            "auth_password": "d35222da76f46967ca01625ab87fc7102a87ef4944ac0ab1c7a9417e833a03e907a3cda0939deb0e5940d8178184dd8cb610a2d846ff8111333d7d71ed2ca5862088bddee9787ece5434cf6304e716f9",
+            "bfd": "true",
+            "holdtime": "30",
+            "keepalive": "10"
+        }
+    },
+    "BGP_NEIGHBOR|Vrf_om_refm2m|192.168.8.225": {
+        "type": "hash",
+        "value": {
+            "asn": "65402",
+            "auth_password": "d35222da76f46967ca01625ab87fc7102a87ef4944ac0ab1c7a9417e833a03e907a3cda0939deb0e5940d8178184dd8cb610a2d846ff8111333d7d71ed2ca5862088bddee9787ece5434cf6304e716f9",
+            "bfd": "true",
+            "holdtime": "30",
+            "keepalive": "10"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet0": {
         "type": "hash",
         "value": {
-            "peer_group_name": "t-01-m-09-lf1-01-10"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet100": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-bl1-04-09"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet112": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-ltb1-02-10"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet116": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-ltb1-02-10"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet12": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-lf1-01-10"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet120": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-ltb1-01-10"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet124": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-ltb1-01-10"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet16": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-lf1-02-10"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet20": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-lf1-02-10"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet24": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-lf1-02-10"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet28": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-lf1-02-10"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet32": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-lf1-04-09"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet36": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-lf1-04-09"
+            "peer_group_name": "t-01-m-09-sp1-01-10"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet4": {
         "type": "hash",
         "value": {
-            "peer_group_name": "t-01-m-09-lf1-01-10"
+            "peer_group_name": "t-01-m-09-sp1-04-09"
         }
     },
-    "BGP_NEIGHBOR|default|Ethernet40": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-lf1-04-09"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet44": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-lf1-04-09"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet48": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-lf1-04-10"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet52": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-lf1-04-10"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet56": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-lf1-04-10"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet60": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-lf1-04-10"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet8": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-lf1-01-10"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet96": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "t-01-m-09-bl1-01-10"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-bl1-01-10|ipv4_unicast": {
+    "BGP_PEER_GROUP_AF|default|t-01-m-09-sp1-01-10|ipv4_unicast": {
         "type": "hash",
         "value": {
             "admin_status": "true",
+            "allow_as_in": "false",
             "max_prefix_warning_only": "false",
             "rrclient": "false",
             "send_community": "both",
@@ -180,17 +1391,19 @@
             "soft_reconfiguration_in": "true"
         }
     },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-bl1-01-10|l2vpn_evpn": {
+    "BGP_PEER_GROUP_AF|default|t-01-m-09-sp1-01-10|l2vpn_evpn": {
         "type": "hash",
         "value": {
             "admin_status": "true",
+            "allow_as_in": "false",
             "soft_reconfiguration_in": "true"
         }
     },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-bl1-04-09|ipv4_unicast": {
+    "BGP_PEER_GROUP_AF|default|t-01-m-09-sp1-04-09|ipv4_unicast": {
         "type": "hash",
         "value": {
             "admin_status": "true",
+            "allow_as_in": "false",
             "max_prefix_warning_only": "false",
             "rrclient": "false",
             "send_community": "both",
@@ -198,158 +1411,15 @@
             "soft_reconfiguration_in": "true"
         }
     },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-bl1-04-09|l2vpn_evpn": {
+    "BGP_PEER_GROUP_AF|default|t-01-m-09-sp1-04-09|l2vpn_evpn": {
         "type": "hash",
         "value": {
             "admin_status": "true",
+            "allow_as_in": "false",
             "soft_reconfiguration_in": "true"
         }
     },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-lf1-01-10|ipv4_unicast": {
-        "type": "hash",
-        "value": {
-            "admin_status": "true",
-            "max_prefix_warning_only": "false",
-            "rrclient": "false",
-            "send_community": "both",
-            "send_default_route": "false",
-            "soft_reconfiguration_in": "true"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-lf1-01-10|l2vpn_evpn": {
-        "type": "hash",
-        "value": {
-            "admin_status": "true",
-            "soft_reconfiguration_in": "true"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-lf1-02-10|ipv4_unicast": {
-        "type": "hash",
-        "value": {
-            "admin_status": "true",
-            "max_prefix_warning_only": "false",
-            "rrclient": "false",
-            "send_community": "both",
-            "send_default_route": "false",
-            "soft_reconfiguration_in": "true"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-lf1-02-10|l2vpn_evpn": {
-        "type": "hash",
-        "value": {
-            "admin_status": "true",
-            "soft_reconfiguration_in": "true"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-lf1-04-09|ipv4_unicast": {
-        "type": "hash",
-        "value": {
-            "admin_status": "true",
-            "max_prefix_warning_only": "false",
-            "rrclient": "false",
-            "send_community": "both",
-            "send_default_route": "false",
-            "soft_reconfiguration_in": "true"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-lf1-04-09|l2vpn_evpn": {
-        "type": "hash",
-        "value": {
-            "admin_status": "true",
-            "soft_reconfiguration_in": "true"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-lf1-04-10|ipv4_unicast": {
-        "type": "hash",
-        "value": {
-            "admin_status": "true",
-            "max_prefix_warning_only": "false",
-            "rrclient": "false",
-            "send_community": "both",
-            "send_default_route": "false",
-            "soft_reconfiguration_in": "true"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-lf1-04-10|l2vpn_evpn": {
-        "type": "hash",
-        "value": {
-            "admin_status": "true",
-            "soft_reconfiguration_in": "true"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-ltb1-01-10|ipv4_unicast": {
-        "type": "hash",
-        "value": {
-            "admin_status": "true",
-            "max_prefix_warning_only": "false",
-            "rrclient": "false",
-            "send_community": "both",
-            "send_default_route": "false",
-            "soft_reconfiguration_in": "true"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-ltb1-01-10|l2vpn_evpn": {
-        "type": "hash",
-        "value": {
-            "admin_status": "true",
-            "soft_reconfiguration_in": "true"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-ltb1-02-10|ipv4_unicast": {
-        "type": "hash",
-        "value": {
-            "admin_status": "true",
-            "max_prefix_warning_only": "false",
-            "rrclient": "false",
-            "send_community": "both",
-            "send_default_route": "false",
-            "soft_reconfiguration_in": "true"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-ltb1-02-10|l2vpn_evpn": {
-        "type": "hash",
-        "value": {
-            "admin_status": "true",
-            "soft_reconfiguration_in": "true"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-ltb1-04-09|ipv4_unicast": {
-        "type": "hash",
-        "value": {
-            "admin_status": "true",
-            "max_prefix_warning_only": "false",
-            "rrclient": "false",
-            "send_community": "both",
-            "send_default_route": "false",
-            "soft_reconfiguration_in": "true"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-ltb1-04-09|l2vpn_evpn": {
-        "type": "hash",
-        "value": {
-            "admin_status": "true",
-            "soft_reconfiguration_in": "true"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-ltb1-04-10|ipv4_unicast": {
-        "type": "hash",
-        "value": {
-            "admin_status": "true",
-            "max_prefix_warning_only": "false",
-            "rrclient": "false",
-            "send_community": "both",
-            "send_default_route": "false",
-            "soft_reconfiguration_in": "true"
-        }
-    },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-ltb1-04-10|l2vpn_evpn": {
-        "type": "hash",
-        "value": {
-            "admin_status": "true",
-            "soft_reconfiguration_in": "true"
-        }
-    },
-    "BGP_PEER_GROUP|default|t-01-m-09-bl1-01-10": {
+    "BGP_PEER_GROUP|default|t-01-m-09-sp1-01-10": {
         "type": "hash",
         "value": {
             "admin_status": "true",
@@ -363,7 +1433,7 @@
             "peer_type": "external"
         }
     },
-    "BGP_PEER_GROUP|default|t-01-m-09-bl1-04-09": {
+    "BGP_PEER_GROUP|default|t-01-m-09-sp1-04-09": {
         "type": "hash",
         "value": {
             "admin_status": "true",
@@ -377,148 +1447,68 @@
             "peer_type": "external"
         }
     },
-    "BGP_PEER_GROUP|default|t-01-m-09-lf1-01-10": {
+    "BREAKOUT_CFG|Ethernet116": {
         "type": "hash",
         "value": {
-            "admin_status": "true",
-            "bfd": "true",
-            "conn_retry": "30",
-            "ebgp_multihop": "false",
-            "holdtime": "3",
-            "keepalive": "1",
-            "min_adv_interval": "0",
-            "passive_mode": "false",
-            "peer_type": "external"
+            "brkout_mode": "4x10G",
+            "lanes": "117,118,119,120",
+            "port": "1/30"
         }
     },
-    "BGP_PEER_GROUP|default|t-01-m-09-lf1-02-10": {
+    "BREAKOUT_CFG|Ethernet120": {
         "type": "hash",
         "value": {
-            "admin_status": "true",
-            "bfd": "true",
-            "conn_retry": "30",
-            "ebgp_multihop": "false",
-            "holdtime": "3",
-            "keepalive": "1",
-            "min_adv_interval": "0",
-            "passive_mode": "false",
-            "peer_type": "external"
+            "brkout_mode": "4x10G",
+            "lanes": "121,122,123,124",
+            "port": "1/31"
         }
     },
-    "BGP_PEER_GROUP|default|t-01-m-09-lf1-04-09": {
+    "BREAKOUT_PORTS|Ethernet116": {
         "type": "hash",
         "value": {
-            "admin_status": "true",
-            "bfd": "true",
-            "conn_retry": "30",
-            "ebgp_multihop": "false",
-            "holdtime": "3",
-            "keepalive": "1",
-            "min_adv_interval": "0",
-            "passive_mode": "false",
-            "peer_type": "external"
+            "master": "Ethernet116"
         }
     },
-    "BGP_PEER_GROUP|default|t-01-m-09-lf1-04-10": {
+    "BREAKOUT_PORTS|Ethernet117": {
         "type": "hash",
         "value": {
-            "admin_status": "true",
-            "bfd": "true",
-            "conn_retry": "30",
-            "ebgp_multihop": "false",
-            "holdtime": "3",
-            "keepalive": "1",
-            "min_adv_interval": "0",
-            "passive_mode": "false",
-            "peer_type": "external"
+            "master": "Ethernet116"
         }
     },
-    "BGP_PEER_GROUP|default|t-01-m-09-ltb1-01-10": {
+    "BREAKOUT_PORTS|Ethernet118": {
         "type": "hash",
         "value": {
-            "admin_status": "true",
-            "bfd": "true",
-            "conn_retry": "30",
-            "ebgp_multihop": "false",
-            "holdtime": "3",
-            "keepalive": "1",
-            "min_adv_interval": "0",
-            "passive_mode": "false",
-            "peer_type": "external"
+            "master": "Ethernet116"
         }
     },
-    "BGP_PEER_GROUP|default|t-01-m-09-ltb1-02-10": {
+    "BREAKOUT_PORTS|Ethernet119": {
         "type": "hash",
         "value": {
-            "admin_status": "true",
-            "bfd": "true",
-            "conn_retry": "30",
-            "ebgp_multihop": "false",
-            "holdtime": "3",
-            "keepalive": "1",
-            "min_adv_interval": "0",
-            "passive_mode": "false",
-            "peer_type": "external"
+            "master": "Ethernet116"
         }
     },
-    "BGP_PEER_GROUP|default|t-01-m-09-ltb1-04-09": {
+    "BREAKOUT_PORTS|Ethernet120": {
         "type": "hash",
         "value": {
-            "admin_status": "true",
-            "bfd": "true",
-            "conn_retry": "30",
-            "ebgp_multihop": "false",
-            "holdtime": "3",
-            "keepalive": "1",
-            "min_adv_interval": "0",
-            "passive_mode": "false",
-            "peer_type": "external"
+            "master": "Ethernet120"
         }
     },
-    "BGP_PEER_GROUP|default|t-01-m-09-ltb1-04-10": {
+    "BREAKOUT_PORTS|Ethernet121": {
         "type": "hash",
         "value": {
-            "admin_status": "true",
-            "bfd": "true",
-            "conn_retry": "30",
-            "ebgp_multihop": "false",
-            "holdtime": "3",
-            "keepalive": "1",
-            "min_adv_interval": "0",
-            "passive_mode": "false",
-            "peer_type": "external"
+            "master": "Ethernet120"
         }
     },
-    "BREAKOUT_CFG|Ethernet56": {
+    "BREAKOUT_PORTS|Ethernet122": {
         "type": "hash",
         "value": {
-            "brkout_mode": "1x100G",
-            "lanes": "57,58,59,60",
-            "port": "1/15"
+            "master": "Ethernet120"
         }
     },
-    "BREAKOUT_PORTS|Ethernet56": {
+    "BREAKOUT_PORTS|Ethernet123": {
         "type": "hash",
         "value": {
-            "master": "Ethernet56"
-        }
-    },
-    "BREAKOUT_PORTS|Ethernet57": {
-        "type": "hash",
-        "value": {
-            "master": "Ethernet56"
-        }
-    },
-    "BREAKOUT_PORTS|Ethernet58": {
-        "type": "hash",
-        "value": {
-            "master": "Ethernet56"
-        }
-    },
-    "BREAKOUT_PORTS|Ethernet59": {
-        "type": "hash",
-        "value": {
-            "master": "Ethernet56"
+            "master": "Ethernet120"
         }
     },
     "CLASSIFIER_TABLE|class-oob-arp": {
@@ -575,11 +1565,63 @@
         "type": "string",
         "value": "1"
     },
-    "CONFIG_DB_UPDATED_INTERFACE": {
+    "CONFIG_DB_UPDATED_ACL_TABLE": {
         "type": "string",
         "value": "1"
     },
-    "CONFIG_DB_UPDATED_PORT": {
+    "CONFIG_DB_UPDATED_BGP_GLOBALS": {
+        "type": "string",
+        "value": "1"
+    },
+    "CONFIG_DB_UPDATED_BGP_GLOBALS_AF": {
+        "type": "string",
+        "value": "1"
+    },
+    "CONFIG_DB_UPDATED_BGP_GLOBALS_AF_NETWORK": {
+        "type": "string",
+        "value": "1"
+    },
+    "CONFIG_DB_UPDATED_PREFIX": {
+        "type": "string",
+        "value": "1"
+    },
+    "CONFIG_DB_UPDATED_PREFIX_SET": {
+        "type": "string",
+        "value": "1"
+    },
+    "CONFIG_DB_UPDATED_ROUTE_MAP": {
+        "type": "string",
+        "value": "1"
+    },
+    "CONFIG_DB_UPDATED_ROUTE_MAP_SET": {
+        "type": "string",
+        "value": "1"
+    },
+    "CONFIG_DB_UPDATED_ROUTE_REDISTRIBUTE": {
+        "type": "string",
+        "value": "1"
+    },
+    "CONFIG_DB_UPDATED_STATIC_ROUTE": {
+        "type": "string",
+        "value": "1"
+    },
+    "CONFIG_DB_UPDATED_VLAN": {
+        "type": "string",
+        "value": "1"
+    },
+    "CONFIG_DB_UPDATED_VLAN_INTERFACE": {
+        "type": "string",
+        "value": "1"
+    },
+    "CONFIG_DB_UPDATED_VRF": {
+        "type": "string",
+        "value": "1"
+    },
+    "CONFIG_DB_UPDATED_VXLAN_TUNNEL": {
+        "type": "string",
+        "value": "1"
+    },
+    "CONFIG_DB_UPDATED_VXLAN_TUNNEL_MAP": {
         "type": "string",
         "value": "1"
     },
@@ -1033,14 +2075,27 @@
             "enabled": "true"
         }
     },
+    "DEBUGFM_CONFIG_TABLE|ACTION": {
+        "type": "hash",
+        "value": {
+            "ACTION": "COMPRESS"
+        }
+    },
+    "DEBUGFM_CONFIG_TABLE|TARGET": {
+        "type": "hash",
+        "value": {
+            "TARGET": "SWSS_FILE"
+        }
+    },
     "DEVICE_METADATA|localhost": {
         "type": "hash",
         "value": {
             "default_config_profile": "l3",
             "docker_routing_config_mode": "separated",
-            "hostname": "t-01-m-09-sp1-01-10.mgmt.refaz.bn.schiff.telekom.de",
+            "frr_mgmt_framework_config": "true",
+            "hostname": "t-01-m-09-bl1-01-10.mgmt.refaz.bn.schiff.telekom.de",
             "hwsku": "Accton-AS7726-32X",
-            "mac": "04:f8:f8:e5:e2:bd",
+            "mac": "34:ef:b6:3f:57:76",
             "platform": "x86_64-accton_as7726_32x-r0",
             "type": "LeafRouter"
         }
@@ -1063,6 +2118,12 @@
             "ipv6_l4_src_port": "true",
             "ipv6_next_hdr": "true",
             "ipv6_src_ip": "true"
+        }
+    },
+    "EVPN_NVO|nvo": {
+        "type": "hash",
+        "value": {
+            "source_vtep": "vtep1"
         }
     },
     "FEATURE|bgp": {
@@ -1191,6 +2252,12 @@
             "FLEX_COUNTER_STATUS": "enable"
         }
     },
+    "FLEX_COUNTER_TABLE|PG_WATERMARK": {
+        "type": "hash",
+        "value": {
+            "FLEX_COUNTER_STATUS": "enable"
+        }
+    },
     "FLEX_COUNTER_TABLE|PORT": {
         "type": "hash",
         "value": {
@@ -1198,6 +2265,12 @@
         }
     },
     "FLEX_COUNTER_TABLE|QUEUE": {
+        "type": "hash",
+        "value": {
+            "FLEX_COUNTER_STATUS": "enable"
+        }
+    },
+    "FLEX_COUNTER_TABLE|QUEUE_WATERMARK": {
         "type": "hash",
         "value": {
             "FLEX_COUNTER_STATUS": "enable"
@@ -1240,37 +2313,13 @@
             "ipv6_use_link_local_only": "enable"
         }
     },
-    "INTERFACE|Ethernet116": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
     "INTERFACE|Ethernet12": {
         "type": "hash",
         "value": {
             "ipv6_use_link_local_only": "enable"
         }
     },
-    "INTERFACE|Ethernet120": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
     "INTERFACE|Ethernet124": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "INTERFACE|Ethernet125": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "INTERFACE|Ethernet126": {
         "type": "hash",
         "value": {
             "ipv6_use_link_local_only": "enable"
@@ -1431,16 +2480,34 @@
     "LOOPBACK_INTERFACE|Loopback0": {
         "type": "hash",
         "value": {
-            "ipv6_use_link_local_only": "enable"
+            "NULL": "NULL"
         }
     },
-    "LOOPBACK_INTERFACE|Loopback0|192.168.0.210/32": {
+    "LOOPBACK_INTERFACE|Loopback0|192.168.0.215/32": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "LOOPBACK_INTERFACE|Loopback100": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_om_refm2m"
+        }
+    },
+    "LOOPBACK_INTERFACE|Loopback100|172.23.166.253/32": {
         "type": "hash",
         "value": {
             "NULL": "NULL"
         }
     },
     "LOOPBACK|Loopback0": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "LOOPBACK|Loopback100": {
         "type": "hash",
         "value": {
             "NULL": "NULL"
@@ -1504,8 +2571,7 @@
     "NTP|global": {
         "type": "hash",
         "value": {
-            "auth_enabled": "false",
-            "vrf": "mgmt"
+            "src_intf": "eth0"
         }
     },
     "POLICY_BINDING_TABLE|CtrlPlane": {
@@ -1561,6 +2627,25 @@
             "TYPE": "QOS"
         }
     },
+    "PORTCHANNEL_MEMBER|PortChannel5|Ethernet116": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "PORTCHANNEL_MEMBER|PortChannel5|Ethernet120": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "PORTCHANNEL|PortChannel5": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "mtu": "9100"
+        }
+    },
     "PORT_QOS_MAP|CPU": {
         "type": "hash",
         "value": {
@@ -1572,7 +2657,7 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/1",
-            "description": "m4bneesw0003_Eth1/49",
+            "description": "m4bneesw0007_Eth1/25",
             "index": "1",
             "lanes": "1,2,3,4",
             "mtu": "9100",
@@ -1585,7 +2670,7 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/26",
-            "description": "t-01-m-09-bl1-04-09.mgmt.refaz.bn.schiff.telekom.de_Eth1/1",
+            "description": "",
             "index": "26",
             "lanes": "101,102,103,104",
             "mtu": "9100",
@@ -1596,7 +2681,7 @@
     "PORT|Ethernet104": {
         "type": "hash",
         "value": {
-            "admin_status": "down",
+            "admin_status": "up",
             "alias": "Eth1/27",
             "description": "",
             "index": "27",
@@ -1609,7 +2694,7 @@
     "PORT|Ethernet108": {
         "type": "hash",
         "value": {
-            "admin_status": "down",
+            "admin_status": "up",
             "alias": "Eth1/28",
             "description": "",
             "index": "28",
@@ -1624,7 +2709,7 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/29",
-            "description": "m4bneesw0006_Eth1/49",
+            "description": "",
             "index": "29",
             "lanes": "113,114,115,116",
             "mtu": "9100",
@@ -1636,13 +2721,44 @@
         "type": "hash",
         "value": {
             "admin_status": "up",
-            "alias": "Eth1/30",
-            "description": "m4bneesw0006_Eth1/50",
+            "alias": "Eth1/30/1",
             "index": "30",
-            "lanes": "117,118,119,120",
+            "lanes": "117",
             "mtu": "9100",
-            "speed": "100000",
-            "valid_speeds": "100000, 40000"
+            "speed": "10000"
+        }
+    },
+    "PORT|Ethernet117": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/30/2",
+            "index": "30",
+            "lanes": "118",
+            "mtu": "9100",
+            "speed": "10000"
+        }
+    },
+    "PORT|Ethernet118": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/30/3",
+            "index": "30",
+            "lanes": "119",
+            "mtu": "9100",
+            "speed": "10000"
+        }
+    },
+    "PORT|Ethernet119": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/30/4",
+            "index": "30",
+            "lanes": "120",
+            "mtu": "9100",
+            "speed": "10000"
         }
     },
     "PORT|Ethernet12": {
@@ -1650,7 +2766,7 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/4",
-            "description": "m4bneesw0003_Eth1/52",
+            "description": "",
             "index": "4",
             "lanes": "13,14,15,16",
             "mtu": "9100",
@@ -1662,13 +2778,44 @@
         "type": "hash",
         "value": {
             "admin_status": "up",
-            "alias": "Eth1/31",
-            "description": "m4bneesw0005_Eth1/49",
+            "alias": "Eth1/31/1",
             "index": "31",
-            "lanes": "121,122,123,124",
+            "lanes": "121",
             "mtu": "9100",
-            "speed": "100000",
-            "valid_speeds": "100000, 40000"
+            "speed": "10000"
+        }
+    },
+    "PORT|Ethernet121": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/31/2",
+            "index": "31",
+            "lanes": "122",
+            "mtu": "9100",
+            "speed": "10000"
+        }
+    },
+    "PORT|Ethernet122": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/31/3",
+            "index": "31",
+            "lanes": "123",
+            "mtu": "9100",
+            "speed": "10000"
+        }
+    },
+    "PORT|Ethernet123": {
+        "type": "hash",
+        "value": {
+            "admin_status": "down",
+            "alias": "Eth1/31/4",
+            "index": "31",
+            "lanes": "124",
+            "mtu": "9100",
+            "speed": "10000"
         }
     },
     "PORT|Ethernet124": {
@@ -1676,7 +2823,7 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/32",
-            "description": "m4bneesw0005_Eth1/50",
+            "description": "",
             "index": "32",
             "lanes": "125,126,127,128",
             "mtu": "9100",
@@ -1713,7 +2860,7 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/5",
-            "description": "m4bneesw0004_Eth1/49",
+            "description": "",
             "index": "5",
             "lanes": "17,18,19,20",
             "mtu": "9100",
@@ -1726,7 +2873,7 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/6",
-            "description": "m4bneesw0004_Eth1/50",
+            "description": "",
             "index": "6",
             "lanes": "21,22,23,24",
             "mtu": "9100",
@@ -1739,7 +2886,7 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/7",
-            "description": "m4bneesw0004_Eth1/51",
+            "description": "",
             "index": "7",
             "lanes": "25,26,27,28",
             "mtu": "9100",
@@ -1752,7 +2899,7 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/8",
-            "description": "m4bneesw0004_Eth1/52",
+            "description": "",
             "index": "8",
             "lanes": "29,30,31,32",
             "mtu": "9100",
@@ -1765,7 +2912,7 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/9",
-            "description": "t-01-m-09-lf1-04-09.mgmt.refaz.bn.schiff.telekom.de_Eth1/49",
+            "description": "",
             "index": "9",
             "lanes": "33,34,35,36",
             "mtu": "9100",
@@ -1778,7 +2925,7 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/10",
-            "description": "t-01-m-09-lf1-04-09.mgmt.refaz.bn.schiff.telekom.de_Eth1/50",
+            "description": "",
             "index": "10",
             "lanes": "37,38,39,40",
             "mtu": "9100",
@@ -1791,7 +2938,7 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/2",
-            "description": "m4bneesw0003_Eth1/50",
+            "description": "t-01-m-09-sp1-04-09.mgmt.refaz.bn.schiff.telekom.de_Eth1/25",
             "index": "2",
             "lanes": "5,6,7,8",
             "mtu": "9100",
@@ -1802,10 +2949,9 @@
     "PORT|Ethernet40": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "admin_status": "up",
             "alias": "Eth1/11",
-            "description": "t-01-m-09-lf1-04-09.mgmt.refaz.bn.schiff.telekom.de_Eth1/51",
+            "description": "",
             "index": "11",
             "lanes": "41,42,43,44",
             "mtu": "9100",
@@ -1816,10 +2962,9 @@
     "PORT|Ethernet44": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "admin_status": "up",
             "alias": "Eth1/12",
-            "description": "t-01-m-09-lf1-04-09.mgmt.refaz.bn.schiff.telekom.de_Eth1/52",
+            "description": "",
             "index": "12",
             "lanes": "45,46,47,48",
             "mtu": "9100",
@@ -1832,7 +2977,7 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/13",
-            "description": "t-01-m-09-lf1-04-10.mgmt.refaz.bn.schiff.telekom.de_Eth1/49",
+            "description": "",
             "index": "13",
             "lanes": "49,50,51,52",
             "mtu": "9100",
@@ -1845,7 +2990,7 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/14",
-            "description": "t-01-m-09-lf1-04-10.mgmt.refaz.bn.schiff.telekom.de_Eth1/50",
+            "description": "",
             "index": "14",
             "lanes": "53,54,55,56",
             "mtu": "9100",
@@ -1856,23 +3001,22 @@
     "PORT|Ethernet56": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "admin_status": "up",
             "alias": "Eth1/15",
+            "description": "",
             "index": "15",
             "lanes": "57,58,59,60",
             "mtu": "9100",
             "speed": "100000",
-            "valid_speeds": "100000,40000"
+            "valid_speeds": "100000, 40000"
         }
     },
     "PORT|Ethernet60": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "admin_status": "up",
             "alias": "Eth1/16",
-            "description": "t-01-m-09-lf1-04-10.mgmt.refaz.bn.schiff.telekom.de_Eth1/52",
+            "description": "",
             "index": "16",
             "lanes": "61,62,63,64",
             "mtu": "9100",
@@ -1883,7 +3027,7 @@
     "PORT|Ethernet64": {
         "type": "hash",
         "value": {
-            "admin_status": "down",
+            "admin_status": "up",
             "alias": "Eth1/17",
             "description": "",
             "index": "17",
@@ -1896,7 +3040,7 @@
     "PORT|Ethernet68": {
         "type": "hash",
         "value": {
-            "admin_status": "down",
+            "admin_status": "up",
             "alias": "Eth1/18",
             "description": "",
             "index": "18",
@@ -1909,7 +3053,7 @@
     "PORT|Ethernet72": {
         "type": "hash",
         "value": {
-            "admin_status": "down",
+            "admin_status": "up",
             "alias": "Eth1/19",
             "description": "",
             "index": "19",
@@ -1922,7 +3066,7 @@
     "PORT|Ethernet76": {
         "type": "hash",
         "value": {
-            "admin_status": "down",
+            "admin_status": "up",
             "alias": "Eth1/20",
             "description": "",
             "index": "20",
@@ -1937,7 +3081,7 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/3",
-            "description": "m4bneesw0003_Eth1/51",
+            "description": "",
             "index": "3",
             "lanes": "9,10,11,12",
             "mtu": "9100",
@@ -1948,7 +3092,7 @@
     "PORT|Ethernet80": {
         "type": "hash",
         "value": {
-            "admin_status": "down",
+            "admin_status": "up",
             "alias": "Eth1/21",
             "description": "",
             "index": "21",
@@ -1961,7 +3105,7 @@
     "PORT|Ethernet84": {
         "type": "hash",
         "value": {
-            "admin_status": "down",
+            "admin_status": "up",
             "alias": "Eth1/22",
             "description": "",
             "index": "22",
@@ -1974,7 +3118,7 @@
     "PORT|Ethernet88": {
         "type": "hash",
         "value": {
-            "admin_status": "down",
+            "admin_status": "up",
             "alias": "Eth1/23",
             "description": "",
             "index": "23",
@@ -1987,7 +3131,7 @@
     "PORT|Ethernet92": {
         "type": "hash",
         "value": {
-            "admin_status": "down",
+            "admin_status": "up",
             "alias": "Eth1/24",
             "description": "",
             "index": "24",
@@ -2002,12 +3146,1302 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/25",
-            "description": "t-01-m-09-bl1-01-10.mgmt.refaz.bn.schiff.telekom.de_Eth1/1",
+            "description": "",
             "index": "25",
             "lanes": "97,98,99,100",
             "mtu": "9100",
             "speed": "100000",
             "valid_speeds": "100000, 40000"
+        }
+    },
+    "PREFIX_SET|pl_import_Vrf_ip_bilsecrf_to_pcf": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_Vrf_ip_m2msecrf_to_pcf": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_Vrf_ip_m2msecrf_to_udm-ausf": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_Vrf_ip_sigsecrf_to_t5g": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_Vrf_ip_sigsecrf_to_t5g-campus": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_Vrf_ip_tdgiref_to_t5g": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_Vrf_ip_tdgiref_to_t5g-campus": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_Vrf_ip_teutracp_to_t5g": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_Vrf_ip_teutracp_to_t5g-campus": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_Vrf_ip_tgn_to_t5g": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_Vrf_ip_tgn_to_t5g-campus": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_Vrf_ip_tmm2mref_to_pcf": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_Vrf_ip_tmm2mref_to_schifflab": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_Vrf_ip_tmm2mref_to_t5g": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_Vrf_ip_tmm2mref_to_t5g-campus": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_Vrf_ip_tmm2mref_to_udm-ausf": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_Vrf_om_refm2m_to_ipa": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_Vrf_om_refm2m_to_pcf": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_Vrf_om_refm2m_to_schifflab": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_Vrf_om_refm2m_to_smops": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_Vrf_om_refm2m_to_t5g": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_Vrf_om_refm2m_to_t5g-campus": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_Vrf_om_refm2m_to_udm-ausf": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_ipa_to_Vrf_om_refm2m": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_pcf_to_Vrf_ip_bilsecrf": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_pcf_to_Vrf_ip_m2msecrf": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_pcf_to_Vrf_ip_tmm2mref": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_pcf_to_Vrf_om_refm2m": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_schifflab_to_Vrf_ip_tmm2mref": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_schifflab_to_Vrf_om_refm2m": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_smops_to_Vrf_om_refm2m": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_t5g-campus_to_Vrf_ip_sigsecrf": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_t5g-campus_to_Vrf_ip_tdgiref": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_t5g-campus_to_Vrf_ip_teutracp": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_t5g-campus_to_Vrf_ip_tgn": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_t5g-campus_to_Vrf_ip_tmm2mref": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_t5g-campus_to_Vrf_om_refm2m": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_t5g_to_Vrf_ip_sigsecrf": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_t5g_to_Vrf_ip_tdgiref": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_t5g_to_Vrf_ip_teutracp": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_t5g_to_Vrf_ip_tgn": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_t5g_to_Vrf_ip_tmm2mref": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_t5g_to_Vrf_om_refm2m": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_udm-ausf_to_Vrf_ip_m2msecrf": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_udm-ausf_to_Vrf_ip_tmm2mref": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_import_udm-ausf_to_Vrf_om_refm2m": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_ip_t_eutra_cp_in": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_ip_t_eutra_cp_out": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_ip_t_gn_in": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_ip_t_gn_out": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_ip_td_gi_ref_in": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_ip_td_gi_ref_out": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_ip_tm_bil_sec_ref_in": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_ip_tm_bil_sec_ref_out": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_ip_tm_m2m_ref_in": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_ip_tm_m2m_ref_out": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_ip_tm_sig_sec_ref_in": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_ip_tm_sig_sec_ref_out": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_ip_tmde_internet_in": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_ip_tmde_internet_out": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_ip_tmde_m2m_sec_ref_in": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_ip_tmde_m2m_sec_ref_out": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_ipv6_import_Vrf_ip_tdgiref_to_t5g": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv6"
+        }
+    },
+    "PREFIX_SET|pl_ipv6_import_Vrf_ip_tdgiref_to_t5g-campus": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv6"
+        }
+    },
+    "PREFIX_SET|pl_ipv6_import_t5g-campus_to_Vrf_ip_tdgiref": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv6"
+        }
+    },
+    "PREFIX_SET|pl_ipv6_import_t5g_to_Vrf_ip_tdgiref": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv6"
+        }
+    },
+    "PREFIX_SET|pl_ipv6_ip_td_gi_ref_in": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv6"
+        }
+    },
+    "PREFIX_SET|pl_ipv6_ip_td_gi_ref_out": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv6"
+        }
+    },
+    "PREFIX_SET|pl_ipv6_ip_tmde_internet_in": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv6"
+        }
+    },
+    "PREFIX_SET|pl_ipv6_ip_tmde_internet_out": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv6"
+        }
+    },
+    "PREFIX_SET|pl_om_ref_dcn_m2m_in": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX_SET|pl_om_ref_dcn_m2m_out": {
+        "type": "hash",
+        "value": {
+            "mode": "IPv4"
+        }
+    },
+    "PREFIX|pl_import_Vrf_ip_bilsecrf_to_pcf|10|0.0.0.0/0|0..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_Vrf_ip_m2msecrf_to_pcf|10|0.0.0.0/0|0..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_Vrf_ip_m2msecrf_to_udm-ausf|10|0.0.0.0/0|0..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_Vrf_ip_tmm2mref_to_pcf|10|0.0.0.0/0|0..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_Vrf_ip_tmm2mref_to_schifflab|10|0.0.0.0/0|0..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_Vrf_ip_tmm2mref_to_udm-ausf|10|0.0.0.0/0|0..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_Vrf_om_refm2m_to_ipa|10|10.27.49.128/25|25..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_Vrf_om_refm2m_to_ipa|20|10.27.50.128/25|25..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_Vrf_om_refm2m_to_ipa|30|10.27.53.192/26|26..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_Vrf_om_refm2m_to_ipa|40|10.27.54.192/26|26..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_Vrf_om_refm2m_to_ipa|50|172.22.130.192/26|26..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_Vrf_om_refm2m_to_ipa|60|10.90.24.0/28|28..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_Vrf_om_refm2m_to_ipa|70|10.90.24.16/28|28..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_Vrf_om_refm2m_to_ipa|80|10.102.102.128/27|27..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_Vrf_om_refm2m_to_ipa|90|10.92.244.0/22|22..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_Vrf_om_refm2m_to_pcf|10|0.0.0.0/0|0..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_Vrf_om_refm2m_to_schifflab|10|0.0.0.0/0|0..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_Vrf_om_refm2m_to_smops|10|0.0.0.0/0|0..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_Vrf_om_refm2m_to_t5g-campus|10|0.0.0.0/0|0..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_Vrf_om_refm2m_to_t5g|10|0.0.0.0/0|0..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_Vrf_om_refm2m_to_udm-ausf|10|0.0.0.0/0|0..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_ipa_to_Vrf_om_refm2m|10|172.23.166.128/25|25..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_ipa_to_Vrf_om_refm2m|20|172.22.140.0/27|27..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_pcf_to_Vrf_ip_bilsecrf|10|10.112.137.120/32|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_pcf_to_Vrf_ip_bilsecrf|20|10.112.137.121/32|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_pcf_to_Vrf_ip_bilsecrf|30|10.112.137.64/32|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_pcf_to_Vrf_ip_bilsecrf|40|10.112.137.65/32|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_pcf_to_Vrf_ip_bilsecrf|50|10.112.137.66/32|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_pcf_to_Vrf_ip_m2msecrf|10|10.112.137.64/32|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_pcf_to_Vrf_ip_m2msecrf|20|10.112.137.65/32|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_pcf_to_Vrf_ip_m2msecrf|30|10.112.137.66/32|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_pcf_to_Vrf_ip_m2msecrf|40|10.112.137.176/32|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_pcf_to_Vrf_ip_tmm2mref|100|10.112.137.198/32|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_pcf_to_Vrf_ip_tmm2mref|10|10.112.137.192/32|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_pcf_to_Vrf_ip_tmm2mref|110|10.112.137.199/32|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_pcf_to_Vrf_ip_tmm2mref|120|10.112.137.200/32|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_pcf_to_Vrf_ip_tmm2mref|130|10.112.137.201/32|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_pcf_to_Vrf_ip_tmm2mref|140|10.112.137.202/32|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_pcf_to_Vrf_ip_tmm2mref|150|10.112.137.203/32|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_pcf_to_Vrf_ip_tmm2mref|160|10.112.137.120/32|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_pcf_to_Vrf_ip_tmm2mref|170|10.112.137.121/32|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_pcf_to_Vrf_ip_tmm2mref|20|10.112.137.194/32|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_pcf_to_Vrf_ip_tmm2mref|30|10.112.137.64/32|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_pcf_to_Vrf_ip_tmm2mref|40|10.112.137.65/32|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_pcf_to_Vrf_ip_tmm2mref|50|10.112.137.66/32|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_pcf_to_Vrf_ip_tmm2mref|60|10.112.137.193/32|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_pcf_to_Vrf_ip_tmm2mref|70|10.112.137.195/32|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_pcf_to_Vrf_ip_tmm2mref|80|10.112.137.196/32|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_pcf_to_Vrf_ip_tmm2mref|90|10.112.137.197/32|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_pcf_to_Vrf_om_refm2m|10|172.22.140.192/26|26..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_schifflab_to_Vrf_ip_tmm2mref|10|10.111.64.240/28|28..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_schifflab_to_Vrf_om_refm2m|10|172.22.140.0/27|27..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_smops_to_Vrf_om_refm2m|10|172.22.140.128/27|27..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_t5g-campus_to_Vrf_om_refm2m|10|172.22.140.160/27|27..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_t5g_to_Vrf_om_refm2m|10|172.22.140.32/27|27..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_udm-ausf_to_Vrf_ip_m2msecrf|10|10.112.137.128/27|27..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_udm-ausf_to_Vrf_ip_tmm2mref|10|10.112.139.240/28|28..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_udm-ausf_to_Vrf_ip_tmm2mref|20|10.112.137.128/27|27..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_udm-ausf_to_Vrf_om_refm2m|10|172.22.140.96/27|27..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_import_udm-ausf_to_Vrf_om_refm2m|20|172.22.149.0/28|28..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_ip_t_eutra_cp_in|10000|0.0.0.0/0|0..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_ip_t_eutra_cp_in|10|10.0.0.0/8|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_t_eutra_cp_in|20|172.0.0.0/12|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_t_eutra_cp_in|30|192.168.0.0/16|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_t_eutra_cp_in|40|100.64.0.0/10|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_t_eutra_cp_in|50|169.254.0.0/16|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_t_eutra_cp_out|10|10.112.136.64/26|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_ip_t_gn_in|10000|0.0.0.0/0|0..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_ip_t_gn_in|10|10.0.0.0/8|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_t_gn_in|20|172.0.0.0/12|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_t_gn_in|30|192.168.0.0/16|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_t_gn_in|40|100.64.0.0/10|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_t_gn_in|50|169.254.0.0/16|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_t_gn_in|60|0.0.0.0/0|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_t_gn_out|10|10.112.136.0/26|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_ip_t_gn_out|20|10.112.137.0/29|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_ip_td_gi_ref_in|10000|0.0.0.0/0|0..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_ip_td_gi_ref_in|10|10.0.0.0/8|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_td_gi_ref_in|20|172.0.0.0/12|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_td_gi_ref_in|30|192.168.0.0/16|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_td_gi_ref_in|40|100.64.0.0/10|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_td_gi_ref_in|50|169.254.0.0/16|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_td_gi_ref_out|10|10.112.136.128/26|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_ip_tm_bil_sec_ref_in|10000|0.0.0.0/0|0..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_ip_tm_bil_sec_ref_in|10|10.0.0.0/8|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_tm_bil_sec_ref_in|20|172.0.0.0/12|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_tm_bil_sec_ref_in|30|192.168.0.0/16|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_tm_bil_sec_ref_in|40|100.64.0.0/10|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_tm_bil_sec_ref_in|50|169.254.0.0/16|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_tm_bil_sec_ref_out|10|10.112.137.96/27|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_ip_tm_bil_sec_ref_out|20|10.112.137.64/27|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_ip_tm_m2m_ref_in|10000|0.0.0.0/0|0..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_ip_tm_m2m_ref_in|10|10.0.0.0/8|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_tm_m2m_ref_in|20|172.0.0.0/12|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_tm_m2m_ref_in|30|192.168.0.0/16|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_tm_m2m_ref_in|40|100.64.0.0/10|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_tm_m2m_ref_in|50|169.254.0.0/16|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_tm_m2m_ref_in|60|0.0.0.0/0|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_tm_m2m_ref_out|10|10.111.64.0/24|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_ip_tm_m2m_ref_out|20|10.112.136.0/22|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_ip_tm_m2m_ref_out|30|10.111.65.0/27|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_ip_tm_sig_sec_ref_in|10000|0.0.0.0/0|0..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_ip_tm_sig_sec_ref_in|10|10.0.0.0/8|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_tm_sig_sec_ref_in|20|172.0.0.0/12|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_tm_sig_sec_ref_in|30|192.168.0.0/16|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_tm_sig_sec_ref_in|40|100.64.0.0/10|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_tm_sig_sec_ref_in|50|169.254.0.0/16|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_tm_sig_sec_ref_in|60|10.125.41.64/27|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_tm_sig_sec_ref_in|70|10.125.41.96/28|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_tm_sig_sec_ref_out|10|10.112.136.192/29|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_ip_tm_sig_sec_ref_out|20|10.112.137.64/27|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_ip_tm_sig_sec_ref_out|30|10.111.64.0/27|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_ip_tm_sig_sec_ref_out|40|172.22.140.53/32|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_ip_tm_sig_sec_ref_out|50|172.22.140.54/32|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_ip_tmde_internet_in|5|0.0.0.0/0|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_ip_tmde_internet_out|10|37.50.221.0/24|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_ip_tmde_m2m_sec_ref_in|10000|0.0.0.0/0|0..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_ip_tmde_m2m_sec_ref_in|10|10.0.0.0/8|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_tmde_m2m_sec_ref_in|20|172.0.0.0/12|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_tmde_m2m_sec_ref_in|30|192.168.0.0/16|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_tmde_m2m_sec_ref_in|40|100.64.0.0/10|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_tmde_m2m_sec_ref_in|50|169.254.0.0/16|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_ip_tmde_m2m_sec_ref_out|10|10.112.137.128/26|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_ip_tmde_m2m_sec_ref_out|20|10.112.137.64/27|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_ipv6_ip_td_gi_ref_in|5|::/0|0..128": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_ipv6_ip_td_gi_ref_out|10|2003:0:a881::/64|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_ipv6_ip_tmde_internet_in|5|::/0|0..128": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_ipv6_ip_tmde_internet_out|5|::/0|0..128": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_om_ref_dcn_m2m_in|10000|0.0.0.0/0|0..32": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_om_ref_dcn_m2m_in|10|10.0.0.0/8|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_om_ref_dcn_m2m_in|20|172.0.0.0/12|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_om_ref_dcn_m2m_in|30|192.168.0.0/16|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_om_ref_dcn_m2m_in|40|100.64.0.0/10|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_om_ref_dcn_m2m_in|50|169.254.0.0/16|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_om_ref_dcn_m2m_in|60|0.0.0.0/0|exact": {
+        "type": "hash",
+        "value": {
+            "action": "deny"
+        }
+    },
+    "PREFIX|pl_om_ref_dcn_m2m_out|10|172.22.140.0/24|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_om_ref_dcn_m2m_out|20|172.23.166.0/24|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_om_ref_dcn_m2m_out|30|10.23.142.0/27|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_om_ref_dcn_m2m_out|40|10.23.142.32/27|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_om_ref_dcn_m2m_out|50|10.23.142.64/27|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_om_ref_dcn_m2m_out|60|10.23.142.96/27|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_om_ref_dcn_m2m_out|70|172.22.156.0/24|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
+        }
+    },
+    "PREFIX|pl_om_ref_dcn_m2m_out|80|10.23.75.208/29|exact": {
+        "type": "hash",
+        "value": {
+            "action": "permit"
         }
     },
     "QUEUE|CPU|0": {
@@ -2158,6 +4592,504 @@
         "type": "hash",
         "value": {
             "scheduler": "[SCHEDULER|copp-scheduler-policy@9]"
+        }
+    },
+    "ROUTE_MAP_SET|rm_import_VRFs_to_ipa": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "ROUTE_MAP_SET|rm_import_VRFs_to_pcf": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "ROUTE_MAP_SET|rm_import_VRFs_to_schifflab": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "ROUTE_MAP_SET|rm_import_VRFs_to_smops": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "ROUTE_MAP_SET|rm_import_VRFs_to_t5g": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "ROUTE_MAP_SET|rm_import_VRFs_to_t5g-campus": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "ROUTE_MAP_SET|rm_import_VRFs_to_udm-ausf": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "ROUTE_MAP_SET|rm_import_customers_to_Vrf_ip_bilsecrf": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "ROUTE_MAP_SET|rm_import_customers_to_Vrf_ip_m2msecrf": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "ROUTE_MAP_SET|rm_import_customers_to_Vrf_ip_sigsecrf": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "ROUTE_MAP_SET|rm_import_customers_to_Vrf_ip_tdgiref": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "ROUTE_MAP_SET|rm_import_customers_to_Vrf_ip_teutracp": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "ROUTE_MAP_SET|rm_import_customers_to_Vrf_ip_tgn": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "ROUTE_MAP_SET|rm_import_customers_to_Vrf_ip_tmm2mref": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "ROUTE_MAP_SET|rm_import_customers_to_Vrf_om_refm2m": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "ROUTE_MAP_SET|rm_ipv6_import_VRFs_to_t5g": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "ROUTE_MAP_SET|rm_ipv6_import_VRFs_to_t5g-campus": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "ROUTE_MAP_SET|rm_ipv6_import_customers_to_Vrf_ip_tdgiref": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "ROUTE_MAP|rm_import_VRFs_to_ipa|10": {
+        "type": "hash",
+        "value": {
+            "match_prefix_set": "pl_import_Vrf_om_refm2m_to_ipa",
+            "match_src_vrf": "Vrf_om_refm2m",
+            "route_operation": "permit"
+        }
+    },
+    "ROUTE_MAP|rm_import_VRFs_to_pcf|10": {
+        "type": "hash",
+        "value": {
+            "match_prefix_set": "pl_import_Vrf_om_refm2m_to_pcf",
+            "match_src_vrf": "Vrf_om_refm2m",
+            "route_operation": "permit"
+        }
+    },
+    "ROUTE_MAP|rm_import_VRFs_to_pcf|20": {
+        "type": "hash",
+        "value": {
+            "match_prefix_set": "pl_import_Vrf_ip_tmm2mref_to_pcf",
+            "match_src_vrf": "Vrf_ip_tmm2mref",
+            "route_operation": "permit"
+        }
+    },
+    "ROUTE_MAP|rm_import_VRFs_to_pcf|30": {
+        "type": "hash",
+        "value": {
+            "match_prefix_set": "pl_import_Vrf_ip_m2msecrf_to_pcf",
+            "match_src_vrf": "Vrf_ip_m2msecrf",
+            "route_operation": "permit"
+        }
+    },
+    "ROUTE_MAP|rm_import_VRFs_to_pcf|40": {
+        "type": "hash",
+        "value": {
+            "match_prefix_set": "pl_import_Vrf_ip_bilsecrf_to_pcf",
+            "match_src_vrf": "Vrf_ip_bilsecrf",
+            "route_operation": "permit"
+        }
+    },
+    "ROUTE_MAP|rm_import_VRFs_to_schifflab|10": {
+        "type": "hash",
+        "value": {
+            "match_prefix_set": "pl_import_Vrf_om_refm2m_to_schifflab",
+            "match_src_vrf": "Vrf_om_refm2m",
+            "route_operation": "permit"
+        }
+    },
+    "ROUTE_MAP|rm_import_VRFs_to_schifflab|20": {
+        "type": "hash",
+        "value": {
+            "match_prefix_set": "pl_import_Vrf_ip_tmm2mref_to_schifflab",
+            "match_src_vrf": "Vrf_ip_tmm2mref",
+            "route_operation": "permit"
+        }
+    },
+    "ROUTE_MAP|rm_import_VRFs_to_smops|10": {
+        "type": "hash",
+        "value": {
+            "match_prefix_set": "pl_import_Vrf_om_refm2m_to_smops",
+            "match_src_vrf": "Vrf_om_refm2m",
+            "route_operation": "permit"
+        }
+    },
+    "ROUTE_MAP|rm_import_VRFs_to_t5g-campus|10": {
+        "type": "hash",
+        "value": {
+            "match_prefix_set": "pl_import_Vrf_om_refm2m_to_t5g-campus",
+            "match_src_vrf": "Vrf_om_refm2m",
+            "route_operation": "permit"
+        }
+    },
+    "ROUTE_MAP|rm_import_VRFs_to_t5g|10": {
+        "type": "hash",
+        "value": {
+            "match_prefix_set": "pl_import_Vrf_om_refm2m_to_t5g",
+            "match_src_vrf": "Vrf_om_refm2m",
+            "route_operation": "permit"
+        }
+    },
+    "ROUTE_MAP|rm_import_VRFs_to_udm-ausf|10": {
+        "type": "hash",
+        "value": {
+            "match_prefix_set": "pl_import_Vrf_om_refm2m_to_udm-ausf",
+            "match_src_vrf": "Vrf_om_refm2m",
+            "route_operation": "permit"
+        }
+    },
+    "ROUTE_MAP|rm_import_VRFs_to_udm-ausf|20": {
+        "type": "hash",
+        "value": {
+            "match_prefix_set": "pl_import_Vrf_ip_tmm2mref_to_udm-ausf",
+            "match_src_vrf": "Vrf_ip_tmm2mref",
+            "route_operation": "permit"
+        }
+    },
+    "ROUTE_MAP|rm_import_VRFs_to_udm-ausf|30": {
+        "type": "hash",
+        "value": {
+            "match_prefix_set": "pl_import_Vrf_ip_m2msecrf_to_udm-ausf",
+            "match_src_vrf": "Vrf_ip_m2msecrf",
+            "route_operation": "permit"
+        }
+    },
+    "ROUTE_MAP|rm_import_customers_to_Vrf_ip_bilsecrf|10": {
+        "type": "hash",
+        "value": {
+            "match_prefix_set": "pl_import_pcf_to_Vrf_ip_bilsecrf",
+            "match_src_vrf": "Vrf_pcf",
+            "route_operation": "permit"
+        }
+    },
+    "ROUTE_MAP|rm_import_customers_to_Vrf_ip_m2msecrf|10": {
+        "type": "hash",
+        "value": {
+            "match_prefix_set": "pl_import_udm-ausf_to_Vrf_ip_m2msecrf",
+            "match_src_vrf": "Vrf_udm-ausf",
+            "route_operation": "permit"
+        }
+    },
+    "ROUTE_MAP|rm_import_customers_to_Vrf_ip_m2msecrf|20": {
+        "type": "hash",
+        "value": {
+            "match_prefix_set": "pl_import_pcf_to_Vrf_ip_m2msecrf",
+            "match_src_vrf": "Vrf_pcf",
+            "route_operation": "permit"
+        }
+    },
+    "ROUTE_MAP|rm_import_customers_to_Vrf_ip_tmm2mref|20": {
+        "type": "hash",
+        "value": {
+            "match_prefix_set": "pl_import_schifflab_to_Vrf_ip_tmm2mref",
+            "match_src_vrf": "Vrf_schifflab-1",
+            "route_operation": "permit"
+        }
+    },
+    "ROUTE_MAP|rm_import_customers_to_Vrf_ip_tmm2mref|30": {
+        "type": "hash",
+        "value": {
+            "match_prefix_set": "pl_import_udm-ausf_to_Vrf_ip_tmm2mref",
+            "match_src_vrf": "Vrf_udm-ausf",
+            "route_operation": "permit"
+        }
+    },
+    "ROUTE_MAP|rm_import_customers_to_Vrf_ip_tmm2mref|40": {
+        "type": "hash",
+        "value": {
+            "match_prefix_set": "pl_import_pcf_to_Vrf_ip_tmm2mref",
+            "match_src_vrf": "Vrf_pcf",
+            "route_operation": "permit"
+        }
+    },
+    "ROUTE_MAP|rm_import_customers_to_Vrf_om_refm2m|10": {
+        "type": "hash",
+        "value": {
+            "match_prefix_set": "pl_import_schifflab_to_Vrf_om_refm2m",
+            "match_src_vrf": "Vrf_schifflab-1",
+            "route_operation": "permit"
+        }
+    },
+    "ROUTE_MAP|rm_import_customers_to_Vrf_om_refm2m|20": {
+        "type": "hash",
+        "value": {
+            "match_prefix_set": "pl_import_t5g_to_Vrf_om_refm2m",
+            "match_src_vrf": "Vrf_t5g",
+            "route_operation": "permit"
+        }
+    },
+    "ROUTE_MAP|rm_import_customers_to_Vrf_om_refm2m|30": {
+        "type": "hash",
+        "value": {
+            "match_prefix_set": "pl_import_udm-ausf_to_Vrf_om_refm2m",
+            "match_src_vrf": "Vrf_udm-ausf",
+            "route_operation": "permit"
+        }
+    },
+    "ROUTE_MAP|rm_import_customers_to_Vrf_om_refm2m|40": {
+        "type": "hash",
+        "value": {
+            "match_prefix_set": "pl_import_pcf_to_Vrf_om_refm2m",
+            "match_src_vrf": "Vrf_pcf",
+            "route_operation": "permit"
+        }
+    },
+    "ROUTE_MAP|rm_import_customers_to_Vrf_om_refm2m|60": {
+        "type": "hash",
+        "value": {
+            "match_prefix_set": "pl_import_smops_to_Vrf_om_refm2m",
+            "match_src_vrf": "Vrf_smops",
+            "route_operation": "permit"
+        }
+    },
+    "ROUTE_MAP|rm_import_customers_to_Vrf_om_refm2m|70": {
+        "type": "hash",
+        "value": {
+            "match_prefix_set": "pl_import_t5g-campus_to_Vrf_om_refm2m",
+            "match_src_vrf": "Vrf_t5g-campus",
+            "route_operation": "permit"
+        }
+    },
+    "ROUTE_MAP|rm_import_customers_to_Vrf_om_refm2m|80": {
+        "type": "hash",
+        "value": {
+            "match_prefix_set": "pl_import_ipa_to_Vrf_om_refm2m",
+            "match_src_vrf": "Vrf_ipa",
+            "route_operation": "permit"
+        }
+    },
+    "ROUTE_REDISTRIBUTE|Vrf_ipa|connected|bgp|ipv4": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "ROUTE_REDISTRIBUTE|Vrf_ipa|connected|bgp|ipv6": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "ROUTE_REDISTRIBUTE|Vrf_pcf|connected|bgp|ipv4": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "ROUTE_REDISTRIBUTE|Vrf_smops|connected|bgp|ipv4": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "ROUTE_REDISTRIBUTE|Vrf_t5g-campus|connected|bgp|ipv4": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "ROUTE_REDISTRIBUTE|Vrf_t5g-campus|connected|bgp|ipv6": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "ROUTE_REDISTRIBUTE|Vrf_t5g|connected|bgp|ipv4": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "ROUTE_REDISTRIBUTE|Vrf_t5g|connected|bgp|ipv6": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "ROUTE_REDISTRIBUTE|Vrf_udm-ausf|connected|bgp|ipv4": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "SAG_GLOBAL|IP": {
+        "type": "hash",
+        "value": {
+            "IPv4": "enable",
+            "IPv6": "enable",
+            "gwmac": "00:00:00:01:02:03"
+        }
+    },
+    "SAG|Vlan1000|IPv4": {
+        "type": "hash",
+        "value": {
+            "gwip@": "172.22.149.1/28"
+        }
+    },
+    "SAG|Vlan1001|IPv4": {
+        "type": "hash",
+        "value": {
+            "gwip@": "10.112.137.129/27"
+        }
+    },
+    "SAG|Vlan1002|IPv4": {
+        "type": "hash",
+        "value": {
+            "gwip@": "10.112.139.241/28"
+        }
+    },
+    "SAG|Vlan100|IPv4": {
+        "type": "hash",
+        "value": {
+            "gwip@": "172.23.166.1/25"
+        }
+    },
+    "SAG|Vlan2300|IPv4": {
+        "type": "hash",
+        "value": {
+            "gwip@": "10.111.64.1/27"
+        }
+    },
+    "SAG|Vlan2301|IPv4": {
+        "type": "hash",
+        "value": {
+            "gwip@": "10.112.136.65/28"
+        }
+    },
+    "SAG|Vlan2302|IPv4": {
+        "type": "hash",
+        "value": {
+            "gwip@": "10.112.136.1/28"
+        }
+    },
+    "SAG|Vlan2303|IPv4": {
+        "type": "hash",
+        "value": {
+            "gwip@": "10.112.136.129/28"
+        }
+    },
+    "SAG|Vlan2303|IPv6": {
+        "type": "hash",
+        "value": {
+            "gwip@": "2003:0:a881:0:10:112:136:129/64"
+        }
+    },
+    "SAG|Vlan2305|IPv4": {
+        "type": "hash",
+        "value": {
+            "gwip@": "10.112.137.1/29"
+        }
+    },
+    "SAG|Vlan2306|IPv4": {
+        "type": "hash",
+        "value": {
+            "gwip@": "10.111.64.33/29"
+        }
+    },
+    "SAG|Vlan2307|IPv4": {
+        "type": "hash",
+        "value": {
+            "gwip@": "10.112.136.193/29"
+        }
+    },
+    "SAG|Vlan2317|IPv4": {
+        "type": "hash",
+        "value": {
+            "gwip@": "10.112.136.81/28"
+        }
+    },
+    "SAG|Vlan2318|IPv4": {
+        "type": "hash",
+        "value": {
+            "gwip@": "10.111.64.128/26"
+        }
+    },
+    "SAG|Vlan2319|IPv4": {
+        "type": "hash",
+        "value": {
+            "gwip@": "10.112.136.201/29"
+        }
+    },
+    "SAG|Vlan2320|IPv4": {
+        "type": "hash",
+        "value": {
+            "gwip@": "10.112.136.17/28"
+        }
+    },
+    "SAG|Vlan2321|IPv4": {
+        "type": "hash",
+        "value": {
+            "gwip@": "10.112.136.145/28"
+        }
+    },
+    "SAG|Vlan2321|IPv6": {
+        "type": "hash",
+        "value": {
+            "gwip@": "2003:0:a881:1:10:112:136:145/64"
+        }
+    },
+    "SAG|Vlan2322|IPv4": {
+        "type": "hash",
+        "value": {
+            "gwip@": "10.112.137.33/27"
+        }
+    },
+    "SAG|Vlan2325|IPv4": {
+        "type": "hash",
+        "value": {
+            "gwip@": "10.112.137.17/28"
         }
     },
     "SCHEDULER|copp-scheduler-policy@0": {
@@ -2391,6 +5323,102 @@
             "weight": "2"
         }
     },
+    "STATIC_ROUTE|Vrf_ip_bilsecrf|10.112.137.64/27": {
+        "type": "hash",
+        "value": {
+            "blackhole": "true"
+        }
+    },
+    "STATIC_ROUTE|Vrf_ip_bilsecrf|10.112.137.96/27": {
+        "type": "hash",
+        "value": {
+            "blackhole": "true"
+        }
+    },
+    "STATIC_ROUTE|Vrf_ip_internet|37.50.221.0/24": {
+        "type": "hash",
+        "value": {
+            "blackhole": "true"
+        }
+    },
+    "STATIC_ROUTE|Vrf_ip_m2msecrf|10.112.137.128/26": {
+        "type": "hash",
+        "value": {
+            "blackhole": "true"
+        }
+    },
+    "STATIC_ROUTE|Vrf_ip_m2msecrf|10.112.137.64/27": {
+        "type": "hash",
+        "value": {
+            "blackhole": "true"
+        }
+    },
+    "STATIC_ROUTE|Vrf_ip_tdgiref|10.112.136.128/26": {
+        "type": "hash",
+        "value": {
+            "blackhole": "true"
+        }
+    },
+    "STATIC_ROUTE|Vrf_ip_teutracp|10.112.136.64/26": {
+        "type": "hash",
+        "value": {
+            "blackhole": "true"
+        }
+    },
+    "STATIC_ROUTE|Vrf_ip_tgn|10.112.136.0/26": {
+        "type": "hash",
+        "value": {
+            "blackhole": "true"
+        }
+    },
+    "STATIC_ROUTE|Vrf_ip_tmm2mref|10.111.64.0/24": {
+        "type": "hash",
+        "value": {
+            "blackhole": "true"
+        }
+    },
+    "STATIC_ROUTE|Vrf_ip_tmm2mref|10.111.65.0/27": {
+        "type": "hash",
+        "value": {
+            "blackhole": "true"
+        }
+    },
+    "STATIC_ROUTE|Vrf_ip_tmm2mref|10.112.136.0/22": {
+        "type": "hash",
+        "value": {
+            "blackhole": "true"
+        }
+    },
+    "STATIC_ROUTE|Vrf_om_refm2m|10.23.75.208/29": {
+        "type": "hash",
+        "value": {
+            "blackhole": "true"
+        }
+    },
+    "STATIC_ROUTE|Vrf_om_refm2m|172.22.140.0/24": {
+        "type": "hash",
+        "value": {
+            "blackhole": "true"
+        }
+    },
+    "STATIC_ROUTE|Vrf_om_refm2m|172.22.156.0/24": {
+        "type": "hash",
+        "value": {
+            "blackhole": "true"
+        }
+    },
+    "STATIC_ROUTE|Vrf_om_refm2m|172.23.166.0/24": {
+        "type": "hash",
+        "value": {
+            "blackhole": "true"
+        }
+    },
+    "SWITCH_RESOURCE_TABLE|ROUTE_SCALE": {
+        "type": "hash",
+        "value": {
+            "routes": "MAX"
+        }
+    },
     "SWITCH|switch": {
         "type": "hash",
         "value": {
@@ -2406,20 +5434,1037 @@
     "VERSIONS|DATABASE": {
         "type": "hash",
         "value": {
-            "VERSION": "version_3_3_1"
+            "VERSION": "version_3_4_1"
+        }
+    },
+    "VLAN_INTERFACE|Vlan100": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_om_refm2m"
+        }
+    },
+    "VLAN_INTERFACE|Vlan1000": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_udm-ausf"
+        }
+    },
+    "VLAN_INTERFACE|Vlan1001": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_udm-ausf"
+        }
+    },
+    "VLAN_INTERFACE|Vlan1002": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_udm-ausf"
+        }
+    },
+    "VLAN_INTERFACE|Vlan200": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_ipa"
+        }
+    },
+    "VLAN_INTERFACE|Vlan2300": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_ip_tmm2mref"
+        }
+    },
+    "VLAN_INTERFACE|Vlan2301": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_ip_teutracp"
+        }
+    },
+    "VLAN_INTERFACE|Vlan2302": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_ip_tgn"
+        }
+    },
+    "VLAN_INTERFACE|Vlan2303": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_ip_tdgiref"
+        }
+    },
+    "VLAN_INTERFACE|Vlan2305": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_ip_tgn"
+        }
+    },
+    "VLAN_INTERFACE|Vlan2306": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_ip_tmm2mref"
+        }
+    },
+    "VLAN_INTERFACE|Vlan2307": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_ip_sigsecrf"
+        }
+    },
+    "VLAN_INTERFACE|Vlan2317": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_ip_teutracp"
+        }
+    },
+    "VLAN_INTERFACE|Vlan2318": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_ip_tmm2mref"
+        }
+    },
+    "VLAN_INTERFACE|Vlan2319": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_ip_sigsecrf"
+        }
+    },
+    "VLAN_INTERFACE|Vlan2320": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_ip_tgn"
+        }
+    },
+    "VLAN_INTERFACE|Vlan2321": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_ip_tdgiref"
+        }
+    },
+    "VLAN_INTERFACE|Vlan2322": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_ip_tgn"
+        }
+    },
+    "VLAN_INTERFACE|Vlan2325": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_t5g-campus"
+        }
+    },
+    "VLAN_INTERFACE|Vlan2500": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_schifflab-1"
+        }
+    },
+    "VLAN_INTERFACE|Vlan2501": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_t5g"
+        }
+    },
+    "VLAN_INTERFACE|Vlan2502": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_udm-ausf"
+        }
+    },
+    "VLAN_INTERFACE|Vlan2503": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_pcf"
+        }
+    },
+    "VLAN_INTERFACE|Vlan2505": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_smops"
+        }
+    },
+    "VLAN_INTERFACE|Vlan2506": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_t5g-campus"
+        }
+    },
+    "VLAN_INTERFACE|Vlan500": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_om_refm2m"
+        }
+    },
+    "VLAN_INTERFACE|Vlan520": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_ip_tmm2mref"
+        }
+    },
+    "VLAN_INTERFACE|Vlan521": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_ip_internet"
+        }
+    },
+    "VLAN_INTERFACE|Vlan522": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_ip_tgn"
+        }
+    },
+    "VLAN_INTERFACE|Vlan523": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_ip_tdgiref"
+        }
+    },
+    "VLAN_INTERFACE|Vlan524": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_ip_teutracp"
+        }
+    },
+    "VLAN_INTERFACE|Vlan525": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_ip_m2msecrf"
+        }
+    },
+    "VLAN_INTERFACE|Vlan526": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_ip_sigsecrf"
+        }
+    },
+    "VLAN_INTERFACE|Vlan527": {
+        "type": "hash",
+        "value": {
+            "vrf_name": "Vrf_ip_bilsecrf"
+        }
+    },
+    "VLAN_SUB_INTERFACE|Po5.314": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "parent": "PortChannel5",
+            "vlan": "314",
+            "vrf_name": "Vrf_om_refm2m"
+        }
+    },
+    "VLAN_SUB_INTERFACE|Po5.314|192.168.8.226/30": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "VLAN_SUB_INTERFACE|Po5.315": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "parent": "PortChannel5",
+            "vlan": "315",
+            "vrf_name": "Vrf_ip_internet"
+        }
+    },
+    "VLAN_SUB_INTERFACE|Po5.315|192.168.8.230/30": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "VLAN_SUB_INTERFACE|Po5.315|2a01:598:0:1e14:192:168:8:230/64": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "VLAN_SUB_INTERFACE|Po5.316": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "parent": "PortChannel5",
+            "vlan": "316",
+            "vrf_name": "Vrf_ip_tmm2mref"
+        }
+    },
+    "VLAN_SUB_INTERFACE|Po5.316|192.168.8.234/30": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "VLAN_SUB_INTERFACE|Po5.317": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "parent": "PortChannel5",
+            "vlan": "317",
+            "vrf_name": "Vrf_ip_teutracp"
+        }
+    },
+    "VLAN_SUB_INTERFACE|Po5.317|192.168.8.238/30": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "VLAN_SUB_INTERFACE|Po5.318": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "parent": "PortChannel5",
+            "vlan": "318",
+            "vrf_name": "Vrf_ip_tgn"
+        }
+    },
+    "VLAN_SUB_INTERFACE|Po5.318|192.168.8.202/30": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "VLAN_SUB_INTERFACE|Po5.319": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "parent": "PortChannel5",
+            "vlan": "319",
+            "vrf_name": "Vrf_ip_tdgiref"
+        }
+    },
+    "VLAN_SUB_INTERFACE|Po5.319|192.168.8.206/30": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "VLAN_SUB_INTERFACE|Po5.319|2a01:598:0:1e12:192:168:8:206/64": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "VLAN_SUB_INTERFACE|Po5.321": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "parent": "PortChannel5",
+            "vlan": "321",
+            "vrf_name": "Vrf_ip_sigsecrf"
+        }
+    },
+    "VLAN_SUB_INTERFACE|Po5.321|192.168.8.194/30": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "VLAN_SUB_INTERFACE|Po5.322": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "parent": "PortChannel5",
+            "vlan": "322",
+            "vrf_name": "Vrf_ip_bilsecrf"
+        }
+    },
+    "VLAN_SUB_INTERFACE|Po5.322|192.168.9.26/30": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "VLAN_SUB_INTERFACE|Po5.323": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "parent": "PortChannel5",
+            "vlan": "323",
+            "vrf_name": "Vrf_ip_m2msecrf"
+        }
+    },
+    "VLAN_SUB_INTERFACE|Po5.323|192.168.9.34/30": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL"
+        }
+    },
+    "VLAN|Vlan100": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "Server iLO",
+            "dhcp_relay_link_select": "enable",
+            "dhcp_relay_src_intf": "Loopback100",
+            "dhcp_server_vrf": "Vrf_om_refm2m",
+            "dhcp_servers@": "10.90.106.238,10.90.107.142",
+            "vlanid": "100"
+        }
+    },
+    "VLAN|Vlan1000": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type 2 UDM-AUSF Ref Cluster3 ZTS",
+            "vlanid": "1000"
+        }
+    },
+    "VLAN|Vlan1001": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type 2 UDM-AUSF Ref Cluster3 Protocol Lan 1",
+            "vlanid": "1001"
+        }
+    },
+    "VLAN|Vlan1002": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type 2 UDM-AUSF Ref Cluster3 Protocol Lan 2",
+            "vlanid": "1002"
+        }
+    },
+    "VLAN|Vlan200": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type5 route_leaking vrf_om_refm2m",
+            "vlanid": "200"
+        }
+    },
+    "VLAN|Vlan2300": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type 2 t5g",
+            "vlanid": "2300"
+        }
+    },
+    "VLAN|Vlan2301": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type 2 t5g",
+            "vlanid": "2301"
+        }
+    },
+    "VLAN|Vlan2302": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type 2 t5g",
+            "vlanid": "2302"
+        }
+    },
+    "VLAN|Vlan2303": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type 2 t5g",
+            "vlanid": "2303"
+        }
+    },
+    "VLAN|Vlan2305": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type 2 t5g",
+            "vlanid": "2305"
+        }
+    },
+    "VLAN|Vlan2306": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type 2 t5g",
+            "vlanid": "2306"
+        }
+    },
+    "VLAN|Vlan2307": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type 2 t5g",
+            "vlanid": "2307"
+        }
+    },
+    "VLAN|Vlan2317": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type 2 t5g-campus",
+            "vlanid": "2317"
+        }
+    },
+    "VLAN|Vlan2318": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type 2 t5g-campus",
+            "vlanid": "2318"
+        }
+    },
+    "VLAN|Vlan2319": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type 2 t5g-campus",
+            "vlanid": "2319"
+        }
+    },
+    "VLAN|Vlan2320": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type 2 t5g-campus",
+            "vlanid": "2320"
+        }
+    },
+    "VLAN|Vlan2321": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type 2 t5g-campus",
+            "vlanid": "2321"
+        }
+    },
+    "VLAN|Vlan2322": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type 2 Vrf_ip_tgn",
+            "vlanid": "2322"
+        }
+    },
+    "VLAN|Vlan2325": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type 2 Vrf_t5g-campus",
+            "vlanid": "2325"
+        }
+    },
+    "VLAN|Vlan2500": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type 5 Vrf_schifflab-1",
+            "vlanid": "2500"
+        }
+    },
+    "VLAN|Vlan2501": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type 5 Vrf_t5g",
+            "vlanid": "2501"
+        }
+    },
+    "VLAN|Vlan2502": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type 5 Vrf_udm-ausf",
+            "vlanid": "2502"
+        }
+    },
+    "VLAN|Vlan2503": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type 5 Vrf_pcf",
+            "vlanid": "2503"
+        }
+    },
+    "VLAN|Vlan2505": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type 5 Vrf_smops",
+            "vlanid": "2505"
+        }
+    },
+    "VLAN|Vlan2506": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type 5 Vrf_t5g-campus",
+            "vlanid": "2506"
+        }
+    },
+    "VLAN|Vlan500": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type5 Vrf_om_refm2m",
+            "vlanid": "500"
+        }
+    },
+    "VLAN|Vlan520": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type5 Vrf_ip_tmm2mref",
+            "vlanid": "520"
+        }
+    },
+    "VLAN|Vlan521": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type5 Vrf_ip_internet",
+            "vlanid": "521"
+        }
+    },
+    "VLAN|Vlan522": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type5 Vrf_ip_tgn",
+            "vlanid": "522"
+        }
+    },
+    "VLAN|Vlan523": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type5 Vrf_ip_tdgiref",
+            "vlanid": "523"
+        }
+    },
+    "VLAN|Vlan524": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type5 Vrf_ip_teutracp",
+            "vlanid": "524"
+        }
+    },
+    "VLAN|Vlan525": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type5 Vrf_ip_m2msecrf",
+            "vlanid": "525"
+        }
+    },
+    "VLAN|Vlan526": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type5 Vrf_ip_sigsecrf",
+            "vlanid": "526"
+        }
+    },
+    "VLAN|Vlan527": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "EVPN Type5 Vrf_ip_bilsecrf",
+            "vlanid": "527"
+        }
+    },
+    "VRF|Vrf_ip_bilsecrf": {
+        "type": "hash",
+        "value": {
+            "fallback": "false",
+            "vni": "527"
+        }
+    },
+    "VRF|Vrf_ip_internet": {
+        "type": "hash",
+        "value": {
+            "fallback": "false",
+            "vni": "521"
+        }
+    },
+    "VRF|Vrf_ip_m2msecrf": {
+        "type": "hash",
+        "value": {
+            "fallback": "false",
+            "vni": "525"
+        }
+    },
+    "VRF|Vrf_ip_sigsecrf": {
+        "type": "hash",
+        "value": {
+            "fallback": "false",
+            "vni": "526"
+        }
+    },
+    "VRF|Vrf_ip_tdgiref": {
+        "type": "hash",
+        "value": {
+            "fallback": "false",
+            "vni": "523"
+        }
+    },
+    "VRF|Vrf_ip_teutracp": {
+        "type": "hash",
+        "value": {
+            "fallback": "false",
+            "vni": "524"
+        }
+    },
+    "VRF|Vrf_ip_tgn": {
+        "type": "hash",
+        "value": {
+            "fallback": "false",
+            "vni": "522"
+        }
+    },
+    "VRF|Vrf_ip_tmm2mref": {
+        "type": "hash",
+        "value": {
+            "fallback": "false",
+            "vni": "520"
+        }
+    },
+    "VRF|Vrf_ipa": {
+        "type": "hash",
+        "value": {
+            "fallback": "false",
+            "vni": "200"
+        }
+    },
+    "VRF|Vrf_om_refm2m": {
+        "type": "hash",
+        "value": {
+            "fallback": "false",
+            "vni": "500"
+        }
+    },
+    "VRF|Vrf_pcf": {
+        "type": "hash",
+        "value": {
+            "fallback": "false",
+            "vni": "5150"
+        }
+    },
+    "VRF|Vrf_schifflab-1": {
+        "type": "hash",
+        "value": {
+            "fallback": "false",
+            "vni": "5000"
+        }
+    },
+    "VRF|Vrf_smops": {
+        "type": "hash",
+        "value": {
+            "fallback": "false",
+            "vni": "5250"
+        }
+    },
+    "VRF|Vrf_t5g": {
+        "type": "hash",
+        "value": {
+            "fallback": "false",
+            "vni": "5100"
+        }
+    },
+    "VRF|Vrf_t5g-campus": {
+        "type": "hash",
+        "value": {
+            "fallback": "false",
+            "vni": "5300"
+        }
+    },
+    "VRF|Vrf_udm-ausf": {
+        "type": "hash",
+        "value": {
+            "fallback": "false",
+            "vni": "5200"
         }
     },
     "VRF|default": {
         "type": "hash",
         "value": {
-            "enabled": "true",
-            "vni": "0"
+            "enabled": "true"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_100_Vlan100": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan100",
+            "vni": "100"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_200_Vlan200": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan200",
+            "vni": "200"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_5000_Vlan2500": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan2500",
+            "vni": "5000"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_500_Vlan500": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan500",
+            "vni": "500"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_5100_Vlan2501": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan2501",
+            "vni": "5100"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_5101_Vlan2300": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan2300",
+            "vni": "5101"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_5102_Vlan2301": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan2301",
+            "vni": "5102"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_5103_Vlan2302": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan2302",
+            "vni": "5103"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_5104_Vlan2303": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan2303",
+            "vni": "5104"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_5106_Vlan2305": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan2305",
+            "vni": "5106"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_5107_Vlan2306": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan2306",
+            "vni": "5107"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_5108_Vlan2307": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan2307",
+            "vni": "5108"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_5150_Vlan2503": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan2503",
+            "vni": "5150"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_5200_Vlan2502": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan2502",
+            "vni": "5200"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_5201_Vlan1000": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan1000",
+            "vni": "5201"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_5202_Vlan1001": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan1001",
+            "vni": "5202"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_5203_Vlan1002": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan1002",
+            "vni": "5203"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_520_Vlan520": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan520",
+            "vni": "520"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_521_Vlan521": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan521",
+            "vni": "521"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_522_Vlan522": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan522",
+            "vni": "522"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_523_Vlan523": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan523",
+            "vni": "523"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_524_Vlan524": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan524",
+            "vni": "524"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_5250_Vlan2505": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan2505",
+            "vni": "5250"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_525_Vlan525": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan525",
+            "vni": "525"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_526_Vlan526": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan526",
+            "vni": "526"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_527_Vlan527": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan527",
+            "vni": "527"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_5300_Vlan2506": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan2506",
+            "vni": "5300"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_5301_Vlan2318": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan2318",
+            "vni": "5301"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_5302_Vlan2317": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan2317",
+            "vni": "5302"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_5303_Vlan2320": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan2320",
+            "vni": "5303"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_5304_Vlan2321": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan2321",
+            "vni": "5304"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_5305_Vlan2319": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan2319",
+            "vni": "5305"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_5306_Vlan2322": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan2322",
+            "vni": "5306"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_5307_Vlan2325": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan2325",
+            "vni": "5307"
+        }
+    },
+    "VXLAN_TUNNEL|vtep1": {
+        "type": "hash",
+        "value": {
+            "NULL": "NULL",
+            "src_ip": "192.168.0.215"
         }
     },
     "ZTP|config": {
         "type": "hash",
         "value": {
-            "admin-mode": "false"
+            "admin-mode": "true"
         }
     }
 }
