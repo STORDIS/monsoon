@@ -1,0 +1,47 @@
+stages:
+  - build
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+  ## This removes the error message in CI
+  # E1130 11:09:34.125582      23 aws_credentials.go:77] while getting AWS credentials NoCredentialProviders: no valid providers in chain. Deprecated.
+  # For verbose messaging see aws.Config.CredentialsChainVerboseErrors
+  AWS_ACCESS_KEY_ID: "none"
+  AWS_SECRET_ACCESS_KEY: "none"
+  AWS_ACCAWS_SESSION_TOKENESS_KEY_ID: "none"
+
+script-build-release:
+  image:
+    name: artifactory.devops.telekom.de/gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  tags:
+    - otc_run_docker_k8s
+  stage: build
+  script:
+    - ash build.sh
+  only:
+    refs:
+      - tags
+  except:
+    refs:
+      - branches
+
+script-build:
+  image:
+    name: artifactory.devops.telekom.de/gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  tags:
+    - otc_run_docker_k8s
+  stage: build
+  script:
+    - ash build.sh false
+  only:
+    refs:
+      - branches
+    changes:
+      - '**/*.{py,sh}'
+      - '**/Dockerfile'
+      - '.gitlab-ci.yml'
+  except:
+    changes:
+      - build.sh  # Ignore changes in the build-script
