@@ -1,5 +1,6 @@
 Dockerfile
 dist/
 deploy/
+src/sonic_exporter/test/
 .venv/
 .git/
