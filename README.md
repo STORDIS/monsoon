@@ -4,7 +4,9 @@ This repository contains
 
 1. SONIC exporter
 
-    * `$ docker run --name sonic_monitoring --network=host --pid=host --privileged --restart=always -d -e REDIS_AUTH=$(cat /run/redis/auth/passwd) -v /var/run/redis:/var/run/redis -v /usr/bin/vtysh:/usr/bin/vtysh -v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock  stordis/sonic_monitoring:latest`
+```console
+$ docker run --name sonic_monitoring --network=host --pid=host --privileged --restart=always -d -e REDIS_AUTH=$(cat /run/redis/auth/passwd) -v /var/run/redis:/var/run/redis -v /usr/bin/vtysh:/usr/bin/vtysh -v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock  stordis/sonic_monitoring:latest`
+```
 
 <!-- 2. Node Exporter
     * `$ docker run --name node-exporter --network=host --pid=host --privileged --restart=always -v /proc:/host/proc:ro -v /sys:/host/sys:ro -v /:/rootfs:ro prom/node-exporter:v1.3.0` -->
@@ -22,7 +24,7 @@ This repository contains
 ## Building
 
 ```console
-$ export VERSION="0.1.2"
+$ export VERSION="latest"
 $ podman build -t sonic_monitoring:${VERSION} .
 [1/2] STEP 1/7: FROM python:3.10-bullseye
 Resolving "python" using unqualified-search registries (/etc/containers/registries.conf)
@@ -60,16 +62,25 @@ Storing signatures
 [2/2] STEP 4/5: RUN pip3 install --pre -r /home/requirements.txt && pip3 install /home/*.tar.gz && mkdir -p /src
 --> a9de129245a
 [2/2] STEP 5/5: CMD sonic_exporter
-[2/2] COMMIT sonic_monitoring:0.1.2
+[2/2] COMMIT sonic_monitoring:${VERSION}
 --> f71e7b8de82
-Successfully tagged localhost/sonic_monitoring:0.1.2
+Successfully tagged localhost/sonic_monitoring:${VERSION}
 f71e7b8de82e5eabfe66c803538f19d1fb3c44b3b0edf9725e9eb61943d4a093
 $ podman save --format docker-archive localhost/sonic_monitoring:${VERSION} | gzip  > sonic-monitoring_${VERSION}.tar.gz
 $ ls
-sonic-monitoring_0.1.2.tar.gz
+sonic-monitoring_${VERSION}.tar.gz
 ```
 
 ## Loading the image on a switch
 
 ```console
 $ docker load -i sonic-monitoring_${VERSION}.tar.gz
+e1bbcf243d0e: Loading layer  83.88MB/83.88MB
+7944c75516ae: Loading layer  3.401MB/3.401MB
+775d27396430: Loading layer  30.41MB/30.41MB
+70c19fb3395a: Loading layer  4.608kB/4.608kB
+834714e112d6: Loading layer  10.09MB/10.09MB
+6062c6897570: Loading layer  3.584kB/3.584kB
+c7e4a0cae15f: Loading layer  36.35kB/36.35kB
+2d345aa4239f: Loading layer   10.3MB/10.3MB
+Loaded image: localhost/sonic_monitoring:${VERSION}

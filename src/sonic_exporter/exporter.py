@@ -1202,7 +1202,7 @@ class Export:
         global_data = self.sonic_db.get_all(self.sonic_db.CONFIG_DB, SAG_GLOBAL)
 
         for internet_protocol in InternetProtocol:
-            if boolify(global_data[internet_protocol.value].lower()):
+            if global_data and boolify(global_data[internet_protocol.value].lower()):
                 exportable[internet_protocol] = True
                 self.metric_sag_info.labels(
                     internet_protocol.value.lower(), _decode(global_data["gwmac"])
