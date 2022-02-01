@@ -1,11 +1,5 @@
 import functools
-import shutil
 from datetime import datetime, timedelta
-
-
-def frr_installed():
-    command = "vtysh"
-    return shutil.which(command) is not None
 
 
 def timed_cache(**timedelta_kwargs):

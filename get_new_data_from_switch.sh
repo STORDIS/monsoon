@@ -11,7 +11,5 @@ redis-dump -d 5 | python -m json.tool > ${PLATFORM}.pfc_wd.json
 redis-dump -d 6 | python -m json.tool > ${PLATFORM}.state.json
 redis-dump -d 7 | python -m json.tool > ${PLATFORM}.snmp_overlay.json
 redis-dump -d 8 | python -m json.tool > ${PLATFORM}.error.json
-vtysh -c "show bgp vrf all ipv4 unicast summary json" | python -m json.tool > ${PLATFORM}.frr.show_bgp_vrf_all_ipv4_unicast_summary.json
-vtysh -c "show bgp vrf all ipv6 unicast summary json" | python -m json.tool > ${PLATFORM}.frr.show_bgp_vrf_all_ipv6_unicast_summary.json
-vtysh -c "show bgp vrf all l2vpn evpn summary json" | python -m json.tool > ${PLATFORM}.frr.show_bgp_vrf_all_l2vpn_evpn_summary.json
 vtysh -c "show bgp vrf all summary json" | python -m json.tool > ${PLATFORM}.frr.show_bgp_vrf_all_summary.json
+vtysh -c "show evpn vni detail json" | python -m json.tool > ${PLATFORM}.frr.show_evpn_vni_detail.json

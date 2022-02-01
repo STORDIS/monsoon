@@ -2,12 +2,9 @@ from enum import Enum
 import json
 import re
 from importlib.resources import read_text
+
+from sonic_exporter.enums import SwitchModel
 from . import ressources
-
-
-class SwitchModel(Enum):
-    AS7326 = "x86_64-accton_as7326_56x-r0"
-    AS7726 = "x86_64-accton_as7726_32x-r0"
 
 
 class SonicV2Connector:

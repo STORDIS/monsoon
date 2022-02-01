@@ -5,10 +5,13 @@ import time
 from sonic_exporter.constants import TRUE_VALUES
 
 
-def boolify(data: str) -> bool:
-    if data.lower() in TRUE_VALUES:
+def boolify(data: Union[str, bool]) -> bool:
+    if isinstance(data, bool):
+        return data
+    elif data.lower() in TRUE_VALUES:
         return True
-    return False
+    else:
+        return False
 
 
 def floatify(data: Union[str, float, int, bool]) -> float:
@@ -23,6 +26,12 @@ def floatify(data: Union[str, float, int, bool]) -> float:
 
 def get_uptime() -> datetime.timedelta:
     return datetime.timedelta(seconds=time.clock_gettime(time.CLOCK_MONOTONIC))
+
+
+def decode(string: Union[bytes, str]) -> str:
+    if hasattr(string, "decode"):
+        return string.decode("utf-8")
+    return string
 
 
 def to_timestamp(data: Union[int, float]) -> float:
