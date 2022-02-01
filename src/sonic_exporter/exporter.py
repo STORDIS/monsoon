@@ -465,6 +465,8 @@ class Export:
         keys = self.sonic_db.keys(
             self.sonic_db.STATE_DB, pattern=VXLAN_TUNNEL_TABLE_PATTERN
         )
+        if not keys:
+            return
         for key in keys:
             try:
                 neighbor = ""
@@ -806,6 +808,8 @@ class Export:
             self.sonic_db.STATE_DB, pattern=TRANSCEIVER_DOM_SENSOR_PATTERN
         )
         logging.debug("export_interface_optic_data : keys={}".format(keys))
+        if not keys:
+            return
         for key in keys:
             ifname = _decode(key).replace(TRANSCEIVER_DOM_SENSOR, "")
             transceiver_sensor_data = self.sonic_db.get_all(self.sonic_db.STATE_DB, key)
@@ -959,6 +963,8 @@ class Export:
         keys = self.sonic_db.keys(
             self.sonic_db.STATE_DB, pattern=TRANSCEIVER_INFO_PATTERN
         )
+        if not keys:
+            return
         for key in keys:
             ifname = _decode(key).replace(TRANSCEIVER_INFO, "")
             cable_type = _decode(
@@ -1010,6 +1016,8 @@ class Export:
 
     def export_psu_info(self):
         keys = self.sonic_db.keys(self.sonic_db.STATE_DB, pattern=PSU_INFO_PATTERN)
+        if not keys:
+            return
         for key in keys:
             serial = _decode(self.sonic_db.get(self.sonic_db.STATE_DB, key, "serial"))
             available_status = _decode(
@@ -1066,6 +1074,8 @@ class Export:
 
     def export_fan_info(self):
         keys = self.sonic_db.keys(self.sonic_db.STATE_DB, pattern=FAN_INFO_PATTERN)
+        if not keys:
+            return
         for key in keys:
             try:
                 fullname = _decode(
@@ -1111,6 +1121,8 @@ class Export:
         keys = self.sonic_db.keys(
             self.sonic_db.STATE_DB, pattern=TEMPERATURE_INFO_PATTERN
         )
+        if not keys:
+            return
         for key in keys:
             try:
                 name = _decode(self.sonic_db.get(self.sonic_db.STATE_DB, key, "name"))
@@ -1212,6 +1224,8 @@ class Export:
                 self.sonic_db.CONFIG_DB, pattern=VXLAN_TUNNEL_MAP_PATTERN
             )
         )
+        if not keys:
+            return
         for key in keys:
             ## ["interface", "vrf", "gateway_ip", "ip_family", "vni"]
             data = key.replace(SAG, "")
