@@ -17,12 +17,12 @@ $ docker run --name node-exporter --network=host --pid=host --privileged --resta
 mkdir -p ${HOME}/nginx/ssl
 cp ${HOME}/default.conf.template ${HOME}/nginx/default.conf.template
 export CERT_CONFIG=$(mktemp)
-openssl dhparam -dsaparam -out dhparam.pem 4096
-cat cert.config.template | HOSTNAME=$(hostname --fqdn) envsubst > /tmp/cert.config
-openssl req -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out ${HOME}/nginx/ssl/server_$(hostname --fqdn).crt -keyout ${HOME}/nginx/ssl/server_$(hostname --fqdn).key -config /tmp/cert.config
+openssl dhparam -dsaparam -out ${HOME}/nginx/ssl/dhparam.pem 4096
+cat cert.config.template | HOSTNAME=$(hostname --fqdn) envsubst > ${CERT_CONFIG}
+openssl req -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out ${HOME}/nginx/ssl/server_$(hostname --fqdn).crt -keyout ${HOME}/nginx/ssl/server_$(hostname --fqdn).key -config ${CERT_CONFIG}
 ```
 ```console
-$ docker run --name nginx-proxy --network=host --pid=host --privileged --restart=always -d -e DOLLAR_SIGN='$' -e NGINX_HOST=$(hostname --fqdn) NGINX_PORT=5556 -v ${HOME}/nginx/ssl:/etc/nginx/ssl/:ro -v ${HOME}/nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro docker.io/library/nginx:1.21
+$ docker run --name nginx-proxy --network=host --pid=host --privileged --restart=always -d -e DOLLAR_SIGN='$' -e NGINX_HOST=$(hostname --fqdn) -e NGINX_PORT=5556 -v ${HOME}/nginx/ssl:/etc/nginx/ssl/:ro -v ${HOME}/nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro docker.io/library/nginx:1.21
 ```
 
 ## Central Client Certificate Generation
