@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Union
+from typing import Optional, Union
 import datetime
 import time
 from sonic_exporter.constants import TRUE_VALUES
@@ -14,14 +14,17 @@ def boolify(data: Union[str, bool]) -> bool:
         return False
 
 
-def floatify(data: Union[str, float, int, bool]) -> float:
-    if isinstance(data, bool):
-        if data:
-            return float(1)
-        else:
-            print(f"{data} is bool")
+def floatify(data: Optional[Union[str, float, int, bool]]) -> float:
+    match data:
+        case bool():
+            if data:
+                return float(1)
+            else:
+                return float(0)
+        case None:
             return float(0)
-    return float(data)
+        case _:
+            return float(data)
 
 
 def get_uptime() -> datetime.timedelta:

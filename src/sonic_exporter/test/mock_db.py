@@ -42,10 +42,10 @@ class SonicV2Connector:
         self.db = {**self.db, **{db: self.load_db(self.model, db)}}
 
     def get_all(self, db: DB, key: str):
-        return self.db[db][key]["value"]
+        return self.db[db].get(key, {}).get("value", None)
 
     def get(self, db: DB, key: str, sub_key: str):
-        return self.db[db][key]["value"][sub_key]
+        return self.db[db][key]["value"].get(sub_key, None)
 
     def keys(self, db: DB, pattern: str = None):
         regex = re.compile(
