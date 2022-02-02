@@ -25,7 +25,8 @@ build-release:
   except:
     refs:
       - branches
-
+    changes:
+      - README.md
 build:
   image:
     name: artifactory.devops.telekom.de/gcr.io/kaniko-project/executor:debug
@@ -38,6 +39,9 @@ build:
   only:
     refs:
       - branches
+  except:
+    changes:
+      - README.md
 
 
 # stordis-build-release:
