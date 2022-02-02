@@ -48,6 +48,8 @@ build:
 #   image:
 #     name: gcr.io/kaniko-project/executor:debug
 #     entrypoint: [""]
+#   tags:
+#     - stordis-runner
 #   stage: build
 #   script:
 #     - ash build.sh docker.io
@@ -62,6 +64,8 @@ build:
 #   image:
 #     name: gcr.io/kaniko-project/executor:debug
 #     entrypoint: [""]
+#   tags:
+#     - stordis-runner
 #   stage: build
 #   script:
 #     - ash build.sh false docker.io
