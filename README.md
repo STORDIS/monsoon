@@ -33,7 +33,6 @@ cat cert.config.template | HOSTNAME=$(hostname --fqdn) envsubst > ${CERT_CONFIG}
 openssl req -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out client.crt -keyout client.key -config ${CERT_CONFIG}
 ```
 
-## 
 ## Details:
 
 1. src/ folder has below subfolders
