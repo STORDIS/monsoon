@@ -38,10 +38,6 @@ build:
   only:
     refs:
       - branches
-    changes:
-      - '**/Dockerfile'
-      - 'build.sh'
-      - '.gitlab-ci.yml'
 
 
 # stordis-build-release:
