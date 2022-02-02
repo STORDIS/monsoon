@@ -150,7 +150,7 @@ class Export:
         self.metric_interface_info = prom.Gauge(
             "sonic_interface_info",
             "Interface Information (Description, MTU, Speed)",
-            interface_labels + ["description", "mtu", "speed"],
+            interface_labels + ["description", "mtu", "speed", "device"],
         )
         self.metric_interface_transmitted_bytes = CustomCounter(
             "sonic_interface_transmitted_bytes_total",
@@ -497,6 +497,7 @@ class Export:
                 self.get_portinfo(ifname, "description"),
                 self.get_portinfo(ifname, "mtu"),
                 f"{'{}Gbps'.format(int(round(int(self.get_portinfo(ifname, 'speed'))) / 1000)) if self.get_portinfo(ifname, 'speed') else ''}",
+                ifname
             ).set(1)
             ## Ethernet RX
             for size, key in zip(
