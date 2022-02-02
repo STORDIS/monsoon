@@ -7,9 +7,10 @@ echo "Building COMMIT :: $CI_PROJECT_NAME:$CI_COMMIT_SHORT_SHA"
 /kaniko/executor \
     --verbosity ${VERBOSITY} \
     --context $CI_PROJECT_DIR \
-    --dockerfile $CI_PROJECT_DIR/${script}/Dockerfile \
-    --destination "$CI_REGISTRY_IMAGE/${script}:$CI_COMMIT_SHORT_SHA" \
-    --cache=true --cache-repo $CI_REGISTRY_IMAGE/${script} \
+    --registry-mirror dockerhub.devops.telekom.de \
+    --dockerfile $CI_PROJECT_DIR/Dockerfile \
+    --destination "$CI_REGISTRY_IMAGE/$CI_PROJECT_NAME:$CI_COMMIT_SHORT_SHA" \
+    --cache=true --cache-repo $CI_REGISTRY_IMAGE/$CI_PROJECT_NAME \
     --build-arg ARG_OPENSHIFT_CLIENT_URL=$OPENSHIFT_CLIENT_URL \
     --build-arg http_proxy=$http_proxy \
     --build-arg https_proxy=$https_proxy \
@@ -21,9 +22,10 @@ if [ "$RELEASE" = "true" ]
         /kaniko/executor \
             --verbosity ${VERBOSITY} \
             --context $CI_PROJECT_DIR \
-            --dockerfile $CI_PROJECT_DIR/${script}/Dockerfile \
-            --destination "$CI_REGISTRY_IMAGE/${script}:$CI_COMMIT_TAG" \
-            --cache=true --cache-repo $CI_REGISTRY_IMAGE/${script} \
+            --registry-mirror dockerhub.devops.telekom.de \
+            --dockerfile $CI_PROJECT_DIR/Dockerfile \
+            --destination "$CI_REGISTRY_IMAGE/$CI_PROJECT_NAME:$CI_COMMIT_TAG" \
+            --cache=true --cache-repo $CI_REGISTRY_IMAGE/$CI_PROJECT_NAME \
             --build-arg ARG_OPENSHIFT_CLIENT_URL=$OPENSHIFT_CLIENT_URL \
             --build-arg http_proxy=$http_proxy \
             --build-arg https_proxy=$https_proxy \
@@ -32,9 +34,10 @@ if [ "$RELEASE" = "true" ]
         /kaniko/executor \
             --verbosity ${VERBOSITY} \
             --context $CI_PROJECT_DIR \
-            --dockerfile $CI_PROJECT_DIR/${script}/Dockerfile \
-            --destination "$CI_REGISTRY_IMAGE/${script}:latest" \
-            --cache=true --cache-repo $CI_REGISTRY_IMAGE/${script} \
+            --registry-mirror dockerhub.devops.telekom.de \
+            --dockerfile $CI_PROJECT_DIR/Dockerfile \
+            --destination "$CI_REGISTRY_IMAGE/$CI_PROJECT_NAME:latest" \
+            --cache=true --cache-repo $CI_REGISTRY_IMAGE/$CI_PROJECT_NAME \
             --build-arg ARG_OPENSHIFT_CLIENT_URL=$OPENSHIFT_CLIENT_URL \
             --build-arg http_proxy=$http_proxy \
             --build-arg https_proxy=$https_proxy \
@@ -45,9 +48,10 @@ if [ "$RELEASE" = "true" ]
         /kaniko/executor \
             --verbosity ${VERBOSITY} \
             --context $CI_PROJECT_DIR \
-            --dockerfile $CI_PROJECT_DIR/${script}/Dockerfile \
-            --destination "$CI_REGISTRY_IMAGE/${script}:$CI_COMMIT_REF_SLUG" \
-            --cache=true --cache-repo $CI_REGISTRY_IMAGE/${script} \
+            --registry-mirror dockerhub.devops.telekom.de \
+            --dockerfile $CI_PROJECT_DIR/Dockerfile \
+            --destination "$CI_REGISTRY_IMAGE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG" \
+            --cache=true --cache-repo $CI_REGISTRY_IMAGE/$CI_PROJECT_NAME \
             --build-arg ARG_OPENSHIFT_CLIENT_URL=$OPENSHIFT_CLIENT_URL \
             --build-arg http_proxy=$http_proxy \
             --build-arg https_proxy=$https_proxy \
