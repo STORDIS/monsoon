@@ -39,9 +39,36 @@ script-build:
     refs:
       - branches
     changes:
-      - '**/*.{py,sh}'
       - '**/Dockerfile'
+      - 'build.sh'
       - '.gitlab-ci.yml'
-  except:
-    changes:
-      - build.sh  # Ignore changes in the build-script
+
+
+# stordis-script-build-release:
+#   image:
+#     name: artifactory.devops.telekom.de/gcr.io/kaniko-project/executor:debug
+#     entrypoint: [""]
+#   stage: build
+#   script:
+#     - ash build.sh docker.io
+#   only:
+#     refs:
+#       - tags
+#   except:
+#     refs:
+#       - branches
+
+# stordis-script-build:
+#   image:
+#     name: artifactory.devops.telekom.de/gcr.io/kaniko-project/executor:debug
+#     entrypoint: [""]
+#   stage: build
+#   script:
+#     - ash build.sh false docker.io
+#   only:
+#     refs:
+#       - branches
+#     changes:
+#       - '**/Dockerfile'
+#       - 'build.sh'
+#       - '.gitlab-ci.yml'

@@ -1,13 +1,14 @@
 #!/usr/bin/env ash
 
 RELEASE=${1:-"true"}
+MIRROR=${2:-"dockerhub.devops.telekom.de"}
 VERBOSITY="error"
 
 echo "Building COMMIT :: $CI_PROJECT_NAME:$CI_COMMIT_SHORT_SHA"
 /kaniko/executor \
     --verbosity ${VERBOSITY} \
     --context $CI_PROJECT_DIR \
-    --registry-mirror dockerhub.devops.telekom.de \
+    --registry-mirror ${MIRROR} \
     --dockerfile $CI_PROJECT_DIR/Dockerfile \
     --destination "$CI_REGISTRY_IMAGE/$CI_PROJECT_NAME:$CI_COMMIT_SHORT_SHA" \
     --cache=true --cache-repo $CI_REGISTRY_IMAGE/$CI_PROJECT_NAME \
@@ -22,7 +23,7 @@ if [ "$RELEASE" = "true" ]
         /kaniko/executor \
             --verbosity ${VERBOSITY} \
             --context $CI_PROJECT_DIR \
-            --registry-mirror dockerhub.devops.telekom.de \
+            --registry-mirror ${MIRROR} \
             --dockerfile $CI_PROJECT_DIR/Dockerfile \
             --destination "$CI_REGISTRY_IMAGE/$CI_PROJECT_NAME:$CI_COMMIT_TAG" \
             --cache=true --cache-repo $CI_REGISTRY_IMAGE/$CI_PROJECT_NAME \
@@ -34,7 +35,7 @@ if [ "$RELEASE" = "true" ]
         /kaniko/executor \
             --verbosity ${VERBOSITY} \
             --context $CI_PROJECT_DIR \
-            --registry-mirror dockerhub.devops.telekom.de \
+            --registry-mirror ${MIRROR} \
             --dockerfile $CI_PROJECT_DIR/Dockerfile \
             --destination "$CI_REGISTRY_IMAGE/$CI_PROJECT_NAME:latest" \
             --cache=true --cache-repo $CI_REGISTRY_IMAGE/$CI_PROJECT_NAME \
@@ -48,7 +49,7 @@ if [ "$RELEASE" = "true" ]
         /kaniko/executor \
             --verbosity ${VERBOSITY} \
             --context $CI_PROJECT_DIR \
-            --registry-mirror dockerhub.devops.telekom.de \
+            --registry-mirror ${MIRROR} \
             --dockerfile $CI_PROJECT_DIR/Dockerfile \
             --destination "$CI_REGISTRY_IMAGE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG" \
             --cache=true --cache-repo $CI_REGISTRY_IMAGE/$CI_PROJECT_NAME \
