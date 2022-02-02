@@ -117,3 +117,4 @@ e1bbcf243d0e: Loading layer  83.88MB/83.88MB
 c7e4a0cae15f: Loading layer  36.35kB/36.35kB
 2d345aa4239f: Loading layer   10.3MB/10.3MB
 Loaded image: localhost/sonic_monitoring:${VERSION}
+```
