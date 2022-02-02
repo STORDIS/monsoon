@@ -968,11 +968,11 @@ class Export:
         for key in keys:
             ifname = _decode(key).replace(TRANSCEIVER_INFO, "")
             cable_type = _decode(
-                self.sonic_db.get(self.sonic_db.STATE_DB, key, "Connector")
+                str(self.sonic_db.get(self.sonic_db.STATE_DB, key, "Connector")).lower()
             )
             connector_type = _decode(
-                self.sonic_db.get(self.sonic_db.STATE_DB, key, "connector_type")
-            ).lower()
+                str(self.sonic_db.get(self.sonic_db.STATE_DB, key, "connector_type")
+            )).lower()
             serial = _decode(
                 self.sonic_db.get(self.sonic_db.STATE_DB, key, "vendor_serial_number")
             )
