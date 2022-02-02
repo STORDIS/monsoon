@@ -1,15 +1,15 @@
 # Monsoon - main repository
 
-This repository contains 
-
 1. SONIC exporter
 
 ```console
 $ docker run --name sonic_monitoring --network=host --pid=host --privileged --restart=always -d -e REDIS_AUTH=$(cat /run/redis/auth/passwd) -v /var/run/redis:/var/run/redis -v /usr/bin/vtysh:/usr/bin/vtysh -v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock  registry.devops.telekom.de/schiff/sonic-monitoring:latest
 ```
 
-<!-- 2. Node Exporter
-    * `$ docker run --name node-exporter --network=host --pid=host --privileged --restart=always -v /proc:/host/proc:ro -v /sys:/host/sys:ro -v /:/rootfs:ro prom/node-exporter:v1.3.0` -->
+2. Node Exporter
+```
+$ docker run --name node-exporter --network=host --pid=host --privileged --restart=always -v /proc:/host/proc:ro -v /sys:/host/sys:ro -v /:/rootfs:ro docker.io/prom/node-exporter:v1.3.0
+```
 
 
 ## Details:
