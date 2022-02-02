@@ -1398,10 +1398,10 @@ def main():
         os.environ.get("REDIS_COLLECTION_INTERVAL", 30)
     )  # considering 30 seconds as default collection interval
     port = int(os.environ.get("SONIC_EXPORTER_PORT", 9101))  # setting port static as 9101. if required map it to someother port of host by editing compose file.
-
+    address = str(os.environ.get("SONIC_EXPORTER_ADDRESS", "localhost"))
     exp = Export(os.environ.get("DEVELOPER_MODE", "False").lower() in TRUE_VALUES)
     logging.info("Starting Python exporter server at port 9101")
-    prom.start_http_server(port)
+    prom.start_http_server(port, addr=address)
 
     while True:
         exp.start_export()

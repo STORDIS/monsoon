@@ -1,0 +1,43 @@
+worker_processes 1;
+ 
+events { 
+    worker_connections 1024;
+}
+ 
+http {
+ 
+    sendfile on;
+ 
+    upstream docker-sonic-exporter {
+        server localhost:9101;
+    }
+ 
+    upstream docker-node-exporter {
+        server localhost:9100;
+    }
+ 
+    server {
+        listen ${NGINX_PORT} ssl http2;
+        server_name ${NGINX_HOST};
+        ssl_certificate /etc/nginx/ssl/server_${NGINX_HOST}.crt;
+        ssl_certificate_key /etc/nginx/ssl/server_${NGINX_HOST}.key;
+        ;ssl_client_certificate /etc/nginx/ssl/client_certificate.pem;
+        ssl_dhparam /etc/nginx/ssl/dhparam.pem;
+        ssl_trusted_certificate /etc/nginx/ssl/client_cert.crt;
+        ssl_verify_client on;
+        ssl_protocols TLSv1.3;
+
+        proxy_redirect     off;
+        proxy_set_header   Host ${DOLLAR_SIGN}host;
+        proxy_set_header   X-Real-IP ${DOLLAR_SIGN}remote_addr;
+        proxy_set_header   X-Forwarded-For ${DOLLAR_SIGN}proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Host ${DOLLAR_SIGN}server_name;
+        location ~ /sonic/metrics/(.*)${DOLLAR_SIGN} {
+            proxy_pass         http://docker-sonic-exporter/${DOLLAR_SIGN}1;
+        }
+ 
+        location ~ /node/(.*?)${DOLLAR_SIGN} {
+            proxy_pass         http://docker-node-exporter/${DOLLAR_SIGN}1;
+        }
+    }
+}

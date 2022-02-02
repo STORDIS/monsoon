@@ -8,9 +8,17 @@ $ docker run --name sonic_monitoring --network=host --pid=host --privileged --re
 
 2. Node Exporter
 ```
-$ docker run --name node-exporter --network=host --pid=host --privileged --restart=always -v /proc:/host/proc:ro -v /sys:/host/sys:ro -v /:/rootfs:ro docker.io/prom/node-exporter:v1.3.0
+$ docker run --name node-exporter --network=host --pid=host --privileged --restart=always -d -v /proc:/host/proc:ro -v /sys:/host/sys:ro -v /:/rootfs:ro docker.io/prom/node-exporter:v1.3.0
 ```
 
+3. Nginx
+```
+$ mkdir -p ${HOME}/nginx/ssl
+$ cp ${HOME}/default.conf.template ${HOME}/nginx/default.conf.template
+$ openssl dhparam -dsaparam -out dhparam.pem 4096
+$ openssl req -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out ${HOME}/nginx/ssl/server_$(hostname --fqdn).crt -keyout ${HOME}/nginx/ssl/server_$(hostname --fqdn).key
+$ docker run --name nginx-proxy --network=host --pid=host --privileged --restart=always -d -e DOLLAR_SIGN='$' -e NGINX_HOST=$(hostname --fqdn) NGINX_PORT=5556 -v ${HOME}/nginx/ssl:/etc/nginx/ssl/:ro -v ${HOME}/nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro
+```
 
 ## Details:
 
@@ -23,13 +31,15 @@ $ docker run --name node-exporter --network=host --pid=host --privileged --resta
 
 ## Environment Variables
 
-| VARIABLE                  | Description                                                           | Default         |
-| ------------------------- | --------------------------------------------------------------------- | --------------- |
-| DEVELOPER_MODE            | This enables the Mock functionality of the exporter for local testing | False           |
-| REDIS_COLLECTION_INTERVAL | The interval in which the redis-client fetches data from the switch   | 30 (in seconds) |
-| REDIS_AUTH                | The secret to login to the redis db                                   | RAISE           |
-| SONIC_EXPORTER_PORT       | The port on which the exporter listens                                | 9101            |
-| SONIC_EXPORTER_LOGLEVEL   | The loglevel for the exporter                                         | INFO            |
+| VARIABLE                  | Description                                                           | Default           |
+| ------------------------- | --------------------------------------------------------------------- | ----------------- |
+| DEVELOPER_MODE            | This enables the Mock functionality of the exporter for local testing | `False`           |
+| REDIS_COLLECTION_INTERVAL | The interval in which the redis-client fetches data from the switch   | `30` (in seconds) |
+| REDIS_AUTH                | The secret to login to the redis db                                   | `RAISE`           |
+| SONIC_EXPORTER_PORT       | The port on which the exporter listens                                | `9101`            |
+| SONIC_EXPORTER_ADDRESS    | The address on which the exporter listens                             | `localhost`       |
+| SONIC_EXPORTER_LOGLEVEL   | The loglevel for the exporter                                         | `INFO`            |
+
 ## Building
 
 ```console
