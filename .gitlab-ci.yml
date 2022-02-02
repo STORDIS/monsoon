@@ -10,7 +10,7 @@ variables:
   AWS_SECRET_ACCESS_KEY: "none"
   AWS_ACCAWS_SESSION_TOKENESS_KEY_ID: "none"
 
-script-build-release:
+build-release:
   image:
     name: artifactory.devops.telekom.de/gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
@@ -26,7 +26,7 @@ script-build-release:
     refs:
       - branches
 
-script-build:
+build:
   image:
     name: artifactory.devops.telekom.de/gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
@@ -44,7 +44,7 @@ script-build:
       - '.gitlab-ci.yml'
 
 
-# stordis-script-build-release:
+# stordis-build-release:
 #   image:
 #     name: gcr.io/kaniko-project/executor:debug
 #     entrypoint: [""]
@@ -58,7 +58,7 @@ script-build:
 #     refs:
 #       - branches
 
-# stordis-script-build:
+# stordis-build:
 #   image:
 #     name: gcr.io/kaniko-project/executor:debug
 #     entrypoint: [""]
