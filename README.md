@@ -7,19 +7,33 @@ $ docker run --name sonic_monitoring --network=host --pid=host --privileged --re
 ```
 
 2. Node Exporter
-```
+```console
 $ docker run --name node-exporter --network=host --pid=host --privileged --restart=always -d -v /proc:/host/proc:ro -v /sys:/host/sys:ro -v /:/rootfs:ro docker.io/prom/node-exporter:v1.3.0
 ```
 
 3. Nginx
+```bash
+#! /usr/bin/env bash
+mkdir -p ${HOME}/nginx/ssl
+cp ${HOME}/default.conf.template ${HOME}/nginx/default.conf.template
+export CERT_CONFIG=$(mktemp)
+openssl dhparam -dsaparam -out dhparam.pem 4096
+cat cert.config.template | HOSTNAME=$(hostname --fqdn) envsubst > /tmp/cert.config
+openssl req -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out ${HOME}/nginx/ssl/server_$(hostname --fqdn).crt -keyout ${HOME}/nginx/ssl/server_$(hostname --fqdn).key -config /tmp/cert.config
 ```
-$ mkdir -p ${HOME}/nginx/ssl
-$ cp ${HOME}/default.conf.template ${HOME}/nginx/default.conf.template
-$ openssl dhparam -dsaparam -out dhparam.pem 4096
-$ openssl req -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out ${HOME}/nginx/ssl/server_$(hostname --fqdn).crt -keyout ${HOME}/nginx/ssl/server_$(hostname --fqdn).key
-$ docker run --name nginx-proxy --network=host --pid=host --privileged --restart=always -d -e DOLLAR_SIGN='$' -e NGINX_HOST=$(hostname --fqdn) NGINX_PORT=5556 -v ${HOME}/nginx/ssl:/etc/nginx/ssl/:ro -v ${HOME}/nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro
+```console
+$ docker run --name nginx-proxy --network=host --pid=host --privileged --restart=always -d -e DOLLAR_SIGN='$' -e NGINX_HOST=$(hostname --fqdn) NGINX_PORT=5556 -v ${HOME}/nginx/ssl:/etc/nginx/ssl/:ro -v ${HOME}/nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro docker.io/library/nginx:1.21
 ```
 
+## Central Client Certificate Generation
+```bash
+#! /usr/bin/env bash
+export CERT_CONFIG=$(mktemp)
+cat cert.config.template | HOSTNAME=$(hostname --fqdn) envsubst > ${CERT_CONFIG}
+openssl req -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out client.crt -keyout client.key -config ${CERT_CONFIG}
+```
+
+## 
 ## Details:
 
 1. src/ folder has below subfolders

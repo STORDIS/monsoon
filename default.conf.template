@@ -21,9 +21,8 @@ http {
         server_name ${NGINX_HOST};
         ssl_certificate /etc/nginx/ssl/server_${NGINX_HOST}.crt;
         ssl_certificate_key /etc/nginx/ssl/server_${NGINX_HOST}.key;
-        ;ssl_client_certificate /etc/nginx/ssl/client_certificate.pem;
         ssl_dhparam /etc/nginx/ssl/dhparam.pem;
-        ssl_trusted_certificate /etc/nginx/ssl/client_cert.crt;
+        ssl_trusted_certificate /etc/nginx/ssl/client.crt;
         ssl_verify_client on;
         ssl_protocols TLSv1.3;
 
