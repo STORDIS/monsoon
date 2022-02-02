@@ -1,0 +1,149 @@
+[
+    {
+        "advertiseGatewayMacip": "No",
+        "ifindex": 81,
+        "mcastGroup": "0.0.0.0",
+        "numArpNd": 1,
+        "numMacs": 1,
+        "numRemoteVteps": [
+            "192.168.2.20",
+            "192.168.2.19",
+            "192.168.2.18",
+            "192.168.2.15",
+            "192.168.0.216",
+            "192.168.0.215",
+            "192.168.0.221"
+        ],
+        "type": "L2",
+        "vni": 5303,
+        "vrf": "default",
+        "vtepIp": "192.168.0.219",
+        "vxlanInterface": "vtep1-2320"
+    },
+    {
+        "advertiseGatewayMacip": "No",
+        "ifindex": 80,
+        "mcastGroup": "0.0.0.0",
+        "numArpNd": 1,
+        "numMacs": 1,
+        "numRemoteVteps": [
+            "192.168.2.20",
+            "192.168.2.19",
+            "192.168.2.18",
+            "192.168.2.15",
+            "192.168.0.216",
+            "192.168.0.215",
+            "192.168.0.221"
+        ],
+        "type": "L2",
+        "vni": 5302,
+        "vrf": "default",
+        "vtepIp": "192.168.0.219",
+        "vxlanInterface": "vtep1-2317"
+    },
+    {
+        "advertiseGatewayMacip": "No",
+        "ifindex": 84,
+        "mcastGroup": "0.0.0.0",
+        "numArpNd": 1,
+        "numMacs": 1,
+        "numRemoteVteps": [
+            "192.168.2.20",
+            "192.168.2.19",
+            "192.168.2.18",
+            "192.168.2.15",
+            "192.168.0.216",
+            "192.168.0.215",
+            "192.168.0.221"
+        ],
+        "type": "L2",
+        "vni": 5306,
+        "vrf": "default",
+        "vtepIp": "192.168.0.219",
+        "vxlanInterface": "vtep1-2322"
+    },
+    {
+        "advertiseGatewayMacip": "No",
+        "ifindex": 79,
+        "mcastGroup": "0.0.0.0",
+        "numArpNd": 1,
+        "numMacs": 1,
+        "numRemoteVteps": [
+            "192.168.2.20",
+            "192.168.2.19",
+            "192.168.2.18",
+            "192.168.2.15",
+            "192.168.0.216",
+            "192.168.0.215",
+            "192.168.0.221"
+        ],
+        "type": "L2",
+        "vni": 5301,
+        "vrf": "default",
+        "vtepIp": "192.168.0.219",
+        "vxlanInterface": "vtep1-2318"
+    },
+    {
+        "advertiseGatewayMacip": "No",
+        "ifindex": 85,
+        "mcastGroup": "0.0.0.0",
+        "numArpNd": 1,
+        "numMacs": 1,
+        "numRemoteVteps": [
+            "192.168.2.20",
+            "192.168.2.19",
+            "192.168.2.18",
+            "192.168.2.15",
+            "192.168.0.216",
+            "192.168.0.215",
+            "192.168.0.221"
+        ],
+        "type": "L2",
+        "vni": 5307,
+        "vrf": "default",
+        "vtepIp": "192.168.0.219",
+        "vxlanInterface": "vtep1-2325"
+    },
+    {
+        "advertiseGatewayMacip": "No",
+        "ifindex": 83,
+        "mcastGroup": "0.0.0.0",
+        "numArpNd": 1,
+        "numMacs": 1,
+        "numRemoteVteps": [
+            "192.168.2.20",
+            "192.168.2.19",
+            "192.168.2.18",
+            "192.168.2.15",
+            "192.168.0.216",
+            "192.168.0.215",
+            "192.168.0.221"
+        ],
+        "type": "L2",
+        "vni": 5305,
+        "vrf": "default",
+        "vtepIp": "192.168.0.219",
+        "vxlanInterface": "vtep1-2319"
+    },
+    {
+        "advertiseGatewayMacip": "No",
+        "ifindex": 82,
+        "mcastGroup": "0.0.0.0",
+        "numArpNd": 3,
+        "numMacs": 1,
+        "numRemoteVteps": [
+            "192.168.2.20",
+            "192.168.2.19",
+            "192.168.2.18",
+            "192.168.2.15",
+            "192.168.0.216",
+            "192.168.0.215",
+            "192.168.0.221"
+        ],
+        "type": "L2",
+        "vni": 5304,
+        "vrf": "default",
+        "vtepIp": "192.168.0.219",
+        "vxlanInterface": "vtep1-2321"
+    }
+]

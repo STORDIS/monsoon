@@ -16,11 +16,10 @@ def boolify(data: Union[str, bool]) -> bool:
 
 def floatify(data: Optional[Union[str, float, int, bool]]) -> float:
     match data:
-        case bool():
-            if data:
-                return float(1)
-            else:
-                return float(0)
+        case True:
+            return float(1)
+        case False:
+            return float(0)
         case None:
             return float(0)
         case _:

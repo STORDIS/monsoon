@@ -33,7 +33,7 @@ class SonicV2Connector:
     def load_db(model: SwitchModel, db: DB):
         return json.loads(read_text(ressources, f"{model.value}.{db.value}.json"))
 
-    def __init__(self, password: str, model: SwitchModel = SwitchModel.AS7726):
+    def __init__(self, password: str, model: SwitchModel = SwitchModel.AS7326):
         self.password = password
         self.model = model
         self.db = {}
