@@ -59,7 +59,7 @@ ssh "admin@${SWITCH}" "docker load -i ${SONIC_EXPORTER_FILE}"
 1. SONIC exporter
 
 ```console
-$ docker run --name sonic_monitoring --network=host --pid=host --privileged --restart=always -d -e REDIS_AUTH=$(cat /run/redis/auth/passwd) -v /var/run/redis:/var/run/redis -v /usr/bin/vtysh:/usr/bin/vtysh -v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock  ${SONIC_EXPORTER_IMAGE}
+$ docker run --name sonic-exporter --network=host --pid=host --privileged --restart=always -d -e REDIS_AUTH=$(cat /run/redis/auth/passwd) -v /var/run/redis:/var/run/redis -v /usr/bin/vtysh:/usr/bin/vtysh -v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock  ${SONIC_EXPORTER_IMAGE}
 ```
 
 2. Node Exporter
@@ -107,7 +107,7 @@ $ docker run --name nginx-proxy --network=host --pid=host --privileged --restart
 
 ```console
 $ export VERSION="latest"
-$ podman build -t sonic_monitoring:${VERSION} .
+$ podman build -t sonic-exporter:${VERSION} .
 [1/2] STEP 1/7: FROM python:3.10-bullseye
 Resolving "python" using unqualified-search registries (/etc/containers/registries.conf)
 Trying to pull docker.io/library/python:3.10-bullseye...
@@ -144,19 +144,19 @@ Storing signatures
 [2/2] STEP 4/5: RUN pip3 install --pre -r /home/requirements.txt && pip3 install /home/*.tar.gz && mkdir -p /src
 --> a9de129245a
 [2/2] STEP 5/5: CMD sonic_exporter
-[2/2] COMMIT sonic_monitoring:${VERSION}
+[2/2] COMMIT sonic-exporter:${VERSION}
 --> f71e7b8de82
-Successfully tagged localhost/sonic_monitoring:${VERSION}
+Successfully tagged localhost/sonic-exporter:${VERSION}
 f71e7b8de82e5eabfe66c803538f19d1fb3c44b3b0edf9725e9eb61943d4a093
-$ podman save --format docker-archive localhost/sonic_monitoring:${VERSION} | gzip  > sonic-monitoring_${VERSION}.tar.gz
+$ podman save --format docker-archive localhost/sonic-exporter:${VERSION} | gzip  > sonic-exporter_${VERSION}.tar.gz
 $ ls
-sonic-monitoring_${VERSION}.tar.gz
+sonic-exporter_${VERSION}.tar.gz
 ```
 
 ## Loading the image on a switch
 
 ```console
-$ docker load -i sonic-monitoring_${VERSION}.tar.gz
+$ docker load -i sonic-exporter_${VERSION}.tar.gz
 e1bbcf243d0e: Loading layer  83.88MB/83.88MB
 7944c75516ae: Loading layer  3.401MB/3.401MB
 775d27396430: Loading layer  30.41MB/30.41MB
@@ -165,5 +165,5 @@ e1bbcf243d0e: Loading layer  83.88MB/83.88MB
 6062c6897570: Loading layer  3.584kB/3.584kB
 c7e4a0cae15f: Loading layer  36.35kB/36.35kB
 2d345aa4239f: Loading layer   10.3MB/10.3MB
-Loaded image: localhost/sonic_monitoring:${VERSION}
+Loaded image: localhost/sonic-exporter:${VERSION}
 ```
