@@ -497,7 +497,7 @@ class Export:
                 self.get_portinfo(ifname, "description"),
                 self.get_portinfo(ifname, "mtu"),
                 f"{'{}Gbps'.format(int(round(int(self.get_portinfo(ifname, 'speed'))) / 1000)) if self.get_portinfo(ifname, 'speed') else ''}",
-                ifname
+                ifname,
             ).set(1)
             ## Ethernet RX
             for size, key in zip(
@@ -972,8 +972,8 @@ class Export:
                 str(self.sonic_db.get(self.sonic_db.STATE_DB, key, "Connector")).lower()
             )
             connector_type = _decode(
-                str(self.sonic_db.get(self.sonic_db.STATE_DB, key, "connector_type")
-            )).lower()
+                str(self.sonic_db.get(self.sonic_db.STATE_DB, key, "connector_type"))
+            ).lower()
             serial = _decode(
                 self.sonic_db.get(self.sonic_db.STATE_DB, key, "vendor_serial_number")
             )
@@ -1398,7 +1398,9 @@ def main():
     data_extract_interval = floatify(
         os.environ.get("REDIS_COLLECTION_INTERVAL", 30)
     )  # considering 30 seconds as default collection interval
-    port = int(os.environ.get("SONIC_EXPORTER_PORT", 9101))  # setting port static as 9101. if required map it to someother port of host by editing compose file.
+    port = int(
+        os.environ.get("SONIC_EXPORTER_PORT", 9101)
+    )  # setting port static as 9101. if required map it to someother port of host by editing compose file.
     address = str(os.environ.get("SONIC_EXPORTER_ADDRESS", "localhost"))
     exp = Export(os.environ.get("DEVELOPER_MODE", "False").lower() in TRUE_VALUES)
     logging.info("Starting Python exporter server at port 9101")
