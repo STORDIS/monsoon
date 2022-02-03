@@ -1,14 +1,69 @@
 # Monsoon - main repository
 
+## Central Client Certificate Generation
+```bash
+#! /usr/bin/env bash
+# Get the cert_config_template from the git repository
+# 
+export CERT_CONFIG=$(mktemp)
+cat cert.config.template | HOSTNAME=$(hostname --fqdn) envsubst > ${CERT_CONFIG}
+openssl req -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out client.crt -keyout client.key -config ${CERT_CONFIG}
+```
+
+## Preparation
+
+Loading the images from Upstream and copying them to the switch.
+
+
+```bash
+#! /usr/bin/env bash
+export SWITCH="switch_hostname"
+
+## This sections is also relevant on the switch
+export NODE_EXPORTER_VERSION=1.3.1
+export NODE_EXPORTER_IMAGE="prom/node-exporter:v${NODE_EXPORTER_VERSION}"
+export NODE_EXPORTER_FILE="prom_node-exporter_${NODE_EXPORTER_VERSION}.tar.gz"
+
+export NGINX_VERSION=1.21.6
+export NGINX_IMAGE="nginx:${NGINX_VERSION}"
+export NGINX_FILE="nginx_${NGINX_VERSION}.tar.gz"
+
+export SONIC_EXPORTER_VERSION=0.1.2
+export SONIC_EXPORTER_IMAGE="registry.devops.telekom.de/schiff/sonic-exporter:${SONIC_EXPORTER_VERSION}"
+export SONIC_EXPORTER_FILE="sonic-exporter_${SONIC_EXPORTER_VERSION}.tar.gz"
+
+
+docker pull ${NODE_EXPORTER_IMAGE}
+docker pull ${NGINX_IMAGE}
+docker pull ${SONIC_EXPORTER_IMAGE}
+
+docker save "${NODE_EXPORTER_IMAGE}" | gzip > "${NODE_EXPORTER_FILE}"
+docker save "${NGINX_IMAGE}" | gzip > "${NGINX_FILE}"
+docker save "${SONIC_EXPORTER_IMAGE}" | gzip > "${SONIC_EXPORTER_FILE}"
+
+scp ${NODE_EXPORTER_FILE} "admin@${SWITCH}:"
+scp ${NGINX_FILE} "admin@${SWITCH}:"
+scp ${SONIC_EXPORTER_FILE} "admin@${SWITCH}:"
+
+scp default.conf.template "admin@${SWITCH}:"
+scp cert.config.template "admin@${SWITCH}:"
+
+ssh "admin@${SWITCH}" "docker load -i ${NODE_EXPORTER_FILE}"
+ssh "admin@${SWITCH}" "docker load -i ${NGINX_FILE}"
+ssh "admin@${SWITCH}" "docker load -i ${SONIC_EXPORTER_FILE}"
+
+```
+## Installation
+
 1. SONIC exporter
 
 ```console
-$ docker run --name sonic_monitoring --network=host --pid=host --privileged --restart=always -d -e REDIS_AUTH=$(cat /run/redis/auth/passwd) -v /var/run/redis:/var/run/redis -v /usr/bin/vtysh:/usr/bin/vtysh -v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock  registry.devops.telekom.de/schiff/sonic-exporter:latest
+$ docker run --name sonic_monitoring --network=host --pid=host --privileged --restart=always -d -e REDIS_AUTH=$(cat /run/redis/auth/passwd) -v /var/run/redis:/var/run/redis -v /usr/bin/vtysh:/usr/bin/vtysh -v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock  ${SONIC_EXPORTER_IMAGE}
 ```
 
 2. Node Exporter
 ```console
-$ docker run --name node-exporter --network=host --pid=host --privileged --restart=always -d -v /proc:/host/proc:ro -v /sys:/host/sys:ro -v /:/rootfs:ro prom/node-exporter:v1.3.1 --path.rootfs=/host --no-collector.fibrechannel --no-collector.infiniband --no-collector.ipvs --no-collector.mdadm --no-collector.nfs --no-collector.nfsd --no-collector.nvme --no-collector.os --no-collector.pressure --no-collector.tapestats --no-collector.zfs --no-collector.netstat --no-collector.arp --web.listen-address=localhost:9100
+$ docker run --name node-exporter --network=host --pid=host --privileged --restart=always -d -v /proc:/host/proc:ro -v /sys:/host/sys:ro -v /:/rootfs:ro ${NODE_EXPORTER_IMAGE} --path.rootfs=/host --no-collector.fibrechannel --no-collector.infiniband --no-collector.ipvs --no-collector.mdadm --no-collector.nfs --no-collector.nfsd --no-collector.nvme --no-collector.os --no-collector.pressure --no-collector.tapestats --no-collector.zfs --no-collector.netstat --no-collector.arp --web.listen-address=localhost:9100
 ```
 
 3. Nginx Proxy
@@ -16,22 +71,16 @@ $ docker run --name node-exporter --network=host --pid=host --privileged --resta
 #! /usr/bin/env bash
 mkdir -p ${HOME}/nginx/ssl
 cp ${HOME}/default.conf.template ${HOME}/nginx/default.conf.template
+cp ${HOME}/client.crt ${HOME}/nginx/ssl/client.crt
 export CERT_CONFIG=$(mktemp)
 openssl dhparam -dsaparam -out ${HOME}/nginx/ssl/dhparam.pem 4096
 cat cert.config.template | HOSTNAME=$(hostname --fqdn) envsubst > ${CERT_CONFIG}
 openssl req -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out ${HOME}/nginx/ssl/server_$(hostname --fqdn).crt -keyout ${HOME}/nginx/ssl/server_$(hostname --fqdn).key -config ${CERT_CONFIG}
 ```
 ```console
-$ docker run --name nginx-proxy --network=host --pid=host --privileged --restart=always -d -e DOLLAR_SIGN='$' -e NGINX_HOST=$(hostname --fqdn) -e NGINX_PORT=5556 -v ${HOME}/nginx/ssl:/etc/nginx/ssl/:ro -v ${HOME}/nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro docker.io/library/nginx:1.21
+$ docker run --name nginx-proxy --network=host --pid=host --privileged --restart=always -d -e DOLLAR_SIGN='$' -e NGINX_HOST=$(hostname --fqdn) -e NGINX_PORT=5556 -v ${HOME}/nginx/ssl:/etc/nginx/ssl/:ro -v ${HOME}/nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro ${NGINX_IMAGE}
 ```
 
-## Central Client Certificate Generation
-```bash
-#! /usr/bin/env bash
-export CERT_CONFIG=$(mktemp)
-cat cert.config.template | HOSTNAME=$(hostname --fqdn) envsubst > ${CERT_CONFIG}
-openssl req -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out client.crt -keyout client.key -config ${CERT_CONFIG}
-```
 
 ## Details:
 
