@@ -1,6 +1,15 @@
 # Monsoon - main repository
 
 ## Central Client Certificate Generation
+
+This generated client key should be encrypted with sops and put into git.
+
+Environments
+- ref
+- prd
+
+You will need this `client.crt` on all switches you want to collect data from.
+
 ```bash
 #! /usr/bin/env bash
 # Get the cert_config_template from the git repository
@@ -8,6 +17,7 @@
 export CERT_CONFIG=$(mktemp)
 cat cert.config.template | HOSTNAME=$(hostname --fqdn) envsubst > ${CERT_CONFIG}
 openssl req -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out client.crt -keyout client.key -config ${CERT_CONFIG}
+rm `${CERT_CONFIG}`
 ```
 
 ## Preparation
@@ -77,7 +87,9 @@ export CERT_CONFIG=$(mktemp)
 openssl dhparam -dsaparam -out ${HOME}/nginx/ssl/dhparam.pem 4096
 cat cert.config.template | HOSTNAME=$(hostname --fqdn) envsubst > ${CERT_CONFIG}
 openssl req -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out ${HOME}/nginx/ssl/server_$(hostname --fqdn).crt -keyout ${HOME}/nginx/ssl/server_$(hostname --fqdn).key -config ${CERT_CONFIG}
+rm `${CERT_CONFIG}`
 ```
+
 ```console
 $ docker run --name nginx-proxy --network=host --pid=host --privileged --restart=always -d -e DOLLAR_SIGN='$' -e NGINX_HOST=$(hostname --fqdn) -e NGINX_PORT=5556 -v ${HOME}/nginx/ssl:/etc/nginx/ssl/:ro -v ${HOME}/nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro ${NGINX_IMAGE}
 ```
