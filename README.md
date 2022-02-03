@@ -47,6 +47,7 @@ scp ${SONIC_EXPORTER_FILE} "admin@${SWITCH}:"
 
 scp default.conf.template "admin@${SWITCH}:"
 scp cert.config.template "admin@${SWITCH}:"
+scp client.crt "admin@${SWITCH}:"
 
 ssh "admin@${SWITCH}" "docker load -i ${NODE_EXPORTER_FILE}"
 ssh "admin@${SWITCH}" "docker load -i ${NGINX_FILE}"
