@@ -50,36 +50,36 @@ build:
       - README.md
 
 
+stordis-build-release:
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  tags:
+    - stordis-runner
+  stage: build
+  script:
+    - ash build.sh docker.io
+  only:
+    refs:
+      - tags
+  except:
+    refs:
+      - branches
+    changes:
+      - README.md
 
-# stordis-build-release:
-#   image:
-#     name: gcr.io/kaniko-project/executor:debug
-#     entrypoint: [""]
-#   tags:
-#     - stordis-runner
-#   stage: build
-#   script:
-#     - ash build.sh docker.io
-#   only:
-#     refs:
-#       - tags
-#   except:
-#     refs:
-#       - branches
-
-# stordis-build:
-#   image:
-#     name: gcr.io/kaniko-project/executor:debug
-#     entrypoint: [""]
-#   tags:
-#     - stordis-runner
-#   stage: build
-#   script:
-#     - ash build.sh false docker.io
-#   only:
-#     refs:
-#       - branches
-#     changes:
-#       - '**/Dockerfile'
-#       - 'build.sh'
-#       - '.gitlab-ci.yml'
+stordis-build:
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  tags:
+    - stordis-runner
+  stage: build
+  script:
+    - ash build.sh false docker.io
+  only:
+    refs:
+      - branches
+  except:
+    changes:
+      - README.md
