@@ -1,4 +1,4 @@
-from sonic_exporter.enums import SwitchModel
+from sonic_exporter.enums import AirFlow, SwitchModel
 
 
 def GET_PATTERN(data: str) -> str:
@@ -63,4 +63,55 @@ VXLAN_TUNNEL_MAP = "VXLAN_TUNNEL_MAP|"
 VXLAN_TUNNEL_MAP_PATTERN = GET_PATTERN(VXLAN_TUNNEL_MAP)
 
 
-TEMP_SENSORS = {SwitchModel.AS7326: {}, SwitchModel.AS7726: {}, SwitchModel.AS5853: {}}
+
+# Informative:
+# pcb == mostly the middle sensor on the dataplane logic board
+# environment = The sensor which is mostly located on the side of the switch.
+TEMP_SENSORS = {
+    SwitchModel.AS7326: {
+        AirFlow.BACK_TO_FRONT: {
+            "4a": "environment",
+            "4b": "intake",
+            "48": "pcb",
+            "49": "exhaust",
+        },
+        AirFlow.FRONT_TO_BACK: {
+            "4a": "environment",
+            "4b": "exhaust",
+            "48": "pcb",
+            "49": "intake",
+        }
+    },
+    SwitchModel.AS7726: {
+        AirFlow.BACK_TO_FRONT: {
+            "4a": "environment",
+            "4b": "intake cpu",
+            "4c": "intake",
+            "48": "pcb",
+            "49": "exhaust"
+
+        },
+        AirFlow.FRONT_TO_BACK: {
+            "4a": "environment",
+            "4b": "exhaust cpu",
+            "4c": "exhaust",
+            "48": "pcb",
+            "49": "intake"
+        }
+
+    },
+    SwitchModel.AS5853: {
+        AirFlow.BACK_TO_FRONT: {
+            "4a": "pcb",
+            "4b": "intake",
+            "4c": "exhaust",
+            "49": "environment",
+        },
+        AirFlow.FRONT_TO_BACK: {
+            "4a": "pcb",
+            "4b": "exhaust",
+            "4c": "intake",
+            "49": "environment",
+        }
+    }
+}
