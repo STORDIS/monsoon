@@ -40,7 +40,7 @@ build:
     - otc_run_docker_k8s
   stage: build
   script:
-    - env
+    - echo "${CI_SERVER_NAME}"
     - ash build.sh false
   only:
     refs:
