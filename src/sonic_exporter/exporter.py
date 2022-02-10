@@ -13,12 +13,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # 
-import enum
+import ipaddress
+import logging
+import logging.handlers
+import os
 import re
+import socket
+import sys
 import time
+
 import prometheus_client as prom
 
 from sonic_exporter.constants import (
+    CHASSIS_INFO,
+    CHASSIS_INFO_PATTERN,
     COUNTER_IGNORE,
     COUNTER_PORT_MAP,
     COUNTER_QUEUE_MAP,
@@ -27,8 +35,8 @@ from sonic_exporter.constants import (
     FAN_INFO_PATTERN,
     PORT_TABLE_PREFIX,
     PROCESS_STATS,
-    PROCESS_STATS_PATTERN,
     PROCESS_STATS_IGNORE,
+    PROCESS_STATS_PATTERN,
     PSU_INFO,
     PSU_INFO_PATTERN,
     SAG,
@@ -45,18 +53,13 @@ from sonic_exporter.constants import (
     VXLAN_TUNNEL_TABLE,
     VXLAN_TUNNEL_TABLE_PATTERN,
 )
-from sonic_exporter.converters import boolify, floatify, get_uptime, to_timestamp
+from sonic_exporter.converters import boolify
 from sonic_exporter.converters import decode as _decode
-from sonic_exporter.enums import AddressFamily, InternetProtocol, OSILayer
-from sonic_exporter.utilities import timed_cache
-
-import os
-import ipaddress
-import sys
-import logging
+from sonic_exporter.converters import floatify, get_uptime, to_timestamp
 from sonic_exporter.custom_metric_types import CustomCounter
-import logging.handlers
-import socket
+from sonic_exporter.enums import AddressFamily, InternetProtocol, OSILayer
+from sonic_exporter.sys_class_hwmon import LinuxHWMon
+from sonic_exporter.utilities import timed_cache
 
 level = os.environ.get("SONIC_EXPORTER_LOGLEVEL", "INFO")
 logging.basicConfig(
@@ -73,6 +76,7 @@ class Export:
     tx_power_regex = re.compile(r"^tx(\d*)power$")
     tx_bias_regex = re.compile(r"^tx(\d*)bias$")
     fan_slot_regex = re.compile(r"^((?:PSU|Fantray).*?\d+).*?(?!FAN|_).*?(\d+)$")
+    chassis_slot_regex = re.compile(r"^.*?(\d+)$")
 
     @staticmethod
     def get_counter_key(name: str) -> str:
@@ -98,21 +102,25 @@ class Export:
     def __init__(self, developer_mode: bool):
         if developer_mode:
             import sonic_exporter.test.mock_db as mock_db
-            from sonic_exporter.test.mock_vtysh import MockVtySH
+            from sonic_exporter.test.mock_sys_class_hwmon import MockLinuxHWMon
             from sonic_exporter.test.mock_sys_class_net import (
                 MockSystemClassNetworkInfo,
             )
+            from sonic_exporter.test.mock_vtysh import MockVtySH
 
             self.vtysh = MockVtySH()
             self.sys_class_net = MockSystemClassNetworkInfo()
+            self.sys_class_hwmon = MockLinuxHWMon()
             self.sonic_db = mock_db.SonicV2Connector(password="")
         else:
             import swsssdk
-            from sonic_exporter.vtysh import VtySH
+
             from sonic_exporter.sys_class_net import SystemClassNetworkInfo
+            from sonic_exporter.vtysh import VtySH
 
             self.vtysh = VtySH()
             self.sys_class_net = SystemClassNetworkInfo()
+            self.sys_class_hwmon = LinuxHWMon()
             try:
                 secret = os.environ["REDIS_AUTH"]
                 logging.debug(f"Password from ENV: {secret}")
@@ -363,12 +371,23 @@ class Export:
             ["neighbor"],
         )
         ## System Info
-        self.system_uptime = CustomCounter(
+        self.metric_device_uptime = CustomCounter(
             "sonic_device_uptime_seconds_total", "The uptime of the device in seconds"
         )
-        self.system_info = prom.Info(
-            "sonic_device",
+        self.metric_device_info = prom.Gauge(
+            "sonic_device_info",
             "part name, serial number, MAC address and software vesion of the System",
+            [
+                "chassis",
+                "platform_name",
+                "part_number",
+                "serial_number",
+                "mac_address",
+                "software_version",
+                "onie_version",
+                "hardware_revision",
+                "product_name",
+            ],
         )
         self.system_memory_ratio = prom.Gauge(
             "sonic_device_memory_ratio",
@@ -1083,8 +1102,8 @@ class Export:
                     self.sonic_db.get(self.sonic_db.STATE_DB, key, "name")
                 )
                 rpm = floatify(self.sonic_db.get(self.sonic_db.STATE_DB, key, "speed"))
-                is_operational = boolify(
-                    _decode(self.sonic_db.get(self.sonic_db.STATE_DB, key, "status"))
+                is_operational = _decode(
+                    self.sonic_db.get(self.sonic_db.STATE_DB, key, "status")
                 )
                 is_available = boolify(
                     _decode(self.sonic_db.get(self.sonic_db.STATE_DB, key, "presence"))
@@ -1092,10 +1111,10 @@ class Export:
                 name = fullname
                 slot = "0"
                 if match := self.fan_slot_regex.fullmatch(fullname):
-                    name = match.group(1)
-                    slot = match.group(2)
+                    name = match.group(1).rstrip()
+                    slot = match.group(2).strip()
                     # This handles the special case of the AS7326 which bounds health of the PSU Fan to the Health of the Power Supply
-                    if not is_operational and fullname.lower().startswith("psu"):
+                    if is_operational is None and fullname.lower().startswith("psu"):
                         is_operational = boolify(
                             _decode(
                                 self.sonic_db.get(
@@ -1107,13 +1126,13 @@ class Export:
                         )
                 self.metric_device_fan_rpm.labels(name, slot).set(rpm)
                 self.metric_device_fan_operational_status.labels(name, slot).set(
-                    is_operational
+                    boolify(is_operational)
                 )
                 self.metric_device_fan_available_status.labels(name, slot).set(
                     is_available
                 )
                 logging.debug(
-                    f"export_fan_info : fullname={fullname} oper={is_operational}, presence={is_available}, rpm={rpm}"
+                    f"export_fan_info : fullname={fullname} oper={boolify(is_operational)}, presence={is_available}, rpm={rpm}"
                 )
             except ValueError:
                 pass
@@ -1122,6 +1141,7 @@ class Export:
         keys = self.sonic_db.keys(
             self.sonic_db.STATE_DB, pattern=TEMPERATURE_INFO_PATTERN
         )
+
         if not keys:
             return
         for key in keys:
@@ -1148,36 +1168,41 @@ class Export:
                 pass
 
     def export_system_info(self):
-        part_num = _decode(
-            self.sonic_db.get(self.sonic_db.STATE_DB, "EEPROM_INFO|0x22", "Value")
-        )
-        serial_num = _decode(
-            self.sonic_db.get(self.sonic_db.STATE_DB, "EEPROM_INFO|0x23", "Value")
-        )
-        mac_addr = _decode(
-            self.sonic_db.get(self.sonic_db.STATE_DB, "EEPROM_INFO|0x24", "Value")
-        )
-        onie_version = _decode(
-            self.sonic_db.get(self.sonic_db.STATE_DB, "EEPROM_INFO|0x29", "Value")
-        )
-        software_version = _decode(
-            self.sonic_db.get(self.sonic_db.STATE_DB, "IMAGE_GLOBAL|config", "current")
-        )
-        self.system_uptime.set(get_uptime().total_seconds())
-        self.system_info.info(
-            {
-                "part_number": part_num,
-                "serial_number": serial_num,
-                "mac_address": mac_addr,
-                "software_version": software_version,
-                "onie_version": onie_version,
-            }
-        )
-        logging.debug(
-            "export_sys_info : part_num={}, serial_num={}, mac_addr={}, software_version={}".format(
-                part_num, serial_num, mac_addr, software_version
+        self.metric_device_uptime.set(get_uptime().total_seconds())
+        keys = self.sonic_db.keys(self.sonic_db.STATE_DB, pattern=CHASSIS_INFO_PATTERN)
+        for key in keys:
+            data = self.sonic_db.get_all(self.sonic_db.STATE_DB, key)
+            chassis = chassis_raw = _decode(key).replace(CHASSIS_INFO, "")
+            if match := self.chassis_slot_regex.fullmatch(chassis_raw):
+                chassis = match.group(1)
+            part_number = _decode(data.get("part_num", ""))
+            serial_number = _decode(data.get("serial_num", ""))
+            mac_address = _decode(data.get("base_mac_addr", ""))
+            onie_version = _decode(data.get("onie_version", ""))
+            software_version = _decode(
+                self.sonic_db.get(
+                    self.sonic_db.STATE_DB, "IMAGE_GLOBAL|config", "current"
+                )
             )
-        )
+            platform_name = _decode(data.get("platform_name", ""))
+            hardware_revision = _decode(data.get("hardware_revision", ""))
+            product_name = _decode(data.get("product_name", ""))
+            self.metric_device_info.labels(
+                chassis,
+                platform_name,
+                part_number,
+                serial_number,
+                mac_address,
+                software_version,
+                onie_version,
+                hardware_revision,
+                product_name,
+            ).set(1)
+            logging.debug(
+                "export_sys_info : part_num={}, serial_num={}, mac_addr={}, software_version={}".format(
+                    part_number, serial_number, mac_address, software_version
+                )
+            )
         keys = self.sonic_db.keys(self.sonic_db.STATE_DB, pattern=PROCESS_STATS_PATTERN)
         cpu_memory_usages = [
             (
@@ -1213,6 +1238,9 @@ class Export:
         exportable = {InternetProtocol.v4: False, InternetProtocol.v6: False}
         keys = self.sonic_db.keys(self.sonic_db.CONFIG_DB, pattern=SAG_PATTERN)
         global_data = self.sonic_db.get_all(self.sonic_db.CONFIG_DB, SAG_GLOBAL)
+        vxlan_tunnel_map = self.sonic_db.keys(
+            self.sonic_db.CONFIG_DB, pattern=VXLAN_TUNNEL_MAP_PATTERN
+        )
 
         for internet_protocol in InternetProtocol:
             if global_data and boolify(global_data[internet_protocol.value].lower()):
@@ -1220,13 +1248,10 @@ class Export:
                 self.metric_sag_info.labels(
                     internet_protocol.value.lower(), _decode(global_data["gwmac"])
                 ).set(1)
-        vxlan_tunnel_map = list(
-            self.sonic_db.keys(
-                self.sonic_db.CONFIG_DB, pattern=VXLAN_TUNNEL_MAP_PATTERN
-            )
-        )
-        if not keys:
+
+        if not keys or not vxlan_tunnel_map:
             return
+        vxlan_tunnel_map = list(vxlan_tunnel_map)
         for key in keys:
             ## ["interface", "vrf", "gateway_ip", "ip_family", "vni"]
             data = key.replace(SAG, "")

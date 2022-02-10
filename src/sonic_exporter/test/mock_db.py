@@ -1,9 +1,10 @@
-from enum import Enum
 import json
 import re
+from enum import Enum
 from importlib.resources import read_text
 
 from sonic_exporter.enums import SwitchModel
+
 from . import ressources
 
 

@@ -1,13 +1,15 @@
-from datetime import datetime
-from typing import Optional, Union
 import datetime
 import time
+from typing import Optional, Union
+
 from sonic_exporter.constants import TRUE_VALUES
 
 
 def boolify(data: Union[str, bool]) -> bool:
     if isinstance(data, bool):
         return data
+    elif data is None:
+        return False
     elif data.lower() in TRUE_VALUES:
         return True
     else:

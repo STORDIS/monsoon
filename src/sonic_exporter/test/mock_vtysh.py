@@ -1,7 +1,8 @@
 import json
 from importlib.resources import read_text
-from sonic_exporter.test import ressources
+
 from sonic_exporter.enums import SwitchModel
+from sonic_exporter.test import ressources
 from sonic_exporter.vtysh import VtySH
 
 
