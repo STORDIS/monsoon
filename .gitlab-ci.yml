@@ -23,14 +23,15 @@ build-release:
   only:
     refs:
       - tags
+    variables:
+      - '$CI_SERVER_NAME=~ /^gitlab.devops.telekom.de/'
   except:
     refs:
       - branches
     changes:
       - README.md
-  rules:
-    - if: '$CI_SERVER_NAME=~ /^gitlab.devops.telekom.de/'
-      when: always
+
+  
 build:
   image:
     name: artifactory.devops.telekom.de/gcr.io/kaniko-project/executor:debug
