@@ -18,6 +18,7 @@ build-release:
     - otc_run_docker_k8s
   stage: build
   script:
+    - echo "${CI_SERVER_NAME}"
     - ash build.sh
   only:
     refs:
@@ -27,6 +28,9 @@ build-release:
       - branches
     changes:
       - README.md
+  rules:
+    - if: '$CI_SERVER_NAME=~ /^gitlab.devops.telekom.de/'
+      when: always
 build:
   image:
     name: artifactory.devops.telekom.de/gcr.io/kaniko-project/executor:debug
@@ -35,6 +39,7 @@ build:
     - otc_run_docker_k8s
   stage: build
   script:
+    - echo "${CI_SERVER_NAME}"
     - ash build.sh false
   only:
     refs:
@@ -42,6 +47,7 @@ build:
   except:
     changes:
       - README.md
+
 
 
 # stordis-build-release:
