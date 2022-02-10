@@ -94,7 +94,6 @@ rm `${CERT_CONFIG}`
 $ docker run --name nginx-proxy --network=host --pid=host --privileged --restart=always -d -e DOLLAR_SIGN='$' -e NGINX_HOST=$(hostname --fqdn) -e NGINX_PORT=5556 -v ${HOME}/nginx/ssl:/etc/nginx/ssl/:ro -v ${HOME}/nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro ${NGINX_IMAGE}
 ```
 
-
 ## Details:
 
 1. src/ folder has below subfolders
@@ -114,6 +113,27 @@ $ docker run --name nginx-proxy --network=host --pid=host --privileged --restart
 | SONIC_EXPORTER_PORT       | The port on which the exporter listens                                | `9101`            |
 | SONIC_EXPORTER_ADDRESS    | The address on which the exporter listens                             | `localhost`       |
 | SONIC_EXPORTER_LOGLEVEL   | The loglevel for the exporter                                         | `INFO`            |
+
+## Get Mock Data
+
+Copy the `get_new_data_from_switch.sh` onto the switch you want to collect data from.
+
+```bash
+export SWITCH="switch.example.com"
+scp get_new_data_from_switch.sh ${SWITCH}:
+ssh ${SWITCH}
+bash get_new_data_from_switch.sh
+```
+
+To get HWMON mock data you need to build first the container in Building.
+Then run it on the switch.
+After doing it exec into the container.
+
+```bash
+docker exec -ti sonic-exporter bash
+python /usr/local/lib/python${PYTHON_VERSION%.*}/site-packages/sonic_exporter/sys_class_hwmon.py
+```
+
 
 ## Building
 
