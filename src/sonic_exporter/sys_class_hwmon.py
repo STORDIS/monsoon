@@ -290,7 +290,7 @@ class LinuxHWMon:
                 pass
                 # logging.debug(e)
         # else:
-            # logging.debug(file_path.name)
+        # logging.debug(file_path.name)
 
     @property
     def sensors(self) -> Dict[str, Sensor]:
