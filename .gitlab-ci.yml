@@ -10,6 +10,10 @@ variables:
   AWS_SECRET_ACCESS_KEY: "none"
   AWS_ACCAWS_SESSION_TOKENESS_KEY_ID: "none"
 
+default:
+  before_script:
+  - echo "Running with GITLAB INSTANCE from $CI_SERVER_HOST"
+
 build-release:
   image:
     name: artifactory.devops.telekom.de/gcr.io/kaniko-project/executor:debug
@@ -24,7 +28,7 @@ build-release:
     refs:
       - tags
     variables:
-      - '$CI_SERVER_NAME=~ /^gitlab.devops.telekom.de/'
+      - '$CI_SERVER_HOST==gitlab.devops.telekom.de'
   except:
     refs:
       - branches
@@ -40,11 +44,12 @@ build:
     - otc_run_docker_k8s
   stage: build
   script:
-    - echo "${CI_SERVER_NAME}"
     - ash build.sh false
   only:
     refs:
       - branches
+    variables:
+      - '$CI_SERVER_HOST==gitlab.devops.telekom.de'
   except:
     changes:
       - README.md
@@ -62,6 +67,8 @@ stordis-build-release:
   only:
     refs:
       - tags
+    variables:
+      - '$CI_SERVER_HOST==gitlab.stordis.com'
   except:
     refs:
       - branches
@@ -80,6 +87,8 @@ stordis-build:
   only:
     refs:
       - branches
+    variables:
+      - '$CI_SERVER_HOST==gitlab.stordis.com'
   except:
     changes:
       - README.md
