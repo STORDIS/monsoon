@@ -99,7 +99,7 @@ class Sensor(BaseSerializer):
     values: List[SensorData] = field(default_factory=list)
 
 
-class LinuxHWMon:
+class SystemClassHWMon:
     """
     ref: https://www.kernel.org/doc/Documentation/hwmon/sysfs-interface
     Naming and data format standards for sysfs files
@@ -237,28 +237,28 @@ class LinuxHWMon:
     ) -> SensorData:
         try:
             match sensor_type:
-                case LinuxHWMon.SensorType.INLET | LinuxHWMon.SensorType.VOLTAGE:
+                case SystemClassHWMon.SensorType.INLET | SystemClassHWMon.SensorType.VOLTAGE:
                     si_unit = SIUnit.VOLTAGE
                     value = int(data) / 1000
-                case LinuxHWMon.SensorType.TEMPERATURE:
+                case SystemClassHWMon.SensorType.TEMPERATURE:
                     si_unit = SIUnit.CELSIUS
                     value = int(data) / 1000
-                case LinuxHWMon.SensorType.FAN:
+                case SystemClassHWMon.SensorType.FAN:
                     si_unit = SIUnit.ROUNDSPERMINUTE
                     value = int(data)
-                case LinuxHWMon.SensorType.PWM:
+                case SystemClassHWMon.SensorType.PWM:
                     si_unit = SIUnit.RATIO
                     value = int(data) / 255
-                case LinuxHWMon.SensorType.CURRENT:
+                case SystemClassHWMon.SensorType.CURRENT:
                     si_unit = SIUnit.AMPERES
                     value = int(data) / 1000
-                case LinuxHWMon.SensorType.POWER:
+                case SystemClassHWMon.SensorType.POWER:
                     si_unit = SIUnit.WATTS
                     value = int(data) / 1000000
-                case LinuxHWMon.SensorType.HUMIDITY:
+                case SystemClassHWMon.SensorType.HUMIDITY:
                     si_unit = SIUnit.RATIO
                     value = int(data) / 1000
-                case LinuxHWMon.SensorType.ENERGY:
+                case SystemClassHWMon.SensorType.ENERGY:
                     si_unit = SIUnit.JOULES
                     value = int(data) / 1000000
         except ValueError as e:
@@ -270,7 +270,7 @@ class LinuxHWMon:
         elif any(
             [
                 metric_name.endswith(value)
-                for value in [flag.value for flag in LinuxHWMon.SensorFlags]
+                for value in [flag.value for flag in SystemClassHWMon.SensorFlags]
             ]
         ):
             si_unit = SIUnit.FLAG
@@ -279,11 +279,11 @@ class LinuxHWMon:
 
     @staticmethod
     def get_sensor_data(file_path: Path) -> SensorData:
-        if match := LinuxHWMon.sensor_regex.match(file_path.name):
-            sensor_type = LinuxHWMon.SensorType(match.group(1))
+        if match := SystemClassHWMon.sensor_regex.match(file_path.name):
+            sensor_type = SystemClassHWMon.SensorType(match.group(1))
             try:
                 with open(file_path, "r") as file:
-                    return LinuxHWMon.to_si_unit_value(
+                    return SystemClassHWMon.to_si_unit_value(
                         file_path.name, file.read().strip(), sensor_type
                     )
             except OSError:
@@ -317,20 +317,20 @@ class LinuxHWMon:
                 self._data[name] = Sensor(address, modalias)
                 for child_file_path in file_path.iterdir():
                     if child_file_path.is_file():
-                        if data := LinuxHWMon.get_sensor_data(child_file_path):
+                        if data := SystemClassHWMon.get_sensor_data(child_file_path):
                             self._data[name].values.append(data)
                 if device_path is None:
                     continue
                 for child_file_path in device_path.iterdir():
                     if child_file_path.is_file():
-                        if data := LinuxHWMon.get_sensor_data(child_file_path):
+                        if data := SystemClassHWMon.get_sensor_data(child_file_path):
                             self._data[name].values.append(data)
 
         return self._data
 
 
 if __name__ == "__main__":
-    sensors = LinuxHWMon().sensors
+    sensors = SystemClassHWMon().sensors
     print(
         json.dumps(
             {key: sensor.as_dict() for key, sensor in sensors.items()},

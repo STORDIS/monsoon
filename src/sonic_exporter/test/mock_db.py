@@ -9,6 +9,8 @@ from . import ressources
 
 
 class SonicV2Connector:
+
+    model: SwitchModel = SwitchModel.AS7326
     class DB(Enum):
         APPL_DB = "appl"
         ASIC_DB = "asic"
@@ -34,9 +36,8 @@ class SonicV2Connector:
     def load_db(model: SwitchModel, db: DB):
         return json.loads(read_text(ressources, f"{model.value}.{db.value}.json"))
 
-    def __init__(self, password: str, model: SwitchModel = SwitchModel.AS7326):
+    def __init__(self, password: str):
         self.password = password
-        self.model = model
         self.db = {}
 
     def connect(self, db: DB):
