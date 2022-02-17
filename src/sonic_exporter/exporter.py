@@ -58,7 +58,14 @@ from sonic_exporter.converters import boolify
 from sonic_exporter.converters import decode as _decode
 from sonic_exporter.converters import floatify, get_uptime, to_timestamp
 from sonic_exporter.custom_metric_types import CustomCounter
-from sonic_exporter.enums import AddressFamily, AirFlow, InternetProtocol, OSILayer, AlarmType, SwitchModel
+from sonic_exporter.enums import (
+    AddressFamily,
+    AirFlow,
+    InternetProtocol,
+    OSILayer,
+    AlarmType,
+    SwitchModel,
+)
 from sonic_exporter.utilities import timed_cache
 
 level = os.environ.get("SONIC_EXPORTER_LOGLEVEL", "INFO")
@@ -135,9 +142,27 @@ class Export:
         self.sonic_db.connect(self.sonic_db.APPL_DB)
         self.sonic_db.connect(self.sonic_db.CONFIG_DB)
         self._init_metrics()
-        self.chassis = {_decode(key).replace(CHASSIS_INFO, "") : self.sonic_db.get_all(self.sonic_db.STATE_DB, key) for key in self.sonic_db.keys(self.sonic_db.STATE_DB, pattern=CHASSIS_INFO_PATTERN) }
-        self.platform_name: str = list(set(_decode(chassis.get("platform_name", "")) for chassis in self.chassis.values()))[0].strip()
-        self.product_name = list(set(_decode(chassis.get("product_name", "")) for chassis in self.chassis.values()))[0].strip()
+        self.chassis = {
+            _decode(key).replace(CHASSIS_INFO, ""): self.sonic_db.get_all(
+                self.sonic_db.STATE_DB, key
+            )
+            for key in self.sonic_db.keys(
+                self.sonic_db.STATE_DB, pattern=CHASSIS_INFO_PATTERN
+            )
+        }
+        self.platform_name: str = list(
+            set(
+                _decode(chassis.get("platform_name", ""))
+                for chassis in self.chassis.values()
+            )
+        )[0].strip()
+        self.product_name = list(
+            set(
+                _decode(chassis.get("product_name", ""))
+                for chassis in self.chassis.values()
+            )
+        )[0].strip()
+
     def _init_metrics(self):
         # at start of server get counters data and negate it with current data while exporting
         # Interface counters
@@ -848,19 +873,23 @@ class Export:
                                 ).set(floatify(value))
                             case "vcchighalarm":
                                 self.metric_interface_threshold_optic_volts.labels(
-                                    self.get_additional_info(ifname), AlarmType.HIGH_ALARM.value
+                                    self.get_additional_info(ifname),
+                                    AlarmType.HIGH_ALARM.value,
                                 ).set(floatify(value))
                             case "vcchighwarning":
                                 self.metric_interface_threshold_optic_volts.labels(
-                                    self.get_additional_info(ifname), AlarmType.HIGH_WARNING.value
+                                    self.get_additional_info(ifname),
+                                    AlarmType.HIGH_WARNING.value,
                                 ).set(floatify(value))
                             case "vcclowalarm":
                                 self.metric_interface_threshold_optic_volts.labels(
-                                    self.get_additional_info(ifname), AlarmType.LOW_ALARM.value
+                                    self.get_additional_info(ifname),
+                                    AlarmType.LOW_ALARM.value,
                                 ).set(floatify(value))
                             case "vcclowwarning":
                                 self.metric_interface_threshold_optic_volts.labels(
-                                    self.get_additional_info(ifname), AlarmType.LOW_WARNING.value
+                                    self.get_additional_info(ifname),
+                                    AlarmType.LOW_WARNING.value,
                                 ).set(floatify(value))
                             case "temperature":
                                 self.metric_interface_optic_celsius.labels(
@@ -868,89 +897,105 @@ class Export:
                                 ).set(floatify(value))
                             case "temphighalarm":
                                 self.metric_interface_threshold_optic_celsius.labels(
-                                    self.get_additional_info(ifname), AlarmType.HIGH_ALARM.value
+                                    self.get_additional_info(ifname),
+                                    AlarmType.HIGH_ALARM.value,
                                 ).set(floatify(value))
                             case "temphighwarning":
                                 self.metric_interface_threshold_optic_celsius.labels(
-                                    self.get_additional_info(ifname), AlarmType.HIGH_WARNING.value
+                                    self.get_additional_info(ifname),
+                                    AlarmType.HIGH_WARNING.value,
                                 ).set(floatify(value))
                             case "templowalarm":
                                 self.metric_interface_threshold_optic_celsius.labels(
-                                    self.get_additional_info(ifname), AlarmType.LOW_ALARM.value
+                                    self.get_additional_info(ifname),
+                                    AlarmType.LOW_ALARM.value,
                                 ).set(floatify(value))
                             case "templowwarning":
                                 self.metric_interface_threshold_optic_celsius.labels(
-                                    self.get_additional_info(ifname), AlarmType.LOW_WARNING.value
+                                    self.get_additional_info(ifname),
+                                    AlarmType.LOW_WARNING.value,
                                 ).set(floatify(value))
                             case "txbiashighalarm":
                                 self.metric_interface_threshold_transmit_optic_bias_amperes.labels(
-                                    self.get_additional_info(ifname), AlarmType.HIGH_ALARM.value
+                                    self.get_additional_info(ifname),
+                                    AlarmType.HIGH_ALARM.value,
                                 ).set(
                                     floatify(value) / 1000
                                 )
                             case "txbiashighwarning":
                                 self.metric_interface_threshold_transmit_optic_bias_amperes.labels(
-                                    self.get_additional_info(ifname), AlarmType.HIGH_WARNING.value
+                                    self.get_additional_info(ifname),
+                                    AlarmType.HIGH_WARNING.value,
                                 ).set(
                                     floatify(value) / 1000
                                 )
                             case "txbiaslowalarm":
                                 self.metric_interface_threshold_transmit_optic_bias_amperes.labels(
-                                    self.get_additional_info(ifname), AlarmType.LOW_ALARM.value
+                                    self.get_additional_info(ifname),
+                                    AlarmType.LOW_ALARM.value,
                                 ).set(
                                     floatify(value) / 1000
                                 )
                             case "txbiaslowwarning":
                                 self.metric_interface_threshold_transmit_optic_bias_amperes.labels(
-                                    self.get_additional_info(ifname), AlarmType.LOW_WARNING.value
+                                    self.get_additional_info(ifname),
+                                    AlarmType.LOW_WARNING.value,
                                 ).set(
                                     floatify(value) / 1000
                                 )
                             case "txpowerhighalarm":
                                 self.metric_interface_threshold_transmit_optic_power_dbm.labels(
-                                    self.get_additional_info(ifname), AlarmType.HIGH_ALARM.value
+                                    self.get_additional_info(ifname),
+                                    AlarmType.HIGH_ALARM.value,
                                 ).set(
                                     floatify(value)
                                 )
                             case "txpowerhighwarning":
                                 self.metric_interface_threshold_transmit_optic_power_dbm.labels(
-                                    self.get_additional_info(ifname), AlarmType.HIGH_WARNING.value
+                                    self.get_additional_info(ifname),
+                                    AlarmType.HIGH_WARNING.value,
                                 ).set(
                                     floatify(value)
                                 )
                             case "txpowerlowalarm":
                                 self.metric_interface_threshold_transmit_optic_power_dbm.labels(
-                                    self.get_additional_info(ifname), AlarmType.LOW_ALARM.value
+                                    self.get_additional_info(ifname),
+                                    AlarmType.LOW_ALARM.value,
                                 ).set(
                                     floatify(value)
                                 )
                             case "txpowerlowwarning":
                                 self.metric_interface_threshold_transmit_optic_power_dbm.labels(
-                                    self.get_additional_info(ifname), AlarmType.LOW_WARNING.value
+                                    self.get_additional_info(ifname),
+                                    AlarmType.LOW_WARNING.value,
                                 ).set(
                                     floatify(value)
                                 )
                             case "rxpowerhighalarm":
                                 self.metric_interface_threshold_receive_optic_power_dbm.labels(
-                                    self.get_additional_info(ifname), AlarmType.HIGH_ALARM.value
+                                    self.get_additional_info(ifname),
+                                    AlarmType.HIGH_ALARM.value,
                                 ).set(
                                     floatify(value)
                                 )
                             case "rxpowerhighwarning":
                                 self.metric_interface_threshold_receive_optic_power_dbm.labels(
-                                    self.get_additional_info(ifname), AlarmType.HIGH_WARNING.value
+                                    self.get_additional_info(ifname),
+                                    AlarmType.HIGH_WARNING.value,
                                 ).set(
                                     floatify(value)
                                 )
                             case "rxpowerlowalarm":
                                 self.metric_interface_threshold_receive_optic_power_dbm.labels(
-                                    self.get_additional_info(ifname), AlarmType.LOW_ALARM.value
+                                    self.get_additional_info(ifname),
+                                    AlarmType.LOW_ALARM.value,
                                 ).set(
                                     floatify(value)
                                 )
                             case "rxpowerlowwarning":
                                 self.metric_interface_threshold_receive_optic_power_dbm.labels(
-                                    self.get_additional_info(ifname), AlarmType.LOW_WARNING.value
+                                    self.get_additional_info(ifname),
+                                    AlarmType.LOW_WARNING.value,
                                 ).set(
                                     floatify(value)
                                 )
@@ -1149,7 +1194,9 @@ class Export:
                 continue
             for value in sensor.values:
                 _, subvalue = value.name.split("_", maxsplit=1)
-                logging.debug(f"export_hwmon_temp_info :: name={name}, -> value={value}")
+                logging.debug(
+                    f"export_hwmon_temp_info :: name={name}, -> value={value}"
+                )
                 match subvalue:
                     case "max":
                         self.metric_device_threshold_sensor_celsius.labels(
@@ -1188,7 +1235,9 @@ class Export:
 
                 last_two_bytes: str = name[-2:]
                 if not unknown_switch_model:
-                    name = TEMP_SENSORS[switch_model][air_flow].get(last_two_bytes, name)
+                    name = TEMP_SENSORS[switch_model][air_flow].get(
+                        last_two_bytes, name
+                    )
                 temp = floatify(
                     _decode(
                         self.sonic_db.get(self.sonic_db.STATE_DB, key, "temperature")
