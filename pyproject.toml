@@ -13,6 +13,7 @@ dacite = "^1.6.0"
 [tool.poetry.dev-dependencies]
 black = "^21.12b0"
 
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
