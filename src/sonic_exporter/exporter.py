@@ -1215,16 +1215,17 @@ class Export:
         )
         need_additional_temp_info = False
         unknown_switch_model = False
+        air_flow = None
+        switch_model = None
         try:
             air_flow = AirFlow(self.product_name[-1])
             switch_model = SwitchModel(self.platform_name)
+            if not keys:
+                self.export_hwmon_temp_info(switch_model, air_flow)
+                return
         except ValueError:
             unknown_switch_model = True
             pass
-        if not keys:
-            if not unknown_switch_model:
-                self.export_hwmon_temp_info(switch_model, air_flow)
-            return
         # implement a skip on state db if keys are empty
         # Still try to get data from HWMon.
         for key in keys:
@@ -1258,7 +1259,7 @@ class Export:
             except ValueError:
                 pass
             if need_additional_temp_info and not unknown_switch_model:
-                self.export_hwmon_temp_info()
+                self.export_hwmon_temp_info(switch_model, air_flow)
 
     def export_system_info(self):
         self.metric_device_uptime.set(get_uptime().total_seconds())
