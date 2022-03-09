@@ -94,6 +94,12 @@ rm ${CERT_CONFIG}
 $ docker run --name nginx-proxy --network=host --pid=host --privileged --restart=always -d -e DOLLAR_SIGN='$' -e NGINX_HOST=$(hostname --fqdn) -e NGINX_PORT=5556 -v ${HOME}/nginx/ssl:/etc/nginx/ssl/:ro -v ${HOME}/nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro ${NGINX_IMAGE}
 ```
 
+## Verifying Installation works
+
+```bash
+#!/usr/bin/env bash
+curl --cert client.crt --key client.key -k "https://${SWITCH}:5556/node/metrics"
+```
 ## Details:
 
 1. src/ folder has below subfolders
