@@ -29,11 +29,6 @@ build-release:
       - tags
     variables:
       - $CI_SERVER_HOST == "gitlab.devops.telekom.de"
-  except:
-    refs:
-      - branches
-    changes:
-      - README.md
 
   
 build:
