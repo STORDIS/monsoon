@@ -1187,10 +1187,10 @@ class Export:
 
     def export_hwmon_temp_info(self, switch_model, air_flow):
         for name, sensor in self.sys_class_hwmon.sensors.items():
-            last_two_bytes = sensor.address[-2:]
             try:
+                last_two_bytes = sensor.address[-2:]
                 name = TEMP_SENSORS[switch_model][air_flow][last_two_bytes]
-            except ValueError:
+            except (ValueError, KeyError, TypeError):
                 continue
             for value in sensor.values:
                 _, subvalue = value.name.split("_", maxsplit=1)

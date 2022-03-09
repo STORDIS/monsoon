@@ -8,7 +8,7 @@ from sonic_exporter.vtysh import VtySH
 
 class MockVtySH(VtySH):
 
-    model: SwitchModel = SwitchModel.AS5853
+    model: SwitchModel = SwitchModel.AS7326
 
     def run_command(self, command: str):
         path = command.replace(" ", "_")

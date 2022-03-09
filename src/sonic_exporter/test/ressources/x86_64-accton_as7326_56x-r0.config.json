@@ -1,5 +1,5 @@
 {
-    "BGP_GLOBALS_AF_NETWORK|default|ipv4_unicast|192.168.0.219/32": {
+    "BGP_GLOBALS_AF_NETWORK|default|ipv4_unicast|192.168.0.6/32": {
         "type": "hash",
         "value": {
             "NULL": "NULL"
@@ -8,7 +8,6 @@
     "BGP_GLOBALS_AF|default|ipv4_unicast": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "ibgp_equal_cluster_length": "false",
             "max_ebgp_paths": "64",
             "max_ibgp_paths": "64",
@@ -33,10 +32,10 @@
             "ignore_as_path_length": "false",
             "keepalive": "1",
             "load_balance_mp_relax": "true",
-            "local_asn": "4200065153",
+            "local_asn": "4200065151",
             "log_nbr_state_changes": "true",
             "network_import_check": "true",
-            "router_id": "192.168.0.219"
+            "router_id": "192.168.0.6"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet0": {
@@ -99,18 +98,6 @@
             "peer_group_name": "worker"
         }
     },
-    "BGP_NEIGHBOR|default|Ethernet18": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "worker"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet19": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "worker"
-        }
-    },
     "BGP_NEIGHBOR|default|Ethernet2": {
         "type": "hash",
         "value": {
@@ -124,18 +111,6 @@
         }
     },
     "BGP_NEIGHBOR|default|Ethernet21": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "worker"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet22": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "worker"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet23": {
         "type": "hash",
         "value": {
             "peer_group_name": "worker"
@@ -159,18 +134,6 @@
             "peer_group_name": "worker"
         }
     },
-    "BGP_NEIGHBOR|default|Ethernet27": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "worker"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet28": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "worker"
-        }
-    },
     "BGP_NEIGHBOR|default|Ethernet29": {
         "type": "hash",
         "value": {
@@ -184,12 +147,6 @@
         }
     },
     "BGP_NEIGHBOR|default|Ethernet30": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "worker"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet31": {
         "type": "hash",
         "value": {
             "peer_group_name": "worker"
@@ -219,79 +176,7 @@
             "peer_group_name": "worker"
         }
     },
-    "BGP_NEIGHBOR|default|Ethernet36": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "worker"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet37": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "worker"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet38": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "worker"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet39": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "worker"
-        }
-    },
     "BGP_NEIGHBOR|default|Ethernet4": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "worker"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet40": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "worker"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet41": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "worker"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet42": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "worker"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet43": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "worker"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet44": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "worker"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet45": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "worker"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet46": {
-        "type": "hash",
-        "value": {
-            "peer_group_name": "worker"
-        }
-    },
-    "BGP_NEIGHBOR|default|Ethernet47": {
         "type": "hash",
         "value": {
             "peer_group_name": "worker"
@@ -300,7 +185,7 @@
     "BGP_NEIGHBOR|default|Ethernet48": {
         "type": "hash",
         "value": {
-            "peer_group_name": "t-01-m-09-sp1-01-10"
+            "peer_group_name": "c0-300-sp1-09-008"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet5": {
@@ -312,13 +197,13 @@
     "BGP_NEIGHBOR|default|Ethernet52": {
         "type": "hash",
         "value": {
-            "peer_group_name": "t-01-m-09-sp1-01-10"
+            "peer_group_name": "c0-300-sp1-09-008"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet56": {
         "type": "hash",
         "value": {
-            "peer_group_name": "t-01-m-09-sp1-01-10"
+            "peer_group_name": "c0-300-sp1-09-008"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet6": {
@@ -330,19 +215,19 @@
     "BGP_NEIGHBOR|default|Ethernet60": {
         "type": "hash",
         "value": {
-            "peer_group_name": "t-01-m-09-sp1-01-10"
+            "peer_group_name": "c0-300-sp1-09-008"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet64": {
         "type": "hash",
         "value": {
-            "peer_group_name": "t-01-m-09-sp1-04-09"
+            "peer_group_name": "d0-400-sp1-12-004"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet68": {
         "type": "hash",
         "value": {
-            "peer_group_name": "t-01-m-09-sp1-04-09"
+            "peer_group_name": "d0-400-sp1-12-004"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet7": {
@@ -354,13 +239,13 @@
     "BGP_NEIGHBOR|default|Ethernet72": {
         "type": "hash",
         "value": {
-            "peer_group_name": "t-01-m-09-sp1-04-09"
+            "peer_group_name": "d0-400-sp1-12-004"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet76": {
         "type": "hash",
         "value": {
-            "peer_group_name": "t-01-m-09-sp1-04-09"
+            "peer_group_name": "d0-400-sp1-12-004"
         }
     },
     "BGP_NEIGHBOR|default|Ethernet8": {
@@ -375,10 +260,11 @@
             "peer_group_name": "worker"
         }
     },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-sp1-01-10|ipv4_unicast": {
+    "BGP_PEER_GROUP_AF|default|c0-300-sp1-09-008|ipv4_unicast": {
         "type": "hash",
         "value": {
             "admin_status": "true",
+            "allow_as_in": "false",
             "max_prefix_warning_only": "false",
             "rrclient": "false",
             "send_community": "both",
@@ -386,17 +272,18 @@
             "soft_reconfiguration_in": "true"
         }
     },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-sp1-01-10|l2vpn_evpn": {
+    "BGP_PEER_GROUP_AF|default|c0-300-sp1-09-008|l2vpn_evpn": {
         "type": "hash",
         "value": {
             "admin_status": "true",
             "soft_reconfiguration_in": "true"
         }
     },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-sp1-04-09|ipv4_unicast": {
+    "BGP_PEER_GROUP_AF|default|d0-400-sp1-12-004|ipv4_unicast": {
         "type": "hash",
         "value": {
             "admin_status": "true",
+            "allow_as_in": "false",
             "max_prefix_warning_only": "false",
             "rrclient": "false",
             "send_community": "both",
@@ -404,7 +291,7 @@
             "soft_reconfiguration_in": "true"
         }
     },
-    "BGP_PEER_GROUP_AF|default|t-01-m-09-sp1-04-09|l2vpn_evpn": {
+    "BGP_PEER_GROUP_AF|default|d0-400-sp1-12-004|l2vpn_evpn": {
         "type": "hash",
         "value": {
             "admin_status": "true",
@@ -429,7 +316,7 @@
             "soft_reconfiguration_in": "true"
         }
     },
-    "BGP_PEER_GROUP|default|t-01-m-09-sp1-01-10": {
+    "BGP_PEER_GROUP|default|c0-300-sp1-09-008": {
         "type": "hash",
         "value": {
             "admin_status": "true",
@@ -443,7 +330,7 @@
             "peer_type": "external"
         }
     },
-    "BGP_PEER_GROUP|default|t-01-m-09-sp1-04-09": {
+    "BGP_PEER_GROUP|default|d0-400-sp1-12-004": {
         "type": "hash",
         "value": {
             "admin_status": "true",
@@ -518,58 +405,6 @@
         }
     },
     "CONFIG_DB_INITIALIZED": {
-        "type": "string",
-        "value": "1"
-    },
-    "CONFIG_DB_UPDATED": {
-        "type": "string",
-        "value": "1"
-    },
-    "CONFIG_DB_UPDATED_BGP_GLOBALS": {
-        "type": "string",
-        "value": "1"
-    },
-    "CONFIG_DB_UPDATED_BGP_GLOBALS_AF": {
-        "type": "string",
-        "value": "1"
-    },
-    "CONFIG_DB_UPDATED_INTERFACE": {
-        "type": "string",
-        "value": "1"
-    },
-    "CONFIG_DB_UPDATED_MCLAG_DOMAIN": {
-        "type": "string",
-        "value": "1"
-    },
-    "CONFIG_DB_UPDATED_MCLAG_INTERFACE": {
-        "type": "string",
-        "value": "1"
-    },
-    "CONFIG_DB_UPDATED_PORT": {
-        "type": "string",
-        "value": "1"
-    },
-    "CONFIG_DB_UPDATED_PORTCHANNEL": {
-        "type": "string",
-        "value": "1"
-    },
-    "CONFIG_DB_UPDATED_PORTCHANNEL_MEMBER": {
-        "type": "string",
-        "value": "1"
-    },
-    "CONFIG_DB_UPDATED_VLAN": {
-        "type": "string",
-        "value": "1"
-    },
-    "CONFIG_DB_UPDATED_VLAN_MEMBER": {
-        "type": "string",
-        "value": "1"
-    },
-    "CONFIG_DB_UPDATED_VXLAN_TUNNEL": {
-        "type": "string",
-        "value": "1"
-    },
-    "CONFIG_DB_UPDATED_VXLAN_TUNNEL_MAP": {
         "type": "string",
         "value": "1"
     },
@@ -1023,27 +858,14 @@
             "enabled": "true"
         }
     },
-    "DEBUGFM_CONFIG_TABLE|ACTION": {
-        "type": "hash",
-        "value": {
-            "ACTION": "COMPRESS"
-        }
-    },
-    "DEBUGFM_CONFIG_TABLE|TARGET": {
-        "type": "hash",
-        "value": {
-            "TARGET": "SWSS_FILE"
-        }
-    },
     "DEVICE_METADATA|localhost": {
         "type": "hash",
         "value": {
             "default_config_profile": "l3",
             "docker_routing_config_mode": "separated",
-            "frr_mgmt_framework_config": "true",
-            "hostname": "t-01-m-09-lf1-04-09.mgmt.refaz.bn.schiff.telekom.de",
+            "hostname": "c0-300-lf1-09-008.mgmt.az.gp.schiff.telekom.de",
             "hwsku": "Accton-AS7326-56X",
-            "mac": "f8:8e:a1:ed:10:f8",
+            "mac": "34:ef:b6:ea:77:a3",
             "platform": "x86_64-accton_as7326_56x-r0",
             "type": "LeafRouter"
         }
@@ -1066,6 +888,12 @@
             "ipv6_l4_src_port": "true",
             "ipv6_next_hdr": "true",
             "ipv6_src_ip": "true"
+        }
+    },
+    "EVPN_NVO|nvo1": {
+        "type": "hash",
+        "value": {
+            "source_vtep": "vtep1"
         }
     },
     "FEATURE|bgp": {
@@ -1194,12 +1022,6 @@
             "FLEX_COUNTER_STATUS": "enable"
         }
     },
-    "FLEX_COUNTER_TABLE|PG_WATERMARK": {
-        "type": "hash",
-        "value": {
-            "FLEX_COUNTER_STATUS": "enable"
-        }
-    },
     "FLEX_COUNTER_TABLE|PORT": {
         "type": "hash",
         "value": {
@@ -1207,12 +1029,6 @@
         }
     },
     "FLEX_COUNTER_TABLE|QUEUE": {
-        "type": "hash",
-        "value": {
-            "FLEX_COUNTER_STATUS": "enable"
-        }
-    },
-    "FLEX_COUNTER_TABLE|QUEUE_WATERMARK": {
         "type": "hash",
         "value": {
             "FLEX_COUNTER_STATUS": "enable"
@@ -1226,6 +1042,12 @@
         }
     },
     "INTERFACE|Ethernet0": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTERFACE|Ethernet1": {
         "type": "hash",
         "value": {
             "ipv6_use_link_local_only": "enable"
@@ -1279,18 +1101,6 @@
             "ipv6_use_link_local_only": "enable"
         }
     },
-    "INTERFACE|Ethernet18": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "INTERFACE|Ethernet19": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
     "INTERFACE|Ethernet2": {
         "type": "hash",
         "value": {
@@ -1304,18 +1114,6 @@
         }
     },
     "INTERFACE|Ethernet21": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "INTERFACE|Ethernet22": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "INTERFACE|Ethernet23": {
         "type": "hash",
         "value": {
             "ipv6_use_link_local_only": "enable"
@@ -1339,7 +1137,13 @@
             "ipv6_use_link_local_only": "enable"
         }
     },
-    "INTERFACE|Ethernet28": {
+    "INTERFACE|Ethernet29": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    "INTERFACE|Ethernet3": {
         "type": "hash",
         "value": {
             "ipv6_use_link_local_only": "enable"
@@ -1357,6 +1161,12 @@
             "ipv6_use_link_local_only": "enable"
         }
     },
+    "INTERFACE|Ethernet33": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
     "INTERFACE|Ethernet34": {
         "type": "hash",
         "value": {
@@ -1369,43 +1179,7 @@
             "ipv6_use_link_local_only": "enable"
         }
     },
-    "INTERFACE|Ethernet36": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "INTERFACE|Ethernet37": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "INTERFACE|Ethernet38": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "INTERFACE|Ethernet39": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
     "INTERFACE|Ethernet4": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "INTERFACE|Ethernet40": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "INTERFACE|Ethernet41": {
         "type": "hash",
         "value": {
             "ipv6_use_link_local_only": "enable"
@@ -1453,6 +1227,12 @@
             "ipv6_use_link_local_only": "enable"
         }
     },
+    "INTERFACE|Ethernet5": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
     "INTERFACE|Ethernet52": {
         "type": "hash",
         "value": {
@@ -1489,6 +1269,12 @@
             "ipv6_use_link_local_only": "enable"
         }
     },
+    "INTERFACE|Ethernet7": {
+        "type": "hash",
+        "value": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
     "INTERFACE|Ethernet72": {
         "type": "hash",
         "value": {
@@ -1502,18 +1288,6 @@
         }
     },
     "INTERFACE|Ethernet8": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "INTERFACE|Ethernet80": {
-        "type": "hash",
-        "value": {
-            "ipv6_use_link_local_only": "enable"
-        }
-    },
-    "INTERFACE|Ethernet81": {
         "type": "hash",
         "value": {
             "ipv6_use_link_local_only": "enable"
@@ -1533,19 +1307,13 @@
             "num_dumps": "3"
         }
     },
-    "LLDP|GLOBAL": {
-        "type": "hash",
-        "value": {
-            "enabled": "true"
-        }
-    },
     "LOOPBACK_INTERFACE|Loopback0": {
         "type": "hash",
         "value": {
             "NULL": "NULL"
         }
     },
-    "LOOPBACK_INTERFACE|Loopback0|192.168.0.219/32": {
+    "LOOPBACK_INTERFACE|Loopback0|192.168.0.6/32": {
         "type": "hash",
         "value": {
             "NULL": "NULL"
@@ -1560,11 +1328,10 @@
     "MCLAG_DOMAIN|10": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "keepalive_interval": "1",
-            "peer_ip": "192.168.0.221",
+            "peer_ip": "192.168.0.7",
             "session_timeout": "30",
-            "source_ip": "192.168.0.219"
+            "source_ip": "192.168.0.6"
         }
     },
     "MCLAG_INTERFACE|10|PortChannel100": {
@@ -1591,25 +1358,19 @@
             "if_type": "PortChannel"
         }
     },
-    "MCLAG_INTERFACE|10|PortChannel104": {
+    "MCLAG_INTERFACE|10|PortChannel108": {
         "type": "hash",
         "value": {
             "if_type": "PortChannel"
         }
     },
-    "MCLAG_INTERFACE|10|PortChannel105": {
+    "MCLAG_INTERFACE|10|PortChannel109": {
         "type": "hash",
         "value": {
             "if_type": "PortChannel"
         }
     },
-    "MCLAG_INTERFACE|10|PortChannel106": {
-        "type": "hash",
-        "value": {
-            "if_type": "PortChannel"
-        }
-    },
-    "MCLAG_INTERFACE|10|PortChannel107": {
+    "MCLAG_INTERFACE|10|PortChannel110": {
         "type": "hash",
         "value": {
             "if_type": "PortChannel"
@@ -1640,31 +1401,31 @@
             "nat_udp_timeout": "300"
         }
     },
-    "NTP_SERVER|172.22.13.10": {
+    "NTP_SERVER|10.90.221.13": {
         "type": "hash",
         "value": {
             "NULL": "NULL"
         }
     },
-    "NTP_SERVER|172.22.13.11": {
+    "NTP_SERVER|10.90.221.29": {
         "type": "hash",
         "value": {
             "NULL": "NULL"
         }
     },
-    "NTP_SERVER|172.22.13.12": {
+    "NTP_SERVER|10.90.221.45": {
         "type": "hash",
         "value": {
             "NULL": "NULL"
         }
     },
-    "NTP_SERVER|172.22.13.13": {
+    "NTP_SERVER|10.90.221.61": {
         "type": "hash",
         "value": {
             "NULL": "NULL"
         }
     },
-    "NTP_SERVER|172.22.13.14": {
+    "NTP_SERVER|10.90.221.77": {
         "type": "hash",
         "value": {
             "NULL": "NULL"
@@ -1673,7 +1434,8 @@
     "NTP|global": {
         "type": "hash",
         "value": {
-            "src_intf": "eth0"
+            "src_intf": "eth0",
+            "vrf": "mgmt"
         }
     },
     "POLICY_BINDING_TABLE|CtrlPlane": {
@@ -1729,49 +1491,43 @@
             "TYPE": "QOS"
         }
     },
-    "PORTCHANNEL_MEMBER|PortChannel100|Ethernet1": {
+    "PORTCHANNEL_MEMBER|PortChannel100|Ethernet18": {
         "type": "hash",
         "value": {
             "NULL": "NULL"
         }
     },
-    "PORTCHANNEL_MEMBER|PortChannel101|Ethernet3": {
+    "PORTCHANNEL_MEMBER|PortChannel101|Ethernet19": {
         "type": "hash",
         "value": {
             "NULL": "NULL"
         }
     },
-    "PORTCHANNEL_MEMBER|PortChannel102|Ethernet5": {
+    "PORTCHANNEL_MEMBER|PortChannel102|Ethernet27": {
         "type": "hash",
         "value": {
             "NULL": "NULL"
         }
     },
-    "PORTCHANNEL_MEMBER|PortChannel103|Ethernet7": {
+    "PORTCHANNEL_MEMBER|PortChannel103|Ethernet28": {
         "type": "hash",
         "value": {
             "NULL": "NULL"
         }
     },
-    "PORTCHANNEL_MEMBER|PortChannel104|Ethernet27": {
+    "PORTCHANNEL_MEMBER|PortChannel108|Ethernet22": {
         "type": "hash",
         "value": {
             "NULL": "NULL"
         }
     },
-    "PORTCHANNEL_MEMBER|PortChannel105|Ethernet29": {
+    "PORTCHANNEL_MEMBER|PortChannel109|Ethernet23": {
         "type": "hash",
         "value": {
             "NULL": "NULL"
         }
     },
-    "PORTCHANNEL_MEMBER|PortChannel106|Ethernet31": {
-        "type": "hash",
-        "value": {
-            "NULL": "NULL"
-        }
-    },
-    "PORTCHANNEL_MEMBER|PortChannel107|Ethernet33": {
+    "PORTCHANNEL_MEMBER|PortChannel110|Ethernet31": {
         "type": "hash",
         "value": {
             "NULL": "NULL"
@@ -1780,81 +1536,57 @@
     "PORTCHANNEL|PortChannel100": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "admin_status": "up",
-            "description": "T5G-CAMPUS ILOCZJ13405XL_ens2f0",
             "mtu": "9100",
-            "tagged_vlans@": "2317-2322,2325"
+            "tagged_vlans@": "2300-2303,2305-2307"
         }
     },
     "PORTCHANNEL|PortChannel101": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "admin_status": "up",
-            "description": "T5G-CAMPUS ILOCZJ13405YG_ens2f0",
             "mtu": "9100",
-            "tagged_vlans@": "2317-2322,2325"
+            "tagged_vlans@": "2300-2303,2305-2307"
         }
     },
     "PORTCHANNEL|PortChannel102": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "admin_status": "up",
-            "description": "T5G-CAMPUS ILOCZJ13405YH_ens2f0",
             "mtu": "9100",
-            "tagged_vlans@": "2317-2322,2325"
+            "tagged_vlans@": "2300-2303,2305-2307"
         }
     },
     "PORTCHANNEL|PortChannel103": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "admin_status": "up",
-            "description": "T5G-CAMPUS ILOCZJ13405YP_ens2f0",
             "mtu": "9100",
-            "tagged_vlans@": "2317-2322,2325"
+            "tagged_vlans@": "2300-2303,2305-2307"
         }
     },
-    "PORTCHANNEL|PortChannel104": {
+    "PORTCHANNEL|PortChannel108": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "admin_status": "up",
-            "description": "T5G-CAMPUS ILOCZJ13405XK_ens2f1",
             "mtu": "9100",
-            "tagged_vlans@": "2317-2322,2325"
+            "tagged_vlans@": "2300-2303,2305-2307"
         }
     },
-    "PORTCHANNEL|PortChannel105": {
+    "PORTCHANNEL|PortChannel109": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "admin_status": "up",
-            "description": "T5G-CAMPUS ILOCZJ13405YF_ens2f1",
             "mtu": "9100",
-            "tagged_vlans@": "2317-2322,2325"
+            "tagged_vlans@": "2300-2303,2305-2307"
         }
     },
-    "PORTCHANNEL|PortChannel106": {
+    "PORTCHANNEL|PortChannel110": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "admin_status": "up",
-            "description": "T5G-CAMPUS ILOCZJ13405YM_ens2f1",
             "mtu": "9100",
-            "tagged_vlans@": "2317-2322,2325"
-        }
-    },
-    "PORTCHANNEL|PortChannel107": {
-        "type": "hash",
-        "value": {
-            "NULL": "NULL",
-            "admin_status": "up",
-            "description": "T5G-CAMPUS ILOCZJ13405YR_ens2f1",
-            "mtu": "9100",
-            "tagged_vlans@": "2317-2322,2325"
+            "tagged_vlans@": "2300-2303,2305-2307"
         }
     },
     "PORT_QOS_MAP|CPU": {
@@ -1868,28 +1600,23 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/1",
-            "description": "ILOCZJ13405XL_ens1f0",
-            "fec": "none",
+            "description": "m4sxhpsr00bf_ens1f0",
             "index": "0",
             "lanes": "3",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet1": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "admin_status": "up",
             "alias": "Eth1/2",
-            "description": "ILOCZJ13405XL_ens2f0",
-            "fec": "none",
+            "description": "m4sxhpsr00c0_ens1f0",
             "index": "1",
             "lanes": "2",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet10": {
@@ -1897,13 +1624,11 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/11",
-            "description": "ILOCZJ13405ZN_ens1f0",
-            "fec": "none",
+            "description": "m4sxhpsr00d2_ens1f1",
             "index": "10",
             "lanes": "13",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet11": {
@@ -1911,13 +1636,11 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/12",
-            "description": "ILOCZJ13405ZN_ens2f0",
-            "fec": "none",
+            "description": "m4sxhpsr00d3_ens1f1",
             "index": "11",
             "lanes": "15",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet12": {
@@ -1925,13 +1648,11 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/13",
-            "description": "ILOCZJ13405ZQ_ens1f0",
-            "fec": "none",
+            "description": "m4sxhpsr00d4_ens1f1",
             "index": "12",
             "lanes": "23",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet13": {
@@ -1939,13 +1660,11 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/14",
-            "description": "ILOCZJ13405ZQ_ens2f0",
-            "fec": "none",
+            "description": "m4sxhpsr00d5_ens1f1",
             "index": "13",
             "lanes": "22",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet14": {
@@ -1953,13 +1672,11 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/15",
-            "description": "ILOCZJ13405ZX_ens1f0",
-            "fec": "none",
+            "description": "m4sxhpsr00d6_ens1f1",
             "index": "14",
             "lanes": "24",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet15": {
@@ -1967,13 +1684,11 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/16",
-            "description": "ILOCZJ13405ZX_ens2f0",
-            "fec": "none",
+            "description": "m4sxhpsr00d7_ens1f1",
             "index": "15",
             "lanes": "32",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet16": {
@@ -1981,13 +1696,11 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/17",
-            "description": "ILOCZJ13405ZZ_ens1f0",
-            "fec": "none",
+            "description": "m4sxhpsr00d8_ens1f1",
             "index": "16",
             "lanes": "31",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet17": {
@@ -1995,13 +1708,11 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/18",
-            "description": "ILOCZJ13405ZZ_ens2f0",
-            "fec": "none",
+            "description": "m4sxhpsr00d9_ens1f1",
             "index": "17",
             "lanes": "21",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet18": {
@@ -2009,13 +1720,11 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/19",
-            "description": "ILOCZJ1340604_ens1f0",
-            "fec": "none",
+            "description": "m4sxhpsr00bf_ens2f0",
             "index": "18",
             "lanes": "29",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet19": {
@@ -2023,13 +1732,11 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/20",
-            "description": "ILOCZJ1340604_ens2f0",
-            "fec": "none",
+            "description": "m4sxhpsr00c0_ens2f0",
             "index": "19",
             "lanes": "36",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet2": {
@@ -2037,13 +1744,11 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/3",
-            "description": "ILOCZJ13405YG_ens1f0",
-            "fec": "none",
+            "description": "m4sxhpsr00c1_ens1f0",
             "index": "2",
             "lanes": "4",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet20": {
@@ -2051,13 +1756,11 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/21",
-            "description": "ILOCZJ1370445_ens1f0",
-            "fec": "none",
+            "description": "m4sxhpsr00c1_ens2f0",
             "index": "20",
             "lanes": "30",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet21": {
@@ -2065,13 +1768,11 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/22",
-            "description": "ILOCZJ1370445_ens2f0",
-            "fec": "none",
+            "description": "m4sxhpsr00c2_ens2f0",
             "index": "21",
             "lanes": "34",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet22": {
@@ -2079,13 +1780,11 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/23",
-            "description": "",
-            "fec": "none",
+            "description": "m4sxhpsr00c3_ens2f0",
             "index": "22",
             "lanes": "33",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet23": {
@@ -2093,13 +1792,11 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/24",
-            "description": "",
-            "fec": "none",
+            "description": "m4sxhpsr00c4_ens2f0",
             "index": "23",
             "lanes": "35",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet24": {
@@ -2107,13 +1804,11 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/25",
-            "description": "",
-            "fec": "none",
+            "description": "m4sxhpsr00c5_ens2f0",
             "index": "24",
             "lanes": "43",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet25": {
@@ -2121,13 +1816,11 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/26",
-            "description": "",
-            "fec": "none",
+            "description": "m4sxhpsr00c6_ens2f0",
             "index": "25",
             "lanes": "42",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet26": {
@@ -2135,28 +1828,23 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/27",
-            "description": "ILOCZJ13405XK_ens1f1",
-            "fec": "none",
+            "description": "m4sxhpsr00c7_ens2f0",
             "index": "26",
             "lanes": "44",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet27": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "admin_status": "up",
             "alias": "Eth1/28",
-            "description": "ILOCZJ13405XK_ens2f1",
-            "fec": "none",
+            "description": "m4sxhpsr00d1_ens2f1",
             "index": "27",
             "lanes": "52",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet28": {
@@ -2164,43 +1852,35 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/29",
-            "description": "ILOCZJ13405YF_ens1f1",
-            "fec": "none",
+            "description": "m4sxhpsr00d2_ens2f1",
             "index": "28",
             "lanes": "51",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet29": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "admin_status": "up",
             "alias": "Eth1/30",
-            "description": "ILOCZJ13405YF_ens2f1",
-            "fec": "none",
+            "description": "m4sxhpsr00d3_ens2f1",
             "index": "29",
             "lanes": "41",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet3": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "admin_status": "up",
             "alias": "Eth1/4",
-            "description": "ILOCZJ13405YG_ens2f0",
-            "fec": "none",
+            "description": "m4sxhpsr00c2_ens1f0",
             "index": "3",
             "lanes": "8",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet30": {
@@ -2208,28 +1888,23 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/31",
-            "description": "ILOCZJ13405YM_ens1f1",
-            "fec": "none",
+            "description": "m4sxhpsr00d4_ens2f1",
             "index": "30",
             "lanes": "49",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet31": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "admin_status": "up",
             "alias": "Eth1/32",
-            "description": "ILOCZJ13405YM_ens2f1",
-            "fec": "none",
+            "description": "m4sxhpsr00d5_ens2f1",
             "index": "31",
             "lanes": "60",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet32": {
@@ -2237,28 +1912,23 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/33",
-            "description": "ILOCZJ13405YR_ens1f1",
-            "fec": "none",
+            "description": "m4sxhpsr00d6_ens2f1",
             "index": "32",
             "lanes": "50",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet33": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "admin_status": "up",
             "alias": "Eth1/34",
-            "description": "ILOCZJ13405YR_ens2f1",
-            "fec": "none",
+            "description": "m4sxhpsr00d7_ens2f1",
             "index": "33",
             "lanes": "58",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet34": {
@@ -2266,13 +1936,11 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/35",
-            "description": "ILOCZJ13405YW_ens1f1",
-            "fec": "none",
+            "description": "m4sxhpsr00d8_ens2f1",
             "index": "34",
             "lanes": "57",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet35": {
@@ -2280,69 +1948,63 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/36",
-            "description": "ILOCZJ13405YW_ens2f1",
-            "fec": "none",
+            "description": "m4sxhpsr00d9_ens2f1",
             "index": "35",
             "lanes": "59",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet36": {
         "type": "hash",
         "value": {
+            "access_vlan": "400",
             "admin_status": "up",
             "alias": "Eth1/37",
-            "description": "ILOCZJ13405Z1_ens1f1",
-            "fec": "none",
+            "description": "m4sxpust0001_ct0.eth2",
             "index": "36",
             "lanes": "62",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet37": {
         "type": "hash",
         "value": {
+            "access_vlan": "400",
             "admin_status": "up",
             "alias": "Eth1/38",
-            "description": "ILOCZJ13405Z1_ens2f1",
-            "fec": "none",
+            "description": "m4sxpust0001_ct0.eth4",
             "index": "37",
             "lanes": "63",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet38": {
         "type": "hash",
         "value": {
+            "access_vlan": "400",
             "admin_status": "up",
             "alias": "Eth1/39",
-            "description": "ILOCZJ13405ZJ_ens1f1",
-            "fec": "none",
+            "description": "m4sxpust0001_ct1.eth2",
             "index": "38",
             "lanes": "64",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet39": {
         "type": "hash",
         "value": {
+            "access_vlan": "400",
             "admin_status": "up",
             "alias": "Eth1/40",
-            "description": "ILOCZJ13405ZJ_ens2f1",
-            "fec": "none",
+            "description": "m4sxpust0001_ct1.eth4",
             "index": "39",
             "lanes": "65",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet4": {
@@ -2350,41 +2012,37 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/5",
-            "description": "ILOCZJ13405YH_ens1f0",
-            "fec": "none",
+            "description": "m4sxhpsr00c3_ens1f0",
             "index": "4",
             "lanes": "7",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet40": {
         "type": "hash",
         "value": {
+            "access_vlan": "400",
             "admin_status": "up",
             "alias": "Eth1/41",
-            "description": "ILOCZJ1340602_ens1f1",
-            "fec": "none",
+            "description": "m4sxpust0001_ct0.eth18",
             "index": "40",
             "lanes": "66",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet41": {
         "type": "hash",
         "value": {
+            "access_vlan": "400",
             "admin_status": "up",
             "alias": "Eth1/42",
-            "description": "ILOCZJ1340602_ens2f1",
-            "fec": "none",
+            "description": "m4sxpust0001_ct1.eth18",
             "index": "41",
             "lanes": "61",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet42": {
@@ -2392,13 +2050,11 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/43",
-            "description": "ILOCZJ1340603_ens1f1",
-            "fec": "none",
+            "description": "",
             "index": "42",
             "lanes": "68",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet43": {
@@ -2406,13 +2062,11 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/44",
-            "description": "ILOCZJ1340603_ens2f1",
-            "fec": "none",
+            "description": "",
             "index": "43",
             "lanes": "69",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet44": {
@@ -2420,13 +2074,11 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/45",
-            "description": "ILOCZJ1370446_ens1f1",
-            "fec": "none",
+            "description": "",
             "index": "44",
             "lanes": "67",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet45": {
@@ -2434,13 +2086,11 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/46",
-            "description": "ILOCZJ1370446_ens2f1",
-            "fec": "none",
+            "description": "",
             "index": "45",
             "lanes": "71",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet46": {
@@ -2448,13 +2098,11 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/47",
-            "description": "ILOCZJ1370447_ens1f1",
-            "fec": "none",
+            "description": "",
             "index": "46",
             "lanes": "72",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet47": {
@@ -2462,13 +2110,11 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/48",
-            "description": "ILOCZJ1370447_ens2f1",
-            "fec": "none",
+            "description": "",
             "index": "47",
             "lanes": "70",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet48": {
@@ -2476,8 +2122,7 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/49",
-            "description": "m4bneesw0007_Eth1/9",
-            "fec": "none",
+            "description": "m4sxeesw0002_Eth1/4",
             "index": "48",
             "lanes": "77,78,79,80",
             "mtu": "9100",
@@ -2488,16 +2133,13 @@
     "PORT|Ethernet5": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "admin_status": "up",
             "alias": "Eth1/6",
-            "description": "ILOCZJ13405YH_ens2f0",
-            "fec": "none",
+            "description": "m4sxhpsr00c4_ens1f0",
             "index": "5",
             "lanes": "1",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet52": {
@@ -2505,8 +2147,7 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/50",
-            "description": "m4bneesw0007_Eth1/10",
-            "fec": "none",
+            "description": "m4sxeesw0002_Eth1/5",
             "index": "52",
             "lanes": "85,86,87,88",
             "mtu": "9100",
@@ -2519,8 +2160,7 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/51",
-            "description": "",
-            "fec": "none",
+            "description": "m4sxeesw0002_Eth1/6",
             "index": "56",
             "lanes": "93,94,95,96",
             "mtu": "9100",
@@ -2533,13 +2173,11 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/7",
-            "description": "ILOCZJ13405YP_ens1f0",
-            "fec": "none",
+            "description": "m4sxhpsr00c5_ens1f0",
             "index": "6",
             "lanes": "5",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet60": {
@@ -2547,8 +2185,7 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/52",
-            "description": "",
-            "fec": "none",
+            "description": "m4sxeesw0002_Eth1/7",
             "index": "60",
             "lanes": "97,98,99,100",
             "mtu": "9100",
@@ -2561,8 +2198,7 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/53",
-            "description": "t-01-m-09-sp1-04-09.mgmt.refaz.bn.schiff.telekom.de_Eth1/9",
-            "fec": "none",
+            "description": "m4sxeesw000a_Eth1/4",
             "index": "64",
             "lanes": "105,106,107,108",
             "mtu": "9100",
@@ -2575,8 +2211,7 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/54",
-            "description": "t-01-m-09-sp1-04-09.mgmt.refaz.bn.schiff.telekom.de_Eth1/10",
-            "fec": "none",
+            "description": "m4sxeesw000a_Eth1/5",
             "index": "68",
             "lanes": "113,114,115,116",
             "mtu": "9100",
@@ -2587,16 +2222,13 @@
     "PORT|Ethernet7": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
             "admin_status": "up",
             "alias": "Eth1/8",
-            "description": "ILOCZJ13405YP_ens2f0",
-            "fec": "none",
+            "description": "m4sxhpsr00c6_ens1f0",
             "index": "7",
             "lanes": "16",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet72": {
@@ -2604,8 +2236,7 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/55",
-            "description": "",
-            "fec": "none",
+            "description": "m4sxeesw000a_Eth1/6",
             "index": "72",
             "lanes": "121,122,123,124",
             "mtu": "9100",
@@ -2618,8 +2249,7 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/56",
-            "description": "",
-            "fec": "none",
+            "description": "m4sxeesw000a_Eth1/7",
             "index": "76",
             "lanes": "125,126,127,128",
             "mtu": "9100",
@@ -2632,13 +2262,11 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/9",
-            "description": "ILOCZJ13405ZM_ens1f0",
-            "fec": "none",
+            "description": "m4sxhpsr00c7_ens1f0",
             "index": "8",
             "lanes": "6",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "PORT|Ethernet80": {
@@ -2647,12 +2275,11 @@
             "admin_status": "down",
             "alias": "Eth1/57",
             "description": "",
-            "fec": "none",
             "index": "80",
             "lanes": "129",
             "mtu": "9100",
             "speed": "10000",
-            "valid_speeds": "1000, 10000"
+            "valid_speeds": "10000, 1000"
         }
     },
     "PORT|Ethernet81": {
@@ -2661,12 +2288,11 @@
             "admin_status": "down",
             "alias": "Eth1/58",
             "description": "",
-            "fec": "none",
             "index": "81",
             "lanes": "128",
             "mtu": "9100",
             "speed": "10000",
-            "valid_speeds": "1000, 10000"
+            "valid_speeds": "10000, 1000"
         }
     },
     "PORT|Ethernet9": {
@@ -2674,13 +2300,11 @@
         "value": {
             "admin_status": "up",
             "alias": "Eth1/10",
-            "description": "ILOCZJ13405ZM_ens2f0",
-            "fec": "none",
+            "description": "m4sxhpsr00d1_ens1f1",
             "index": "9",
             "lanes": "14",
             "mtu": "9100",
-            "speed": "25000",
-            "valid_speeds": "25000"
+            "speed": "25000"
         }
     },
     "QUEUE|CPU|0": {
@@ -3082,403 +2706,440 @@
             "VERSION": "version_3_4_1"
         }
     },
-    "VLAN_MEMBER|Vlan2317|PortChannel100": {
+    "VLAN_MEMBER|Vlan2300|PortChannel100": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2317|PortChannel101": {
+    "VLAN_MEMBER|Vlan2300|PortChannel101": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2317|PortChannel102": {
+    "VLAN_MEMBER|Vlan2300|PortChannel102": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2317|PortChannel103": {
+    "VLAN_MEMBER|Vlan2300|PortChannel103": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2317|PortChannel104": {
+    "VLAN_MEMBER|Vlan2300|PortChannel108": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2317|PortChannel105": {
+    "VLAN_MEMBER|Vlan2300|PortChannel109": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2317|PortChannel106": {
+    "VLAN_MEMBER|Vlan2300|PortChannel110": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2317|PortChannel107": {
+    "VLAN_MEMBER|Vlan2301|PortChannel100": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2318|PortChannel100": {
+    "VLAN_MEMBER|Vlan2301|PortChannel101": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2318|PortChannel101": {
+    "VLAN_MEMBER|Vlan2301|PortChannel102": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2318|PortChannel102": {
+    "VLAN_MEMBER|Vlan2301|PortChannel103": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2318|PortChannel103": {
+    "VLAN_MEMBER|Vlan2301|PortChannel108": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2318|PortChannel104": {
+    "VLAN_MEMBER|Vlan2301|PortChannel109": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2318|PortChannel105": {
+    "VLAN_MEMBER|Vlan2301|PortChannel110": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2318|PortChannel106": {
+    "VLAN_MEMBER|Vlan2302|PortChannel100": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2318|PortChannel107": {
+    "VLAN_MEMBER|Vlan2302|PortChannel101": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2319|PortChannel100": {
+    "VLAN_MEMBER|Vlan2302|PortChannel102": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2319|PortChannel101": {
+    "VLAN_MEMBER|Vlan2302|PortChannel103": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2319|PortChannel102": {
+    "VLAN_MEMBER|Vlan2302|PortChannel108": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2319|PortChannel103": {
+    "VLAN_MEMBER|Vlan2302|PortChannel109": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2319|PortChannel104": {
+    "VLAN_MEMBER|Vlan2302|PortChannel110": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2319|PortChannel105": {
+    "VLAN_MEMBER|Vlan2303|PortChannel100": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2319|PortChannel106": {
+    "VLAN_MEMBER|Vlan2303|PortChannel101": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2319|PortChannel107": {
+    "VLAN_MEMBER|Vlan2303|PortChannel102": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2320|PortChannel100": {
+    "VLAN_MEMBER|Vlan2303|PortChannel103": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2320|PortChannel101": {
+    "VLAN_MEMBER|Vlan2303|PortChannel108": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2320|PortChannel102": {
+    "VLAN_MEMBER|Vlan2303|PortChannel109": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2320|PortChannel103": {
+    "VLAN_MEMBER|Vlan2303|PortChannel110": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2320|PortChannel104": {
+    "VLAN_MEMBER|Vlan2305|PortChannel100": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2320|PortChannel105": {
+    "VLAN_MEMBER|Vlan2305|PortChannel101": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2320|PortChannel106": {
+    "VLAN_MEMBER|Vlan2305|PortChannel102": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2320|PortChannel107": {
+    "VLAN_MEMBER|Vlan2305|PortChannel103": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2321|PortChannel100": {
+    "VLAN_MEMBER|Vlan2305|PortChannel108": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2321|PortChannel101": {
+    "VLAN_MEMBER|Vlan2305|PortChannel109": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2321|PortChannel102": {
+    "VLAN_MEMBER|Vlan2305|PortChannel110": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2321|PortChannel103": {
+    "VLAN_MEMBER|Vlan2306|PortChannel100": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2321|PortChannel104": {
+    "VLAN_MEMBER|Vlan2306|PortChannel101": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2321|PortChannel105": {
+    "VLAN_MEMBER|Vlan2306|PortChannel102": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2321|PortChannel106": {
+    "VLAN_MEMBER|Vlan2306|PortChannel103": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2321|PortChannel107": {
+    "VLAN_MEMBER|Vlan2306|PortChannel108": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2322|PortChannel100": {
+    "VLAN_MEMBER|Vlan2306|PortChannel109": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2322|PortChannel101": {
+    "VLAN_MEMBER|Vlan2306|PortChannel110": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2322|PortChannel102": {
+    "VLAN_MEMBER|Vlan2307|PortChannel100": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2322|PortChannel103": {
+    "VLAN_MEMBER|Vlan2307|PortChannel101": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2322|PortChannel104": {
+    "VLAN_MEMBER|Vlan2307|PortChannel102": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2322|PortChannel105": {
+    "VLAN_MEMBER|Vlan2307|PortChannel103": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2322|PortChannel106": {
+    "VLAN_MEMBER|Vlan2307|PortChannel108": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2322|PortChannel107": {
+    "VLAN_MEMBER|Vlan2307|PortChannel109": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2325|PortChannel100": {
+    "VLAN_MEMBER|Vlan2307|PortChannel110": {
         "type": "hash",
         "value": {
             "tagging_mode": "tagged"
         }
     },
-    "VLAN_MEMBER|Vlan2325|PortChannel101": {
+    "VLAN_MEMBER|Vlan400|Ethernet36": {
         "type": "hash",
         "value": {
-            "tagging_mode": "tagged"
+            "tagging_mode": "untagged"
         }
     },
-    "VLAN_MEMBER|Vlan2325|PortChannel102": {
+    "VLAN_MEMBER|Vlan400|Ethernet37": {
         "type": "hash",
         "value": {
-            "tagging_mode": "tagged"
+            "tagging_mode": "untagged"
         }
     },
-    "VLAN_MEMBER|Vlan2325|PortChannel103": {
+    "VLAN_MEMBER|Vlan400|Ethernet38": {
         "type": "hash",
         "value": {
-            "tagging_mode": "tagged"
+            "tagging_mode": "untagged"
         }
     },
-    "VLAN_MEMBER|Vlan2325|PortChannel104": {
+    "VLAN_MEMBER|Vlan400|Ethernet39": {
         "type": "hash",
         "value": {
-            "tagging_mode": "tagged"
+            "tagging_mode": "untagged"
         }
     },
-    "VLAN_MEMBER|Vlan2325|PortChannel105": {
+    "VLAN_MEMBER|Vlan400|Ethernet40": {
         "type": "hash",
         "value": {
-            "tagging_mode": "tagged"
+            "tagging_mode": "untagged"
         }
     },
-    "VLAN_MEMBER|Vlan2325|PortChannel106": {
+    "VLAN_MEMBER|Vlan400|Ethernet41": {
         "type": "hash",
         "value": {
-            "tagging_mode": "tagged"
+            "tagging_mode": "untagged"
         }
     },
-    "VLAN_MEMBER|Vlan2325|PortChannel107": {
-        "type": "hash",
-        "value": {
-            "tagging_mode": "tagged"
-        }
-    },
-    "VLAN|Vlan2317": {
+    "VLAN|Vlan1000": {
         "type": "hash",
         "value": {
             "admin_status": "up",
             "autostate": "disable",
-            "members@": "PortChannel107,PortChannel102,PortChannel103,PortChannel104,PortChannel101,PortChannel100,PortChannel105,PortChannel106",
-            "vlanid": "2317"
+            "description": "UDM-AUSF Prod Cluster2 ZTS",
+            "vlanid": "1000"
         }
     },
-    "VLAN|Vlan2318": {
+    "VLAN|Vlan1001": {
         "type": "hash",
         "value": {
             "admin_status": "up",
             "autostate": "disable",
-            "members@": "PortChannel100,PortChannel101,PortChannel106,PortChannel105,PortChannel102,PortChannel103,PortChannel104,PortChannel107",
-            "vlanid": "2318"
+            "description": "UDM-AUSF Prod Cluster2 Protocol Lan 1",
+            "vlanid": "1001"
         }
     },
-    "VLAN|Vlan2319": {
+    "VLAN|Vlan1002": {
         "type": "hash",
         "value": {
             "admin_status": "up",
             "autostate": "disable",
-            "members@": "PortChannel106,PortChannel107,PortChannel100,PortChannel101,PortChannel102,PortChannel103,PortChannel104,PortChannel105",
-            "vlanid": "2319"
+            "description": "UDM-AUSF Prod Cluster2 Protocol Lan 2",
+            "vlanid": "1002"
         }
     },
-    "VLAN|Vlan2320": {
+    "VLAN|Vlan2300": {
         "type": "hash",
         "value": {
             "admin_status": "up",
             "autostate": "disable",
-            "members@": "PortChannel107,PortChannel105,PortChannel106,PortChannel100,PortChannel101,PortChannel102,PortChannel103,PortChannel104",
-            "vlanid": "2320"
+            "description": "DasSchiff--Goeppingen--5GC-MVP-Core-Cluster--Backend-Control-Plane",
+            "members@": "PortChannel103,PortChannel110,PortChannel108,PortChannel100,PortChannel109,PortChannel101,PortChannel102",
+            "vlanid": "2300"
         }
     },
-    "VLAN|Vlan2321": {
+    "VLAN|Vlan2301": {
         "type": "hash",
         "value": {
             "admin_status": "up",
             "autostate": "disable",
-            "members@": "PortChannel107,PortChannel100,PortChannel106,PortChannel103,PortChannel101,PortChannel105,PortChannel104,PortChannel102",
-            "vlanid": "2321"
+            "description": "DasSchiff--Goeppingen--5GC-MVP-Core-Cluster--RAN-Control-Plane",
+            "members@": "PortChannel109,PortChannel100,PortChannel103,PortChannel101,PortChannel108,PortChannel102,PortChannel110",
+            "vlanid": "2301"
         }
     },
-    "VLAN|Vlan2322": {
+    "VLAN|Vlan2302": {
         "type": "hash",
         "value": {
             "admin_status": "up",
             "autostate": "disable",
-            "members@": "PortChannel104,PortChannel102,PortChannel105,PortChannel106,PortChannel107,PortChannel103,PortChannel100,PortChannel101",
-            "vlanid": "2322"
+            "description": "DasSchiff--Goeppingen--5GC-MVP-Core-Cluster--RAN-User-Plane",
+            "members@": "PortChannel103,PortChannel102,PortChannel100,PortChannel108,PortChannel109,PortChannel110,PortChannel101",
+            "vlanid": "2302"
         }
     },
-    "VLAN|Vlan2325": {
+    "VLAN|Vlan2303": {
         "type": "hash",
         "value": {
             "admin_status": "up",
             "autostate": "disable",
-            "members@": "PortChannel105,PortChannel100,PortChannel102,PortChannel103,PortChannel104,PortChannel101,PortChannel106,PortChannel107",
-            "vlanid": "2325"
+            "description": "DasSchiff--Goeppingen--5GC-MVP-Core-Cluster--Backend-User-Plane",
+            "members@": "PortChannel103,PortChannel108,PortChannel109,PortChannel110,PortChannel102,PortChannel100,PortChannel101",
+            "vlanid": "2303"
+        }
+    },
+    "VLAN|Vlan2305": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "DasSchiff--Goeppingen--5GC-MVP-Core-Cluster--N4U",
+            "members@": "PortChannel108,PortChannel101,PortChannel109,PortChannel110,PortChannel102,PortChannel103,PortChannel100",
+            "vlanid": "2305"
+        }
+    },
+    "VLAN|Vlan2306": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "DasSchiff--Goeppingen--5GC-MVP-Core-Cluster--X3",
+            "members@": "PortChannel100,PortChannel108,PortChannel101,PortChannel102,PortChannel103,PortChannel110,PortChannel109",
+            "vlanid": "2306"
+        }
+    },
+    "VLAN|Vlan2307": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "autostate": "disable",
+            "description": "DasSchiff--Goeppingen--AZ--5GC-MVP-Core-Cluster--Backend-Control-Plane-Multihoming",
+            "members@": "PortChannel101,PortChannel102,PortChannel109,PortChannel110,PortChannel103,PortChannel108,PortChannel100",
+            "vlanid": "2307"
+        }
+    },
+    "VLAN|Vlan400": {
+        "type": "hash",
+        "value": {
+            "admin_status": "up",
+            "description": "Storage",
+            "members@": "Ethernet41,Ethernet36,Ethernet37,Ethernet38,Ethernet39,Ethernet40",
+            "vlanid": "400"
         }
     },
     "VRF|default": {
@@ -3487,66 +3148,87 @@
             "enabled": "true"
         }
     },
-    "VXLAN_TUNNEL_MAP|vtep1|map_5301_Vlan2318": {
+    "VXLAN_TUNNEL_MAP|vtep1|map_400_Vlan400": {
         "type": "hash",
         "value": {
-            "vlan": "Vlan2318",
-            "vni": "5301"
+            "vlan": "Vlan400",
+            "vni": "400"
         }
     },
-    "VXLAN_TUNNEL_MAP|vtep1|map_5302_Vlan2317": {
+    "VXLAN_TUNNEL_MAP|vtep1|map_5101_Vlan2300": {
         "type": "hash",
         "value": {
-            "vlan": "Vlan2317",
-            "vni": "5302"
+            "vlan": "Vlan2300",
+            "vni": "5101"
         }
     },
-    "VXLAN_TUNNEL_MAP|vtep1|map_5303_Vlan2320": {
+    "VXLAN_TUNNEL_MAP|vtep1|map_5102_Vlan2301": {
         "type": "hash",
         "value": {
-            "vlan": "Vlan2320",
-            "vni": "5303"
+            "vlan": "Vlan2301",
+            "vni": "5102"
         }
     },
-    "VXLAN_TUNNEL_MAP|vtep1|map_5304_Vlan2321": {
+    "VXLAN_TUNNEL_MAP|vtep1|map_5103_Vlan2302": {
         "type": "hash",
         "value": {
-            "vlan": "Vlan2321",
-            "vni": "5304"
+            "vlan": "Vlan2302",
+            "vni": "5103"
         }
     },
-    "VXLAN_TUNNEL_MAP|vtep1|map_5305_Vlan2319": {
+    "VXLAN_TUNNEL_MAP|vtep1|map_5104_Vlan2303": {
         "type": "hash",
         "value": {
-            "vlan": "Vlan2319",
-            "vni": "5305"
+            "vlan": "Vlan2303",
+            "vni": "5104"
         }
     },
-    "VXLAN_TUNNEL_MAP|vtep1|map_5306_Vlan2322": {
+    "VXLAN_TUNNEL_MAP|vtep1|map_5106_Vlan2305": {
         "type": "hash",
         "value": {
-            "vlan": "Vlan2322",
-            "vni": "5306"
+            "vlan": "Vlan2305",
+            "vni": "5106"
         }
     },
-    "VXLAN_TUNNEL_MAP|vtep1|map_5307_Vlan2325": {
+    "VXLAN_TUNNEL_MAP|vtep1|map_5107_Vlan2306": {
         "type": "hash",
         "value": {
-            "vlan": "Vlan2325",
-            "vni": "5307"
+            "vlan": "Vlan2306",
+            "vni": "5107"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_5108_Vlan2307": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan2307",
+            "vni": "5108"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_5201_Vlan1000": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan1000",
+            "vni": "5201"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_5202_Vlan1001": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan1001",
+            "vni": "5202"
+        }
+    },
+    "VXLAN_TUNNEL_MAP|vtep1|map_5203_Vlan1002": {
+        "type": "hash",
+        "value": {
+            "vlan": "Vlan1002",
+            "vni": "5203"
         }
     },
     "VXLAN_TUNNEL|vtep1": {
         "type": "hash",
         "value": {
-            "NULL": "NULL",
-            "src_ip": "192.168.0.219"
-        }
-    },
-    "ZTP|config": {
-        "type": "hash",
-        "value": {
-            "admin-mode": "true"
+            "src_ip": "192.168.0.6"
         }
     }
 }
