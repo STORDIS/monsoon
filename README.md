@@ -87,7 +87,7 @@ export CERT_CONFIG=$(mktemp)
 openssl dhparam -dsaparam -out ${HOME}/nginx/ssl/dhparam.pem 4096
 cat cert.config.template | HOSTNAME=$(hostname --fqdn) envsubst > ${CERT_CONFIG}
 openssl req -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out ${HOME}/nginx/ssl/server_$(hostname --fqdn).crt -keyout ${HOME}/nginx/ssl/server_$(hostname --fqdn).key -config ${CERT_CONFIG}
-rm `${CERT_CONFIG}`
+rm ${CERT_CONFIG}
 ```
 
 ```console
