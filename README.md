@@ -38,7 +38,7 @@ export NGINX_VERSION=1.21.6
 export NGINX_IMAGE="nginx:${NGINX_VERSION}"
 export NGINX_FILE="nginx_${NGINX_VERSION}.tar.gz"
 
-export SONIC_EXPORTER_VERSION=0.1.2
+export SONIC_EXPORTER_VERSION=0.2.1
 export SONIC_EXPORTER_IMAGE="registry.devops.telekom.de/schiff/sonic-exporter:${SONIC_EXPORTER_VERSION}"
 export SONIC_EXPORTER_FILE="sonic-exporter_${SONIC_EXPORTER_VERSION}.tar.gz"
 
