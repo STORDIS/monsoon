@@ -17,7 +17,7 @@ You will need this `client.crt` on all switches you want to collect data from.
 export CERT_CONFIG=$(mktemp)
 cat cert.config.template | HOSTNAME=$(hostname --fqdn) envsubst > ${CERT_CONFIG}
 openssl req -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out client.crt -keyout client.key -config ${CERT_CONFIG}
-rm `${CERT_CONFIG}`
+rm "${CERT_CONFIG}"
 ```
 
 ## Preparation
