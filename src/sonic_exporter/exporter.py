@@ -1375,7 +1375,7 @@ class Export:
                     self.metric_sag_operational_status.labels(
                         interface, vrf, gateway_ip, ip_family.value.lower(), vni
                     ).set(self.sys_class_net.operational(interface))
-                except (KeyError, StopIteration):
+                except (KeyError, StopIteration, OSError):
                     logging.debug(
                         f"export_static_anycast_gateway_info : No Static Anycast Gateway for interface={interface}"
                     )
