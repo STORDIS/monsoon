@@ -1,5 +1,0 @@
-groups:
-  - name: node_exporter-17-supervisord
-    rules:
-      - record: node_supervisord_uptime
-        expr: time() - node_supervisord_start_time_seconds
