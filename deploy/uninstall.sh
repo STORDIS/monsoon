@@ -4,7 +4,7 @@
 
 echo "Stopping sonic_monitor container and removing docker image"
 sudo docker-compose down
-sudo docker rmi stordis/sonic-monitoring
+sudo docker rmi stordis/monsoon
 
 echo "stop and disable top_process systemd service"
 sudo systemctl stop top_processes

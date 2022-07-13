@@ -67,77 +67,77 @@ class Export:
         self.intf_queue_counter_reset()
 
         self.metric_intf_util_bps = prom.Gauge(
-            "python_interface_util_bps",
+            "sonic_interface_util_bps",
             "Interface current utilization",
             ["interface_name", "util_type"],
         )
         self.metric_intf_counter = prom.Gauge(
-            "python_interface_counters_packets",
+            "sonic_interface_counters_packets",
             "Interface Counters",
             ["interface_name", "counter_type"],
         )
         self.metric_intf_queue_counter = prom.Gauge(
-            "python_interface_queue_counters_packets",
+            "sonic_interface_queue_counters_packets",
             "Interface queue counters",
             ["interface_name", "queue_type"],
         )
         self.metric_intf_err_counter = prom.Gauge(
-            "python_interface_error_counters_packets",
+            "sonic_interface_error_counters_packets",
             "RX_ERR and TX_ERR for all the interfaces",
             ["interface_name", "error_type"],
         )
         self.metric_intf_power = prom.Gauge(
-            "python_interface_power_dbm",
+            "sonic_interface_power_dbm",
             "Power value for all the interfaces",
             ["interface_name", "power_type"],
         )
         self.metric_intf_voltage = prom.Gauge(
-            "python_interface_voltage_volts",
+            "sonic_interface_voltage_volts",
             "Voltage of all the interfaces",
             ["interface_name"],
         )
         self.metric_intf_temp = prom.Gauge(
-            "python_interface_temperature_celsius",
+            "sonic_interface_temperature_celsius",
             "Temperature of all the interfaces",
             ["interface_name"],
         )
         self.metric_intf_cable = prom.Gauge(
-            "python_interface_cable_length",
+            "sonic_interface_cable_length",
             "Cable details for all the interfaces",
             ["interface_name", "cable_type"],
         )
         self.metric_psu = prom.Gauge(
-            "python_env_power_usage_mw",
+            "sonic_env_power_usage_mw",
             "RX_OK and TX_OK for all the interfaces",
             ["psu_name", "power_type"],
         )
         self.sys_info = prom.Info(
-            "python_system",
+            "sonic_system",
             "part name, serial number, MAC address and software vesion of the System",
         )
 
         self.metric_bgp_peer_status = prom.Enum(
-            "python_bgp_peer_status",
+            "sonic_bgp_peer_status",
             "Interface current utilization",
             ["peer_name", "status"],
             states=["up", "down"],
         )
 
         self.metric_bgp_num_routes = prom.Gauge(
-            "python_bgp_num_routes",
+            "sonic_bgp_num_routes",
             "Interface current utilization",
             ["peer_name"],
         )
 
         self.metric_system_top10_cpu_percent = prom.Gauge(
-            "python_system_top10_cpu_percent",
-            "system top10 process as per cpu percent",
+            "sonic_system_top10_cpu_percent",
+            "system top 10 process as per cpu usage",
             ["pid", "process_name"],
         )
 
         self.metric_system_top10_mem_percent = prom.Gauge(
-            "python_system_top10_mem_percent",
-            "system top10 process as per mem percent",
+            "sonic_system_top10_mem_percent",
+            "system top 10 process as per mem usage",
             ["pid", "process_name"],
         )
 

@@ -2,8 +2,8 @@ version: '3.3'
 
 services:
   sonic_monitoring:
-    image: stordis/sonic-monitoring:latest
-    container_name: sonic_monitoring
+    image: stordis/monsoon:latest
+    container_name: monsoon
     pid: host
     network_mode: host
     privileged: true
