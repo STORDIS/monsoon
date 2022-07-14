@@ -33,4 +33,6 @@ Monsoon deploys 2 targets on the SONiC host, first one [node_exporter](https://p
 
   ![](images/sonicExpDB.png)
   
+  ![](images/BrowseDB.png)
+
   ![](images/ListDB.png)
