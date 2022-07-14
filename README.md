@@ -49,5 +49,5 @@ Monsoon uses Prometheus and Grafana for data collection and visualization. Apart
     ![Provide Prometheus IP](images/PromDS_IP.png)
     ![Add Datasource](images/SaveDS.png)
 
-  - By step all tool chain is connected. Next its time to data visualization, please check [how to configure grafana dashboards](GrafanaDashBoard.md).
+  - By this step all tool chain is connected. Next, its time to data visualization, please check [how to configure grafana dashboards](GrafanaDashBoard.md).
 
