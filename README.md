@@ -1,31 +1,46 @@
-# Monsoon - main repository
+# Monsoon - A data visualization and monitoring solution for SONiC
 
-This repository contains 
-1. Node exporter 
-2. Sonic exporter
+Monsoon uses Prometheus and Grafana for data collection and visualization. Apart from using 'node_exporter' (standard data collector for prometheus client) Monsoon utilizes sonic-py-swsssdk to fetch data from SONiC DB to Prometheus
 
-# Details:
+## Getting started 
+- ### Install monsoon SONiC host
+    To install monsoon execute following commands:
+    ```
+    git clone https://github.com/STORDIS/monsoon.git
+    cd deploy
+    sudo sh install.sh
+    ```
+  - #### Verify Monsoon installation:
+      At this stage metrices data can already be accessed in raw text format at http://<sonic_host_ip>:9100/metrics and http://<sonic_host_ip>:9101/metrics
 
-1. src/ folder has below subfolders
-- node_exporter - cloned from [github](https://github.com/prometheus/node_exporter) , contains supervisor conf file `node_exporter.conf`
-- python_exporter - this folder contains - exporter script, requirements.txt and supervisor conf file `python_exporter.conf`
-- sonic-py-swsssdk - this is a git submodule pulled from [github](https://github.com/Azure/sonic-py-swsssdk) as a redis connector used by python_exporter.
+- ### Install Prometheus 
+  Prometheus acts as a data collector tool for monsoon and supplies data for visualization (in the next step).
+  It is reommended to install Prometheus on separate host i.e. Ubuntu_20.04 etc.
+  Please check the path for prometheus config file ~/monsoon/config/prometheus.yml is correct, also replace the target IPs at the bottom in this file with your SONiC host. Then execute following :
+  ```
+  docker run -p 9090:9090 -v ~/monsoon/config/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
+  ```
 
-2. Dockerfile - This file can be used to build docker image.
+  Further details of Prometheus installation are [here](https://prometheus.io/docs/prometheus/latest/installation/).
 
-3. Makefile -  File to compile source code.
+  - #### Verify Prometheus Targets Status :
+    Open Prometheus web console at http://prometheus_ip:9090 and check for target status under 'status' tab.  ![Target Status](images/prom_target_sts.jpeg)
 
-4. makeDockerAndPush.sh -  Build docker image and push to docker hub.
 
-5. deploy/ folder has below contents:
-> **This folder can be zipped and exported to any Broadcom SONiC platform**  
+- ### Install Grafana
+  Grafana can be installed on same host as Prometheus but recommended is to install it on a separate host i.e. Ubuntu_20.04 etc. 
+  On Debian/Ubuntu Grafana can be installed as follows :
+  ```
+  sudo apt-get install -y apt-transport-https
+  sudo apt-get install -y software-properties-common wget
+  wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
+  echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+  sudo apt-get update
+  sudo apt-get install grafana
+  ```
 
-> ***Run `install.sh` script to bring up monitoring docker container**
+  Further details of Grafana installation are [here](https://grafana.com/docs/grafana/latest/setup-grafana/installation/).
+  - #### Verify Grafana Installation
+    Grafana web console can be accessed at http://grafan_host_ip:3000 and login with default credentials admin/admin.
 
-> ***Run `uninstall.sh` script to revert the changes made by install script**
-- docker-compose.yml - file to bring up the docker image on SONiC board.
-- top_process.py - file which reads top 10 CPU and Memory processes and export to a JSON file.
-- top_process.json - placeholder output file of above script.
-- top_processes.service - systemd service file for top_processes
-- install.sh  - script to be run on SONiC board for installation (to bring up monitoring docker container, copying systemd service files and other supporting files).
-- uninstall.sh  - script to be run on SONiC board for uninstallation (to revert all changes done by install script).
+
