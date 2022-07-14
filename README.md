@@ -41,6 +41,13 @@ Monsoon uses Prometheus and Grafana for data collection and visualization. Apart
 
   Further details of Grafana installation are [here](https://grafana.com/docs/grafana/latest/setup-grafana/installation/).
   - #### Verify Grafana Installation
-    Grafana web console can be accessed at http://grafan_host_ip:3000 and login with default credentials admin/admin.
+    Grafana web console can be accessed at http://grafan_host_ip:3000 and login with default credentials admin/admin. 
+  - #### Add data source to Grafana
+    Login to Grafana portal http://grafana_host_ip:3030 , Then :
+    ![Add Datasource](images/AddDS.jpg)
+    ![Select Prometheus Datasource](images/PromDS.jpg)
+    ![Provide Prometheus IP](images/PromDS_IP.png)
+    ![Add Datasource](images/SaveDS.png)
 
+  - By step all tool chain is connected. Next its time to data visualization, please check [how to configure grafana dashboards](GrafanaDashBoard.md).
 
