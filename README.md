@@ -2,7 +2,7 @@
 
 This repository contains 
 1. Node exporter 
-2. Python exporter
+2. Sonic exporter
 
 # Details:
 
