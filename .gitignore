@@ -1,0 +1,11 @@
+*.tar.gz
+dist/
+.venv/
+*.pyc
+__pycache__
+.vscode
+*.crt
+*.key
+*.txt
+*.jpg
+*.jpeg

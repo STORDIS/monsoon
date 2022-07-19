@@ -1,0 +1,89 @@
+stages:
+  - build
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+  ## This removes the error message in CI
+  # E1130 11:09:34.125582      23 aws_credentials.go:77] while getting AWS credentials NoCredentialProviders: no valid providers in chain. Deprecated.
+  # For verbose messaging see aws.Config.CredentialsChainVerboseErrors
+  AWS_ACCESS_KEY_ID: "none"
+  AWS_SECRET_ACCESS_KEY: "none"
+  AWS_ACCAWS_SESSION_TOKENESS_KEY_ID: "none"
+
+default:
+  before_script:
+  - echo "Running with GITLAB INSTANCE from $CI_SERVER_HOST"
+
+build-release:
+  image:
+    name: artifactory.devops.telekom.de/gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  tags:
+    - otc_run_docker_k8s
+  stage: build
+  script:
+    - echo "${CI_SERVER_NAME}"
+    - ash build.sh
+  only:
+    refs:
+      - tags
+    variables:
+      - $CI_SERVER_HOST == "gitlab.devops.telekom.de"
+
+  
+build:
+  image:
+    name: artifactory.devops.telekom.de/gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  tags:
+    - otc_run_docker_k8s
+  stage: build
+  script:
+    - ash build.sh false
+  only:
+    refs:
+      - branches
+    variables:
+      - $CI_SERVER_HOST == "gitlab.devops.telekom.de"
+  except:
+    changes:
+      - README.md
+
+
+stordis-build-release:
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  tags:
+    - stordis-runner
+  stage: build
+  script:
+    - ash build.sh docker.io
+  only:
+    refs:
+      - tags
+    variables:
+      - $CI_SERVER_HOST == "gitlab.stordis.com"
+  except:
+    refs:
+      - branches
+    changes:
+      - README.md
+
+stordis-build:
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  tags:
+    - stordis-runner
+  stage: build
+  script:
+    - ash build.sh false docker.io
+  only:
+    refs:
+      - branches
+    variables:
+      - $CI_SERVER_HOST == "gitlab.stordis.com"
+  except:
+    changes:
+      - README.md
