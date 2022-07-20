@@ -1,0 +1,532 @@
+{
+    "lm75:55-0048": {
+        "address": "55-0048",
+        "modalias": "i2c:lm75",
+        "values": [
+            {
+                "name": "temp1_max",
+                "value": 80.0,
+                "unit": "celsius"
+            },
+            {
+                "name": "temp1_max_hyst",
+                "value": 75.0,
+                "unit": "celsius"
+            },
+            {
+                "name": "temp1_input",
+                "value": 30.5,
+                "unit": "celsius"
+            }
+        ]
+    },
+    "None:49-0058": {
+        "address": "49-0058",
+        "modalias": "i2c:ym2651",
+        "values": [
+            {
+                "name": "fan1_input",
+                "value": 6016,
+                "unit": "rpm"
+            },
+            {
+                "name": "power1_input",
+                "value": 103.0,
+                "unit": "watts"
+            },
+            {
+                "name": "temp1_fault",
+                "value": 0,
+                "unit": "status"
+            },
+            {
+                "name": "temp1_input",
+                "value": 45.0,
+                "unit": "celsius"
+            }
+        ]
+    },
+    "None:54-0066": {
+        "address": "54-0066",
+        "modalias": "i2c:as7726_32x_fan",
+        "values": [
+            {
+                "name": "fan4_present",
+                "value": 1,
+                "unit": "status"
+            },
+            {
+                "name": "fan16_fault",
+                "value": 0,
+                "unit": "status"
+            },
+            {
+                "name": "fan13_input",
+                "value": 8300,
+                "unit": "rpm"
+            },
+            {
+                "name": "fan16_input",
+                "value": 8500,
+                "unit": "rpm"
+            },
+            {
+                "name": "fan1_present",
+                "value": 1,
+                "unit": "status"
+            },
+            {
+                "name": "fan2_direction",
+                "value": 0,
+                "unit": "status"
+            },
+            {
+                "name": "fan5_rear_speed_rpm",
+                "value": 8500,
+                "unit": "rpm"
+            },
+            {
+                "name": "fan1_fault",
+                "value": 0,
+                "unit": "status"
+            },
+            {
+                "name": "fan3_front_speed_rpm",
+                "value": 9800,
+                "unit": "rpm"
+            },
+            {
+                "name": "fan4_fault",
+                "value": 0,
+                "unit": "status"
+            },
+            {
+                "name": "fan1_input",
+                "value": 10200,
+                "unit": "rpm"
+            },
+            {
+                "name": "fan6_front_speed_rpm",
+                "value": 10200,
+                "unit": "rpm"
+            },
+            {
+                "name": "fan11_fault",
+                "value": 0,
+                "unit": "status"
+            },
+            {
+                "name": "fan4_input",
+                "value": 10000,
+                "unit": "rpm"
+            },
+            {
+                "name": "fan5_direction",
+                "value": 0,
+                "unit": "status"
+            },
+            {
+                "name": "fan5_present",
+                "value": 1,
+                "unit": "status"
+            },
+            {
+                "name": "fan14_fault",
+                "value": 0,
+                "unit": "status"
+            },
+            {
+                "name": "fan11_input",
+                "value": 8600,
+                "unit": "rpm"
+            },
+            {
+                "name": "fan2_rear_speed_rpm",
+                "value": 8600,
+                "unit": "rpm"
+            },
+            {
+                "name": "fan14_input",
+                "value": 8400,
+                "unit": "rpm"
+            },
+            {
+                "name": "fan2_present",
+                "value": 1,
+                "unit": "status"
+            },
+            {
+                "name": "fan2_front_speed_rpm",
+                "value": 10200,
+                "unit": "rpm"
+            },
+            {
+                "name": "fan2_fault",
+                "value": 0,
+                "unit": "status"
+            },
+            {
+                "name": "fan3_direction",
+                "value": 0,
+                "unit": "status"
+            },
+            {
+                "name": "fan4_rear_speed_rpm",
+                "value": 8400,
+                "unit": "rpm"
+            },
+            {
+                "name": "fan5_fault",
+                "value": 0,
+                "unit": "status"
+            },
+            {
+                "name": "fan5_front_speed_rpm",
+                "value": 10100,
+                "unit": "rpm"
+            },
+            {
+                "name": "fan2_input",
+                "value": 10200,
+                "unit": "rpm"
+            },
+            {
+                "name": "fan6_present",
+                "value": 1,
+                "unit": "status"
+            },
+            {
+                "name": "fan12_fault",
+                "value": 0,
+                "unit": "status"
+            },
+            {
+                "name": "fan5_input",
+                "value": 10100,
+                "unit": "rpm"
+            },
+            {
+                "name": "fan15_fault",
+                "value": 0,
+                "unit": "status"
+            },
+            {
+                "name": "fan12_input",
+                "value": 8600,
+                "unit": "rpm"
+            },
+            {
+                "name": "fan6_direction",
+                "value": 0,
+                "unit": "status"
+            },
+            {
+                "name": "fan3_present",
+                "value": 1,
+                "unit": "status"
+            },
+            {
+                "name": "fan15_input",
+                "value": 8500,
+                "unit": "rpm"
+            },
+            {
+                "name": "fan1_rear_speed_rpm",
+                "value": 8600,
+                "unit": "rpm"
+            },
+            {
+                "name": "fan6_rear_speed_rpm",
+                "value": 8500,
+                "unit": "rpm"
+            },
+            {
+                "name": "fan1_direction",
+                "value": 0,
+                "unit": "status"
+            },
+            {
+                "name": "fan1_front_speed_rpm",
+                "value": 10200,
+                "unit": "rpm"
+            },
+            {
+                "name": "fan3_fault",
+                "value": 0,
+                "unit": "status"
+            },
+            {
+                "name": "fan4_front_speed_rpm",
+                "value": 10000,
+                "unit": "rpm"
+            },
+            {
+                "name": "fan6_fault",
+                "value": 0,
+                "unit": "status"
+            },
+            {
+                "name": "fan4_direction",
+                "value": 0,
+                "unit": "status"
+            },
+            {
+                "name": "fan3_input",
+                "value": 9800,
+                "unit": "rpm"
+            },
+            {
+                "name": "fan3_rear_speed_rpm",
+                "value": 8300,
+                "unit": "rpm"
+            },
+            {
+                "name": "fan13_fault",
+                "value": 0,
+                "unit": "status"
+            },
+            {
+                "name": "fan6_input",
+                "value": 10200,
+                "unit": "rpm"
+            }
+        ]
+    },
+    "pch_haswell": {
+        "address": null,
+        "modalias": null,
+        "values": [
+            {
+                "name": "temp1_input",
+                "value": 32.5,
+                "unit": "celsius"
+            }
+        ]
+    },
+    "None:50-005b": {
+        "address": "50-005b",
+        "modalias": "i2c:ym2651",
+        "values": [
+            {
+                "name": "fan1_input",
+                "value": 6144,
+                "unit": "rpm"
+            },
+            {
+                "name": "power1_input",
+                "value": 199.0,
+                "unit": "watts"
+            },
+            {
+                "name": "temp1_fault",
+                "value": 0,
+                "unit": "status"
+            },
+            {
+                "name": "temp1_input",
+                "value": 40.0,
+                "unit": "celsius"
+            }
+        ]
+    },
+    "lm75:55-004b": {
+        "address": "55-004b",
+        "modalias": "i2c:lm75",
+        "values": [
+            {
+                "name": "temp1_max",
+                "value": 80.0,
+                "unit": "celsius"
+            },
+            {
+                "name": "temp1_max_hyst",
+                "value": 75.0,
+                "unit": "celsius"
+            },
+            {
+                "name": "temp1_input",
+                "value": 24.5,
+                "unit": "celsius"
+            }
+        ]
+    },
+    "lm75:55-0049": {
+        "address": "55-0049",
+        "modalias": "i2c:lm75",
+        "values": [
+            {
+                "name": "temp1_max",
+                "value": 80.0,
+                "unit": "celsius"
+            },
+            {
+                "name": "temp1_max_hyst",
+                "value": 75.0,
+                "unit": "celsius"
+            },
+            {
+                "name": "temp1_input",
+                "value": 35.0,
+                "unit": "celsius"
+            }
+        ]
+    },
+    "lm75:54-004c": {
+        "address": "54-004c",
+        "modalias": "i2c:lm75",
+        "values": [
+            {
+                "name": "temp1_max",
+                "value": 80.0,
+                "unit": "celsius"
+            },
+            {
+                "name": "temp1_max_hyst",
+                "value": 75.0,
+                "unit": "celsius"
+            },
+            {
+                "name": "temp1_input",
+                "value": 24.0,
+                "unit": "celsius"
+            }
+        ]
+    },
+    "None:49-0050": {
+        "address": "49-0050",
+        "modalias": "i2c:as7726_32x_psu2",
+        "values": []
+    },
+    "coretemp:coretemp.0": {
+        "address": "coretemp.0",
+        "modalias": "platform:coretemp",
+        "values": [
+            {
+                "name": "temp5_crit",
+                "value": 104.0,
+                "unit": "celsius"
+            },
+            {
+                "name": "temp3_crit_alarm",
+                "value": 0.0,
+                "unit": "celsius"
+            },
+            {
+                "name": "temp4_crit",
+                "value": 104.0,
+                "unit": "celsius"
+            },
+            {
+                "name": "temp1_max",
+                "value": 82.0,
+                "unit": "celsius"
+            },
+            {
+                "name": "temp5_max",
+                "value": 82.0,
+                "unit": "celsius"
+            },
+            {
+                "name": "temp2_input",
+                "value": 34.0,
+                "unit": "celsius"
+            },
+            {
+                "name": "temp3_crit",
+                "value": 104.0,
+                "unit": "celsius"
+            },
+            {
+                "name": "temp5_input",
+                "value": 34.0,
+                "unit": "celsius"
+            },
+            {
+                "name": "temp4_crit_alarm",
+                "value": 0.0,
+                "unit": "celsius"
+            },
+            {
+                "name": "temp2_crit",
+                "value": 104.0,
+                "unit": "celsius"
+            },
+            {
+                "name": "temp2_max",
+                "value": 82.0,
+                "unit": "celsius"
+            },
+            {
+                "name": "temp5_crit_alarm",
+                "value": 0.0,
+                "unit": "celsius"
+            },
+            {
+                "name": "temp1_crit",
+                "value": 104.0,
+                "unit": "celsius"
+            },
+            {
+                "name": "temp3_input",
+                "value": 35.0,
+                "unit": "celsius"
+            },
+            {
+                "name": "temp3_max",
+                "value": 82.0,
+                "unit": "celsius"
+            },
+            {
+                "name": "temp1_crit_alarm",
+                "value": 0.0,
+                "unit": "celsius"
+            },
+            {
+                "name": "temp1_input",
+                "value": 35.0,
+                "unit": "celsius"
+            },
+            {
+                "name": "temp2_crit_alarm",
+                "value": 0.0,
+                "unit": "celsius"
+            },
+            {
+                "name": "temp4_input",
+                "value": 34.0,
+                "unit": "celsius"
+            },
+            {
+                "name": "temp4_max",
+                "value": 82.0,
+                "unit": "celsius"
+            }
+        ]
+    },
+    "None:50-0053": {
+        "address": "50-0053",
+        "modalias": "i2c:as7726_32x_psu1",
+        "values": []
+    },
+    "lm75:55-004a": {
+        "address": "55-004a",
+        "modalias": "i2c:lm75",
+        "values": [
+            {
+                "name": "temp1_max",
+                "value": 80.0,
+                "unit": "celsius"
+            },
+            {
+                "name": "temp1_max_hyst",
+                "value": 75.0,
+                "unit": "celsius"
+            },
+            {
+                "name": "temp1_input",
+                "value": 30.5,
+                "unit": "celsius"
+            }
+        ]
+    }
+}

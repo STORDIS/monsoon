@@ -1,17 +1,19 @@
-FROM ubuntu:20.04
+FROM python:3.10-bullseye
 
-RUN apt-get update  && apt-get install -y python3 python3-pip supervisor
+COPY . .
+RUN pip3 install poetry
+RUN poetry export -f requirements.txt -o /home/requirements.txt
+RUN cd src/sonic-py-swsssdk && python setup.py build sdist && cd ../..
+RUN poetry build
+RUN cp dist/sonic_exporter*.tar.gz /home/ && cp src/sonic-py-swsssdk/dist/swsssdk-*.tar.gz /home
 
-#COPY binary
-COPY src/node_exporter/node_exporter /usr/bin/
-COPY src/sonic_exporter/exporter.py /usr/bin/exporter.py
-COPY src/sonic_exporter/requirements.txt /tmp/requirements.txt
-RUN pip3 install -r /tmp/requirements.txt
-RUN --mount=type=bind,source=src/sonic-py-swsssdk,target=/src,rw pip3 install /src
-#Copy supervisor conf file for node exporter and update
-COPY src/node_exporter/node_exporter.conf /etc/supervisor/conf.d/
-COPY src/sonic_exporter/sonic_exporter.conf /etc/supervisor/conf.d/
+FROM python:3.10-slim-bullseye
 
-RUN mkdir -p /host/proc /host/sys /rootfs
+COPY --from=0 /home/requirements.txt /home/requirements.txt
+COPY --from=0 /home/*.tar.gz /home/
+RUN apt-get update && apt-get install -y \
+    nano \
+    && rm -rf /var/lib/apt/lists/*
+RUN pip3 install --pre -r /home/requirements.txt && pip3 install /home/*.tar.gz && mkdir -p /src && rm /home/*
 
-CMD (supervisord -n)
+CMD sonic_exporter
