@@ -1,26 +1,63 @@
 # Monsoon - A data visualization and monitoring solution for SONiC
 
-Monsoon uses Prometheus and Grafana for data collection and visualization. Apart from using 'node_exporter' (standard data collector for prometheus client) Monsoon utilizes sonic-py-swsssdk to fetch data from SONiC DB to Prometheus
+Monsoon uses Prometheus and Grafana for data collection and visualization. Apart from using 'node_exporter' (standard data collector for prometheus client) Monsoon uses sonic-exporter to fetch data from SONiC DB to Prometheus and Grafana.
 
-## Getting started 
-- ### Install monsoon SONiC host
-    To install monsoon execute following commands:
+## Getting started with monsoon
+  There are 4 major components of monsoon project- sonic-exporter, node-exporter, Prometheus, Grafana.
+- ### Install sonic-exporter
+    sonic-exporter component is developed as one of the parts of monsoon project which utilizes sonic-py-swsssdk APIs, To install sonic-exporter execute following commands:
+  - #### Get the sonic-exporter docker image
+    If your switch is connected to internet :
     ```
-    git clone https://github.com/STORDIS/monsoon.git
-    cd deploy
-    sudo sh install.sh
+    docker pull stordis/sonic-exporter
     ```
-  - #### Verify Monsoon installation:
-      At this stage metrices data can already be accessed in raw text format at http://<sonic_host_ip>:9100/metrics and http://<sonic_host_ip>:9101/metrics
+    If your switch is not connected to internet, then on any of your host connected to internet do following :
+    ```
+    docker pull stordis/sonic-exporter
+    docker save stordis/sonic-exporter | gzip > sonic-exporter.tar.gz
+    scp sonic-exporter.tar.gz admin@<switch_ip>:
+    ssh admin@<switch_ip> "docker load -i sonic-exporter.tar.gz"
+    ```
+  - #### Start sonic-exporter container
+    Execute following command on SONiC host to start sonic-exporter container :
+    ```
+    docker run --name sonic-exporter --network=host --pid=host --privileged --restart=always -d -e REDIS_AUTH=$(cat /run/redis/auth/passwd) -v /var/run/redis:/var/run/redis -v /usr/bin/vtysh:/usr/bin/vtysh -v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock stordis/sonic-exporter:latest
+    ```
+
+  - #### Verify sonic-exporter installation:
+      Metrices from sonic-exporter should be available in raw text format ``` curl "http://sonic_switch_ip:9101/metrics" ```
+
+- ### Install node-exporter
+  node-exporter is standard module of prometheus, node exporter can be started as follows: 
+  - #### Get node-exporter docker image
+    If your switch is connected to internet :
+    ```
+    docker pull prom/node-exporter:v1.3.1
+    ```
+    If your switch is not connected to internet, then on any of your host connected to internet do following :
+    ```
+    docker pull prom/node-exporter:v1.3.1
+    docker save prom/node-exporter:v1.3.1 | gzip > node-exporter_v1.3.1.tar.gz
+    scp node-exporter_v1.3.1.tar.gz admin@<switch_ip>:
+    ssh admin@<switch_ip> "docker load -i node-exporter_v1.3.1.tar.gz"
+    ```
+  - #### Start node-exporter container on SONiC switch
+    ```
+    docker run --name node-exporter --network=host --pid=host --privileged --restart=always -d -v /proc:/host/proc:ro -v /sys:/host/sys:ro -v /:/rootfs:ro prom/node-exporter:v1.3.1 --path.rootfs=/host --no-collector.fibrechannel --no-collector.infiniband --no-collector.ipvs --no-collector.mdadm --no-collector.nfs --no-collector.nfsd --no-collector.nvme --no-collector.os --no-collector.pressure --no-collector.tapestats --no-collector.zfs --no-collector.netstat --no-collector.arp
+    ```
+  - #### Verify node-exporter installation 
+    Metrices from node-exporter should be available in raw text format with following:
+    ``` 
+    curl "http://<sonic_switch_ip>:9100/metrics" 
+    ```
 
 - ### Install Prometheus 
-  Prometheus acts as a data collector tool for monsoon and supplies data for visualization (in the next step).
+  Prometheus acts as a data collector tool for monsoon and supplies data for visualization in Grafana (in the next step).
   It is reommended to install Prometheus on separate host i.e. Ubuntu_20.04 etc.
-  Please check the path for prometheus config file ~/monsoon/config/prometheus.yml is correct, also replace the target IPs at the bottom in this file with your SONiC host. Then execute following :
+  Config file ~/monsoon/config/prometheus.yml can be used for prometheus installation, also replace the exporter IPs at the bottom in this file with your SONiC switch. Then execute following :
   ```
   docker run -p 9090:9090 -v ~/monsoon/config/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
   ```
-
   Further details of Prometheus installation are [here](https://prometheus.io/docs/prometheus/latest/installation/).
 
   - #### Verify Prometheus Targets Status :
@@ -28,18 +65,12 @@ Monsoon uses Prometheus and Grafana for data collection and visualization. Apart
 
 
 - ### Install Grafana
-  Grafana can be installed on same host as Prometheus but recommended is to install it on a separate host i.e. Ubuntu_20.04 etc. 
-  On Debian/Ubuntu Grafana can be installed as follows :
+  Grafana is a configurable data visulization tool, In opur case it help to visualize data fetched from prometheus (in step above). Grafana can be installed on same host as Prometheus but recommended is to install it on a separate host i.e. Ubuntu_20.04 etc. 
+  On Debian/Ubuntu Grafana container can be started as follows : 
   ```
-  sudo apt-get install -y apt-transport-https
-  sudo apt-get install -y software-properties-common wget
-  wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
-  echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
-  sudo apt-get update
-  sudo apt-get install grafana
+  docker run -d -p 3000:3000 --name grafana grafana/grafana-oss
   ```
-
-  Further details of Grafana installation are [here](https://grafana.com/docs/grafana/latest/setup-grafana/installation/).
+  Further details to run Grafana container are [here](https://grafana.com/docs/grafana/latest/setup-grafana/installation/docker/).
   - #### Verify Grafana Installation
     Grafana web console can be accessed at http://grafan_host_ip:3000 and login with default credentials admin/admin. 
   - #### Add data source to Grafana
@@ -51,7 +82,7 @@ Monsoon uses Prometheus and Grafana for data collection and visualization. Apart
 
   - By this step all tool chain is connected. Next, its time to data visualization, please check [how to configure grafana dashboards](GrafanaDashBoard.md).
 
-## Central Client Certificate Generation
+## Securing sopnic-exporter and node-exporter with Central Client Certificate Generation
 
 This generated client key should be encrypted with sops and put into git.
 
@@ -90,7 +121,7 @@ export NGINX_IMAGE="nginx:${NGINX_VERSION}"
 export NGINX_FILE="nginx_${NGINX_VERSION}.tar.gz"
 
 export SONIC_EXPORTER_VERSION=0.2.1
-export SONIC_EXPORTER_IMAGE="registry.devops.telekom.de/schiff/sonic-exporter:${SONIC_EXPORTER_VERSION}"
+export SONIC_EXPORTER_IMAGE="stordis/sonic-exporter:${SONIC_EXPORTER_VERSION}"
 export SONIC_EXPORTER_FILE="sonic-exporter_${SONIC_EXPORTER_VERSION}.tar.gz"
 
 
@@ -196,7 +227,7 @@ python /usr/local/lib/python${PYTHON_VERSION%.*}/site-packages/sonic_exporter/sy
 
 ```console
 $ export VERSION="latest"
-$ podman build -t sonic-exporter:${VERSION} .
+$ docker build -t sonic-exporter:${VERSION} .
 [1/2] STEP 1/7: FROM python:3.10-bullseye
 Resolving "python" using unqualified-search registries (/etc/containers/registries.conf)
 Trying to pull docker.io/library/python:3.10-bullseye...
@@ -237,7 +268,7 @@ Storing signatures
 --> f71e7b8de82
 Successfully tagged localhost/sonic-exporter:${VERSION}
 f71e7b8de82e5eabfe66c803538f19d1fb3c44b3b0edf9725e9eb61943d4a093
-$ podman save --format docker-archive localhost/sonic-exporter:${VERSION} | gzip  > sonic-exporter_${VERSION}.tar.gz
+$ docker save --format docker-archive localhost/sonic-exporter:${VERSION} | gzip  > sonic-exporter_${VERSION}.tar.gz
 $ ls
 sonic-exporter_${VERSION}.tar.gz
 ```
