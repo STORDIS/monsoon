@@ -21,7 +21,7 @@ Monsoon uses Prometheus and Grafana for data collection and visualization. Apart
   - #### Start sonic-exporter container
     Execute following command on SONiC host to start sonic-exporter container :
     ```
-    docker run --name sonic-exporter --network=host --pid=host --privileged --restart=always -d -e REDIS_AUTH=$(cat /run/redis/auth/passwd) -v /var/run/redis:/var/run/redis -v /usr/bin/vtysh:/usr/bin/vtysh -v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock stordis/sonic-exporter:latest
+    docker run -e SONIC_EXPORTER_ADDRESS="" --name sonic-exporter --network=host --pid=host --privileged --restart=always -d -e REDIS_AUTH=$(cat /run/redis/auth/passwd) -v /var/run/redis:/var/run/redis -v /usr/bin/vtysh:/usr/bin/vtysh -v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock stordis/sonic-exporter:latest
     ```
 
   - #### Verify sonic-exporter installation:
