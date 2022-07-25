@@ -6,11 +6,8 @@ Monsoon uses Prometheus and Grafana for data collection and visualization. Apart
   There are 4 major components of monsoon project- sonic-exporter, node-exporter, Prometheus, Grafana.
 - ### Install sonic-exporter
     sonic-exporter component is developed as one of the parts of monsoon project which utilizes sonic-py-swsssdk APIs, To install sonic-exporter execute following commands:
-  - #### Get the sonic-exporter docker image
-    If your switch is connected to internet :
-    ```
-    docker pull stordis/sonic-exporter
-    ```
+  - #### Get the sonic-exporter docker image (only when SONiC switch is not connected to internet else go to next step and start sonic-exporter)
+    
     If your switch is not connected to internet, then on any of your host connected to internet do following :
     ```
     docker pull stordis/sonic-exporter
@@ -61,7 +58,7 @@ Monsoon uses Prometheus and Grafana for data collection and visualization. Apart
   Further details of Prometheus installation are [here](https://prometheus.io/docs/prometheus/latest/installation/).
 
   - #### Verify Prometheus Targets Status :
-    Open Prometheus web console at http://prometheus_ip:9090 and check for target status under 'status' tab.  ![Target Status](images/prom_target_sts.jpeg)
+    Open Prometheus web console at http://prometheus_ip:9090 and check for target status under 'status' tab.  ![Target Status](images/prom_target_sts.png)
 
 
 - ### Install Grafana
@@ -80,7 +77,7 @@ Monsoon uses Prometheus and Grafana for data collection and visualization. Apart
     ![Provide Prometheus IP](images/PromDS_IP.png)
     ![Add Datasource](images/SaveDS.png)
 
-  - By this step all tool chain is connected. Next, its time to data visualization, please check [how to configure grafana dashboards](GrafanaDashBoard.md).
+  - By this step all tool chain is connected. Next, [Configure Grafana dashboard and data visualization](GrafanaDashBoard.md).
 
 ## Securing sopnic-exporter and node-exporter with Central Client Certificate Generation
 

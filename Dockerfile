@@ -1,4 +1,4 @@
-FROM python:3.10-bullseye
+FROM python:3.10-bullseye AS builder
 
 COPY . .
 RUN pip3 install poetry
@@ -9,8 +9,8 @@ RUN cp dist/sonic_exporter*.tar.gz /home/ && cp src/sonic-py-swsssdk/dist/swsssd
 
 FROM python:3.10-slim-bullseye
 
-COPY --from=0 /home/requirements.txt /home/requirements.txt
-COPY --from=0 /home/*.tar.gz /home/
+COPY --from=builder /home/requirements.txt /home/requirements.txt
+COPY --from=builder /home/*.tar.gz /home/
 RUN apt-get update && apt-get install -y \
     nano \
     && rm -rf /var/lib/apt/lists/*
