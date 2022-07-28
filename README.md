@@ -1,7 +1,9 @@
 # Monsoon - A data visualization and monitoring solution for SONiC
 
 Monsoon uses Prometheus and Grafana for data collection and visualization. Apart from using 'node_exporter' (standard data collector for prometheus client) Monsoon uses sonic-exporter to fetch data from SONiC DB to Prometheus and Grafana.
+A high level monsoon design looks as follows, components are explained further below :
 
+![Monsoon Design](images/monsoon.jpg)
 ## Getting started with monsoon
   There are 4 major components of monsoon project- sonic-exporter, node-exporter, Prometheus, Grafana.
 - ### Install sonic-exporter
@@ -26,7 +28,7 @@ Monsoon uses Prometheus and Grafana for data collection and visualization. Apart
 
 - ### Install node-exporter
   node-exporter is standard module of prometheus, node exporter can be started as follows: 
-  - #### Get node-exporter docker image
+  - #### Get the node-exporter docker image (only when SONiC switch is not connected to internet else go to next step and start node-exporter)
     If your switch is connected to internet :
     ```
     docker pull prom/node-exporter:v1.3.1
@@ -79,7 +81,7 @@ Monsoon uses Prometheus and Grafana for data collection and visualization. Apart
 
   - By this step all tool chain is connected. Next, [Configure Grafana dashboard and data visualization](GrafanaDashBoard.md).
 
-## Securing sopnic-exporter and node-exporter with Central Client Certificate Generation
+## Securing sonic-exporter and node-exporter with Central Client Certificate Generation
 
 This generated client key should be encrypted with sops and put into git.
 
