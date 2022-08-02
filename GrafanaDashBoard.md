@@ -14,7 +14,9 @@ Monsoon deploys 2 targets on the SONiC host, first one [node_exporter](https://p
   After clicking import button, user will be redirected to dashboard automatically :
   ![Node exp data](images/nodeExpData.png)
 
-  ### sonic_exporter dashboard
+  ### sonic-exporter dashboard JSON
+  Simplest is to import [this](config/sonic_exporter_grafana_dashboard.json) file in Grafana dashboard section. Otherwise, in the [section](#sonic-exporter-dashboard-manual-configuration) there is an example on how to configure a Grafana dashboard for sonic-exporter. 
+  ### sonic-exporter dashboard manual configuration
   Currently sonic_exporter serves a number of metrices, those sonic specific metrices can be idetified in Grafana with prefix 'sonic'. Using those SONiC specific metrices user can create his own dashboard here is an example for a single metric 'sonic_interface_temperature_celsius':
   ![](images/NewDB.png)
 
