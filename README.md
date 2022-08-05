@@ -1,9 +1,19 @@
 # Monsoon - A data visualization and monitoring solution for SONiC
 
 Monsoon uses Prometheus and Grafana for data collection and visualization. Apart from using 'node_exporter' (standard data collector for prometheus client) Monsoon uses sonic-exporter to fetch data from SONiC DB to Prometheus and Grafana.
-A high level monsoon design looks as follows, components are explained further below :
 
+* [Monsoon Design](#monsoon-design-monsoon-designimagesmonsoonjpg)
+* [Getting started with monsoon](#getting-started-with-monsoon)
+  * [Install sonic-exporter](#install-sonic-exporter)
+  * [Install node-exporter](#install-node-exporter)
+  * [Install Prometheus](#install-prometheus)
+  * [Install Grafana](#install-grafana)
+* [Client certificate generation](#securing-sonic-exporter-and-node-exporter-with-central-client-certificate-generation)
+  
+## Monsoon Design 
+A high level monsoon design is as follows, various components are explained in further sections.
 ![Monsoon Design](images/monsoon.jpg)
+
 ## Getting started with monsoon
   There are 4 major components of monsoon project- sonic-exporter, node-exporter, Prometheus, Grafana.
 - ### Install sonic-exporter
@@ -55,7 +65,7 @@ A high level monsoon design looks as follows, components are explained further b
   It is reommended to install Prometheus on separate host i.e. Ubuntu_20.04 etc.
   Config file ~/monsoon/config/prometheus.yml can be used for prometheus installation, also replace the exporter IPs at the bottom in this file with your SONiC switch. Then execute following :
   ```
-  docker run -p 9090:9090 -v ~/monsoon/config/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
+  docker run -d -p 9090:9090 -v ~/monsoon/config/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus:v2.37.0
   ```
   Further details of Prometheus installation are [here](https://prometheus.io/docs/prometheus/latest/installation/).
 
@@ -67,7 +77,7 @@ A high level monsoon design looks as follows, components are explained further b
   Grafana is a configurable data visulization tool, In opur case it help to visualize data fetched from prometheus (in step above). Grafana can be installed on same host as Prometheus but recommended is to install it on a separate host i.e. Ubuntu_20.04 etc. 
   On Debian/Ubuntu Grafana container can be started as follows : 
   ```
-  docker run -d -p 3000:3000 --name grafana grafana/grafana-oss
+  docker run -d -p 3000:3000 --name grafana grafana/grafana-oss:9.0.6
   ```
   Further details to run Grafana container are [here](https://grafana.com/docs/grafana/latest/setup-grafana/installation/docker/).
   - #### Verify Grafana Installation
