@@ -30,12 +30,6 @@
       "version": "9.0.4"
     },
     {
-      "type": "panel",
-      "id": "histogram",
-      "name": "Histogram",
-      "version": ""
-    },
-    {
       "type": "datasource",
       "id": "prometheus",
       "name": "Prometheus",
@@ -183,17 +177,35 @@
           "fieldConfig": {
             "defaults": {
               "color": {
-                "mode": "thresholds"
+                "mode": "palette-classic"
               },
               "custom": {
-                "fillOpacity": 80,
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
                 "gradientMode": "none",
                 "hideFrom": {
                   "legend": false,
                   "tooltip": false,
                   "viz": false
                 },
-                "lineWidth": 1
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
               },
               "mappings": [],
               "thresholds": {
@@ -220,11 +232,14 @@
           },
           "id": 12,
           "options": {
-            "bucketOffset": 0,
             "legend": {
               "calcs": [],
               "displayMode": "list",
               "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
             }
           },
           "targets": [
@@ -249,7 +264,7 @@
               }
             }
           ],
-          "type": "histogram"
+          "type": "timeseries"
         },
         {
           "datasource": {
@@ -2129,7 +2144,7 @@
               "placement": "bottom"
             },
             "tooltip": {
-              "mode": "single",
+              "mode": "multi",
               "sort": "none"
             }
           },
@@ -2353,7 +2368,7 @@
               "placement": "bottom"
             },
             "tooltip": {
-              "mode": "single",
+              "mode": "multi",
               "sort": "none"
             }
           },
@@ -2447,7 +2462,7 @@
               "placement": "bottom"
             },
             "tooltip": {
-              "mode": "single",
+              "mode": "multi",
               "sort": "none"
             }
           },
@@ -2661,7 +2676,7 @@
               "placement": "bottom"
             },
             "tooltip": {
-              "mode": "single",
+              "mode": "multi",
               "sort": "none"
             }
           },
@@ -2755,7 +2770,7 @@
               "placement": "bottom"
             },
             "tooltip": {
-              "mode": "single",
+              "mode": "multi",
               "sort": "none"
             }
           },
@@ -2849,7 +2864,7 @@
               "placement": "bottom"
             },
             "tooltip": {
-              "mode": "single",
+              "mode": "multi",
               "sort": "none"
             }
           },
@@ -2943,7 +2958,7 @@
               "placement": "bottom"
             },
             "tooltip": {
-              "mode": "single",
+              "mode": "multi",
               "sort": "none"
             }
           },
@@ -3037,7 +3052,7 @@
               "placement": "bottom"
             },
             "tooltip": {
-              "mode": "single",
+              "mode": "multi",
               "sort": "none"
             }
           },
@@ -3131,7 +3146,7 @@
               "placement": "bottom"
             },
             "tooltip": {
-              "mode": "single",
+              "mode": "multi",
               "sort": "none"
             }
           },
@@ -3225,7 +3240,7 @@
               "placement": "bottom"
             },
             "tooltip": {
-              "mode": "single",
+              "mode": "multi",
               "sort": "none"
             }
           },
@@ -3449,7 +3464,7 @@
               "placement": "bottom"
             },
             "tooltip": {
-              "mode": "single",
+              "mode": "multi",
               "sort": "none"
             }
           },
@@ -4145,7 +4160,7 @@
               "placement": "bottom"
             },
             "tooltip": {
-              "mode": "single",
+              "mode": "multi",
               "sort": "none"
             }
           },
@@ -4240,7 +4255,7 @@
               "placement": "bottom"
             },
             "tooltip": {
-              "mode": "single",
+              "mode": "multi",
               "sort": "none"
             }
           },
@@ -5144,7 +5159,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -5159,7 +5175,7 @@
             "h": 4,
             "w": 10,
             "x": 0,
-            "y": 1
+            "y": 7
           },
           "id": 120,
           "options": {
@@ -5229,7 +5245,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -5244,7 +5261,7 @@
             "h": 4,
             "w": 10,
             "x": 10,
-            "y": 1
+            "y": 7
           },
           "id": 114,
           "options": {
@@ -5314,7 +5331,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -5329,7 +5347,7 @@
             "h": 4,
             "w": 10,
             "x": 0,
-            "y": 5
+            "y": 11
           },
           "id": 118,
           "options": {
@@ -5399,7 +5417,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -5414,7 +5433,7 @@
             "h": 4,
             "w": 10,
             "x": 10,
-            "y": 5
+            "y": 11
           },
           "id": 110,
           "options": {
@@ -5484,7 +5503,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -5499,7 +5519,7 @@
             "h": 4,
             "w": 10,
             "x": 0,
-            "y": 9
+            "y": 15
           },
           "id": 116,
           "options": {
@@ -5569,7 +5589,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -5584,7 +5605,7 @@
             "h": 4,
             "w": 10,
             "x": 10,
-            "y": 9
+            "y": 15
           },
           "id": 112,
           "options": {
@@ -5631,6 +5652,6 @@
   "timezone": "",
   "title": "Sonic-Exporter Dashboard",
   "uid": "rXR50WmVk",
-  "version": 9,
+  "version": 19,
   "weekStart": ""
 }
