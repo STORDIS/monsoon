@@ -27,7 +27,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "9.0.4"
+      "version": "9.0.6"
     },
     {
       "type": "datasource",
@@ -104,8 +104,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -133,7 +132,7 @@
             },
             "showHeader": true
           },
-          "pluginVersion": "9.0.4",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
@@ -141,7 +140,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_device_info{job=\"sonic-exporter\"}",
+              "expr": "sonic_device_info{instance=\"$target\"}",
               "legendFormat": "__auto",
               "range": true,
               "refId": "A"
@@ -212,8 +211,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -248,8 +246,8 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "editorMode": "code",
-              "expr": "sonic_device_uptime_seconds_total{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_device_uptime_seconds_total{instance=\"$target\"}",
               "legendFormat": "__auto",
               "range": true,
               "refId": "A"
@@ -280,8 +278,7 @@
                 "mode": "percentage",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "orange",
@@ -316,14 +313,16 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "9.0.4",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_device_memory_ratio{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_device_memory_ratio{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -347,8 +346,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -379,14 +377,16 @@
             },
             "showHeader": true
           },
-          "pluginVersion": "9.0.4",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_device_fan_available_status{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_device_fan_available_status{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -454,8 +454,7 @@
                 "mode": "percentage",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "orange",
@@ -490,14 +489,16 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "9.0.4",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_device_cpu_ratio{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_device_cpu_ratio{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -519,8 +520,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -553,14 +553,16 @@
             },
             "showUnfilled": true
           },
-          "pluginVersion": "9.0.4",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_device_fan_rpm{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_device_fan_rpm{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -593,8 +595,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -636,14 +637,16 @@
             "showHeader": true,
             "sortBy": []
           },
-          "pluginVersion": "9.0.4",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_device_fan_operational_status{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_device_fan_operational_status{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -711,8 +714,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -745,14 +747,16 @@
             },
             "showUnfilled": true
           },
-          "pluginVersion": "9.0.4",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_device_sensor_threshold_celsius{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_device_sensor_threshold_celsius{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -786,8 +790,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -820,14 +823,16 @@
             },
             "showUnfilled": true
           },
-          "pluginVersion": "9.0.4",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_device_sensor_celsius{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_device_sensor_celsius{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -906,14 +911,16 @@
             },
             "showHeader": true
           },
-          "pluginVersion": "9.0.4",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_interface_transceiver_info{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_interface_transceiver_info{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -1046,14 +1053,16 @@
             },
             "showHeader": true
           },
-          "pluginVersion": "9.0.4",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_interface_cable_length_meters{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_interface_cable_length_meters{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -1190,7 +1199,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_interface_threshold_optic_volts{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_interface_threshold_optic_volts{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -1285,7 +1296,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_interface_optic_volts{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_interface_optic_volts{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -1380,7 +1393,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_interface_threshold_optic_celsius{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_interface_threshold_optic_celsius{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -1475,7 +1490,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_interface_optic_celsius{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_interface_optic_celsius{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -1570,7 +1587,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_interface_threshold_transmit_optic_bias_amperes{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_interface_threshold_transmit_optic_bias_amperes{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -1665,7 +1684,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_interface_transmit_optic_bias_amperes{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_interface_transmit_optic_bias_amperes{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -1761,7 +1782,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_interface_threshold_receive_optic_power_dbm{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_interface_threshold_receive_optic_power_dbm{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -1856,7 +1879,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_interface_receive_optic_power_dbm{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_interface_receive_optic_power_dbm{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -1951,7 +1976,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_interface_threshold_transmit_optic_power_dbm{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_interface_threshold_transmit_optic_power_dbm{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -2046,7 +2073,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_interface_transmit_optic_power_dbm{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_interface_transmit_optic_power_dbm{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -2154,7 +2183,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_interface_received_ethernet_packets_total{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_interface_received_ethernet_packets_total{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -2222,14 +2253,16 @@
             "showHeader": true,
             "sortBy": []
           },
-          "pluginVersion": "9.0.4",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_interface_operational_status{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_interface_operational_status{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -2378,7 +2411,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_interface_queue_processed_packets_total{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_interface_queue_processed_packets_total{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -2472,7 +2507,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_interface_queue_processed_bytes_total{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_interface_queue_processed_bytes_total{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -2536,14 +2573,16 @@
             },
             "showHeader": true
           },
-          "pluginVersion": "9.0.4",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_interface_info{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_interface_info{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -2686,7 +2725,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_interface_transmitted_bytes_total{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_interface_transmitted_bytes_total{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -2780,7 +2821,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_interface_received_bytes_total{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_interface_received_bytes_total{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -2874,7 +2917,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_interface_receive_error_input_packets_total{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_interface_receive_error_input_packets_total{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -2968,7 +3013,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_interface_received_packets_total{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_interface_received_packets_total{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -3062,7 +3109,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_interface_transmitted_packets_total{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_interface_transmitted_packets_total{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -3156,7 +3205,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_interface_transmit_error_output_packets_total{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_interface_transmit_error_output_packets_total{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -3250,7 +3301,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_interface_transmitted_ethernet_packets_total{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_interface_transmitted_ethernet_packets_total{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -3315,14 +3368,16 @@
             },
             "showHeader": true
           },
-          "pluginVersion": "9.0.4",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_interface_admin_status{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_interface_admin_status{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -3475,7 +3530,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_interface_last_flapped_seconds_total{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_interface_last_flapped_seconds_total{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -3555,14 +3612,16 @@
             },
             "showHeader": true
           },
-          "pluginVersion": "9.0.4",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_device_psu_operational_status{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_device_psu_operational_status{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -3670,14 +3729,16 @@
             },
             "showHeader": true
           },
-          "pluginVersion": "9.0.4",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_device_psu_available_status{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_device_psu_available_status{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -3809,14 +3870,16 @@
             "showHeader": true,
             "sortBy": []
           },
-          "pluginVersion": "9.0.4",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_device_psu_info{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_device_psu_info{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -3927,14 +3990,16 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "9.0.4",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_device_psu_input_amperes{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_device_psu_input_amperes{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -3997,14 +4062,16 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "9.0.4",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_device_psu_input_volts{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_device_psu_input_volts{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -4067,14 +4134,16 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "9.0.4",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_device_psu_celsius{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_device_psu_celsius{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -4170,7 +4239,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_device_psu_output_amperes{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_device_psu_output_amperes{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -4265,7 +4336,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_device_psu_output_volts{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_device_psu_output_volts{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -4347,14 +4420,16 @@
             },
             "showHeader": true
           },
-          "pluginVersion": "9.0.4",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_sag_info{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_sag_info{instance=\"$target\"}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -4484,7 +4559,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_sag_admin_status{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_sag_admin_status",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -4570,7 +4647,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_sag_operational_status{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_sag_operational_status",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -4634,7 +4713,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -4649,7 +4729,7 @@
             "h": 4,
             "w": 9,
             "x": 0,
-            "y": 37
+            "y": 6
           },
           "id": 101,
           "options": {
@@ -4669,7 +4749,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_bgp_prefixes_transmitted_total{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_bgp_prefixes_transmitted_total",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -4719,7 +4801,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -4734,7 +4817,7 @@
             "h": 4,
             "w": 8,
             "x": 9,
-            "y": 37
+            "y": 6
           },
           "id": 102,
           "options": {
@@ -4754,7 +4837,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_bgp_prefixes_received_total{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_bgp_prefixes_received_total",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -4804,7 +4889,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -4819,7 +4905,7 @@
             "h": 4,
             "w": 9,
             "x": 0,
-            "y": 41
+            "y": 10
           },
           "id": 93,
           "options": {
@@ -4839,7 +4925,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_bgp_messages_transmitted_total{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_bgp_messages_transmitted_total",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -4889,7 +4977,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -4904,7 +4993,7 @@
             "h": 4,
             "w": 8,
             "x": 9,
-            "y": 41
+            "y": 10
           },
           "id": 99,
           "options": {
@@ -4924,7 +5013,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_bgp_status{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_bgp_status",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -4974,7 +5065,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -4990,7 +5082,7 @@
             "h": 4,
             "w": 9,
             "x": 0,
-            "y": 45
+            "y": 14
           },
           "id": 97,
           "options": {
@@ -5010,7 +5102,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_bgp_uptime_seconds_total{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_bgp_uptime_seconds_total",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -5060,7 +5154,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -5075,7 +5170,7 @@
             "h": 4,
             "w": 8,
             "x": 9,
-            "y": 45
+            "y": 14
           },
           "id": 95,
           "options": {
@@ -5095,7 +5190,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_bgp_messages_received_total{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_bgp_messages_received_total",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -5195,7 +5292,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_evpn_status{job=\"sopnic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_evpn_status",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -5281,7 +5380,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_vxlan_operational_status{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_vxlan_operational_status",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -5367,7 +5468,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_evpn_remote_vteps{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_evpn_remote_vteps",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -5453,7 +5556,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_evpn_arps{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_evpn_arps",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -5539,7 +5644,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_evpn_l2_vnis{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_evpn_l2_vnis",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -5625,7 +5732,9 @@
                 "type": "prometheus",
                 "uid": "${DS_PROMETHEUS}"
               },
-              "expr": "sonic_evpn_mac_addresses{job=\"sonic-exporter\"}",
+              "editorMode": "builder",
+              "expr": "sonic_evpn_mac_addresses",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -5637,12 +5746,58 @@
       "type": "row"
     }
   ],
-  "refresh": "5m",
+  "refresh": false,
   "schemaVersion": 36,
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "definition": "label_values(sonic_device_info{job=\"$sonic_expo\"}, instance)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Target",
+        "multi": false,
+        "name": "target",
+        "options": [],
+        "query": {
+          "query": "label_values(sonic_device_info{job=\"$sonic_expo\"}, instance)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "definition": "label_values(sonic_device_info,job)",
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "sonic_expo",
+        "options": [],
+        "query": {
+          "query": "label_values(sonic_device_info,job)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
   },
   "time": {
     "from": "now-24h",
@@ -5652,6 +5807,6 @@
   "timezone": "",
   "title": "Sonic-Exporter Dashboard",
   "uid": "rXR50WmVk",
-  "version": 19,
+  "version": 25,
   "weekStart": ""
 }
