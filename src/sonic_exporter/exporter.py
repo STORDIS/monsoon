@@ -1228,7 +1228,8 @@ class Export:
             pass
         # implement a skip on state db if keys are empty
         # Still try to get data from HWMon.
-        for key in keys:
+        
+        for key in (keys or []):
             try:
                 name = _decode(self.sonic_db.get(self.sonic_db.STATE_DB, key, "name"))
                 if name.lower().startswith("temp"):
