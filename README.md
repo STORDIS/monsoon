@@ -32,7 +32,7 @@ A high level monsoon design is as follows, various components are explained in f
   - #### Start sonic-exporter container
     Execute following command on SONiC host to start sonic-exporter container :
     ```
-    docker run -e SONIC_EXPORTER_ADDRESS="" --name sonic-exporter --network=host --pid=host --privileged --restart=always -d -v /var/run/redis:/var/run/redis -v /usr/bin/vtysh:/usr/bin/vtysh -v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock stordis/sonic-exporter:latest
+    docker run -e SONIC_EXPORTER_ADDRESS="" --name sonic-exporter --network=host --pid=host --privileged --restart=always -d -v /var/run/redis:/var/run/redis -v /usr/bin/vtysh:/usr/bin/vtysh -v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock stordis/sonic-exporter:main
     ```
 
   - #### Verify sonic-exporter installation:
@@ -236,7 +236,7 @@ python /usr/local/lib/python${PYTHON_VERSION%.*}/site-packages/sonic_exporter/sy
 ## Building
 
 ```console
-$ export VERSION="latest"
+$ export VERSION="main"
 $ docker build -t sonic-exporter:${VERSION} .
 [1/2] STEP 1/7: FROM python:3.10-bullseye
 Resolving "python" using unqualified-search registries (/etc/containers/registries.conf)
