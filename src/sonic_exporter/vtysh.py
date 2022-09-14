@@ -1,5 +1,5 @@
 import json
-from subprocess import PIPE, run
+from subprocess import PIPE, CalledProcessError, run
 from typing import Optional
 
 from sonic_exporter.enums import AddressFamily
@@ -18,13 +18,15 @@ class VtySH:
 
     def run_command(self, command: str):
         try:
-            return json.loads(
-                run(
-                    ["vtysh", "-c", f"{command.rstrip()} json"], check=True, stdout=PIPE
-                ).stdout.decode("utf-8")
-            )
-        except json.JSONDecodeError:
+            out_put=run(["vtysh", "-c", f"{command.rstrip()} json"], check=True, stdout=PIPE
+                    ).stdout.decode("utf-8")
+            try:
+                return json.loads(out_put)
+            except json.JSONDecodeError:
+                return {}
+        except CalledProcessError:
             return {}
+        
 
     def show_bgp_vrf_all_l2vpn_evpn_summary(self, vrf: Optional[str] = None) -> dict:
         data = self.run_command("show bgp vrf all ipv4 unicast summary")

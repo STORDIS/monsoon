@@ -121,7 +121,7 @@ class Export:
             self.sonic_db = mock_db.SonicV2Connector(password="")
         else:
             import swsssdk
-
+            import subprocess
             from sonic_exporter.sys_class_net import SystemClassNetworkInfo
             from sonic_exporter.sys_class_hwmon import SystemClassHWMon
             from sonic_exporter.vtysh import VtySH
@@ -130,7 +130,7 @@ class Export:
             self.sys_class_net = SystemClassNetworkInfo()
             self.sys_class_hwmon = SystemClassHWMon()
             try:
-                secret = os.environ["REDIS_AUTH"]
+                secret=subprocess.getoutput("cat /run/redis/auth/passwd")
                 logging.debug(f"Password from ENV: {secret}")
             except KeyError:
                 logging.error("Password ENV REDIS_AUTH is not set ... Exiting")

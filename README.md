@@ -32,7 +32,7 @@ A high level monsoon design is as follows, various components are explained in f
   - #### Start sonic-exporter container
     Execute following command on SONiC host to start sonic-exporter container :
     ```
-    docker run -e SONIC_EXPORTER_ADDRESS="" --name sonic-exporter --network=host --pid=host --privileged --restart=always -d -e REDIS_AUTH=$(cat /run/redis/auth/passwd) -v /var/run/redis:/var/run/redis -v /usr/bin/vtysh:/usr/bin/vtysh -v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock stordis/sonic-exporter:latest
+    docker run -e SONIC_EXPORTER_ADDRESS="" --name sonic-exporter --network=host --pid=host --privileged --restart=always -d -v /var/run/redis:/var/run/redis -v /usr/bin/vtysh:/usr/bin/vtysh -v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock stordis/sonic-exporter:latest
     ```
 
   - #### Verify sonic-exporter installation:
@@ -162,7 +162,7 @@ ssh "admin@${SWITCH}" "docker load -i ${SONIC_EXPORTER_FILE}"
 1. SONIC exporter
 
 ```console
-$ docker run --name sonic-exporter --network=host --pid=host --privileged --restart=always -d -e REDIS_AUTH=$(cat /run/redis/auth/passwd) -v /var/run/redis:/var/run/redis -v /usr/bin/vtysh:/usr/bin/vtysh -v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock  ${SONIC_EXPORTER_IMAGE}
+$ docker run --name sonic-exporter --network=host --pid=host --privileged --restart=always -d -v /var/run/redis:/var/run/redis -v /usr/bin/vtysh:/usr/bin/vtysh -v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock  ${SONIC_EXPORTER_IMAGE}
 ```
 
 2. Node Exporter
@@ -208,7 +208,6 @@ curl --cert client.crt --key client.key -k "https://${SWITCH}:5556/node/metrics"
 | ------------------------- | --------------------------------------------------------------------- | ----------------- |
 | DEVELOPER_MODE            | This enables the Mock functionality of the exporter for local testing | `False`           |
 | REDIS_COLLECTION_INTERVAL | The interval in which the redis-client fetches data from the switch   | `30` (in seconds) |
-| REDIS_AUTH                | The secret to login to the redis db                                   | `RAISE`           |
 | SONIC_EXPORTER_PORT       | The port on which the exporter listens                                | `9101`            |
 | SONIC_EXPORTER_ADDRESS    | The address on which the exporter listens                             | `localhost`       |
 | SONIC_EXPORTER_LOGLEVEL   | The loglevel for the exporter                                         | `INFO`            |
