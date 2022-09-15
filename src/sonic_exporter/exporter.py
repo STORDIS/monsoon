@@ -21,6 +21,7 @@ import re
 import socket
 import sys
 import time
+import subprocess
 
 import prometheus_client as prom
 
@@ -84,6 +85,9 @@ class Export:
     tx_bias_regex = re.compile(r"^tx(\d*)bias$")
     fan_slot_regex = re.compile(r"^((?:PSU|Fantray).*?\d+).*?(?!FAN|_).*?(\d+)$")
     chassis_slot_regex = re.compile(r"^.*?(\d+)$")
+    db_default_retries=1
+    #timeout applicable only when retries >1
+    db_default_timeout=3
 
     @staticmethod
     def get_counter_key(name: str) -> str:
@@ -106,6 +110,53 @@ class Export:
         except (ValueError, socket.herror):
             return ip
 
+    
+    # Retries and timeout functions are useful to make db calls when sonic-exporter starts esp. along with sonic switch cold reboot.
+    # In case of reboot this is observed that nothing is returned from data base immediately. And params are left with None type filled.
+    # Retry timeout is currently usefull only at startup scenarios, Just a little better than hard coded slepp()
+    # TODO Better way could be to wait for system ready state from SONiC before starting sonic-exporter.
+
+    def getFromDB(self,db_name,hash,key,retries=db_default_retries,timeout=db_default_timeout):
+        for i in range(0,retries):
+            keys=self.sonic_db.get(db_name,hash,key)
+            if keys == None:
+                logging.warning("Couldn't retrieve {0} from hash {1} from db {2}.".format(key,hash,db_name))
+                if i < retries-1:
+                    logging.warning("Retrying in {0} secs.".format(timeout))
+                    time.sleep(timeout)
+                    continue
+            return keys
+    
+    def getKeysFromDB(self,db_name,patrn,retries=db_default_retries,timeout=db_default_timeout):
+        for i in range(0,retries):
+            keys=self.sonic_db.keys(db_name, pattern=patrn)
+            if keys == None:
+                logging.warning("Couldn't retrieve {0} from {1}.".format(patrn,db_name))
+                if i < retries-1:
+                    logging.warning("Retrying in {0} secs.".format(timeout))
+                    time.sleep(timeout)
+            else:
+                logging.info("Finally retrieved values")
+                return keys
+        logging.error("Couldn't retrieve {0} from {1}, after {2} retries returning no results.".format(patrn,db_name,retries))
+        #return empty array instead of NoneType
+        return []      
+
+    def getAllFromDB(self,db_name,hash,retries=db_default_retries,timeout=db_default_timeout):
+        for i in range(0,retries):
+            keys=self.sonic_db.get_all(db_name,hash)
+            if keys == None:
+                logging.warning("Couldn't retrieve hash {0} from db {1}.".format(hash,db_name))
+                if i < retries-1:
+                    logging.warning("Retrying in {0} secs.".format(timeout))
+                    time.sleep(timeout)
+            else:
+                return keys
+        logging.warning("Couldn't retrieve hash {0} from db {1}, after {2} retries.".format(hash,db_name,retries))
+        #return empty array instead of NoneType
+        return []
+
+
     def __init__(self, developer_mode: bool):
         if developer_mode:
             import sonic_exporter.test.mock_db as mock_db
@@ -121,7 +172,6 @@ class Export:
             self.sonic_db = mock_db.SonicV2Connector(password="")
         else:
             import swsssdk
-            import subprocess
             from sonic_exporter.sys_class_net import SystemClassNetworkInfo
             from sonic_exporter.sys_class_hwmon import SystemClassHWMon
             from sonic_exporter.vtysh import VtySH
@@ -129,12 +179,7 @@ class Export:
             self.vtysh = VtySH()
             self.sys_class_net = SystemClassNetworkInfo()
             self.sys_class_hwmon = SystemClassHWMon()
-            try:
-                secret=subprocess.getoutput("cat /run/redis/auth/passwd")
-                logging.debug(f"Password from ENV: {secret}")
-            except KeyError:
-                logging.error("Password ENV REDIS_AUTH is not set ... Exiting")
-                sys.exit(1)
+            secret=subprocess.getoutput("cat /run/redis/auth/passwd")
             self.sonic_db = swsssdk.SonicV2Connector(password=secret)
 
         self.sonic_db.connect(self.sonic_db.COUNTERS_DB)
@@ -143,12 +188,10 @@ class Export:
         self.sonic_db.connect(self.sonic_db.CONFIG_DB)
         self._init_metrics()
         self.chassis = {
-            _decode(key).replace(CHASSIS_INFO, ""): self.sonic_db.get_all(
+            _decode(key).replace(CHASSIS_INFO, ""): self.getAllFromDB(
                 self.sonic_db.STATE_DB, key
             )
-            for key in self.sonic_db.keys(
-                self.sonic_db.STATE_DB, pattern=CHASSIS_INFO_PATTERN
-            )
+            for key in self.getKeysFromDB(self.sonic_db.STATE_DB,CHASSIS_INFO_PATTERN,retries=15)
         }
         self.platform_name: str = list(
             set(
@@ -501,7 +544,7 @@ class Export:
         else:
             key = f"PORTCHANNEL|{ifname}"
         try:
-            return _decode(self.sonic_db.get(self.sonic_db.CONFIG_DB, key, sub_key))
+            return _decode(self.getFromDB(self.sonic_db.CONFIG_DB, key, sub_key))
         except (ValueError, KeyError):
             return ""
 
@@ -509,8 +552,8 @@ class Export:
         return self.get_portinfo(ifname, "alias") or ifname
 
     def export_vxlan_tunnel_info(self):
-        keys = self.sonic_db.keys(
-            self.sonic_db.STATE_DB, pattern=VXLAN_TUNNEL_TABLE_PATTERN
+        keys = self.getKeysFromDB(
+            self.sonic_db.STATE_DB, VXLAN_TUNNEL_TABLE_PATTERN
         )
         if not keys:
             return
@@ -520,7 +563,7 @@ class Export:
                 _, neighbor = tuple(key.replace(VXLAN_TUNNEL_TABLE, "").split("_"))
                 is_operational = boolify(
                     _decode(
-                        self.sonic_db.get(self.sonic_db.STATE_DB, key, "operstatus")
+                        self.getFromDB(self.sonic_db.STATE_DB, key, "operstatus")
                     )
                 )
                 self.metric_vxlan_operational_status.labels(
@@ -533,7 +576,7 @@ class Export:
                 pass
 
     def export_interface_counters(self):
-        maps = self.sonic_db.get_all(self.sonic_db.COUNTERS_DB, COUNTER_PORT_MAP)
+        maps = self.getAllFromDB(self.sonic_db.COUNTERS_DB, COUNTER_PORT_MAP)
         for ifname in maps:
             counter_key = Export.get_counter_key(_decode(maps[ifname]))
             ifname_decoded = _decode(ifname)
@@ -567,7 +610,7 @@ class Export:
                 ).set(
                     floatify(
                         _decode(
-                            self.sonic_db.get(
+                            self.getFromDB(
                                 self.sonic_db.COUNTERS_DB, counter_key, key
                             )
                         )
@@ -594,7 +637,7 @@ class Export:
                 ).set(
                     floatify(
                         _decode(
-                            self.sonic_db.get(
+                            self.getFromDB(
                                 self.sonic_db.COUNTERS_DB, counter_key, key
                             )
                         )
@@ -605,7 +648,7 @@ class Export:
                 self.get_additional_info(ifname)
             ).set(
                 floatify(
-                    self.sonic_db.get(
+                    self.getFromDB(
                         self.sonic_db.COUNTERS_DB,
                         counter_key,
                         "SAI_PORT_STAT_IF_IN_OCTETS",
@@ -616,7 +659,7 @@ class Export:
                 self.get_additional_info(ifname), "unicast"
             ).set(
                 floatify(
-                    self.sonic_db.get(
+                    self.getFromDB(
                         self.sonic_db.COUNTERS_DB,
                         counter_key,
                         "SAI_PORT_STAT_IF_IN_UCAST_PKTS",
@@ -627,7 +670,7 @@ class Export:
                 self.get_additional_info(ifname), "multicast"
             ).set(
                 floatify(
-                    self.sonic_db.get(
+                    self.getFromDB(
                         self.sonic_db.COUNTERS_DB,
                         counter_key,
                         "SAI_PORT_STAT_IF_IN_MULTICAST_PKTS",
@@ -638,7 +681,7 @@ class Export:
                 self.get_additional_info(ifname), "broadcast"
             ).set(
                 floatify(
-                    self.sonic_db.get(
+                    self.getFromDB(
                         self.sonic_db.COUNTERS_DB,
                         counter_key,
                         "SAI_PORT_STAT_IF_IN_BROADCAST_PKTS",
@@ -651,7 +694,7 @@ class Export:
                 self.get_additional_info(ifname), "error"
             ).set(
                 floatify(
-                    self.sonic_db.get(
+                    self.getFromDB(
                         self.sonic_db.COUNTERS_DB,
                         counter_key,
                         "SAI_PORT_STAT_IF_IN_ERRORS",
@@ -662,7 +705,7 @@ class Export:
                 self.get_additional_info(ifname), "discard"
             ).set(
                 floatify(
-                    self.sonic_db.get(
+                    self.getFromDB(
                         self.sonic_db.COUNTERS_DB,
                         counter_key,
                         "SAI_PORT_STAT_IF_IN_DISCARDS",
@@ -673,7 +716,7 @@ class Export:
                 self.get_additional_info(ifname), "drop"
             ).set(
                 floatify(
-                    self.sonic_db.get(
+                    self.getFromDB(
                         self.sonic_db.COUNTERS_DB,
                         counter_key,
                         "SAI_PORT_STAT_IN_DROPPED_PKTS",
@@ -684,7 +727,7 @@ class Export:
                 self.get_additional_info(ifname), "pause"
             ).set(
                 floatify(
-                    self.sonic_db.get(
+                    self.getFromDB(
                         self.sonic_db.COUNTERS_DB,
                         counter_key,
                         "SAI_PORT_STAT_PAUSE_RX_PKTS",
@@ -696,7 +739,7 @@ class Export:
                 self.get_additional_info(ifname)
             ).set(
                 floatify(
-                    self.sonic_db.get(
+                    self.getFromDB(
                         self.sonic_db.COUNTERS_DB,
                         counter_key,
                         "SAI_PORT_STAT_IF_OUT_OCTETS",
@@ -707,7 +750,7 @@ class Export:
                 self.get_additional_info(ifname), "unicast"
             ).set(
                 floatify(
-                    self.sonic_db.get(
+                    self.getFromDB(
                         self.sonic_db.COUNTERS_DB,
                         counter_key,
                         "SAI_PORT_STAT_IF_OUT_UCAST_PKTS",
@@ -718,7 +761,7 @@ class Export:
                 self.get_additional_info(ifname), "multicast"
             ).set(
                 floatify(
-                    self.sonic_db.get(
+                    self.getFromDB(
                         self.sonic_db.COUNTERS_DB,
                         counter_key,
                         "SAI_PORT_STAT_IF_OUT_MULTICAST_PKTS",
@@ -729,7 +772,7 @@ class Export:
                 self.get_additional_info(ifname), "broadcast"
             ).set(
                 floatify(
-                    self.sonic_db.get(
+                    self.getFromDB(
                         self.sonic_db.COUNTERS_DB,
                         counter_key,
                         "SAI_PORT_STAT_IF_OUT_BROADCAST_PKTS",
@@ -742,7 +785,7 @@ class Export:
                 self.get_additional_info(ifname), "error"
             ).set(
                 floatify(
-                    self.sonic_db.get(
+                    self.getFromDB(
                         self.sonic_db.COUNTERS_DB,
                         counter_key,
                         "SAI_PORT_STAT_IF_OUT_ERRORS",
@@ -753,7 +796,7 @@ class Export:
                 self.get_additional_info(ifname), "discard"
             ).set(
                 floatify(
-                    self.sonic_db.get(
+                    self.getFromDB(
                         self.sonic_db.COUNTERS_DB,
                         counter_key,
                         "SAI_PORT_STAT_IF_OUT_DISCARDS",
@@ -764,7 +807,7 @@ class Export:
                 self.get_additional_info(ifname), "pause"
             ).set(
                 floatify(
-                    self.sonic_db.get(
+                    self.getFromDB(
                         self.sonic_db.COUNTERS_DB,
                         counter_key,
                         "SAI_PORT_STAT_PAUSE_TX_PKTS",
@@ -775,14 +818,14 @@ class Export:
             try:
                 port_table_key = Export.get_port_table_key(ifname)
                 is_operational = _decode(
-                    self.sonic_db.get(
+                    self.getFromDB(
                         self.sonic_db.APPL_DB, port_table_key, "oper_status"
                     )
                 )
                 last_flapped_seconds = to_timestamp(
                     floatify(
                         _decode(
-                            self.sonic_db.get(
+                            self.getFromDB(
                                 self.sonic_db.APPL_DB,
                                 port_table_key,
                                 "oper_status_change_uptime",
@@ -804,24 +847,24 @@ class Export:
                 pass
 
     def export_interface_queue_counters(self):
-        maps = self.sonic_db.get_all(self.sonic_db.COUNTERS_DB, COUNTER_QUEUE_MAP)
+        maps = self.getAllFromDB(self.sonic_db.COUNTERS_DB, COUNTER_QUEUE_MAP)
         for ifname in maps:
             decoded_counter_key = _decode(maps[ifname])
             counter_key = Export.get_counter_key(decoded_counter_key)
             packet_type = _decode(
-                self.sonic_db.get(
+                self.getFromDB(
                     self.sonic_db.COUNTERS_DB,
                     COUNTER_QUEUE_TYPE_MAP,
                     decoded_counter_key,
                 )
             )
             ifname = _decode(ifname)
-            packets = self.sonic_db.get(
+            packets = self.getFromDB(
                 self.sonic_db.COUNTERS_DB,
                 counter_key,
                 "SAI_QUEUE_STAT_PACKETS",
             )
-            bytes = self.sonic_db.get(
+            bytes = self.getFromDB(
                 self.sonic_db.COUNTERS_DB,
                 counter_key,
                 "SAI_QUEUE_STAT_BYTES",
@@ -852,15 +895,15 @@ class Export:
             ).set(bytes)
 
     def export_interface_optic_data(self):
-        keys = self.sonic_db.keys(
-            self.sonic_db.STATE_DB, pattern=TRANSCEIVER_DOM_SENSOR_PATTERN
+        keys = self.getKeysFromDB(
+            self.sonic_db.STATE_DB, TRANSCEIVER_DOM_SENSOR_PATTERN
         )
         logging.debug("export_interface_optic_data : keys={}".format(keys))
         if not keys:
             return
         for key in keys:
             ifname = _decode(key).replace(TRANSCEIVER_DOM_SENSOR, "")
-            transceiver_sensor_data = self.sonic_db.get_all(self.sonic_db.STATE_DB, key)
+            transceiver_sensor_data = self.getAllFromDB(self.sonic_db.STATE_DB, key)
             for measure in transceiver_sensor_data:
                 measure_dec = _decode(measure)
                 try:
@@ -1028,40 +1071,40 @@ class Export:
                     pass
 
     def export_interface_cable_data(self):
-        keys = self.sonic_db.keys(
-            self.sonic_db.STATE_DB, pattern=TRANSCEIVER_INFO_PATTERN
+        keys = self.getKeysFromDB(
+            self.sonic_db.STATE_DB, TRANSCEIVER_INFO_PATTERN
         )
         if not keys:
             return
         for key in keys:
             ifname = _decode(key).replace(TRANSCEIVER_INFO, "")
             cable_type = _decode(
-                str(self.sonic_db.get(self.sonic_db.STATE_DB, key, "Connector")).lower()
+                str(self.getFromDB(self.sonic_db.STATE_DB, key, "Connector")).lower()
             )
             connector_type = _decode(
-                str(self.sonic_db.get(self.sonic_db.STATE_DB, key, "connector_type"))
+                str(self.getFromDB(self.sonic_db.STATE_DB, key, "connector_type"))
             ).lower()
             serial = _decode(
-                self.sonic_db.get(self.sonic_db.STATE_DB, key, "vendor_serial_number")
+                self.getFromDB(self.sonic_db.STATE_DB, key, "vendor_serial_number")
             )
             part_number = _decode(
-                self.sonic_db.get(self.sonic_db.STATE_DB, key, "vendor_part_number")
+                self.getFromDB(self.sonic_db.STATE_DB, key, "vendor_part_number")
             )
             revision = _decode(
-                self.sonic_db.get(self.sonic_db.STATE_DB, key, "vendor_revision")
+                self.getFromDB(self.sonic_db.STATE_DB, key, "vendor_revision")
             )
             form_factor = _decode(
-                self.sonic_db.get(self.sonic_db.STATE_DB, key, "form_factor")
+                self.getFromDB(self.sonic_db.STATE_DB, key, "form_factor")
             ).lower()
             display_name = _decode(
-                self.sonic_db.get(self.sonic_db.STATE_DB, key, "display_name")
+                self.getFromDB(self.sonic_db.STATE_DB, key, "display_name")
             )
             media_interface = _decode(
-                self.sonic_db.get(self.sonic_db.STATE_DB, key, "media_interface")
+                self.getFromDB(self.sonic_db.STATE_DB, key, "media_interface")
             ).lower()
             try:
                 cable_len = floatify(
-                    self.sonic_db.get(self.sonic_db.STATE_DB, key, "cable_length")
+                    self.getFromDB(self.sonic_db.STATE_DB, key, "cable_length")
                 )
                 self.metric_interface_cable_length_meters.labels(
                     self.get_additional_info(ifname), cable_type, connector_type
@@ -1083,26 +1126,26 @@ class Export:
             ).set(1)
 
     def export_psu_info(self):
-        keys = self.sonic_db.keys(self.sonic_db.STATE_DB, pattern=PSU_INFO_PATTERN)
+        keys = self.getKeysFromDB(self.sonic_db.STATE_DB, PSU_INFO_PATTERN)
         if not keys:
             return
         for key in keys:
-            serial = _decode(self.sonic_db.get(self.sonic_db.STATE_DB, key, "serial"))
+            serial = _decode(self.getFromDB(self.sonic_db.STATE_DB, key, "serial"))
             available_status = _decode(
-                self.sonic_db.get(self.sonic_db.STATE_DB, key, "presence")
+                self.getFromDB(self.sonic_db.STATE_DB, key, "presence")
             )
             operational_status = _decode(
-                self.sonic_db.get(self.sonic_db.STATE_DB, key, "status")
+                self.getFromDB(self.sonic_db.STATE_DB, key, "status")
             )
-            model = _decode(self.sonic_db.get(self.sonic_db.STATE_DB, key, "model"))
-            model_name = _decode(self.sonic_db.get(self.sonic_db.STATE_DB, key, "name"))
+            model = _decode(self.getFromDB(self.sonic_db.STATE_DB, key, "model"))
+            model_name = _decode(self.getFromDB(self.sonic_db.STATE_DB, key, "name"))
             _, slot = _decode(key.replace(PSU_INFO, "")).lower().split(" ")
             try:
                 in_volts = floatify(
-                    self.sonic_db.get(self.sonic_db.STATE_DB, key, "input_voltage")
+                    self.getFromDB(self.sonic_db.STATE_DB, key, "input_voltage")
                 )
                 in_amperes = floatify(
-                    self.sonic_db.get(self.sonic_db.STATE_DB, key, "input_current")
+                    self.getFromDB(self.sonic_db.STATE_DB, key, "input_current")
                 )
                 self.metric_device_psu_input_amperes.labels(slot).set(in_amperes)
                 self.metric_device_psu_input_volts.labels(slot).set(in_volts)
@@ -1113,10 +1156,10 @@ class Export:
                 pass
             try:
                 out_volts = floatify(
-                    self.sonic_db.get(self.sonic_db.STATE_DB, key, "output_voltage")
+                    self.getFromDB(self.sonic_db.STATE_DB, key, "output_voltage")
                 )
                 out_amperes = floatify(
-                    self.sonic_db.get(self.sonic_db.STATE_DB, key, "output_current")
+                    self.getFromDB(self.sonic_db.STATE_DB, key, "output_current")
                 )
                 self.metric_device_psu_output_amperes.labels(slot).set(out_amperes)
                 self.metric_device_psu_output_volts.labels(slot).set(out_volts)
@@ -1127,7 +1170,7 @@ class Export:
                 pass
             try:
                 temperature = floatify(
-                    self.sonic_db.get(self.sonic_db.STATE_DB, key, "temperature")
+                    self.getFromDB(self.sonic_db.STATE_DB, key, "temperature")
                 )
                 self.metric_device_psu_celsius.labels(slot).set(temperature)
             except ValueError:
@@ -1141,20 +1184,20 @@ class Export:
             self.metric_device_psu_info.labels(slot, serial, model_name, model).set(1)
 
     def export_fan_info(self):
-        keys = self.sonic_db.keys(self.sonic_db.STATE_DB, pattern=FAN_INFO_PATTERN)
+        keys = self.getKeysFromDB(self.sonic_db.STATE_DB, FAN_INFO_PATTERN)
         if not keys:
             return
         for key in keys:
             try:
                 fullname = _decode(
-                    self.sonic_db.get(self.sonic_db.STATE_DB, key, "name")
+                    self.getFromDB(self.sonic_db.STATE_DB, key, "name")
                 )
-                rpm = floatify(self.sonic_db.get(self.sonic_db.STATE_DB, key, "speed"))
+                rpm = floatify(self.getFromDB(self.sonic_db.STATE_DB, key, "speed"))
                 is_operational = _decode(
-                    self.sonic_db.get(self.sonic_db.STATE_DB, key, "status")
+                    self.getFromDB(self.sonic_db.STATE_DB, key, "status")
                 )
                 is_available = boolify(
-                    _decode(self.sonic_db.get(self.sonic_db.STATE_DB, key, "presence"))
+                    _decode(self.getFromDB(self.sonic_db.STATE_DB, key, "presence"))
                 )
                 name = fullname
                 slot = "0"
@@ -1165,7 +1208,7 @@ class Export:
                     if is_operational is None and fullname.lower().startswith("psu"):
                         is_operational = boolify(
                             _decode(
-                                self.sonic_db.get(
+                                self.getFromDB(
                                     self.sonic_db.STATE_DB,
                                     f"{PSU_INFO}{name}",
                                     "status",
@@ -1210,8 +1253,8 @@ class Export:
                         self.metric_device_sensor_celsius.labels(name).set(value.value)
 
     def export_temp_info(self):
-        keys = self.sonic_db.keys(
-            self.sonic_db.STATE_DB, pattern=TEMPERATURE_INFO_PATTERN
+        keys = self.getKeysFromDB(
+            self.sonic_db.STATE_DB, TEMPERATURE_INFO_PATTERN
         )
         need_additional_temp_info = False
         unknown_switch_model = False
@@ -1231,7 +1274,7 @@ class Export:
         
         for key in (keys or []):
             try:
-                name = _decode(self.sonic_db.get(self.sonic_db.STATE_DB, key, "name"))
+                name = _decode(self.getFromDB(self.sonic_db.STATE_DB, key, "name"))
                 if name.lower().startswith("temp"):
                     need_additional_temp_info = True
 
@@ -1242,12 +1285,12 @@ class Export:
                     )
                 temp = floatify(
                     _decode(
-                        self.sonic_db.get(self.sonic_db.STATE_DB, key, "temperature")
+                        self.getFromDB(self.sonic_db.STATE_DB, key, "temperature")
                     )
                 )
                 high_threshold = floatify(
                     _decode(
-                        self.sonic_db.get(self.sonic_db.STATE_DB, key, "high_threshold")
+                        self.getFromDB(self.sonic_db.STATE_DB, key, "high_threshold")
                     )
                 )
                 self.metric_device_sensor_celsius.labels(name).set(temp)
@@ -1273,7 +1316,7 @@ class Export:
             mac_address = _decode(data.get("base_mac_addr", ""))
             onie_version = _decode(data.get("onie_version", ""))
             software_version = _decode(
-                self.sonic_db.get(
+                self.getFromDB(
                     self.sonic_db.STATE_DB, "IMAGE_GLOBAL|config", "current"
                 )
             )
@@ -1296,14 +1339,14 @@ class Export:
                     part_number, serial_number, mac_address, software_version
                 )
             )
-        keys = self.sonic_db.keys(self.sonic_db.STATE_DB, pattern=PROCESS_STATS_PATTERN)
+        keys = self.getKeysFromDB(self.sonic_db.STATE_DB, PROCESS_STATS_PATTERN)
         cpu_memory_usages = [
             (
                 floatify(
-                    _decode(self.sonic_db.get(self.sonic_db.STATE_DB, key, "%CPU"))
+                    _decode(self.getFromDB(self.sonic_db.STATE_DB, key, "%CPU"))
                 ),
                 floatify(
-                    _decode(self.sonic_db.get(self.sonic_db.STATE_DB, key, "%MEM"))
+                    _decode(self.getFromDB(self.sonic_db.STATE_DB, key, "%MEM"))
                 ),
             )
             for key in keys
@@ -1329,10 +1372,10 @@ class Export:
         # oper_status /sys/class/net/<interface_name>/carrier
 
         exportable = {InternetProtocol.v4: False, InternetProtocol.v6: False}
-        keys = self.sonic_db.keys(self.sonic_db.CONFIG_DB, pattern=SAG_PATTERN)
-        global_data = self.sonic_db.get_all(self.sonic_db.CONFIG_DB, SAG_GLOBAL)
-        vxlan_tunnel_map = self.sonic_db.keys(
-            self.sonic_db.CONFIG_DB, pattern=VXLAN_TUNNEL_MAP_PATTERN
+        keys = self.getKeysFromDB(self.sonic_db.CONFIG_DB, SAG_PATTERN)
+        global_data = self.getAllFromDB(self.sonic_db.CONFIG_DB, SAG_GLOBAL)
+        vxlan_tunnel_map = self.getKeysFromDB(
+            self.sonic_db.CONFIG_DB, VXLAN_TUNNEL_MAP_PATTERN
         )
 
         for internet_protocol in InternetProtocol:
@@ -1353,14 +1396,14 @@ class Export:
             if exportable[ip_family]:
                 try:
                     vrf = _decode(
-                        self.sonic_db.get(
+                        self.getFromDB(
                             self.sonic_db.CONFIG_DB,
                             f"{VLAN_INTERFACE}{interface}",
                             "vrf_name",
                         )
                     )
                     gateway_ip = _decode(
-                        self.sonic_db.get(self.sonic_db.CONFIG_DB, key, "gwip@")
+                        self.getFromDB(self.sonic_db.CONFIG_DB, key, "gwip@")
                     )
                     vni_key = next(
                         vxlan_tunnel_key
@@ -1368,7 +1411,7 @@ class Export:
                         if _decode(vxlan_tunnel_key).endswith(interface)
                     )
                     vni = _decode(
-                        self.sonic_db.get(self.sonic_db.CONFIG_DB, vni_key, "vni")
+                        self.getFromDB(self.sonic_db.CONFIG_DB, vni_key, "vni")
                     )
                     self.metric_sag_admin_status.labels(
                         interface, vrf, gateway_ip, ip_family.value.lower(), vni
