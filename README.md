@@ -10,6 +10,7 @@ Monsoon uses Prometheus and Grafana for data collection and visualization. Apart
   * [Install node-exporter](#install-node-exporter)
   * [Install Prometheus](#install-prometheus)
   * [Install Grafana](#install-grafana)
+* [Build from source](#build-sonic-exporter-docker-image-from-source)
 * [Client certificate generation](#securing-sonic-exporter-and-node-exporter-with-central-client-certificate-generation)
   
 ## Monsoon Design 
@@ -92,6 +93,19 @@ A high level monsoon design is as follows, various components are explained in f
     ![Add Datasource](images/SaveDS.png)
 
   - By this step all tool chain is connected. Next, [Configure Grafana dashboard and data visualization](GrafanaDashBoard.md).
+
+## Build sonic-exporter docker image from source
+- To build sonic-exporter docker image do following :\
+`git clone --recurse-submodules git@github.com:STORDIS/monsoon.git`\
+`docker build -t sonic-exporter:latest .`
+- Get a docker image archieve :\
+`docker save -o sonic-exporter_latest.tar.gz sonic-exporter:latest`\
+To install image on switch, copy sonic-exporter_latest.tar.gz to switch and on switch execute :\
+`docker load -i sonic-exporter_latest.tar.gz`\
+And run the container with the command given in the [section](#start-sonic-exporter-container) above. Please mind changing the version of image in the command.
+- (Optional) Push docker image to docker hub :\
+`docker tag <sonic_exporter_img_id> <repository_name at hub.docker.com>/sonic-exporter:latest`\
+`docker push <repository_name at hub.docker.com>/sonic-exporter:latest`
 
 ## Securing sonic-exporter and node-exporter with Central Client Certificate Generation
 
