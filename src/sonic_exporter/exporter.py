@@ -212,8 +212,9 @@ class Export:
         interface_labels = ["interface"]
         bgp_labels = [
             "vrf",
+            "as",
             "peer_name",
-            "neighbor",
+            "peer_host",
             "ip_family",
             "message_type",
             "remote_as",
@@ -1450,56 +1451,29 @@ class Export:
                 family_data = None
                 try:
                     family_data = bgp_vrf_all[vrf][family.value]
+                    as_id = family_data.get("as")
                     for peername, peerdata in family_data["peers"].items():
                         # ["vrf", "peername", "neighbor", "peer_protocol", "protocol_family_advertised", "remote_as"]
-                        self.metric_bgp_uptime_seconds.labels(
-                            vrf,
-                            peername,
-                            peerdata.get("hostname", self.dns_lookup(peername)),
-                            peerdata.get("idType", ""),
-                            self.vtysh.addressfamily(family),
-                            str(peerdata.get("remoteAs")),
-                        ).set(floatify(peerdata.get("peerUptimeMsec", 1000) / 1000))
-                        self.metric_bgp_status.labels(
-                            vrf,
-                            peername,
-                            peerdata.get("hostname", self.dns_lookup(peername)),
-                            peerdata.get("idType", ""),
-                            self.vtysh.addressfamily(family),
-                            str(peerdata.get("remoteAs")),
-                        ).set(boolify(peerdata.get("state", "")))
+                        bgp_lbl = [vrf,
+                                      as_id,
+                                      peername,
+                                      peerdata.get(
+                                          "hostname", self.dns_lookup(peername)),
+                                      peerdata.get("idType", ""),
+                                      self.vtysh.addressfamily(family),
+                                      str(peerdata.get("remoteAs"))]
+                        self.metric_bgp_uptime_seconds.labels(*bgp_lbl).set(
+                            floatify(peerdata.get("peerUptimeMsec", 1000) / 1000))
+                        self.metric_bgp_status.labels(*bgp_lbl).set(
+                            boolify(peerdata.get("state", "")))
                         self.metric_bgp_prefixes_received.labels(
-                            vrf,
-                            peername,
-                            peerdata.get("hostname", self.dns_lookup(peername)),
-                            peerdata.get("idType", ""),
-                            self.vtysh.addressfamily(family),
-                            str(peerdata.get("remoteAs")),
-                        ).set(floatify(peerdata.get("pfxRcd", 0)))
+                            *bgp_lbl).set(floatify(peerdata.get("pfxRcd", 0)))
                         self.metric_bgp_prefixes_transmitted.labels(
-                            vrf,
-                            peername,
-                            peerdata.get("hostname", self.dns_lookup(peername)),
-                            peerdata.get("idType", ""),
-                            self.vtysh.addressfamily(family),
-                            str(peerdata.get("remoteAs")),
-                        ).set(floatify(peerdata.get("pfxSnt", 0)))
+                            *bgp_lbl).set(floatify(peerdata.get("pfxSnt", 0)))
                         self.metric_bgp_messages_received.labels(
-                            vrf,
-                            peername,
-                            peerdata.get("hostname", self.dns_lookup(peername)),
-                            peerdata.get("idType", ""),
-                            self.vtysh.addressfamily(family),
-                            str(peerdata.get("remoteAs")),
-                        ).set(floatify(peerdata.get("msgRcvd", 0)))
+                            *bgp_lbl).set(floatify(peerdata.get("msgRcvd", 0)))
                         self.metric_bgp_messages_transmitted.labels(
-                            vrf,
-                            peername,
-                            peerdata.get("hostname", self.dns_lookup(peername)),
-                            peerdata.get("idType", ""),
-                            self.vtysh.addressfamily(family),
-                            str(peerdata.get("remoteAs")),
-                        ).set(floatify(peerdata.get("pfxSnt", 0)))
+                            *bgp_lbl).set(floatify(peerdata.get("msgSent", 0)))
                 except KeyError:
                     pass
 
