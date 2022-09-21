@@ -934,7 +934,7 @@
             "h": 6,
             "w": 12,
             "x": 0,
-            "y": 2
+            "y": 10
           },
           "id": 46,
           "options": {
@@ -1075,7 +1075,7 @@
             "h": 6,
             "w": 12,
             "x": 12,
-            "y": 2
+            "y": 10
           },
           "id": 36,
           "options": {
@@ -1213,7 +1213,7 @@
             "h": 6,
             "w": 12,
             "x": 0,
-            "y": 8
+            "y": 16
           },
           "id": 54,
           "options": {
@@ -1309,7 +1309,7 @@
             "h": 6,
             "w": 12,
             "x": 12,
-            "y": 8
+            "y": 16
           },
           "id": 55,
           "options": {
@@ -1405,7 +1405,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 14
+            "y": 22
           },
           "id": 52,
           "options": {
@@ -1501,7 +1501,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 14
+            "y": 22
           },
           "id": 56,
           "options": {
@@ -1597,7 +1597,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 22
+            "y": 30
           },
           "id": 30,
           "options": {
@@ -1693,7 +1693,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 22
+            "y": 30
           },
           "id": 53,
           "options": {
@@ -1789,7 +1789,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 30
+            "y": 38
           },
           "id": 51,
           "options": {
@@ -1886,7 +1886,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 30
+            "y": 38
           },
           "id": 59,
           "options": {
@@ -1982,7 +1982,7 @@
             "h": 6,
             "w": 12,
             "x": 0,
-            "y": 38
+            "y": 46
           },
           "id": 28,
           "options": {
@@ -2078,7 +2078,7 @@
             "h": 6,
             "w": 12,
             "x": 12,
-            "y": 38
+            "y": 46
           },
           "id": 60,
           "options": {
@@ -3609,7 +3609,7 @@
             "h": 4,
             "w": 8,
             "x": 0,
-            "y": 4
+            "y": 12
           },
           "id": 44,
           "options": {
@@ -3725,7 +3725,7 @@
             "h": 4,
             "w": 8,
             "x": 8,
-            "y": 4
+            "y": 12
           },
           "id": 34,
           "options": {
@@ -3862,7 +3862,7 @@
             "h": 5,
             "w": 16,
             "x": 0,
-            "y": 8
+            "y": 16
           },
           "id": 32,
           "options": {
@@ -3982,7 +3982,7 @@
             "h": 5,
             "w": 8,
             "x": 0,
-            "y": 13
+            "y": 21
           },
           "id": 50,
           "options": {
@@ -4053,7 +4053,7 @@
             "h": 5,
             "w": 8,
             "x": 8,
-            "y": 13
+            "y": 21
           },
           "id": 48,
           "options": {
@@ -4124,7 +4124,7 @@
             "h": 5,
             "w": 8,
             "x": 0,
-            "y": 18
+            "y": 26
           },
           "id": 38,
           "options": {
@@ -4223,7 +4223,7 @@
             "h": 8,
             "w": 17,
             "x": 0,
-            "y": 23
+            "y": 31
           },
           "id": 40,
           "options": {
@@ -4319,7 +4319,7 @@
             "h": 7,
             "w": 17,
             "x": 0,
-            "y": 31
+            "y": 39
           },
           "id": 42,
           "options": {
@@ -4678,70 +4678,50 @@
           "fieldConfig": {
             "defaults": {
               "color": {
-                "mode": "palette-classic"
+                "mode": "continuous-GrYlRd"
               },
               "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
               },
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
                     "value": 80
                   }
                 ]
-              }
+              },
+              "unit": "string"
             },
             "overrides": []
           },
           "gridPos": {
-            "h": 4,
+            "h": 6,
             "w": 9,
             "x": 0,
-            "y": 6
+            "y": 14
           },
-          "id": 101,
+          "id": 124,
           "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom"
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
             },
-            "tooltip": {
-              "mode": "single",
-              "sort": "none"
-            }
+            "frameIndex": 2,
+            "showHeader": true
           },
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
@@ -4749,274 +4729,73 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_bgp_prefixes_transmitted_total",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "BGP Prefixes Tx to other peer",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 8,
-            "x": 9,
-            "y": 6
-          },
-          "id": 102,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
-              },
-              "editorMode": "builder",
-              "expr": "sonic_bgp_prefixes_received_total",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "BGP Prefixes Rx to other peer",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 9,
-            "x": 0,
-            "y": 10
-          },
-          "id": 93,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
-              },
-              "editorMode": "builder",
-              "expr": "sonic_bgp_messages_transmitted_total",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Total BGP Messages Tx",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 8,
-            "x": 9,
-            "y": 10
-          },
-          "id": 99,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
-              },
-              "editorMode": "builder",
-              "expr": "sonic_bgp_status",
+              "exemplar": false,
+              "expr": "sonic_bgp_status{instance=\"$target\"}",
+              "format": "time_series",
+              "instant": false,
+              "legendFormat": "__auto",
               "range": true,
               "refId": "A"
             }
           ],
           "title": "BGP Status",
-          "type": "timeseries"
+          "transformations": [
+            {
+              "id": "reduce",
+              "options": {
+                "includeTimeField": false,
+                "labelsToFields": true,
+                "mode": "seriesToRows",
+                "reducers": [
+                  "last"
+                ]
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Field": true,
+                  "__name__": true,
+                  "instance": true,
+                  "job": true,
+                  "peer_count": true
+                },
+                "indexByName": {
+                  "Field": 0,
+                  "Last": 8,
+                  "__name__": 1,
+                  "as": 3,
+                  "host": 13,
+                  "instance": 2,
+                  "ip_family": 9,
+                  "job": 10,
+                  "message_type": 11,
+                  "neighbor": 7,
+                  "peer_host": 6,
+                  "peer_name": 5,
+                  "remote_as": 4,
+                  "vrf": 12
+                },
+                "renameByName": {
+                  "Last": "Peer Connected"
+                }
+              }
+            },
+            {
+              "id": "convertFieldType",
+              "options": {
+                "conversions": [
+                  {
+                    "destinationType": "boolean",
+                    "targetField": "Peer Connected"
+                  }
+                ],
+                "fields": {}
+              }
+            }
+          ],
+          "type": "table"
         },
         {
           "datasource": {
@@ -5061,7 +4840,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -5074,9 +4854,9 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 4,
+            "h": 6,
             "w": 9,
-            "x": 0,
+            "x": 9,
             "y": 14
           },
           "id": 97,
@@ -5098,12 +4878,13 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_bgp_uptime_seconds_total",
+              "expr": "sonic_bgp_uptime_seconds_total{instance=\"$target\"}",
+              "legendFormat": "Peer_AS={{remote_as}} Peer_Name={{peer_name}}",
               "range": true,
               "refId": "A"
             }
           ],
-          "title": "BGP Uptime",
+          "title": "BGP Peer Uptime",
           "type": "timeseries"
         },
         {
@@ -5149,7 +4930,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -5161,10 +4943,99 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 4,
-            "w": 8,
+            "h": 6,
+            "w": 9,
+            "x": 0,
+            "y": 20
+          },
+          "id": 93,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "builder",
+              "expr": "sonic_bgp_messages_transmitted_total{instance=\"$target\"}",
+              "legendFormat": "Peer_AS={{remote_as}} Peer_Name=",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Total BGP Messages Tx from Peers",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 10,
             "x": 9,
-            "y": 14
+            "y": 20
           },
           "id": 95,
           "options": {
@@ -5185,12 +5056,244 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_bgp_messages_received_total",
+              "expr": "sonic_bgp_messages_received_total{instance=\"$target\"}",
+              "legendFormat": "Peer_AS{{remote_as}} Peer_Name={{peer_name}}",
               "range": true,
               "refId": "A"
             }
           ],
-          "title": "Total BGP Messages Rx",
+          "title": "Total BGP Messages Rx by Peers",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "__systemRef": "hideSeriesFrom",
+                "matcher": {
+                  "id": "byNames",
+                  "options": {
+                    "mode": "exclude",
+                    "names": [
+                      "Peer_AS=65101 Peer_Name=1.1.1.0"
+                    ],
+                    "prefix": "All except:",
+                    "readOnly": true
+                  }
+                },
+                "properties": [
+                  {
+                    "id": "custom.hideFrom",
+                    "value": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": true
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 9,
+            "x": 0,
+            "y": 26
+          },
+          "id": 101,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "builder",
+              "expr": "sonic_bgp_prefixes_transmitted_total{instance=\"$target\"}",
+              "legendFormat": "Peer_AS={{remote_as}} Peer_Name={{peer_name}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "BGP Prefixes Tx from Peers",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "__systemRef": "hideSeriesFrom",
+                "matcher": {
+                  "id": "byNames",
+                  "options": {
+                    "mode": "exclude",
+                    "names": [
+                      "Peer_AS=65102 Peer_Name=1.1.1.3"
+                    ],
+                    "prefix": "All except:",
+                    "readOnly": true
+                  }
+                },
+                "properties": [
+                  {
+                    "id": "custom.hideFrom",
+                    "value": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": true
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 10,
+            "x": 9,
+            "y": 26
+          },
+          "id": 102,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "builder",
+              "exemplar": false,
+              "expr": "sonic_bgp_prefixes_received_total{instance=\"$target\"}",
+              "format": "time_series",
+              "instant": false,
+              "legendFormat": "Peer_AS={{remote_as}} Peer_Name={{peer_name}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "BGP Prefixes Rx by Peers",
           "type": "timeseries"
         }
       ],
@@ -5788,13 +5891,13 @@
     ]
   },
   "time": {
-    "from": "now-24h",
-    "to": "now"
+    "from": "2022-09-20T03:17:35.514Z",
+    "to": "2022-09-20T08:37:03.759Z"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Sonic-Exporter Dashboard",
   "uid": "rXR50WmVk",
-  "version": 31,
+  "version": 12,
   "weekStart": ""
 }
