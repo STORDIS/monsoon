@@ -95,8 +95,8 @@ A high level monsoon design is as follows, various components are explained in f
   - By this step all tool chain is connected. Next, [Configure Grafana dashboard and data visualization](GrafanaDashBoard.md).
 
 ## Build sonic-exporter docker image from source
->**NOTE**-As our the docker file is multistage, The first part of docker build command creates intermediate image with specific tag and makes it easy to understand and always creates single intermediate image otherwise user may find multiple intermediate images with the tag /<none>/ and mixing this with dangling images.\
-Alternative could be to execute `docker image prune -f` after the sonic-exporter docker image is built but be carefull, doing this will remove all other unsed docker images on your machine.
+>**NOTE**-As our [Dockerfile](Dockerfile) is multistage, The first part of docker build command below creates an intermediate image with specific tag and makes it easy to understand also single intermediate image is created every time otherwise user may find multiple intermediate images with the tag `<none>` and mixing this with dangling images.\
+Alternative could be to execute `docker image prune -f` after the sonic-exporter docker image is built but be carefull, doing this will remove every unsed docker images on your machine.
 
 To build sonic-exporter docker image execute following : \
 `git clone --recurse-submodules git@github.com:STORDIS/monsoon.git`\
