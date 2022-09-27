@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sonic_exporter"
-version = "0.2.1"
+version = "0.0.0"
 description = "\"Sonic Exporter\""
 authors = ["Marcel Fest <marcel.fest@telekom.de>"]
 license = "MIT License"
