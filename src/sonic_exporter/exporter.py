@@ -545,7 +545,7 @@ class Export:
         else:
             key = f"PORTCHANNEL|{ifname}"
         try:
-            return _decode(self.getFromDB(self.sonic_db.CONFIG_DB, key, sub_key))
+            return _decode(self.getFromDB(self.sonic_db.APPL_DB, key, sub_key))
         except (ValueError, KeyError):
             return ""
 
