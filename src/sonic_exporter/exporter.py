@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+from distutils.version import Version
 import ipaddress
 import logging
 import logging.handlers
@@ -67,7 +68,7 @@ from sonic_exporter.enums import (
     AlarmType,
     SwitchModel,
 )
-from sonic_exporter.utilities import timed_cache
+from sonic_exporter.utilities import ConfigDBVersion, timed_cache
 
 level = os.environ.get("SONIC_EXPORTER_LOGLEVEL", "INFO")
 logging.basicConfig(
@@ -227,6 +228,11 @@ class Export:
                 for chassis in self.chassis.values()
             )
         )[0].strip()
+        self.db_version = ConfigDBVersion(
+            _decode(
+                self.getFromDB(self.sonic_db.CONFIG_DB, "VERSIONS|DATABASE", "VERSION")
+            )
+        )
 
     def _init_metrics(self):
         # at start of server get counters data and negate it with current data while exporting
@@ -563,7 +569,11 @@ class Export:
 
     def get_portinfo(self, ifname, sub_key):
         if ifname.startswith("Ethernet"):
-            key = f"PORT|{ifname}"
+
+            if self.db_version < ConfigDBVersion("version_4_0_0"):
+                key = f"PORT|{ifname}"
+            else:
+                key = f"PORT_TABLE:{ifname}"
         else:
             key = f"PORTCHANNEL|{ifname}"
         try:
@@ -727,17 +737,18 @@ class Export:
                     )
                 )
             )
-            self.metric_interface_receive_error_input_packets.labels(
-                self.get_additional_info(ifname), "drop"
-            ).set(
-                floatify(
-                    self.getFromDB(
-                        self.sonic_db.COUNTERS_DB,
-                        counter_key,
-                        "SAI_PORT_STAT_IN_DROPPED_PKTS",
+            if self.db_version < ConfigDBVersion("version_4_0_0"):
+                self.metric_interface_receive_error_input_packets.labels(
+                    self.get_additional_info(ifname), "drop"
+                ).set(
+                    floatify(
+                        self.getFromDB(
+                            self.sonic_db.COUNTERS_DB,
+                            counter_key,
+                            "SAI_PORT_STAT_IN_DROPPED_PKTS",
+                        )
                     )
                 )
-            )
             self.metric_interface_receive_error_input_packets.labels(
                 self.get_additional_info(ifname), "pause"
             ).set(
@@ -1089,9 +1100,19 @@ class Export:
             return
         for key in keys:
             ifname = _decode(key).replace(TRANSCEIVER_INFO, "")
-            cable_type = _decode(
-                str(self.getFromDB(self.sonic_db.STATE_DB, key, "Connector")).lower()
-            )
+            cable_type = ""
+            if self.db_version < ConfigDBVersion("version_4_0_0"):
+                cable_type = _decode(
+                    str(
+                        self.getFromDB(self.sonic_db.STATE_DB, key, "Connector")
+                    ).lower()
+                )
+            else:
+                cable_type = _decode(
+                    str(
+                        self.getFromDB(self.sonic_db.STATE_DB, key, "connector")
+                    ).lower()
+                )
             connector_type = _decode(
                 str(self.getFromDB(self.sonic_db.STATE_DB, key, "connector_type"))
             ).lower()
@@ -1180,9 +1201,15 @@ class Export:
             except ValueError:
                 pass
             try:
-                temperature = floatify(
-                    self.getFromDB(self.sonic_db.STATE_DB, key, "temperature")
-                )
+                temperature = float("-Inf")
+                if self.db_version < ConfigDBVersion("version_4_0_0"):
+                    temperature = floatify(
+                        self.getFromDB(self.sonic_db.STATE_DB, key, "temperature")
+                    )
+                else:
+                    temperature = floatify(
+                        self.getFromDB(self.sonic_db.STATE_DB, key, "temp")
+                    )
                 self.metric_device_psu_celsius.labels(slot).set(temperature)
             except ValueError:
                 pass
@@ -1372,6 +1399,9 @@ class Export:
 
         exportable = {InternetProtocol.v4: False, InternetProtocol.v6: False}
         keys = self.getKeysFromDB(self.sonic_db.CONFIG_DB, SAG_PATTERN)
+        if not list(keys):
+            # break if no SAG is configured
+            return
         global_data = self.getAllFromDB(self.sonic_db.CONFIG_DB, SAG_GLOBAL)
         vxlan_tunnel_map = self.getKeysFromDB(
             self.sonic_db.CONFIG_DB, VXLAN_TUNNEL_MAP_PATTERN

@@ -21,6 +21,7 @@ class SwitchModel(enum.Enum):
     AS7326 = "x86_64-accton_as7326_56x-r0"
     AS7726 = "x86_64-accton_as7726_32x-r0"
     AS5853 = "x86_64-accton_as5835_54t-r0"
+    AS9716 = "x86_64-accton_as9716_32d-r0"
 
 
 class AlarmType(enum.Enum):
