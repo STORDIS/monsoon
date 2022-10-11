@@ -1261,7 +1261,7 @@
         "type": "hash",
         "value": {
             "asn": "65402",
-            "auth_password": "d35222da76f46967ca01625ab87fc7102a87ef4944ac0ab1c7a9417e833a03e907a3cda0939deb0e5940d8178184dd8cb610a2d846ff8111333d7d71ed2ca5862088bddee9787ece5434cf6304e716f9",
+            "auth_password": "",
             "bfd": "true",
             "holdtime": "30",
             "keepalive": "10"
@@ -1271,7 +1271,7 @@
         "type": "hash",
         "value": {
             "asn": "65402",
-            "auth_password": "d35222da76f46967ca01625ab87fc7102a87ef4944ac0ab1c7a9417e833a03e907a3cda0939deb0e5940d8178184dd8cb610a2d846ff8111333d7d71ed2ca5862088bddee9787ece5434cf6304e716f9",
+            "auth_password": "",
             "bfd": "true",
             "holdtime": "30",
             "keepalive": "10"
@@ -1281,7 +1281,7 @@
         "type": "hash",
         "value": {
             "asn": "65402",
-            "auth_password": "d35222da76f46967ca01625ab87fc7102a87ef4944ac0ab1c7a9417e833a03e907a3cda0939deb0e5940d8178184dd8cb610a2d846ff8111333d7d71ed2ca5862088bddee9787ece5434cf6304e716f9",
+            "auth_password": "",
             "bfd": "true",
             "holdtime": "30",
             "keepalive": "10"
@@ -1291,7 +1291,7 @@
         "type": "hash",
         "value": {
             "asn": "65402",
-            "auth_password": "d35222da76f46967ca01625ab87fc7102a87ef4944ac0ab1c7a9417e833a03e907a3cda0939deb0e5940d8178184dd8cb610a2d846ff8111333d7d71ed2ca5862088bddee9787ece5434cf6304e716f9",
+            "auth_password": "",
             "bfd": "true",
             "holdtime": "30",
             "keepalive": "10"
@@ -1301,7 +1301,7 @@
         "type": "hash",
         "value": {
             "asn": "65402",
-            "auth_password": "d35222da76f46967ca01625ab87fc7102a87ef4944ac0ab1c7a9417e833a03e907a3cda0939deb0e5940d8178184dd8cb610a2d846ff8111333d7d71ed2ca5862088bddee9787ece5434cf6304e716f9",
+            "auth_password": "",
             "bfd": "true",
             "holdtime": "30",
             "keepalive": "10"
@@ -1311,7 +1311,7 @@
         "type": "hash",
         "value": {
             "asn": "65402",
-            "auth_password": "d35222da76f46967ca01625ab87fc7102a87ef4944ac0ab1c7a9417e833a03e907a3cda0939deb0e5940d8178184dd8cb610a2d846ff8111333d7d71ed2ca5862088bddee9787ece5434cf6304e716f9",
+            "auth_password": "",
             "bfd": "true",
             "holdtime": "30",
             "keepalive": "10"
@@ -1321,7 +1321,7 @@
         "type": "hash",
         "value": {
             "asn": "65402",
-            "auth_password": "d35222da76f46967ca01625ab87fc7102a87ef4944ac0ab1c7a9417e833a03e907a3cda0939deb0e5940d8178184dd8cb610a2d846ff8111333d7d71ed2ca5862088bddee9787ece5434cf6304e716f9",
+            "auth_password": "",
             "bfd": "true",
             "holdtime": "30",
             "keepalive": "10"
@@ -1331,7 +1331,7 @@
         "type": "hash",
         "value": {
             "asn": "65402",
-            "auth_password": "d35222da76f46967ca01625ab87fc7102a87ef4944ac0ab1c7a9417e833a03e907a3cda0939deb0e5940d8178184dd8cb610a2d846ff8111333d7d71ed2ca5862088bddee9787ece5434cf6304e716f9",
+            "auth_password": "",
             "bfd": "true",
             "holdtime": "30",
             "keepalive": "10"
@@ -1341,7 +1341,7 @@
         "type": "hash",
         "value": {
             "asn": "65402",
-            "auth_password": "d35222da76f46967ca01625ab87fc7102a87ef4944ac0ab1c7a9417e833a03e907a3cda0939deb0e5940d8178184dd8cb610a2d846ff8111333d7d71ed2ca5862088bddee9787ece5434cf6304e716f9",
+            "auth_password": "",
             "bfd": "true",
             "holdtime": "30",
             "keepalive": "10"
@@ -1351,7 +1351,7 @@
         "type": "hash",
         "value": {
             "asn": "65402",
-            "auth_password": "d35222da76f46967ca01625ab87fc7102a87ef4944ac0ab1c7a9417e833a03e907a3cda0939deb0e5940d8178184dd8cb610a2d846ff8111333d7d71ed2ca5862088bddee9787ece5434cf6304e716f9",
+            "auth_password": "",
             "bfd": "true",
             "holdtime": "30",
             "keepalive": "10"
@@ -1361,7 +1361,7 @@
         "type": "hash",
         "value": {
             "asn": "65402",
-            "auth_password": "d35222da76f46967ca01625ab87fc7102a87ef4944ac0ab1c7a9417e833a03e907a3cda0939deb0e5940d8178184dd8cb610a2d846ff8111333d7d71ed2ca5862088bddee9787ece5434cf6304e716f9",
+            "auth_password": "",
             "bfd": "true",
             "holdtime": "30",
             "keepalive": "10"
