@@ -41,7 +41,14 @@ class SonicV2Connector:
 
     @staticmethod
     def load_db(version: str, model: SwitchModel, db: DB):
-        return json.loads(read_text(import_module(f'{ressources.__package__}.{SonicV2Connector.get_version(version)}'),  f"{model.value}.{db.value}.json"))
+        return json.loads(
+            read_text(
+                import_module(
+                    f"{ressources.__package__}.{SonicV2Connector.get_version(version)}"
+                ),
+                f"{model.value}.{db.value}.json",
+            )
+        )
 
     def __init__(self, password: str):
         self.password = password

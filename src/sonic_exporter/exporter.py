@@ -85,9 +85,9 @@ class Export:
     tx_bias_regex = re.compile(r"^tx(\d*)bias$")
     fan_slot_regex = re.compile(r"^((?:PSU|Fantray).*?\d+).*?(?!FAN|_).*?(\d+)$")
     chassis_slot_regex = re.compile(r"^.*?(\d+)$")
-    db_default_retries=1
-    #timeout applicable only when retries >1
-    db_default_timeout=3
+    db_default_retries = 1
+    # timeout applicable only when retries >1
+    db_default_timeout = 3
 
     @staticmethod
     def get_counter_key(name: str) -> str:
@@ -110,52 +110,72 @@ class Export:
         except (ValueError, socket.herror):
             return ip
 
-    
     # Retries and timeout functions are useful to make db calls when sonic-exporter starts esp. along with sonic switch cold reboot.
     # In case of reboot this is observed that nothing is returned from data base immediately. And params are left with None type filled.
     # Retry timeout is currently usefull only at startup scenarios, Just a little better than hard coded slepp()
     # TODO Better way could be to wait for system ready state from SONiC before starting sonic-exporter.
 
-    def getFromDB(self,db_name,hash,key,retries=db_default_retries,timeout=db_default_timeout):
-        for i in range(0,retries):
-            keys=self.sonic_db.get(db_name,hash,key)
+    def getFromDB(
+        self, db_name, hash, key, retries=db_default_retries, timeout=db_default_timeout
+    ):
+        for i in range(0, retries):
+            keys = self.sonic_db.get(db_name, hash, key)
             if keys == None:
-                logging.warning("Couldn't retrieve {0} from hash {1} from db {2}.".format(key,hash,db_name))
-                if i < retries-1:
+                logging.warning(
+                    "Couldn't retrieve {0} from hash {1} from db {2}.".format(
+                        key, hash, db_name
+                    )
+                )
+                if i < retries - 1:
                     logging.warning("Retrying in {0} secs.".format(timeout))
                     time.sleep(timeout)
                     continue
             return keys
-    
-    def getKeysFromDB(self,db_name,patrn,retries=db_default_retries,timeout=db_default_timeout):
-        for i in range(0,retries):
-            keys=self.sonic_db.keys(db_name, pattern=patrn)
+
+    def getKeysFromDB(
+        self, db_name, patrn, retries=db_default_retries, timeout=db_default_timeout
+    ):
+        for i in range(0, retries):
+            keys = self.sonic_db.keys(db_name, pattern=patrn)
             if keys == None:
-                logging.warning("Couldn't retrieve {0} from {1}.".format(patrn,db_name))
-                if i < retries-1:
+                logging.warning(
+                    "Couldn't retrieve {0} from {1}.".format(patrn, db_name)
+                )
+                if i < retries - 1:
                     logging.warning("Retrying in {0} secs.".format(timeout))
                     time.sleep(timeout)
             else:
                 logging.info("Finally retrieved values")
                 return keys
-        logging.error("Couldn't retrieve {0} from {1}, after {2} retries returning no results.".format(patrn,db_name,retries))
-        #return empty array instead of NoneType
-        return []      
+        logging.error(
+            "Couldn't retrieve {0} from {1}, after {2} retries returning no results.".format(
+                patrn, db_name, retries
+            )
+        )
+        # return empty array instead of NoneType
+        return []
 
-    def getAllFromDB(self,db_name,hash,retries=db_default_retries,timeout=db_default_timeout):
-        for i in range(0,retries):
-            keys=self.sonic_db.get_all(db_name,hash)
+    def getAllFromDB(
+        self, db_name, hash, retries=db_default_retries, timeout=db_default_timeout
+    ):
+        for i in range(0, retries):
+            keys = self.sonic_db.get_all(db_name, hash)
             if keys == None:
-                logging.warning("Couldn't retrieve hash {0} from db {1}.".format(hash,db_name))
-                if i < retries-1:
+                logging.warning(
+                    "Couldn't retrieve hash {0} from db {1}.".format(hash, db_name)
+                )
+                if i < retries - 1:
                     logging.warning("Retrying in {0} secs.".format(timeout))
                     time.sleep(timeout)
             else:
                 return keys
-        logging.warning("Couldn't retrieve hash {0} from db {1}, after {2} retries.".format(hash,db_name,retries))
-        #return empty array instead of NoneType
+        logging.warning(
+            "Couldn't retrieve hash {0} from db {1}, after {2} retries.".format(
+                hash, db_name, retries
+            )
+        )
+        # return empty array instead of NoneType
         return []
-
 
     def __init__(self, developer_mode: bool):
         if developer_mode:
@@ -179,7 +199,7 @@ class Export:
             self.vtysh = VtySH()
             self.sys_class_net = SystemClassNetworkInfo()
             self.sys_class_hwmon = SystemClassHWMon()
-            secret=subprocess.getoutput("cat /run/redis/auth/passwd")
+            secret = subprocess.getoutput("cat /run/redis/auth/passwd")
             self.sonic_db = swsssdk.SonicV2Connector(password=secret)
 
         self.sonic_db.connect(self.sonic_db.COUNTERS_DB)
@@ -191,7 +211,9 @@ class Export:
             _decode(key).replace(CHASSIS_INFO, ""): self.getAllFromDB(
                 self.sonic_db.STATE_DB, key
             )
-            for key in self.getKeysFromDB(self.sonic_db.STATE_DB,CHASSIS_INFO_PATTERN,retries=15)
+            for key in self.getKeysFromDB(
+                self.sonic_db.STATE_DB, CHASSIS_INFO_PATTERN, retries=15
+            )
         }
         self.platform_name: str = list(
             set(
@@ -553,9 +575,7 @@ class Export:
         return self.get_portinfo(ifname, "alias") or ifname
 
     def export_vxlan_tunnel_info(self):
-        keys = self.getKeysFromDB(
-            self.sonic_db.STATE_DB, VXLAN_TUNNEL_TABLE_PATTERN
-        )
+        keys = self.getKeysFromDB(self.sonic_db.STATE_DB, VXLAN_TUNNEL_TABLE_PATTERN)
         if not keys:
             return
         for key in keys:
@@ -563,9 +583,7 @@ class Export:
                 neighbor = ""
                 _, neighbor = tuple(key.replace(VXLAN_TUNNEL_TABLE, "").split("_"))
                 is_operational = boolify(
-                    _decode(
-                        self.getFromDB(self.sonic_db.STATE_DB, key, "operstatus")
-                    )
+                    _decode(self.getFromDB(self.sonic_db.STATE_DB, key, "operstatus"))
                 )
                 self.metric_vxlan_operational_status.labels(
                     self.dns_lookup(neighbor)
@@ -611,9 +629,7 @@ class Export:
                 ).set(
                     floatify(
                         _decode(
-                            self.getFromDB(
-                                self.sonic_db.COUNTERS_DB, counter_key, key
-                            )
+                            self.getFromDB(self.sonic_db.COUNTERS_DB, counter_key, key)
                         )
                     )
                 )
@@ -638,9 +654,7 @@ class Export:
                 ).set(
                     floatify(
                         _decode(
-                            self.getFromDB(
-                                self.sonic_db.COUNTERS_DB, counter_key, key
-                            )
+                            self.getFromDB(self.sonic_db.COUNTERS_DB, counter_key, key)
                         )
                     )
                 )
@@ -819,9 +833,7 @@ class Export:
             try:
                 port_table_key = Export.get_port_table_key(ifname)
                 is_operational = _decode(
-                    self.getFromDB(
-                        self.sonic_db.APPL_DB, port_table_key, "oper_status"
-                    )
+                    self.getFromDB(self.sonic_db.APPL_DB, port_table_key, "oper_status")
                 )
                 last_flapped_seconds = to_timestamp(
                     floatify(
@@ -1072,9 +1084,7 @@ class Export:
                     pass
 
     def export_interface_cable_data(self):
-        keys = self.getKeysFromDB(
-            self.sonic_db.STATE_DB, TRANSCEIVER_INFO_PATTERN
-        )
+        keys = self.getKeysFromDB(self.sonic_db.STATE_DB, TRANSCEIVER_INFO_PATTERN)
         if not keys:
             return
         for key in keys:
@@ -1190,9 +1200,7 @@ class Export:
             return
         for key in keys:
             try:
-                fullname = _decode(
-                    self.getFromDB(self.sonic_db.STATE_DB, key, "name")
-                )
+                fullname = _decode(self.getFromDB(self.sonic_db.STATE_DB, key, "name"))
                 rpm = floatify(self.getFromDB(self.sonic_db.STATE_DB, key, "speed"))
                 is_operational = _decode(
                     self.getFromDB(self.sonic_db.STATE_DB, key, "status")
@@ -1254,9 +1262,7 @@ class Export:
                         self.metric_device_sensor_celsius.labels(name).set(value.value)
 
     def export_temp_info(self):
-        keys = self.getKeysFromDB(
-            self.sonic_db.STATE_DB, TEMPERATURE_INFO_PATTERN
-        )
+        keys = self.getKeysFromDB(self.sonic_db.STATE_DB, TEMPERATURE_INFO_PATTERN)
         need_additional_temp_info = False
         unknown_switch_model = False
         air_flow = None
@@ -1272,8 +1278,8 @@ class Export:
             pass
         # implement a skip on state db if keys are empty
         # Still try to get data from HWMon.
-        
-        for key in (keys or []):
+
+        for key in keys or []:
             try:
                 name = _decode(self.getFromDB(self.sonic_db.STATE_DB, key, "name"))
                 if name.lower().startswith("temp"):
@@ -1285,9 +1291,7 @@ class Export:
                         last_two_bytes, name
                     )
                 temp = floatify(
-                    _decode(
-                        self.getFromDB(self.sonic_db.STATE_DB, key, "temperature")
-                    )
+                    _decode(self.getFromDB(self.sonic_db.STATE_DB, key, "temperature"))
                 )
                 high_threshold = floatify(
                     _decode(
@@ -1317,9 +1321,7 @@ class Export:
             mac_address = _decode(data.get("base_mac_addr", ""))
             onie_version = _decode(data.get("onie_version", ""))
             software_version = _decode(
-                self.getFromDB(
-                    self.sonic_db.STATE_DB, "IMAGE_GLOBAL|config", "current"
-                )
+                self.getFromDB(self.sonic_db.STATE_DB, "IMAGE_GLOBAL|config", "current")
             )
             platform_name = _decode(data.get("platform_name", ""))
             hardware_revision = _decode(data.get("hardware_revision", ""))
@@ -1343,12 +1345,8 @@ class Export:
         keys = self.getKeysFromDB(self.sonic_db.STATE_DB, PROCESS_STATS_PATTERN)
         cpu_memory_usages = [
             (
-                floatify(
-                    _decode(self.getFromDB(self.sonic_db.STATE_DB, key, "%CPU"))
-                ),
-                floatify(
-                    _decode(self.getFromDB(self.sonic_db.STATE_DB, key, "%MEM"))
-                ),
+                floatify(_decode(self.getFromDB(self.sonic_db.STATE_DB, key, "%CPU"))),
+                floatify(_decode(self.getFromDB(self.sonic_db.STATE_DB, key, "%MEM"))),
             )
             for key in keys
             if not key.replace(PROCESS_STATS, "").lower() in PROCESS_STATS_IGNORE
@@ -1454,26 +1452,33 @@ class Export:
                     as_id = family_data.get("as")
                     for peername, peerdata in family_data["peers"].items():
                         # ["vrf", "peername", "neighbor", "peer_protocol", "protocol_family_advertised", "remote_as"]
-                        bgp_lbl = [vrf,
-                                      as_id,
-                                      peername,
-                                      peerdata.get(
-                                          "hostname", self.dns_lookup(peername)),
-                                      peerdata.get("idType", ""),
-                                      self.vtysh.addressfamily(family),
-                                      str(peerdata.get("remoteAs"))]
+                        bgp_lbl = [
+                            vrf,
+                            as_id,
+                            peername,
+                            peerdata.get("hostname", self.dns_lookup(peername)),
+                            peerdata.get("idType", ""),
+                            self.vtysh.addressfamily(family),
+                            str(peerdata.get("remoteAs")),
+                        ]
                         self.metric_bgp_uptime_seconds.labels(*bgp_lbl).set(
-                            floatify(peerdata.get("peerUptimeMsec", 1000) / 1000))
+                            floatify(peerdata.get("peerUptimeMsec", 1000) / 1000)
+                        )
                         self.metric_bgp_status.labels(*bgp_lbl).set(
-                            boolify(peerdata.get("state", "")))
-                        self.metric_bgp_prefixes_received.labels(
-                            *bgp_lbl).set(floatify(peerdata.get("pfxRcd", 0)))
-                        self.metric_bgp_prefixes_transmitted.labels(
-                            *bgp_lbl).set(floatify(peerdata.get("pfxSnt", 0)))
-                        self.metric_bgp_messages_received.labels(
-                            *bgp_lbl).set(floatify(peerdata.get("msgRcvd", 0)))
-                        self.metric_bgp_messages_transmitted.labels(
-                            *bgp_lbl).set(floatify(peerdata.get("msgSent", 0)))
+                            boolify(peerdata.get("state", ""))
+                        )
+                        self.metric_bgp_prefixes_received.labels(*bgp_lbl).set(
+                            floatify(peerdata.get("pfxRcd", 0))
+                        )
+                        self.metric_bgp_prefixes_transmitted.labels(*bgp_lbl).set(
+                            floatify(peerdata.get("pfxSnt", 0))
+                        )
+                        self.metric_bgp_messages_received.labels(*bgp_lbl).set(
+                            floatify(peerdata.get("msgRcvd", 0))
+                        )
+                        self.metric_bgp_messages_transmitted.labels(*bgp_lbl).set(
+                            floatify(peerdata.get("msgSent", 0))
+                        )
                 except KeyError:
                     pass
 
@@ -1539,7 +1544,7 @@ def main():
     address = str(os.environ.get("SONIC_EXPORTER_ADDRESS", "localhost"))
     exp = Export(os.environ.get("DEVELOPER_MODE", "False").lower() in TRUE_VALUES)
     logging.info("Starting Python exporter server at port 9101")
-    #TODO ip address validation 
+    # TODO ip address validation
     prom.start_http_server(port, addr=address)
 
     while True:
