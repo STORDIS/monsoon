@@ -1,4 +1,6 @@
+from distutils.version import Version
 import functools
+import re
 from datetime import datetime, timedelta
 
 
@@ -34,3 +36,43 @@ def timed_cache(**timedelta_kwargs):
         return _wrapped
 
     return _wrapper
+
+
+class ConfigDBVersion(Version):
+
+    component_re = re.compile(r"(\d+|_)", re.VERBOSE)
+    vstring = ""
+    version = []
+
+    def parse(self, vstring):
+        # I've given up on thinking I can reconstruct the version string
+        # from the parsed tuple -- so I just store the string here for
+        # use by __str__
+        self.vstring = vstring
+        components = [x for x in self.component_re.split(vstring) if x and x != "_"]
+        for i, obj in enumerate(components):
+            try:
+                components[i] = int(obj)
+            except ValueError:
+                pass
+
+        self.version = components
+
+    def __str__(self):
+        return self.vstring
+
+    def __repr__(self):
+        return "ConfigDBVersion ('{}')".format(self)
+
+    def _cmp(self, other):
+        if isinstance(other, str):
+            other = ConfigDBVersion(other)
+        elif not isinstance(other, ConfigDBVersion):
+            return NotImplemented
+
+        if self.version == other.version:
+            return 0
+        if self.version < other.version:
+            return -1
+        if self.version > other.version:
+            return 1

@@ -18,15 +18,15 @@ class VtySH:
 
     def run_command(self, command: str):
         try:
-            out_put=run(["vtysh", "-c", f"{command.rstrip()} json"], check=True, stdout=PIPE
-                    ).stdout.decode("utf-8")
+            out_put = run(
+                ["vtysh", "-c", f"{command.rstrip()} json"], check=True, stdout=PIPE
+            ).stdout.decode("utf-8")
             try:
                 return json.loads(out_put)
             except json.JSONDecodeError:
                 return {}
         except CalledProcessError:
             return {}
-        
 
     def show_bgp_vrf_all_l2vpn_evpn_summary(self, vrf: Optional[str] = None) -> dict:
         data = self.run_command("show bgp vrf all ipv4 unicast summary")
