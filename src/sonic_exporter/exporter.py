@@ -599,7 +599,7 @@ class Export:
                     self.dns_lookup(neighbor)
                 ).set(is_operational)
                 logging.debug(
-                    f"export_vxlan_tunnel : neighbor={neighbor}, is_operational={is_operational}"
+                    f"export_vxlan_tunnel :: neighbor={neighbor}, is_operational={is_operational}"
                 )
             except ValueError as e:
                 pass
@@ -840,7 +840,7 @@ class Export:
                     )
                 )
             )
-            logging.debug("export_intf_counter : ifname={}".format(ifname))
+            logging.debug("export_intf_counter :: ifname={}".format(ifname))
             try:
                 port_table_key = Export.get_port_table_key(ifname)
                 is_operational = _decode(
@@ -902,12 +902,12 @@ class Export:
             if packet_type.endswith("UNICAST"):
                 queue_type = "unicast"
             logging.debug(
-                "export_intf_queue_counters : ifname={}, queue_type={}, packets={}".format(
+                "export_intf_queue_counters :: ifname={}, queue_type={}, packets={}".format(
                     ifname, queue_type, packets
                 )
             )
             logging.debug(
-                "export_intf_queue_counters : ifname={}, queue_type={}, bytes={}".format(
+                "export_intf_queue_counters :: ifname={}, queue_type={}, bytes={}".format(
                     ifname, queue_type, bytes
                 )
             )
@@ -922,7 +922,7 @@ class Export:
         keys = self.getKeysFromDB(
             self.sonic_db.STATE_DB, TRANSCEIVER_DOM_SENSOR_PATTERN
         )
-        logging.debug("export_interface_optic_data : keys={}".format(keys))
+        logging.debug("export_interface_optic_data :: keys={}".format(keys))
         if not keys:
             return
         for key in keys:
@@ -1144,7 +1144,7 @@ class Export:
             except ValueError:
                 pass
             logging.debug(
-                f"export_interface_cable_data : interface={self.get_additional_info(ifname)}"
+                f"export_interface_cable_data :: interface={self.get_additional_info(ifname)}"
             )
             self.metric_interface_transceiver_info.labels(
                 self.get_additional_info(ifname),
@@ -1182,7 +1182,7 @@ class Export:
                 self.metric_device_psu_input_amperes.labels(slot).set(in_amperes)
                 self.metric_device_psu_input_volts.labels(slot).set(in_volts)
                 logging.debug(
-                    f"export_psu_info : slot={slot}, in_amperes={in_amperes}, in_volts={in_volts}"
+                    f"export_psu_info :: slot={slot}, in_amperes={in_amperes}, in_volts={in_volts}"
                 )
             except ValueError:
                 pass
@@ -1196,7 +1196,7 @@ class Export:
                 self.metric_device_psu_output_amperes.labels(slot).set(out_amperes)
                 self.metric_device_psu_output_volts.labels(slot).set(out_volts)
                 logging.debug(
-                    f"export_psu_info : slot={slot}, out_amperes={out_amperes}, out_volts={out_volts}"
+                    f"export_psu_info :: slot={slot}, out_amperes={out_amperes}, out_volts={out_volts}"
                 )
             except ValueError:
                 pass
@@ -1259,7 +1259,7 @@ class Export:
                     is_available
                 )
                 logging.debug(
-                    f"export_fan_info : fullname={fullname} oper={boolify(is_operational)}, presence={is_available}, rpm={rpm}"
+                    f"export_fan_info :: fullname={fullname} oper={boolify(is_operational)}, presence={is_available}, rpm={rpm}"
                 )
             except ValueError:
                 pass
@@ -1269,8 +1269,10 @@ class Export:
             try:
                 last_two_bytes = sensor.address[-2:]
                 name = TEMP_SENSORS[switch_model][air_flow][last_two_bytes]
-            except (ValueError, KeyError, TypeError):
+            except (ValueError, KeyError, TypeError) as e:
+                logging.debug(f"export_hwmon_temp_info :: air_flow={air_flow}, switch_mode={switch_model} address={last_two_bytes}, e={e}")
                 continue
+                
             for value in sensor.values:
                 _, subvalue = value.name.split("_", maxsplit=1)
                 logging.debug(
@@ -1296,11 +1298,12 @@ class Export:
         switch_model = None
         try:
             air_flow = AirFlow(self.product_name[-1])
-            switch_model = SwitchModel(self.platform_name)
+            switch_model = SwitchModel(self.platform_name.lower())
             if not keys:
                 self.export_hwmon_temp_info(switch_model, air_flow)
                 return
-        except ValueError:
+        except ValueError as e:
+            logging.debug(f"export_temp_info :: exception={e}")
             unknown_switch_model = True
             pass
         # implement a skip on state db if keys are empty
@@ -1330,7 +1333,7 @@ class Export:
                     name, AlarmType.HIGH_ALARM.value
                 ).set(high_threshold)
                 logging.debug(
-                    f"export_temp_info : name={name}, temp={temp}, high_threshold={high_threshold}"
+                    f"export_temp_info :: name={name}, temp={temp}, high_threshold={high_threshold}"
                 )
             except ValueError:
                 pass
@@ -1365,7 +1368,7 @@ class Export:
                 product_name,
             ).set(1)
             logging.debug(
-                "export_sys_info : part_num={}, serial_num={}, mac_addr={}, software_version={}".format(
+                "export_sys_info :: part_num={}, serial_num={}, mac_addr={}, software_version={}".format(
                     part_number, serial_number, mac_address, software_version
                 )
             )
@@ -1383,7 +1386,7 @@ class Export:
         self.system_cpu_ratio.set(cpu_usage / 100)
         self.system_memory_ratio.set(memory_usage / 100)
         logging.debug(
-            f"export_sys_info : cpu_usage={cpu_usage}, memory_usage={memory_usage}"
+            f"export_sys_info :: cpu_usage={cpu_usage}, memory_usage={memory_usage}"
         )
 
     def export_static_anycast_gateway_info(self):
@@ -1450,7 +1453,7 @@ class Export:
                     ).set(self.sys_class_net.operational(interface))
                 except (KeyError, StopIteration, OSError):
                     logging.debug(
-                        f"export_static_anycast_gateway_info : No Static Anycast Gateway for interface={interface}"
+                        f"export_static_anycast_gateway_info :: No Static Anycast Gateway for interface={interface}"
                     )
                     pass
 

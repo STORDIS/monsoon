@@ -111,4 +111,20 @@ TEMP_SENSORS = {
             "49": "environment",
         },
     },
+    SwitchModel.AS9716: {
+        AirFlow.BACK_TO_FRONT: {
+            "4a": "environment",
+            "4b": "intake cpu",
+            "4c": "intake",
+            "48": "pcb",
+            "49": "exhaust",
+        },
+        AirFlow.FRONT_TO_BACK: {
+            "4a": "environment",
+            "4b": "exhaust cpu",
+            "4c": "exhaust",
+            "48": "pcb",
+            "49": "intake",
+        },
+    },
 }
