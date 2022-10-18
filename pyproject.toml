@@ -13,7 +13,7 @@ prometheus-client = "^0.15.0"
 dacite = "^1.6.0"
 
 [tool.poetry.dev-dependencies]
-black = { version = "*", allow-prereleases = true }
+black = "*"
 
 
 [build-system]
