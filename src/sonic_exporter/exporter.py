@@ -569,15 +569,11 @@ class Export:
 
     def get_portinfo(self, ifname, sub_key):
         if ifname.startswith("Ethernet"):
-
-            if self.db_version < ConfigDBVersion("version_4_0_0"):
-                key = f"PORT|{ifname}"
-            else:
-                key = f"PORT_TABLE:{ifname}"
+            key = f"PORT|{ifname}"
         else:
             key = f"PORTCHANNEL|{ifname}"
         try:
-            return _decode(self.getFromDB(self.sonic_db.APPL_DB, key, sub_key))
+            return _decode(self.getFromDB(self.sonic_db.CONFIG_DB, key, sub_key))
         except (ValueError, KeyError):
             return ""
 
