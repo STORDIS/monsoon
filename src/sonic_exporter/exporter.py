@@ -1266,9 +1266,11 @@ class Export:
                 last_two_bytes = sensor.address[-2:]
                 name = TEMP_SENSORS[switch_model][air_flow][last_two_bytes]
             except (ValueError, KeyError, TypeError) as e:
-                logging.debug(f"export_hwmon_temp_info :: air_flow={air_flow}, switch_mode={switch_model} address={last_two_bytes}, e={e}")
+                logging.debug(
+                    f"export_hwmon_temp_info :: air_flow={air_flow}, switch_mode={switch_model} address={last_two_bytes}, e={e}"
+                )
                 continue
-                
+
             for value in sensor.values:
                 _, subvalue = value.name.split("_", maxsplit=1)
                 logging.debug(
