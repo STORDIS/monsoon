@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from distutils.version import Version
 import ipaddress
 import logging
 import logging.handlers
@@ -34,6 +33,8 @@ from sonic_exporter.constants import (
     COUNTER_QUEUE_MAP,
     COUNTER_QUEUE_TYPE_MAP,
     COUNTER_TABLE_PREFIX,
+    EEPROM_INFO,
+    EEPROM_INFO_PATTERN,
     FAN_INFO_PATTERN,
     PORT_TABLE_PREFIX,
     PROCESS_STATS,
@@ -216,23 +217,46 @@ class Export:
                 self.sonic_db.STATE_DB, CHASSIS_INFO_PATTERN, retries=15
             )
         }
+        self.syseeprom = {
+            _decode(key)
+            .replace(EEPROM_INFO, "")
+            .replace(" ", "_")
+            .lower(): self.getAllFromDB(self.sonic_db.STATE_DB, key)
+            for key in self.getKeysFromDB(
+                self.sonic_db.STATE_DB, EEPROM_INFO_PATTERN, retries=15
+            )
+        }
         self.platform_name: str = list(
             set(
                 _decode(chassis.get("platform_name", ""))
                 for chassis in self.chassis.values()
             )
         )[0].strip()
+        if not self.platform_name:
+            self.platform_name = self._find_in_syseeprom("platform_name")
         self.product_name = list(
             set(
                 _decode(chassis.get("product_name", ""))
                 for chassis in self.chassis.values()
             )
         )[0].strip()
+        if not self.product_name:
+            self.product_name = self._find_in_syseeprom("product_name")
+
         self.db_version = ConfigDBVersion(
             _decode(
                 self.getFromDB(self.sonic_db.CONFIG_DB, "VERSIONS|DATABASE", "VERSION")
             )
         )
+
+    def _find_in_syseeprom(self, key: str):
+        return list(
+            set(
+                syseeprom.get("Value", "")
+                for syseeprom in self.syseeprom.values()
+                if str(syseeprom.get("Name", "")).replace(" ", "_").lower() == key
+            )
+        )[0].strip()
 
     def _init_metrics(self):
         # at start of server get counters data and negate it with current data while exporting
@@ -1158,14 +1182,18 @@ class Export:
         if not keys:
             return
         for key in keys:
-            serial = _decode(self.getFromDB(self.sonic_db.STATE_DB, key, "serial"))
+            serial = _decode(
+                self.getFromDB(self.sonic_db.STATE_DB, key, "serial")
+            ).strip()
             available_status = _decode(
                 self.getFromDB(self.sonic_db.STATE_DB, key, "presence")
             )
             operational_status = _decode(
                 self.getFromDB(self.sonic_db.STATE_DB, key, "status")
             )
-            model = _decode(self.getFromDB(self.sonic_db.STATE_DB, key, "model"))
+            model = _decode(
+                self.getFromDB(self.sonic_db.STATE_DB, key, "model")
+            ).strip()
             model_name = _decode(self.getFromDB(self.sonic_db.STATE_DB, key, "name"))
             _, slot = _decode(key.replace(PSU_INFO, "")).lower().split(" ")
             try:
