@@ -15,6 +15,9 @@ COUNTER_TABLE_PREFIX = "COUNTERS:"
 
 COUNTER_IGNORE = ["cpu"]
 
+EEPROM_INFO = "EEPROM_INFO|"
+EEPROM_INFO_PATTERN = GET_PATTERN(EEPROM_INFO)
+
 FAN_INFO = "FAN_INFO|"
 FAN_INFO_PATTERN = GET_PATTERN(FAN_INFO)
 
@@ -109,6 +112,26 @@ TEMP_SENSORS = {
             "4b": "exhaust",
             "4c": "intake",
             "49": "environment",
+        },
+    },
+    SwitchModel.AS9716: {
+        AirFlow.BACK_TO_FRONT: {
+            "4a": "environment cpu",
+            "4b": "intake",
+            "4c": "exhaust cpu",
+            "4e": "intake cpu",
+            "4f": "environment",
+            "48": "exhaust",
+            "49": "pcb",
+        },
+        AirFlow.FRONT_TO_BACK: {
+            "4a": "environment cpu",
+            "4b": "exhaust",
+            "4c": "intake cpu",
+            "4e": "exhaust cpu",
+            "4f": "environment",
+            "48": "intake",
+            "49": "pcb",
         },
     },
 }

@@ -11,7 +11,7 @@ from . import ressources
 
 class SonicV2Connector:
 
-    model: SwitchModel = SwitchModel.AS9716
+    model: SwitchModel = SwitchModel.AS5853
     version: str = "4.0.1"
 
     class DB(Enum):

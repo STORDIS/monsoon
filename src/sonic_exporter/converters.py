@@ -32,9 +32,11 @@ def get_uptime() -> datetime.timedelta:
     return datetime.timedelta(seconds=time.clock_gettime(time.CLOCK_MONOTONIC))
 
 
-def decode(string: Union[bytes, str]) -> str:
+def decode(string: Union[bytes, str, None]) -> str:
     if hasattr(string, "decode"):
         return string.decode("utf-8")
+    if string is None:
+        return ""
     return string
 
 

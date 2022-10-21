@@ -8,7 +8,7 @@ from sonic_exporter.test import ressources
 
 class MockSystemClassHWMon(SystemClassHWMon):
 
-    model: SwitchModel = SwitchModel.AS7326
+    model: SwitchModel = SwitchModel.AS9716
 
     @property
     def sensors(self) -> dict[str, Sensor]:
