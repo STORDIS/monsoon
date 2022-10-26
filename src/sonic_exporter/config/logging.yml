@@ -16,7 +16,7 @@ handlers:
 
 formatters:
     format_1: 
-        format: "[%(asctime)s][%(levelname)s][%(name)s] %(message)s"
+        format: "[%(asctime)s][%(levelname)s][%(filename)s:%(lineno)d] %(message)s"
 
 root:
     level: NOTSET
