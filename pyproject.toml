@@ -11,6 +11,7 @@ exclude = ["src/sonic_exporter/test"]
 python = "^3.10"
 prometheus-client = "^0.15.0"
 dacite = "^1.6.0"
+PyYAML = "^6.0"
 
 [tool.poetry.dev-dependencies]
 black = "*"

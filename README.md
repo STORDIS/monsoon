@@ -11,6 +11,7 @@ Monsoon uses Prometheus and Grafana for data collection and visualization. Apart
   * [Install Prometheus](#install-prometheus)
   * [Install Grafana](#install-grafana)
 * [Build from source](#build-sonic-exporter-docker-image-from-source)
+* [sonic-exporter logging](#sonic-exporter-logging)
 * [Client certificate generation](#securing-sonic-exporter-and-node-exporter-with-central-client-certificate-generation)
   
 ## Monsoon Design 
@@ -33,7 +34,7 @@ A high level monsoon design is as follows, various components are explained in f
   - #### Start sonic-exporter container
     Execute following command on SONiC host to start sonic-exporter container :
     ```
-    docker run -e SONIC_EXPORTER_ADDRESS="" --name sonic-exporter --network=host --pid=host --privileged --restart=always -d -v /var/run/redis:/var/run/redis -v /usr/bin/vtysh:/usr/bin/vtysh -v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock stordis/sonic-exporter:main
+    docker run -e SONIC_EXPORTER_ADDRESS="0.0.0.0" --name sonic-exporter --network=host --pid=host --privileged --restart=always -d -v /var/run/redis:/var/run/redis -v /usr/bin/vtysh:/usr/bin/vtysh -v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock stordis/sonic-exporter:main
     ```
 
   - #### Verify sonic-exporter installation:
@@ -109,6 +110,12 @@ And run the container with the command given in the [section](#start-sonic-expor
 - (Optional) Push docker image to docker hub :\
 `docker tag <sonic_exporter_img_id> <repository_name at hub.docker.com>/sonic-exporter:latest`\
 `docker push <repository_name at hub.docker.com>/sonic-exporter:latest`
+
+## sonic-exporter logging
+sonic-exporter logs are controlled via the logging config file [logging.yaml](src/sonic_exporter/config/logging.yml).\
+In order to change the logging configuration just get into the running sonic-exporter container with the command `docker exec -it sonic-exporter bash` and update the file `/usr/local/lib/python3.10/site-packages/sonic_exporter/config/logging.yml` as needed.\
+If you are building docker image your self then the logging.yml can be updated before building the image.\
+As sonic-exporter runs in a docker container, the default logging configuration done for docker deamon applies for sonic-exporter, as explained here https://docs.docker.com/config/containers/logging/configure/ .
 
 ## Securing sonic-exporter and node-exporter with Central Client Certificate Generation
 
