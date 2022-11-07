@@ -1419,10 +1419,10 @@ class SONiCCollector(object):
                         self.getFromDB(self.sonic_db.CONFIG_DB, vni_key, "vni")
                     )
                     self.metric_sag_admin_status.add_metric(
-                        [interface, vrf, gateway_ip, ip_family.value.lower(), vni]
+                        [interface, vrf, gateway_ip, ip_family.value.lower(), str(vni)]
                     ,self.sys_class_net.admin_enabled(interface))
                     self.metric_sag_operational_status.add_metric(
-                        [interface, vrf, gateway_ip, ip_family.value.lower(), vni]
+                        [interface, vrf, gateway_ip, ip_family.value.lower(), str(vni)]
                     ,self.sys_class_net.operational(interface))
                 except (KeyError, StopIteration, OSError):
                     _logger.debug(
@@ -1460,7 +1460,7 @@ class SONiCCollector(object):
                         # ["vrf", "peername", "neighbor", "peer_protocol", "protocol_family_advertised", "remote_as"]
                         bgp_lbl = [
                             vrf,
-                            as_id,
+                            str(as_id),
                             peername,
                             peerdata.get("hostname", self.dns_lookup(peername)),
                             peerdata.get("idType", ""),
