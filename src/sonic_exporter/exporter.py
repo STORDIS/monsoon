@@ -20,8 +20,11 @@ import socket
 import sys
 import time
 import subprocess
-from sonic_exporter import logging
 import prometheus_client as prom
+from prometheus_client.core import REGISTRY,GaugeMetricFamily,CounterMetricFamily
+
+from sonic_exporter import logging
+
 _logger = logging.getLogger(__name__)
 
 from sonic_exporter.constants import (
@@ -59,7 +62,6 @@ from sonic_exporter.constants import (
 from sonic_exporter.converters import boolify
 from sonic_exporter.converters import decode as _decode
 from sonic_exporter.converters import floatify, get_uptime, to_timestamp
-from sonic_exporter.custom_metric_types import CustomCounter
 from sonic_exporter.enums import (
     AddressFamily,
     AirFlow,
@@ -70,7 +72,8 @@ from sonic_exporter.enums import (
 )
 from sonic_exporter.utilities import ConfigDBVersion, timed_cache
 
-class Export:
+
+class SONiCCollector(object):
 
     rx_power_regex = re.compile(r"^rx(\d*)power$")
     tx_power_regex = re.compile(r"^tx(\d*)power$")
@@ -198,7 +201,6 @@ class Export:
         self.sonic_db.connect(self.sonic_db.STATE_DB)
         self.sonic_db.connect(self.sonic_db.APPL_DB)
         self.sonic_db.connect(self.sonic_db.CONFIG_DB)
-        self._init_metrics()
         self.chassis = {
             _decode(key).replace(CHASSIS_INFO, ""): self.getAllFromDB(
                 self.sonic_db.STATE_DB, key
@@ -269,134 +271,134 @@ class Export:
             "vni",
         ]
         evpn_vni_labels = ["vni", "interface", "svi", "osi_layer", "vrf"]
-        self.metric_interface_info = prom.Gauge(
+        self.metric_interface_info = GaugeMetricFamily(
             "sonic_interface_info",
             "Interface Information (Description, MTU, Speed)",
-            interface_labels + ["description", "mtu", "speed", "device"],
+            labels=interface_labels + ["description", "mtu", "speed", "device"],
         )
-        self.metric_interface_transmitted_bytes = CustomCounter(
+        self.metric_interface_transmitted_bytes = CounterMetricFamily(
             "sonic_interface_transmitted_bytes_total",
             "Total transmitted Bytes by Interface",
-            interface_labels,
+            labels=interface_labels,
         )
-        self.metric_interface_received_bytes = CustomCounter(
+        self.metric_interface_received_bytes = CounterMetricFamily(
             "sonic_interface_received_bytes_total",
             "Total received Bytes by Interface",
-            interface_labels,
+            labels=interface_labels,
         )
-        self.metric_interface_transmitted_packets = CustomCounter(
+        self.metric_interface_transmitted_packets = CounterMetricFamily(
             "sonic_interface_transmitted_packets_total",
             "Total transmitted Packets by Interface",
-            interface_labels + ["delivery_mode"],
+            labels=interface_labels + ["delivery_mode"],
         )
-        self.metric_interface_received_packets = CustomCounter(
+        self.metric_interface_received_packets = CounterMetricFamily(
             "sonic_interface_received_packets_total",
             "Total received Packets by Interface",
-            interface_labels + ["delivery_mode"],
+            labels=interface_labels + ["delivery_mode"],
         )
-        self.metric_interface_receive_error_input_packets = CustomCounter(
+        self.metric_interface_receive_error_input_packets = CounterMetricFamily(
             "sonic_interface_receive_error_input_packets_total",
             "Errors in received packets",
-            interface_labels + ["cause"],
+            labels=interface_labels + ["cause"],
         )
-        self.metric_interface_transmit_error_output_packets = CustomCounter(
+        self.metric_interface_transmit_error_output_packets = CounterMetricFamily(
             "sonic_interface_transmit_error_output_packets_total",
             "Errors in transmitted packets",
-            interface_labels + ["cause"],
+            labels=interface_labels + ["cause"],
         )
-        self.metric_interface_received_ethernet_packets = CustomCounter(
+        self.metric_interface_received_ethernet_packets = CounterMetricFamily(
             "sonic_interface_received_ethernet_packets_total",
             "Size of the Ethernet Frames received",
-            interface_labels + ["packet_size"],
+            labels=interface_labels + ["packet_size"],
         )
-        self.metric_interface_transmitted_ethernet_packets = CustomCounter(
+        self.metric_interface_transmitted_ethernet_packets = CounterMetricFamily(
             "sonic_interface_transmitted_ethernet_packets_total",
             "Size of the Ethernet Frames transmitted",
-            interface_labels + ["packet_size"],
+            labels=interface_labels + ["packet_size"],
         )
         ## Interface Status Gauges
-        self.metric_interface_operational_status = prom.Gauge(
+        self.metric_interface_operational_status = GaugeMetricFamily(
             "sonic_interface_operational_status",
             "The Operational Status reported from the Device (0(DOWN)/1(UP))",
-            interface_labels,
+            labels=interface_labels,
         )
-        self.metric_interface_admin_status = prom.Gauge(
+        self.metric_interface_admin_status = GaugeMetricFamily(
             "sonic_interface_admin_status",
             "The Configuration Status reported from the Device (0(DOWN)/1(UP))",
-            interface_labels,
+            labels=interface_labels,
         )
-        self.metric_interface_last_flapped_seconds = CustomCounter(
+        self.metric_interface_last_flapped_seconds = CounterMetricFamily(
             "sonic_interface_last_flapped_seconds_total",
             "The Timestamp as Unix Timestamp since the last flap of the interface.",
-            interface_labels,
+            labels=interface_labels,
         )
         ## Queue Counters
-        self.metric_interface_queue_processed_packets = CustomCounter(
+        self.metric_interface_queue_processed_packets = CounterMetricFamily(
             "sonic_interface_queue_processed_packets_total",
             "Interface queue counters",
-            interface_labels + ["queue"] + ["delivery_mode"],
+            labels=interface_labels + ["queue"] + ["delivery_mode"],
         )
-        self.metric_interface_queue_processed_bytes = CustomCounter(
+        self.metric_interface_queue_processed_bytes = CounterMetricFamily(
             "sonic_interface_queue_processed_bytes_total",
             "Interface queue counters",
-            interface_labels + ["queue"] + ["delivery_mode"],
+            labels=interface_labels + ["queue"] + ["delivery_mode"],
         )
         ## Optic Health Information
-        self.metric_interface_receive_optic_power_dbm = prom.Gauge(
+        self.metric_interface_receive_optic_power_dbm = GaugeMetricFamily(
             "sonic_interface_receive_optic_power_dbm",
             "Power value for all the interfaces",
-            interface_labels + ["optic_unit"],
+            labels=interface_labels + ["optic_unit"],
         )
-        self.metric_interface_transmit_optic_power_dbm = prom.Gauge(
+        self.metric_interface_transmit_optic_power_dbm = GaugeMetricFamily(
             "sonic_interface_transmit_optic_power_dbm",
             "Power value for all the interfaces",
-            interface_labels + ["optic_unit"],
+            labels=interface_labels + ["optic_unit"],
         )
-        self.metric_interface_transmit_optic_bias_amperes = prom.Gauge(
+        self.metric_interface_transmit_optic_bias_amperes = GaugeMetricFamily(
             "sonic_interface_transmit_optic_bias_amperes",
             "Transmit Bias Current for all optics in the interface",
-            interface_labels + ["optic_unit"],
+            labels=interface_labels + ["optic_unit"],
         )
-        self.metric_interface_optic_celsius = prom.Gauge(
+        self.metric_interface_optic_celsius = GaugeMetricFamily(
             "sonic_interface_optic_celsius",
             "Temperature for all interfaces",
-            interface_labels,
+            labels=interface_labels,
         )
-        self.metric_interface_optic_volts = prom.Gauge(
+        self.metric_interface_optic_volts = GaugeMetricFamily(
             "sonic_interface_optic_volts",
             "Voltage of all transceiver optics per interface",
-            interface_labels,
+            labels=interface_labels,
         )
-        self.metric_interface_threshold_optic_volts = prom.Gauge(
+        self.metric_interface_threshold_optic_volts = GaugeMetricFamily(
             "sonic_interface_threshold_optic_volts",
             f"Thresholds for the Voltage of the transceivers {', '.join(alarm_type.value for alarm_type in AlarmType)}",
-            interface_labels + ["alarm_type"],
+            labels=interface_labels + ["alarm_type"],
         )
-        self.metric_interface_threshold_optic_celsius = prom.Gauge(
+        self.metric_interface_threshold_optic_celsius = GaugeMetricFamily(
             "sonic_interface_threshold_optic_celsius",
             f"Thresholds for the Temperatures of the transceivers {', '.join(alarm_type.value for alarm_type in AlarmType)}",
-            interface_labels + ["alarm_type"],
+            labels=interface_labels + ["alarm_type"],
         )
-        self.metric_interface_threshold_receive_optic_power_dbm = prom.Gauge(
+        self.metric_interface_threshold_receive_optic_power_dbm = GaugeMetricFamily(
             "sonic_interface_threshold_receive_optic_power_dbm",
             f"Thresholds for the power on receiving end of the transceivers {', '.join(alarm_type.value for alarm_type in AlarmType)}",
-            interface_labels + ["alarm_type"],
+            labels=interface_labels + ["alarm_type"],
         )
-        self.metric_interface_threshold_transmit_optic_power_dbm = prom.Gauge(
+        self.metric_interface_threshold_transmit_optic_power_dbm = GaugeMetricFamily(
             "sonic_interface_threshold_transmit_optic_power_dbm",
             f"Thresholds for the power on transmit end of the transceivers {', '.join(alarm_type.value for alarm_type in AlarmType)}",
-            interface_labels + ["alarm_type"],
+            labels=interface_labels + ["alarm_type"],
         )
-        self.metric_interface_threshold_transmit_optic_bias_amperes = prom.Gauge(
+        self.metric_interface_threshold_transmit_optic_bias_amperes = GaugeMetricFamily(
             "sonic_interface_threshold_transmit_optic_bias_amperes",
             f"Thresholds for the power on transmit bias current end of the transceivers {', '.join(alarm_type.value for alarm_type in AlarmType)}",
-            interface_labels + ["alarm_type"],
+            labels=interface_labels + ["alarm_type"],
         )
         ## Transceiver Info
-        self.metric_interface_transceiver_info = prom.Gauge(
+        self.metric_interface_transceiver_info = GaugeMetricFamily(
             "sonic_interface_transceiver_info",
             "General Information about the transceivers per Interface",
-            interface_labels
+            labels=interface_labels
             + [
                 "serial",
                 "part_number",
@@ -407,91 +409,91 @@ class Export:
                 "media_interface",
             ],
         )
-        self.metric_interface_cable_length_meters = prom.Gauge(
+        self.metric_interface_cable_length_meters = GaugeMetricFamily(
             "sonic_interface_cable_length_meters",
             "The length of the plugged in Cable",
-            interface_labels + ["cable_type", "connector_type"],
+            labels=interface_labels + ["cable_type", "connector_type"],
         )
         ## PSU Info
-        self.metric_device_psu_input_volts = prom.Gauge(
+        self.metric_device_psu_input_volts = GaugeMetricFamily(
             "sonic_device_psu_input_volts",
             "The Amount of Voltage provided to the power supply",
-            ["slot"],
+            labels=["slot"],
         )
-        self.metric_device_psu_input_amperes = prom.Gauge(
+        self.metric_device_psu_input_amperes = GaugeMetricFamily(
             "sonic_device_psu_input_amperes",
             "The Amount of Amperes provided to the power supply",
-            ["slot"],
+            labels=["slot"],
         )
-        self.metric_device_psu_output_volts = prom.Gauge(
+        self.metric_device_psu_output_volts = GaugeMetricFamily(
             "sonic_device_psu_output_volts",
             "The Amount of Voltage provided to the internal system",
-            ["slot"],
+            labels=["slot"],
         )
-        self.metric_device_psu_output_amperes = prom.Gauge(
+        self.metric_device_psu_output_amperes = GaugeMetricFamily(
             "sonic_device_psu_output_amperes",
             "The Amount of Amperes used by the system",
-            ["slot"],
+            labels=["slot"],
         )
-        self.metric_device_psu_operational_status = prom.Gauge(
+        self.metric_device_psu_operational_status = GaugeMetricFamily(
             "sonic_device_psu_operational_status",
             "Shows if a power supply is Operational (0(DOWN)/1(UP))",
-            ["slot"],
+            labels=["slot"],
         )
-        self.metric_device_psu_available_status = prom.Gauge(
+        self.metric_device_psu_available_status = GaugeMetricFamily(
             "sonic_device_psu_available_status",
             "Shows if a power supply is plugged in (0(DOWN)/1(UP))",
-            ["slot"],
+            labels=["slot"],
         )
-        self.metric_device_psu_celsius = prom.Gauge(
+        self.metric_device_psu_celsius = GaugeMetricFamily(
             "sonic_device_psu_celsius",
             "The Temperature in Celsius of the PSU",
-            ["slot"],
+            labels=["slot"],
         )
-        self.metric_device_psu_info = prom.Gauge(
+        self.metric_device_psu_info = GaugeMetricFamily(
             "sonic_device_psu_info",
             "More information of the psu",
-            ["slot", "serial", "model_name", "model"],
+            labels=["slot", "serial", "model_name", "model"],
         )
         ## FAN Info
-        self.metric_device_fan_rpm = prom.Gauge(
-            "sonic_device_fan_rpm", "The Rounds per minute of the fan", ["name", "slot"]
+        self.metric_device_fan_rpm = GaugeMetricFamily(
+            "sonic_device_fan_rpm", "The Rounds per minute of the fan", labels=["name", "slot"]
         )
-        self.metric_device_fan_operational_status = prom.Gauge(
+        self.metric_device_fan_operational_status = GaugeMetricFamily(
             "sonic_device_fan_operational_status",
             "Shows if a fan is Operational (0(DOWN)/1(UP))",
-            ["name", "slot"],
+            labels=["name", "slot"],
         )
-        self.metric_device_fan_available_status = prom.Gauge(
+        self.metric_device_fan_available_status = GaugeMetricFamily(
             "sonic_device_fan_available_status",
             "Shows if a fan is plugged in (0(DOWN)/1(UP))",
-            ["name", "slot"],
+            labels=["name", "slot"],
         )
         ## Temp Info
-        self.metric_device_sensor_celsius = prom.Gauge(
+        self.metric_device_sensor_celsius = GaugeMetricFamily(
             "sonic_device_sensor_celsius",
             "Show the temperature of the Sensors in the switch",
-            ["name"],
+            labels=["name"],
         )
-        self.metric_device_threshold_sensor_celsius = prom.Gauge(
+        self.metric_device_threshold_sensor_celsius = GaugeMetricFamily(
             "sonic_device_sensor_threshold_celsius",
             f"Thresholds for the temperature sensors {', '.join(alarm_type.value for alarm_type in AlarmType)}",
-            ["name", "alarm_type"],
+            labels=["name", "alarm_type"],
         )
         ## VXLAN Tunnel Info
-        self.metric_vxlan_operational_status = prom.Gauge(
+        self.metric_vxlan_operational_status = GaugeMetricFamily(
             "sonic_vxlan_operational_status",
             "Reports the status of the VXLAN Tunnel to Endpoints (0(DOWN)/1(UP))",
-            ["neighbor"],
+            labels=["neighbor"],
         )
         ## System Info
-        self.metric_device_uptime = CustomCounter(
+        self.metric_device_uptime = CounterMetricFamily(
             "sonic_device_uptime_seconds_total", "The uptime of the device in seconds"
         )
-        self.metric_device_info = prom.Gauge(
+        self.metric_device_info = GaugeMetricFamily(
             "sonic_device_info",
             "part name, serial number, MAC address and software vesion of the System",
-            [
+            labels=[
                 "chassis",
                 "platform_name",
                 "part_number",
@@ -503,83 +505,84 @@ class Export:
                 "product_name",
             ],
         )
-        self.system_memory_ratio = prom.Gauge(
+        self.system_memory_ratio = GaugeMetricFamily(
             "sonic_device_memory_ratio",
             "Memory Usage of the device in percentage [0-1]",
         )
-        self.system_cpu_ratio = prom.Gauge(
+        self.system_cpu_ratio = GaugeMetricFamily(
             "sonic_device_cpu_ratio", "CPU Usage of the device in percentage [0-1]"
         )
         ## BGP Info
-        self.metric_bgp_uptime_seconds = CustomCounter(
+        self.metric_bgp_uptime_seconds = CounterMetricFamily(
             "sonic_bgp_uptime_seconds_total",
             "Uptime of the session with the other BGP Peer",
-            bgp_labels,
+            labels=bgp_labels,
         )
-        self.metric_bgp_status = prom.Gauge(
+        self.metric_bgp_status = GaugeMetricFamily(
             "sonic_bgp_status",
             "The Session Status to the other BGP Peer",
-            bgp_labels,
+            labels=bgp_labels,
         )
-        self.metric_bgp_prefixes_received = CustomCounter(
+        self.metric_bgp_prefixes_received = CounterMetricFamily(
             "sonic_bgp_prefixes_received_total",
             "The Prefixes Received from the other peer.",
-            bgp_labels,
+            labels=bgp_labels,
         )
-        self.metric_bgp_prefixes_transmitted = CustomCounter(
+        self.metric_bgp_prefixes_transmitted = CounterMetricFamily(
             "sonic_bgp_prefixes_transmitted_total",
             "The Prefixes Transmitted to the other peer.",
-            bgp_labels,
+            labels=bgp_labels,
         )
-        self.metric_bgp_messages_received = CustomCounter(
+        self.metric_bgp_messages_received = CounterMetricFamily(
             "sonic_bgp_messages_received_total",
             "The messages Received from the other peer.",
-            bgp_labels,
+            labels=bgp_labels,
         )
-        self.metric_bgp_messages_transmitted = CustomCounter(
+        self.metric_bgp_messages_transmitted = CounterMetricFamily(
             "sonic_bgp_messages_transmitted_total",
             "The messages Transmitted to the other peer.",
-            bgp_labels,
+            labels=bgp_labels,
         )
         ## Static Anycast Gateway
-        self.metric_sag_operational_status = prom.Gauge(
+        self.metric_sag_operational_status = GaugeMetricFamily(
             "sonic_sag_operational_status",
             "Reports the operational status of the Static Anycast Gateway (0(DOWN)/1(UP))",
-            sag_labels,
+            labels=sag_labels,
         )
-        self.metric_sag_admin_status = prom.Gauge(
+        self.metric_sag_admin_status = GaugeMetricFamily(
             "sonic_sag_admin_status",
             "Reports the admin status of the Static Anycast Gateway (0(DOWN)/1(UP))",
-            sag_labels,
+            labels=sag_labels,
         )
-        self.metric_sag_info = prom.Gauge(
+        self.metric_sag_info = GaugeMetricFamily(
             "sonic_sag_info",
             "Static Anycast Gateway General Information",
-            ["ip_family", "mac_address"],
+            labels=["ip_family", "mac_address"],
         )
         ## EVPN Information
-        self.metric_evpn_status = prom.Gauge(
-            "sonic_evpn_status", "The Status of the EVPN Endpoints", evpn_vni_labels
+        self.metric_evpn_status = GaugeMetricFamily(
+            "sonic_evpn_status", "The Status of the EVPN Endpoints", labels=evpn_vni_labels
         )
-        self.metric_evpn_remote_vteps = prom.Gauge(
+        self.metric_evpn_remote_vteps = GaugeMetricFamily(
             "sonic_evpn_remote_vteps",
             "The number of remote VTEPs associated with that VNI",
-            evpn_vni_labels,
+            labels=evpn_vni_labels,
         )
 
-        self.metric_evpn_l2_vnis = prom.Gauge(
+        self.metric_evpn_l2_vnis = GaugeMetricFamily(
             "sonic_evpn_l2_vnis",
             "The number of l2 vnis associated with an l3 VNI",
-            evpn_vni_labels,
+            labels=evpn_vni_labels,
         )
-        self.metric_evpn_mac_addresses = prom.Gauge(
+        self.metric_evpn_mac_addresses = GaugeMetricFamily(
             "sonic_evpn_mac_addresses",
             "The number of Mac Addresses learned VNI",
-            evpn_vni_labels,
+            labels=evpn_vni_labels,
         )
-        self.metric_evpn_arps = prom.Gauge(
-            "sonic_evpn_arps", "The number of ARPs cached for the VNI", evpn_vni_labels
+        self.metric_evpn_arps = GaugeMetricFamily(
+            "sonic_evpn_arps", "The number of ARPs cached for the VNI", labels=evpn_vni_labels
         )
+
 
     def get_portinfo(self, ifname, sub_key):
         if ifname.startswith("Ethernet"):
@@ -605,9 +608,8 @@ class Export:
                 is_operational = boolify(
                     _decode(self.getFromDB(self.sonic_db.STATE_DB, key, "operstatus"))
                 )
-                self.metric_vxlan_operational_status.labels(
-                    self.dns_lookup(neighbor)
-                ).set(is_operational)
+                self.metric_vxlan_operational_status.add_metric(
+                    [self.dns_lookup(neighbor)],is_operational)
                 _logger.debug(
                     f"export_vxlan_tunnel :: neighbor={neighbor}, is_operational={is_operational}"
                 )
@@ -617,17 +619,18 @@ class Export:
     def export_interface_counters(self):
         maps = self.getAllFromDB(self.sonic_db.COUNTERS_DB, COUNTER_PORT_MAP)
         for ifname in maps:
-            counter_key = Export.get_counter_key(_decode(maps[ifname]))
+            counter_key = SONiCCollector.get_counter_key(_decode(maps[ifname]))
             ifname_decoded = _decode(ifname)
             if ifname_decoded.lower() in COUNTER_IGNORE:
                 continue
-            self.metric_interface_info.labels(
-                self.get_additional_info(ifname),
-                self.get_portinfo(ifname, "description"),
-                self.get_portinfo(ifname, "mtu"),
-                f"{'{}Gbps'.format(int(round(int(self.get_portinfo(ifname, 'speed'))) / 1000)) if self.get_portinfo(ifname, 'speed') else ''}",
-                ifname,
-            ).set(1)
+            self.metric_interface_info.add_metric(
+                [self.get_additional_info(ifname),
+                 self.get_portinfo(ifname, "description"),
+                 self.get_portinfo(ifname, "mtu"),
+                 f"{int(round(int(self.get_portinfo(ifname, 'speed'))) / 1000) if self.get_portinfo(ifname, 'speed') else ''}Gbps",
+                 ifname], 1
+            )
+
             ## Ethernet RX
             for size, key in zip(
                 (64, 127, 255, 511, 1023, 1518, 2047, 4095, 9216, 16383),
@@ -644,12 +647,12 @@ class Export:
                     "SAI_PORT_STAT_ETHER_IN_PKTS_9217_TO_16383_OCTETS",
                 ),
             ):
-                self.metric_interface_received_ethernet_packets.labels(
-                    self.get_additional_info(ifname), size
-                ).set(
+                self.metric_interface_received_ethernet_packets.add_metric(
+                    [self.get_additional_info(ifname), str(size)],
                     floatify(
                         _decode(
-                            self.getFromDB(self.sonic_db.COUNTERS_DB, counter_key, key)
+                            self.getFromDB(
+                                self.sonic_db.COUNTERS_DB, counter_key, key)
                         )
                     )
                 )
@@ -669,9 +672,8 @@ class Export:
                     "SAI_PORT_STAT_ETHER_OUT_PKTS_9217_TO_16383_OCTETS",
                 ),
             ):
-                self.metric_interface_transmitted_ethernet_packets.labels(
-                    self.get_additional_info(ifname), size
-                ).set(
+                self.metric_interface_transmitted_ethernet_packets.add_metric(
+                    [self.get_additional_info(ifname), str(size)],
                     floatify(
                         _decode(
                             self.getFromDB(self.sonic_db.COUNTERS_DB, counter_key, key)
@@ -679,9 +681,8 @@ class Export:
                     )
                 )
             ## RX
-            self.metric_interface_received_bytes.labels(
-                self.get_additional_info(ifname)
-            ).set(
+            self.metric_interface_received_bytes.add_metric(
+                [self.get_additional_info(ifname)],
                 floatify(
                     self.getFromDB(
                         self.sonic_db.COUNTERS_DB,
@@ -690,9 +691,8 @@ class Export:
                     )
                 )
             )
-            self.metric_interface_received_packets.labels(
-                self.get_additional_info(ifname), "unicast"
-            ).set(
+            self.metric_interface_received_packets.add_metric(
+                [self.get_additional_info(ifname), "unicast"],
                 floatify(
                     self.getFromDB(
                         self.sonic_db.COUNTERS_DB,
@@ -701,9 +701,8 @@ class Export:
                     )
                 )
             )
-            self.metric_interface_received_packets.labels(
-                self.get_additional_info(ifname), "multicast"
-            ).set(
+            self.metric_interface_received_packets.add_metric(
+                [self.get_additional_info(ifname), "multicast"],
                 floatify(
                     self.getFromDB(
                         self.sonic_db.COUNTERS_DB,
@@ -712,9 +711,8 @@ class Export:
                     )
                 )
             )
-            self.metric_interface_received_packets.labels(
-                self.get_additional_info(ifname), "broadcast"
-            ).set(
+            self.metric_interface_received_packets.add_metric(
+                [self.get_additional_info(ifname), "broadcast"],
                 floatify(
                     self.getFromDB(
                         self.sonic_db.COUNTERS_DB,
@@ -724,10 +722,9 @@ class Export:
                 )
             )
 
-            ## RX Errors
-            self.metric_interface_receive_error_input_packets.labels(
-                self.get_additional_info(ifname), "error"
-            ).set(
+            # RX Errors
+            self.metric_interface_receive_error_input_packets.add_metric(
+                [self.get_additional_info(ifname), "error"],
                 floatify(
                     self.getFromDB(
                         self.sonic_db.COUNTERS_DB,
@@ -736,9 +733,8 @@ class Export:
                     )
                 )
             )
-            self.metric_interface_receive_error_input_packets.labels(
-                self.get_additional_info(ifname), "discard"
-            ).set(
+            self.metric_interface_receive_error_input_packets.add_metric(
+                [self.get_additional_info(ifname), "discard"],
                 floatify(
                     self.getFromDB(
                         self.sonic_db.COUNTERS_DB,
@@ -748,9 +744,8 @@ class Export:
                 )
             )
             if self.db_version < ConfigDBVersion("version_4_0_0"):
-                self.metric_interface_receive_error_input_packets.labels(
-                    self.get_additional_info(ifname), "drop"
-                ).set(
+                self.metric_interface_receive_error_input_packets.add_metric(
+                    [self.get_additional_info(ifname), "drop"],
                     floatify(
                         self.getFromDB(
                             self.sonic_db.COUNTERS_DB,
@@ -759,9 +754,8 @@ class Export:
                         )
                     )
                 )
-            self.metric_interface_receive_error_input_packets.labels(
-                self.get_additional_info(ifname), "pause"
-            ).set(
+            self.metric_interface_receive_error_input_packets.add_metric(
+                [self.get_additional_info(ifname), "pause"],
                 floatify(
                     self.getFromDB(
                         self.sonic_db.COUNTERS_DB,
@@ -770,10 +764,9 @@ class Export:
                     )
                 )
             )
-            ## TX
-            self.metric_interface_transmitted_bytes.labels(
-                self.get_additional_info(ifname)
-            ).set(
+            # TX
+            self.metric_interface_transmitted_bytes.add_metric(
+                [self.get_additional_info(ifname)],
                 floatify(
                     self.getFromDB(
                         self.sonic_db.COUNTERS_DB,
@@ -782,9 +775,8 @@ class Export:
                     )
                 )
             )
-            self.metric_interface_transmitted_packets.labels(
-                self.get_additional_info(ifname), "unicast"
-            ).set(
+            self.metric_interface_transmitted_packets.add_metric(
+                [self.get_additional_info(ifname), "unicast"],
                 floatify(
                     self.getFromDB(
                         self.sonic_db.COUNTERS_DB,
@@ -793,9 +785,8 @@ class Export:
                     )
                 )
             )
-            self.metric_interface_transmitted_packets.labels(
-                self.get_additional_info(ifname), "multicast"
-            ).set(
+            self.metric_interface_transmitted_packets.add_metric(
+                [self.get_additional_info(ifname), "multicast"],
                 floatify(
                     self.getFromDB(
                         self.sonic_db.COUNTERS_DB,
@@ -804,9 +795,8 @@ class Export:
                     )
                 )
             )
-            self.metric_interface_transmitted_packets.labels(
-                self.get_additional_info(ifname), "broadcast"
-            ).set(
+            self.metric_interface_transmitted_packets.add_metric(
+                [self.get_additional_info(ifname), "broadcast"],
                 floatify(
                     self.getFromDB(
                         self.sonic_db.COUNTERS_DB,
@@ -817,9 +807,8 @@ class Export:
             )
             # SAI_PORT_STAT_ETHER_TX_OVERSIZE_PKTS
             ## TX Errors
-            self.metric_interface_transmit_error_output_packets.labels(
-                self.get_additional_info(ifname), "error"
-            ).set(
+            self.metric_interface_transmit_error_output_packets.add_metric(
+                [self.get_additional_info(ifname), "error"],
                 floatify(
                     self.getFromDB(
                         self.sonic_db.COUNTERS_DB,
@@ -828,9 +817,8 @@ class Export:
                     )
                 )
             )
-            self.metric_interface_transmit_error_output_packets.labels(
-                self.get_additional_info(ifname), "discard"
-            ).set(
+            self.metric_interface_transmit_error_output_packets.add_metric(
+                [self.get_additional_info(ifname), "discard"],
                 floatify(
                     self.getFromDB(
                         self.sonic_db.COUNTERS_DB,
@@ -839,9 +827,8 @@ class Export:
                     )
                 )
             )
-            self.metric_interface_transmit_error_output_packets.labels(
-                self.get_additional_info(ifname), "pause"
-            ).set(
+            self.metric_interface_transmit_error_output_packets.add_metric(
+                [self.get_additional_info(ifname), "pause"],
                 floatify(
                     self.getFromDB(
                         self.sonic_db.COUNTERS_DB,
@@ -852,7 +839,7 @@ class Export:
             )
             _logger.debug("export_intf_counter :: ifname={}".format(ifname))
             try:
-                port_table_key = Export.get_port_table_key(ifname)
+                port_table_key = SONiCCollector.get_port_table_key(ifname)
                 is_operational = _decode(
                     self.getFromDB(self.sonic_db.APPL_DB, port_table_key, "oper_status")
                 )
@@ -868,15 +855,12 @@ class Export:
                     )
                 )
                 is_admin = self.get_portinfo(ifname, "admin_status")
-                self.metric_interface_operational_status.labels(
-                    self.get_additional_info(ifname)
-                ).set(boolify(is_operational))
-                self.metric_interface_admin_status.labels(
-                    self.get_additional_info(ifname)
-                ).set(boolify(is_admin))
-                self.metric_interface_last_flapped_seconds.labels(
-                    self.get_additional_info(ifname)
-                ).set(floatify(last_flapped_seconds))
+                self.metric_interface_operational_status.add_metric(
+                    [self.get_additional_info(ifname)], boolify(is_operational))
+                self.metric_interface_admin_status.add_metric(
+                    [self.get_additional_info(ifname)], boolify(is_admin))
+                self.metric_interface_last_flapped_seconds.add_metric(
+                    [self.get_additional_info(ifname)], floatify(last_flapped_seconds))
             except ValueError:
                 pass
 
@@ -884,7 +868,7 @@ class Export:
         maps = self.getAllFromDB(self.sonic_db.COUNTERS_DB, COUNTER_QUEUE_MAP)
         for ifname in maps:
             decoded_counter_key = _decode(maps[ifname])
-            counter_key = Export.get_counter_key(decoded_counter_key)
+            counter_key = SONiCCollector.get_counter_key(decoded_counter_key)
             packet_type = _decode(
                 self.getFromDB(
                     self.sonic_db.COUNTERS_DB,
@@ -921,12 +905,10 @@ class Export:
                     ifname, queue_type, bytes
                 )
             )
-            self.metric_interface_queue_processed_packets.labels(
-                self.get_additional_info(ifname), queue, queue_type
-            ).set(packets)
-            self.metric_interface_queue_processed_bytes.labels(
-                self.get_additional_info(ifname), queue, queue_type
-            ).set(bytes)
+            self.metric_interface_queue_processed_packets.add_metric(
+                [self.get_additional_info(ifname), queue, queue_type], packets)
+            self.metric_interface_queue_processed_bytes.add_metric(
+                [self.get_additional_info(ifname), queue, queue_type], bytes)
 
     def export_interface_optic_data(self):
         keys = self.getKeysFromDB(
@@ -945,160 +927,138 @@ class Export:
                     if floatify(value):
                         match measure_dec:
                             case "voltage":
-                                self.metric_interface_optic_volts.labels(
-                                    self.get_additional_info(ifname)
-                                ).set(floatify(value))
+                                self.metric_interface_optic_volts.add_metric(
+                                    [self.get_additional_info(ifname)], floatify(value))
                             case "vcchighalarm":
-                                self.metric_interface_threshold_optic_volts.labels(
-                                    self.get_additional_info(ifname),
-                                    AlarmType.HIGH_ALARM.value,
-                                ).set(floatify(value))
+                                self.metric_interface_threshold_optic_volts.add_metric(
+                                    [self.get_additional_info(ifname),
+                                     AlarmType.HIGH_ALARM.value], floatify(value))
                             case "vcchighwarning":
-                                self.metric_interface_threshold_optic_volts.labels(
-                                    self.get_additional_info(ifname),
-                                    AlarmType.HIGH_WARNING.value,
-                                ).set(floatify(value))
+                                self.metric_interface_threshold_optic_volts.add_metric(
+                                    [self.get_additional_info(ifname),
+                                     AlarmType.HIGH_WARNING.value, ], floatify(value))
                             case "vcclowalarm":
-                                self.metric_interface_threshold_optic_volts.labels(
-                                    self.get_additional_info(ifname),
-                                    AlarmType.LOW_ALARM.value,
-                                ).set(floatify(value))
+                                self.metric_interface_threshold_optic_volts.add_metric(
+                                    [self.get_additional_info(ifname),
+                                     AlarmType.LOW_ALARM.value, ], floatify(value))
                             case "vcclowwarning":
-                                self.metric_interface_threshold_optic_volts.labels(
-                                    self.get_additional_info(ifname),
-                                    AlarmType.LOW_WARNING.value,
-                                ).set(floatify(value))
+                                self.metric_interface_threshold_optic_volts.add_metric(
+                                    [self.get_additional_info(ifname),
+                                     AlarmType.LOW_WARNING.value, ], floatify(value))
                             case "temperature":
-                                self.metric_interface_optic_celsius.labels(
-                                    self.get_additional_info(ifname)
-                                ).set(floatify(value))
+                                self.metric_interface_optic_celsius.add_metric(
+                                    [self.get_additional_info(ifname)], floatify(value))
                             case "temphighalarm":
-                                self.metric_interface_threshold_optic_celsius.labels(
-                                    self.get_additional_info(ifname),
-                                    AlarmType.HIGH_ALARM.value,
-                                ).set(floatify(value))
+                                self.metric_interface_threshold_optic_celsius.add_metric(
+                                    [self.get_additional_info(ifname),
+                                     AlarmType.HIGH_ALARM.value, ], floatify(value))
                             case "temphighwarning":
-                                self.metric_interface_threshold_optic_celsius.labels(
-                                    self.get_additional_info(ifname),
-                                    AlarmType.HIGH_WARNING.value,
-                                ).set(floatify(value))
+                                self.metric_interface_threshold_optic_celsius.add_metric(
+                                    [self.get_additional_info(ifname),
+                                     AlarmType.HIGH_WARNING.value, ], floatify(value))
                             case "templowalarm":
-                                self.metric_interface_threshold_optic_celsius.labels(
-                                    self.get_additional_info(ifname),
-                                    AlarmType.LOW_ALARM.value,
-                                ).set(floatify(value))
+                                self.metric_interface_threshold_optic_celsius.add_metric(
+                                    [self.get_additional_info(ifname),
+                                     AlarmType.LOW_ALARM.value, ], floatify(value))
                             case "templowwarning":
-                                self.metric_interface_threshold_optic_celsius.labels(
-                                    self.get_additional_info(ifname),
-                                    AlarmType.LOW_WARNING.value,
-                                ).set(floatify(value))
+                                self.metric_interface_threshold_optic_celsius.add_metric(
+                                    [self.get_additional_info(ifname),
+                                     AlarmType.LOW_WARNING.value, ], floatify(value))
                             case "txbiashighalarm":
-                                self.metric_interface_threshold_transmit_optic_bias_amperes.labels(
-                                    self.get_additional_info(ifname),
-                                    AlarmType.HIGH_ALARM.value,
-                                ).set(
+                                self.metric_interface_threshold_transmit_optic_bias_amperes.add_metric(
+                                    [self.get_additional_info(ifname),
+                                     AlarmType.HIGH_ALARM.value, ],
                                     floatify(value) / 1000
                                 )
                             case "txbiashighwarning":
-                                self.metric_interface_threshold_transmit_optic_bias_amperes.labels(
-                                    self.get_additional_info(ifname),
-                                    AlarmType.HIGH_WARNING.value,
-                                ).set(
+                                self.metric_interface_threshold_transmit_optic_bias_amperes.add_metric(
+                                    [self.get_additional_info(ifname),
+                                     AlarmType.HIGH_WARNING.value, ],
                                     floatify(value) / 1000
                                 )
                             case "txbiaslowalarm":
-                                self.metric_interface_threshold_transmit_optic_bias_amperes.labels(
-                                    self.get_additional_info(ifname),
-                                    AlarmType.LOW_ALARM.value,
-                                ).set(
+                                self.metric_interface_threshold_transmit_optic_bias_amperes.add_metric(
+                                    [self.get_additional_info(ifname),
+                                     AlarmType.LOW_ALARM.value, ],
                                     floatify(value) / 1000
                                 )
                             case "txbiaslowwarning":
-                                self.metric_interface_threshold_transmit_optic_bias_amperes.labels(
-                                    self.get_additional_info(ifname),
-                                    AlarmType.LOW_WARNING.value,
-                                ).set(
+                                self.metric_interface_threshold_transmit_optic_bias_amperes.add_metric(
+                                    [self.get_additional_info(ifname),
+                                     AlarmType.LOW_WARNING.value, ],
                                     floatify(value) / 1000
                                 )
                             case "txpowerhighalarm":
-                                self.metric_interface_threshold_transmit_optic_power_dbm.labels(
-                                    self.get_additional_info(ifname),
-                                    AlarmType.HIGH_ALARM.value,
-                                ).set(
+                                self.metric_interface_threshold_transmit_optic_power_dbm.add_metric(
+                                    [self.get_additional_info(ifname),
+                                     AlarmType.HIGH_ALARM.value, ],
                                     floatify(value)
                                 )
                             case "txpowerhighwarning":
-                                self.metric_interface_threshold_transmit_optic_power_dbm.labels(
-                                    self.get_additional_info(ifname),
-                                    AlarmType.HIGH_WARNING.value,
-                                ).set(
+                                self.metric_interface_threshold_transmit_optic_power_dbm.add_metric(
+                                    [self.get_additional_info(ifname),
+                                     AlarmType.HIGH_WARNING.value, ],
                                     floatify(value)
                                 )
                             case "txpowerlowalarm":
-                                self.metric_interface_threshold_transmit_optic_power_dbm.labels(
-                                    self.get_additional_info(ifname),
-                                    AlarmType.LOW_ALARM.value,
-                                ).set(
+                                self.metric_interface_threshold_transmit_optic_power_dbm.add_metric(
+                                    [self.get_additional_info(ifname),
+                                     AlarmType.LOW_ALARM.value, ],
                                     floatify(value)
                                 )
                             case "txpowerlowwarning":
-                                self.metric_interface_threshold_transmit_optic_power_dbm.labels(
-                                    self.get_additional_info(ifname),
-                                    AlarmType.LOW_WARNING.value,
-                                ).set(
+                                self.metric_interface_threshold_transmit_optic_power_dbm.add_metric(
+                                    [self.get_additional_info(ifname),
+                                     AlarmType.LOW_WARNING.value, ],
                                     floatify(value)
                                 )
                             case "rxpowerhighalarm":
-                                self.metric_interface_threshold_receive_optic_power_dbm.labels(
-                                    self.get_additional_info(ifname),
-                                    AlarmType.HIGH_ALARM.value,
-                                ).set(
+                                self.metric_interface_threshold_receive_optic_power_dbm.add_metric(
+                                    [self.get_additional_info(ifname),
+                                     AlarmType.HIGH_ALARM.value, ],
                                     floatify(value)
                                 )
                             case "rxpowerhighwarning":
-                                self.metric_interface_threshold_receive_optic_power_dbm.labels(
-                                    self.get_additional_info(ifname),
-                                    AlarmType.HIGH_WARNING.value,
-                                ).set(
+                                self.metric_interface_threshold_receive_optic_power_dbm.add_metric(
+                                    [self.get_additional_info(ifname),
+                                     AlarmType.HIGH_WARNING.value, ],
                                     floatify(value)
                                 )
                             case "rxpowerlowalarm":
-                                self.metric_interface_threshold_receive_optic_power_dbm.labels(
-                                    self.get_additional_info(ifname),
-                                    AlarmType.LOW_ALARM.value,
-                                ).set(
+                                self.metric_interface_threshold_receive_optic_power_dbm.add_metric(
+                                    [self.get_additional_info(ifname),
+                                     AlarmType.LOW_ALARM.value, ],
                                     floatify(value)
                                 )
                             case "rxpowerlowwarning":
-                                self.metric_interface_threshold_receive_optic_power_dbm.labels(
-                                    self.get_additional_info(ifname),
-                                    AlarmType.LOW_WARNING.value,
-                                ).set(
+                                self.metric_interface_threshold_receive_optic_power_dbm.add_metric(
+                                    [self.get_additional_info(ifname),
+                                     AlarmType.LOW_WARNING.value, ],
                                     floatify(value)
                                 )
                             case _:
                                 if match := self.rx_power_regex.fullmatch(measure_dec):
                                     optic_unit = match.group(1)
-                                    self.metric_interface_receive_optic_power_dbm.labels(
-                                        self.get_additional_info(ifname), optic_unit
-                                    ).set(
+                                    self.metric_interface_receive_optic_power_dbm.add_metric(
+                                        [self.get_additional_info(
+                                            ifname), optic_unit],
                                         floatify(value)
                                     )
                                 elif match := self.tx_power_regex.fullmatch(
                                     measure_dec
                                 ):
                                     optic_unit = match.group(1)
-                                    self.metric_interface_transmit_optic_power_dbm.labels(
-                                        self.get_additional_info(ifname), optic_unit
-                                    ).set(
+                                    self.metric_interface_transmit_optic_power_dbm.add_metric(
+                                        [self.get_additional_info(
+                                            ifname), optic_unit],
                                         floatify(value)
                                     )
                                 elif match := self.tx_bias_regex.fullmatch(measure_dec):
                                     optic_unit = match.group(1)
                                     # This resolves mA to Amperes
-                                    self.metric_interface_transmit_optic_bias_amperes.labels(
-                                        self.get_additional_info(ifname), optic_unit
-                                    ).set(
+                                    self.metric_interface_transmit_optic_bias_amperes.add_metric(
+                                        [self.get_additional_info(
+                                            ifname), optic_unit],
                                         floatify(value) / 1000
                                     )
                 except ValueError:
@@ -1148,24 +1108,22 @@ class Export:
                 cable_len = floatify(
                     self.getFromDB(self.sonic_db.STATE_DB, key, "cable_length")
                 )
-                self.metric_interface_cable_length_meters.labels(
-                    self.get_additional_info(ifname), cable_type, connector_type
-                ).set(cable_len)
+                self.metric_interface_cable_length_meters.add_metric(
+                    [self.get_additional_info(ifname), cable_type, connector_type], cable_len)
             except ValueError:
                 pass
             _logger.debug(
                 f"export_interface_cable_data :: interface={self.get_additional_info(ifname)}"
             )
-            self.metric_interface_transceiver_info.labels(
-                self.get_additional_info(ifname),
-                serial,
-                part_number,
-                revision,
-                form_factor,
-                connector_type,
-                display_name,
-                media_interface,
-            ).set(1)
+            self.metric_interface_transceiver_info.add_metric(
+                [self.get_additional_info(ifname),
+                 serial,
+                 part_number,
+                 revision,
+                 form_factor,
+                 connector_type,
+                 display_name,
+                 media_interface], 1)
 
     def export_psu_info(self):
         keys = self.getKeysFromDB(self.sonic_db.STATE_DB, PSU_INFO_PATTERN)
@@ -1193,8 +1151,8 @@ class Export:
                 in_amperes = floatify(
                     self.getFromDB(self.sonic_db.STATE_DB, key, "input_current")
                 )
-                self.metric_device_psu_input_amperes.labels(slot).set(in_amperes)
-                self.metric_device_psu_input_volts.labels(slot).set(in_volts)
+                self.metric_device_psu_input_amperes.add_metric([slot],in_amperes)
+                self.metric_device_psu_input_volts.add_metric([slot],in_volts)
                 _logger.debug(
                     f"export_psu_info :: slot={slot}, in_amperes={in_amperes}, in_volts={in_volts}"
                 )
@@ -1207,8 +1165,8 @@ class Export:
                 out_amperes = floatify(
                     self.getFromDB(self.sonic_db.STATE_DB, key, "output_current")
                 )
-                self.metric_device_psu_output_amperes.labels(slot).set(out_amperes)
-                self.metric_device_psu_output_volts.labels(slot).set(out_volts)
+                self.metric_device_psu_output_amperes.add_metric([slot],out_amperes)
+                self.metric_device_psu_output_volts.add_metric([slot],out_volts)
                 _logger.debug(
                     f"export_psu_info :: slot={slot}, out_amperes={out_amperes}, out_volts={out_volts}"
                 )
@@ -1224,16 +1182,16 @@ class Export:
                     temperature = floatify(
                         self.getFromDB(self.sonic_db.STATE_DB, key, "temp")
                     )
-                self.metric_device_psu_celsius.labels(slot).set(temperature)
+                self.metric_device_psu_celsius.add_metric([slot],temperature)
             except ValueError:
                 pass
-            self.metric_device_psu_available_status.labels(slot).set(
+            self.metric_device_psu_available_status.add_metric([slot],
                 boolify(available_status)
             )
-            self.metric_device_psu_operational_status.labels(slot).set(
+            self.metric_device_psu_operational_status.add_metric([slot],
                 boolify(operational_status)
             )
-            self.metric_device_psu_info.labels(slot, serial, model_name, model).set(1)
+            self.metric_device_psu_info.add_metric([slot, serial, model_name, model],1)
 
     def export_fan_info(self):
         keys = self.getKeysFromDB(self.sonic_db.STATE_DB, FAN_INFO_PATTERN)
@@ -1265,11 +1223,11 @@ class Export:
                                 )
                             )
                         )
-                self.metric_device_fan_rpm.labels(name, slot).set(rpm)
-                self.metric_device_fan_operational_status.labels(name, slot).set(
+                self.metric_device_fan_rpm.add_metric([name, slot],rpm)
+                self.metric_device_fan_operational_status.add_metric([name, slot],
                     boolify(is_operational)
                 )
-                self.metric_device_fan_available_status.labels(name, slot).set(
+                self.metric_device_fan_available_status.add_metric([name, slot],
                     is_available
                 )
                 _logger.debug(
@@ -1296,15 +1254,15 @@ class Export:
                 )
                 match subvalue:
                     case "max":
-                        self.metric_device_threshold_sensor_celsius.labels(
-                            name, AlarmType.HIGH_ALARM.value
-                        ).set(value.value)
+                        self.metric_device_threshold_sensor_celsius.add_metric(
+                            [name, AlarmType.HIGH_ALARM.value]
+                        ,value.value)
                     case "max_hyst":
-                        self.metric_device_threshold_sensor_celsius.labels(
-                            name, AlarmType.HIGH_WARNING.value
-                        ).set(value.value)
+                        self.metric_device_threshold_sensor_celsius.add_metric(
+                            [name, AlarmType.HIGH_WARNING.value]
+                        ,value.value)
                     case "input":
-                        self.metric_device_sensor_celsius.labels(name).set(value.value)
+                        self.metric_device_sensor_celsius.add_metric([name],value.value)
 
     def export_temp_info(self):
         keys = self.getKeysFromDB(self.sonic_db.STATE_DB, TEMPERATURE_INFO_PATTERN)
@@ -1344,10 +1302,10 @@ class Export:
                         self.getFromDB(self.sonic_db.STATE_DB, key, "high_threshold")
                     )
                 )
-                self.metric_device_sensor_celsius.labels(name).set(temp)
-                self.metric_device_threshold_sensor_celsius.labels(
-                    name, AlarmType.HIGH_ALARM.value
-                ).set(high_threshold)
+                self.metric_device_sensor_celsius.add_metric([name],temp)
+                self.metric_device_threshold_sensor_celsius.add_metric(
+                    [name, AlarmType.HIGH_ALARM.value]
+                ,high_threshold)
                 _logger.debug(
                     f"export_temp_info :: name={name}, temp={temp}, high_threshold={high_threshold}"
                 )
@@ -1357,7 +1315,7 @@ class Export:
                 self.export_hwmon_temp_info(switch_model, air_flow)
 
     def export_system_info(self):
-        self.metric_device_uptime.set(get_uptime().total_seconds())
+        self.metric_device_uptime.add_metric([],get_uptime().total_seconds())
         for chassis_raw, data in self.chassis.items():
             chassis = chassis_raw
             if match := self.chassis_slot_regex.fullmatch(chassis_raw):
@@ -1372,17 +1330,16 @@ class Export:
             platform_name = _decode(data.get("platform_name", ""))
             hardware_revision = _decode(data.get("hardware_revision", ""))
             product_name = _decode(data.get("product_name", ""))
-            self.metric_device_info.labels(
-                chassis,
-                platform_name,
-                part_number,
-                serial_number,
-                mac_address,
-                software_version,
-                onie_version,
-                hardware_revision,
-                product_name,
-            ).set(1)
+            self.metric_device_info.add_metric(
+                [chassis,
+                 platform_name,
+                 part_number,
+                 serial_number,
+                 mac_address,
+                 software_version,
+                 onie_version,
+                 hardware_revision,
+                 product_name, ], 1)
             _logger.debug(
                 "export_sys_info :: part_num={}, serial_num={}, mac_addr={}, software_version={}".format(
                     part_number, serial_number, mac_address, software_version
@@ -1399,8 +1356,8 @@ class Export:
         ]
         cpu_usage = sum(cpu_usage for cpu_usage, _ in cpu_memory_usages)
         memory_usage = sum(memory_usage for _, memory_usage in cpu_memory_usages)
-        self.system_cpu_ratio.set(cpu_usage / 100)
-        self.system_memory_ratio.set(memory_usage / 100)
+        self.system_cpu_ratio.add_metric([],cpu_usage / 100)
+        self.system_memory_ratio.add_metric([],memory_usage / 100)
         _logger.debug(
             f"export_sys_info :: cpu_usage={cpu_usage}, memory_usage={memory_usage}"
         )
@@ -1429,9 +1386,9 @@ class Export:
         for internet_protocol in InternetProtocol:
             if global_data and boolify(global_data[internet_protocol.value].lower()):
                 exportable[internet_protocol] = True
-                self.metric_sag_info.labels(
-                    internet_protocol.value.lower(), _decode(global_data["gwmac"])
-                ).set(1)
+                self.metric_sag_info.add_metric(
+                    [internet_protocol.value.lower(), _decode(global_data["gwmac"])]
+                ,1)
 
         if not keys or not vxlan_tunnel_map:
             return
@@ -1461,12 +1418,12 @@ class Export:
                     vni = _decode(
                         self.getFromDB(self.sonic_db.CONFIG_DB, vni_key, "vni")
                     )
-                    self.metric_sag_admin_status.labels(
-                        interface, vrf, gateway_ip, ip_family.value.lower(), vni
-                    ).set(self.sys_class_net.admin_enabled(interface))
-                    self.metric_sag_operational_status.labels(
-                        interface, vrf, gateway_ip, ip_family.value.lower(), vni
-                    ).set(self.sys_class_net.operational(interface))
+                    self.metric_sag_admin_status.add_metric(
+                        [interface, vrf, gateway_ip, ip_family.value.lower(), vni]
+                    ,self.sys_class_net.admin_enabled(interface))
+                    self.metric_sag_operational_status.add_metric(
+                        [interface, vrf, gateway_ip, ip_family.value.lower(), vni]
+                    ,self.sys_class_net.operational(interface))
                 except (KeyError, StopIteration, OSError):
                     _logger.debug(
                         f"export_static_anycast_gateway_info :: No Static Anycast Gateway for interface={interface}"
@@ -1510,22 +1467,22 @@ class Export:
                             self.vtysh.addressfamily(family),
                             str(peerdata.get("remoteAs")),
                         ]
-                        self.metric_bgp_uptime_seconds.labels(*bgp_lbl).set(
+                        self.metric_bgp_uptime_seconds.add_metric([*bgp_lbl],
                             floatify(peerdata.get("peerUptimeMsec", 1000) / 1000)
                         )
-                        self.metric_bgp_status.labels(*bgp_lbl).set(
+                        self.metric_bgp_status.add_metric([*bgp_lbl],
                             boolify(peerdata.get("state", ""))
                         )
-                        self.metric_bgp_prefixes_received.labels(*bgp_lbl).set(
+                        self.metric_bgp_prefixes_received.add_metric([*bgp_lbl],
                             floatify(peerdata.get("pfxRcd", 0))
                         )
-                        self.metric_bgp_prefixes_transmitted.labels(*bgp_lbl).set(
+                        self.metric_bgp_prefixes_transmitted.add_metric([*bgp_lbl],
                             floatify(peerdata.get("pfxSnt", 0))
                         )
-                        self.metric_bgp_messages_received.labels(*bgp_lbl).set(
+                        self.metric_bgp_messages_received.add_metric([*bgp_lbl],
                             floatify(peerdata.get("msgRcvd", 0))
                         )
-                        self.metric_bgp_messages_transmitted.labels(*bgp_lbl).set(
+                        self.metric_bgp_messages_transmitted.add_metric([*bgp_lbl],
                             floatify(peerdata.get("msgSent", 0))
                         )
                 except KeyError:
@@ -1546,27 +1503,28 @@ class Export:
                     svi = _decode(evpn_vni["sviIntf"])
                     interface = _decode(evpn_vni["vxlanIntf"])
                     state = _decode(evpn_vni["state"].lower())
-                    self.metric_evpn_l2_vnis.labels(
-                        vni, interface, svi, layer.value, vrf
-                    ).set(floatify(len(evpn_vni["l2Vnis"])))
+                    self.metric_evpn_l2_vnis.add_metric(
+                        [vni, interface, svi, layer.value, vrf]
+                    ,floatify(len(evpn_vni["l2Vnis"])))
                 case OSILayer.L2:
                     interface = _decode(evpn_vni["vxlanInterface"])
                     state = self.sys_class_net.operational(interface)
-                    self.metric_evpn_remote_vteps.labels(
-                        vni, interface, svi, layer.value, vrf
-                    ).set(floatify(len(evpn_vni.get("numRemoteVteps", []))))
-                    self.metric_evpn_arps.labels(
-                        vni, interface, svi, layer.value, vrf
-                    ).set(evpn_vni["numArpNd"])
-                    self.metric_evpn_mac_addresses.labels(
-                        vni, interface, svi, layer.value, vrf
-                    ).set(floatify(evpn_vni["numMacs"]))
-            self.metric_evpn_status.labels(vni, interface, svi, layer.value, vrf).set(
+                    self.metric_evpn_remote_vteps.add_metric(
+                        [vni, interface, svi, layer.value, vrf]
+                    ,floatify(len(evpn_vni.get("numRemoteVteps", []))))
+                    self.metric_evpn_arps.add_metric(
+                        [vni, interface, svi, layer.value, vrf]
+                    ,evpn_vni["numArpNd"])
+                    self.metric_evpn_mac_addresses.add_metric(
+                        [vni, interface, svi, layer.value, vrf]
+                    ,floatify(evpn_vni["numMacs"]))
+            self.metric_evpn_status.add_metric([vni, interface, svi, layer.value, vrf],
                 boolify(state)
             )
 
-    def start_export(self):
+    def collect(self):
         try:
+            self._init_metrics()
             self.export_interface_counters()
             self.export_interface_queue_counters()
             self.export_interface_cable_data()
@@ -1579,6 +1537,65 @@ class Export:
             self.export_bgp_info()
             self.export_evpn_vni_info()
             self.export_static_anycast_gateway_info()
+
+            yield self.metric_interface_info
+            yield self.metric_interface_transmitted_bytes
+            yield self.metric_interface_received_bytes
+            yield self.metric_interface_transmitted_packets
+            yield self.metric_interface_received_packets
+            yield self.metric_interface_receive_error_input_packets
+            yield self.metric_interface_transmit_error_output_packets
+            yield self.metric_interface_received_ethernet_packets
+            yield self.metric_interface_transmitted_ethernet_packets
+            yield self.metric_interface_operational_status
+            yield self.metric_interface_admin_status
+            yield self.metric_interface_last_flapped_seconds
+            yield self.metric_interface_queue_processed_packets
+            yield self.metric_interface_queue_processed_bytes
+            yield self.metric_interface_receive_optic_power_dbm
+            yield self.metric_interface_transmit_optic_power_dbm
+            yield self.metric_interface_transmit_optic_bias_amperes
+            yield self.metric_interface_optic_celsius
+            yield self.metric_interface_optic_volts
+            yield self.metric_interface_threshold_optic_volts
+            yield self.metric_interface_threshold_optic_celsius
+            yield self.metric_interface_threshold_receive_optic_power_dbm
+            yield self.metric_interface_threshold_transmit_optic_power_dbm
+            yield self.metric_interface_threshold_transmit_optic_bias_amperes
+            yield self.metric_interface_transceiver_info
+            yield self.metric_interface_cable_length_meters
+            yield self.metric_device_psu_input_volts
+            yield self.metric_device_psu_input_amperes
+            yield self.metric_device_psu_output_volts
+            yield self.metric_device_psu_output_amperes
+            yield self.metric_device_psu_operational_status
+            yield self.metric_device_psu_available_status
+            yield self.metric_device_psu_celsius
+            yield self.metric_device_psu_info
+            yield self.metric_device_fan_rpm
+            yield self.metric_device_fan_operational_status
+            yield self.metric_device_fan_available_status
+            yield self.metric_device_sensor_celsius
+            yield self.metric_device_threshold_sensor_celsius
+            yield self.metric_vxlan_operational_status
+            yield self.metric_device_uptime
+            yield self.metric_device_info
+            yield self.system_memory_ratio
+            yield self.system_cpu_ratio
+            yield self.metric_bgp_uptime_seconds
+            yield self.metric_bgp_status
+            yield self.metric_bgp_prefixes_received
+            yield self.metric_bgp_prefixes_transmitted
+            yield self.metric_bgp_messages_received
+            yield self.metric_bgp_messages_transmitted
+            yield self.metric_sag_operational_status
+            yield self.metric_sag_admin_status
+            yield self.metric_sag_info
+            yield self.metric_evpn_status
+            yield self.metric_evpn_remote_vteps
+            yield self.metric_evpn_l2_vnis
+            yield self.metric_evpn_mac_addresses
+            yield self.metric_evpn_arps
         except KeyboardInterrupt as e:
             raise e
 
@@ -1591,15 +1608,13 @@ def main():
         os.environ.get("SONIC_EXPORTER_PORT", 9101)
     )  # setting port static as 9101. if required map it to someother port of host by editing compose file.
     address = str(os.environ.get("SONIC_EXPORTER_ADDRESS", "localhost"))
-    exp = Export(os.environ.get("DEVELOPER_MODE", "False").lower() in TRUE_VALUES)
+    sonic_collector = SONiCCollector(os.environ.get("DEVELOPER_MODE", "False").lower() in TRUE_VALUES)
     _logger.info("Starting Python exporter server at {}:{}".format(address,port))
     # TODO ip address validation
     prom.start_http_server(port, addr=address)
-
+    REGISTRY.register(sonic_collector)
     while True:
-        exp.start_export()
-        _logger.info("Export Done!")
-        time.sleep(data_extract_interval)
+        time.sleep(10**8)
 
 
 def cli():
