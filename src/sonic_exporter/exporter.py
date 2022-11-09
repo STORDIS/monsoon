@@ -22,12 +22,16 @@ import time
 import subprocess
 import prometheus_client as prom
 from prometheus_client.core import REGISTRY,GaugeMetricFamily,CounterMetricFamily
+import jc
 
 from sonic_exporter import logging
+from sonic_exporter import utilities
 
 _logger = logging.getLogger(__name__)
 
 from sonic_exporter.constants import (
+    NTP_SERVER,
+    NTP_SERVER_PATTERN,
     CHASSIS_INFO,
     CHASSIS_INFO_PATTERN,
     COUNTER_IGNORE,
@@ -140,7 +144,7 @@ class SONiCCollector(object):
                     _logger.warning("Retrying in {0} secs.".format(timeout))
                     time.sleep(timeout)
             else:
-                _logger.info("Finally retrieved values")
+                #_logger.info("Finally retrieved values")
                 return keys
         _logger.error(
             "Couldn't retrieve {0} from {1}, after {2} retries returning no results.".format(
@@ -271,6 +275,50 @@ class SONiCCollector(object):
             "vni",
         ]
         evpn_vni_labels = ["vni", "interface", "svi", "osi_layer", "vrf"]
+        
+        self.metric_ntp_associations = GaugeMetricFamily(
+            "sonic_ntp_associations",
+            "NTP associations",
+            labels=["remote", "refid", "st", "t", "poll",
+                    "reach",'state'],
+        )
+        
+        self.metric_ntp_when = GaugeMetricFamily(
+            "sonic_ntp_when",
+            "Time (in seconds) since an NTP packet update was received",
+            labels=["remote", "refid"],
+        )
+        
+        self.metric_ntp_rtd = GaugeMetricFamily(
+            "sonic_ntp_rtd",
+            "Round-trip delay (in milliseconds) to the NTP server.",
+            labels=["remote", "refid"],
+        )
+        
+        self.metric_ntp_offset = GaugeMetricFamily(
+            "sonic_ntp_offset",
+            "Time difference (in milliseconds) between the switch and the NTP server or another NTP peer.",
+            labels=["remote", "refid"],
+        )
+        
+        self.metric_ntp_jitter = GaugeMetricFamily(
+            "sonic_ntp_jitter",
+            "Mean deviation in times between the switch and the NTP server",
+            labels=["remote", "refid"],
+        )
+        
+        self.metric_ntp_global = GaugeMetricFamily(
+            "sonic_ntp_global",
+            "NTP Global",
+            labels=["vrf", "auth_enabled", "src_intf", "trusted_key"],
+        )
+        
+        self.metric_ntp_server = GaugeMetricFamily(
+            "sonic_ntp_server",
+            "NTP Servers",
+            labels=["ntp_server","key_id", "minpoll", "maxpoll"],
+        )
+        
         self.metric_interface_info = GaugeMetricFamily(
             "sonic_interface_info",
             "Interface Information (Description, MTU, Speed)",
@@ -1522,9 +1570,39 @@ class SONiCCollector(object):
                 boolify(state)
             )
 
+    def export_ntp_global(self):
+        dict=self.getAllFromDB(self.sonic_db.CONFIG_DB, "NTP|global")
+        if dict:
+            self.metric_ntp_global.add_metric([dict.get("vrf") if "vrf" in dict else "",
+                                            dict.get("auth_enabled") if "auth_enabled" in dict else "",
+                                            dict.get("src_intf@") if "src_intf@" in dict else "",
+                                            dict.get("trusted_key@") if "trusted_key@" in dict else "",],1)
+        
+    def export_ntp_server(self):
+        for key in self.getKeysFromDB(
+            self.sonic_db.CONFIG_DB, NTP_SERVER_PATTERN):
+            dict=self.getAllFromDB(self.sonic_db.CONFIG_DB, key)
+            if dict:
+                self.metric_ntp_server.add_metric([key.split("|")[1],
+                                                    dict.get('key_id') if 'key_id' in dict else "",
+                                                    dict.get('minpoll') if 'minpoll' in dict else "",
+                                                    dict.get('maxpoll') if 'maxpoll' in dict else "",],1)
+    
+    def export_ntp_associations(self):
+        for op in utilities.getJsonOutPut("ntpq -p -n"):
+            self.metric_ntp_associations.add_metric([op.get('remote'), op.get('refid'),
+                                                     str(op.get('st')),
+                                                     op.get('t'), str(op.get('poll')), str(op.get(
+                                                         'reach')), op.get('state')], 1)
+            self.metric_ntp_jitter.add_metric([op.get('remote'), op.get('refid')], floatify(op.get('jitter')))
+            self.metric_ntp_offset.add_metric([op.get('remote'), op.get('refid')], floatify(op.get('offset')))
+            self.metric_ntp_rtd.add_metric([op.get('remote'), op.get('refid')], floatify(op.get('delay')))
+            self.metric_ntp_when.add_metric([op.get('remote'), op.get('refid')], floatify(op.get('when')))
+            
     def collect(self):
         try:
             self._init_metrics()
+            
             self.export_interface_counters()
             self.export_interface_queue_counters()
             self.export_interface_cable_data()
@@ -1537,7 +1615,17 @@ class SONiCCollector(object):
             self.export_bgp_info()
             self.export_evpn_vni_info()
             self.export_static_anycast_gateway_info()
-
+            self.export_ntp_associations()
+            self.export_ntp_global()
+            self.export_ntp_server()
+            
+            yield self.metric_ntp_jitter
+            yield self.metric_ntp_offset
+            yield self.metric_ntp_rtd
+            yield self.metric_ntp_when
+            yield self.metric_ntp_associations   
+            yield self.metric_ntp_global         
+            yield self.metric_ntp_server
             yield self.metric_interface_info
             yield self.metric_interface_transmitted_bytes
             yield self.metric_interface_received_bytes

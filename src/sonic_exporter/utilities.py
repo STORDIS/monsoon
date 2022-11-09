@@ -1,9 +1,15 @@
 from distutils.version import Version
 import functools
+import os
 import re
+import jc
 from datetime import datetime, timedelta
 
 
+def getJsonOutPut(command):
+     return jc.parse(command.split(" ")[0], os.popen(command).read())
+    
+        
 def timed_cache(**timedelta_kwargs):
     def _wrapper(f):
         maxsize = timedelta_kwargs.pop("maxsize", 128)
