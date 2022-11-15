@@ -13,12 +13,6 @@
   "__requires": [
     {
       "type": "panel",
-      "id": "alertlist",
-      "name": "Alert list",
-      "version": ""
-    },
-    {
-      "type": "panel",
       "id": "bargauge",
       "name": "Bar gauge",
       "version": ""
@@ -88,31 +82,258 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "center",
+            "displayMode": "color-background",
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Device Type"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "A0100:00:00:00:00:01": {
+                        "index": 0,
+                        "text": "This is a Simulated Switch"
+                      }
+                    },
+                    "type": "value"
+                  },
+                  {
+                    "options": {
+                      "pattern": "/R01/",
+                      "result": {
+                        "index": 1,
+                        "text": "This is a Real Physical Switch "
+                      }
+                    },
+                    "type": "regex"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
       "gridPos": {
-        "h": 8,
-        "w": 12,
+        "h": 2,
+        "w": 3,
         "x": 0,
         "y": 0
       },
-      "id": 122,
+      "id": 142,
       "options": {
-        "alertInstanceLabelFilter": "",
-        "alertName": "",
-        "dashboardAlerts": false,
-        "groupBy": [],
-        "groupMode": "default",
-        "maxItems": 20,
-        "sortOrder": 1,
-        "stateFilter": {
-          "error": true,
-          "firing": true,
-          "noData": false,
-          "normal": true,
-          "pending": true
-        }
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": false
       },
-      "title": "Alerts",
-      "type": "alertlist"
+      "pluginVersion": "9.0.6",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "builder",
+          "exemplar": false,
+          "expr": "sonic_device_info{instance=\"$target\"}",
+          "format": "table",
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Device Type",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "Value": true,
+              "__name__": true,
+              "chassis": true,
+              "instance": true,
+              "job": true,
+              "onie_version": true,
+              "part_number": true,
+              "platform_name": true,
+              "product_name": true,
+              "serial_number": true,
+              "software_version": true
+            },
+            "indexByName": {},
+            "renameByName": {}
+          }
+        },
+        {
+          "id": "reduce",
+          "options": {
+            "includeTimeField": false,
+            "mode": "reduceFields",
+            "reducers": [
+              "last"
+            ]
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Device Type",
+            "binary": {
+              "left": "hardware_revision",
+              "reducer": "sum",
+              "right": "mac_address"
+            },
+            "mode": "binary",
+            "reduce": {
+              "include": [
+                "hardware_revision",
+                "mac_address"
+              ],
+              "reducer": "sum"
+            },
+            "replaceFields": true
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-RdYlGr"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "index": 1,
+                  "text": "DOWN"
+                },
+                "1": {
+                  "index": 0,
+                  "text": "UP"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 3,
+        "y": 0
+      },
+      "id": 144,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "9.0.6",
+      "targets": [
+        {
+          "$$hashKey": "object:51",
+          "aggregation": "Last",
+          "alias": "dfdxcvbcx",
+          "crit": "2",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "decimals": 2,
+          "displayAliasType": "Always",
+          "displayType": "Annotation",
+          "displayValueWithAlias": "When Alias Displayed",
+          "editorMode": "builder",
+          "expr": "sonic_system_status{instance=\"$target\"}",
+          "group": {
+            "$$hashKey": "object:24",
+            "alias": "",
+            "name": "Status Checks",
+            "url": ""
+          },
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A",
+          "units": "none",
+          "url": "xcvbxcvb",
+          "valueDisplayRegex": "xcvb",
+          "valueHandler": "String Threshold",
+          "warn": "1"
+        }
+      ],
+      "title": "Sonic System Status",
+      "type": "gauge"
     },
     {
       "collapsed": true,
@@ -120,7 +341,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 8
+        "y": 3
       },
       "id": 8,
       "panels": [
@@ -156,7 +377,7 @@
             "h": 7,
             "w": 12,
             "x": 0,
-            "y": 9
+            "y": 3
           },
           "id": 10,
           "options": {
@@ -263,7 +484,7 @@
             "h": 5,
             "w": 8,
             "x": 12,
-            "y": 9
+            "y": 3
           },
           "id": 12,
           "options": {
@@ -335,7 +556,7 @@
             "h": 5,
             "w": 8,
             "x": 12,
-            "y": 14
+            "y": 8
           },
           "id": 16,
           "options": {
@@ -399,7 +620,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 16
+            "y": 10
           },
           "id": 26,
           "options": {
@@ -511,7 +732,7 @@
             "h": 5,
             "w": 7,
             "x": 12,
-            "y": 19
+            "y": 13
           },
           "id": 14,
           "options": {
@@ -573,7 +794,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 24
+            "y": 18
           },
           "id": 22,
           "options": {
@@ -660,7 +881,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 24
+            "y": 18
           },
           "id": 24,
           "options": {
@@ -767,7 +988,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 32
+            "y": 26
           },
           "id": 18,
           "options": {
@@ -843,7 +1064,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 32
+            "y": 26
           },
           "id": 20,
           "options": {
@@ -898,7 +1119,726 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 9
+        "y": 4
+      },
+      "id": 126,
+      "panels": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 16,
+            "x": 0,
+            "y": 2
+          },
+          "id": 128,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": [
+              {
+                "desc": true,
+                "displayName": "NTP Device Type"
+              }
+            ]
+          },
+          "pluginVersion": "9.0.6",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "builder",
+              "expr": "sonic_ntp_associations{instance=\"$target\"}",
+              "format": "table",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "NTP Associations",
+          "transformations": [
+            {
+              "id": "groupBy",
+              "options": {
+                "fields": {
+                  "poll": {
+                    "aggregations": [
+                      "last"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "reach": {
+                    "aggregations": [
+                      "last"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "refid": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "remote": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "st": {
+                    "aggregations": [
+                      "last"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "state": {
+                    "aggregations": [
+                      "last"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "t": {
+                    "aggregations": [
+                      "last"
+                    ],
+                    "operation": "aggregate"
+                  }
+                }
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {},
+                "indexByName": {},
+                "renameByName": {
+                  "poll (last)": "Polling Interval (sec.)",
+                  "reach (last)": "Reachability",
+                  "refid": "Sync Device",
+                  "remote": "NTP Server",
+                  "st (last)": "Stratum level",
+                  "state (last)": "State",
+                  "t (last)": "NTP Device Type"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 8,
+            "x": 0,
+            "y": 7
+          },
+          "id": 132,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "9.0.6",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "builder",
+              "expr": "sonic_ntp_server{instance=\"$target\"}",
+              "format": "table",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "NTP Servers",
+          "transformations": [
+            {
+              "id": "groupBy",
+              "options": {
+                "fields": {
+                  "Value": {
+                    "aggregations": [
+                      "last"
+                    ]
+                  },
+                  "key_id": {
+                    "aggregations": [
+                      "last"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "maxpoll": {
+                    "aggregations": [
+                      "last"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "minpoll": {
+                    "aggregations": [
+                      "last"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "ntp_server": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  }
+                }
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {},
+                "indexByName": {},
+                "renameByName": {
+                  "key_id (last)": "Key_ID",
+                  "maxpoll (last)": "Maxpoll",
+                  "minpoll (last)": "Minpoll"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 8,
+            "x": 8,
+            "y": 7
+          },
+          "id": 130,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "9.0.6",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "builder",
+              "expr": "sonic_ntp_global{instance=\"$target\"}",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "NTP Global",
+          "transformations": [
+            {
+              "id": "labelsToFields",
+              "options": {
+                "keepLabels": [
+                  "auth_enabled",
+                  "src_intf",
+                  "trusted_key",
+                  "vrf"
+                ],
+                "mode": "rows"
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 11,
+            "x": 0,
+            "y": 13
+          },
+          "id": 134,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "builder",
+              "expr": "sonic_ntp_jitter{instance=\"$target\"}",
+              "legendFormat": "[remote={{remote}}, refid={{refid}}]",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "NTP Jitter- Mean deviation in times between the switch and the NTP server.",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 10,
+            "x": 11,
+            "y": 13
+          },
+          "id": 140,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "builder",
+              "expr": "sonic_ntp_rtd{instance=\"$target\"}",
+              "legendFormat": "[remote-{{remote}}, refid-{{refid}}]",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Round-trip delay (in milliseconds) to the NTP server.",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "__systemRef": "hideSeriesFrom",
+                "matcher": {
+                  "id": "byNames",
+                  "options": {
+                    "mode": "exclude",
+                    "names": [
+                      "[remote-10.10.131.254, refid-217.91.44.17]"
+                    ],
+                    "prefix": "All except:",
+                    "readOnly": true
+                  }
+                },
+                "properties": [
+                  {
+                    "id": "custom.hideFrom",
+                    "value": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": true
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 11,
+            "x": 0,
+            "y": 19
+          },
+          "id": 136,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "builder",
+              "expr": "sonic_ntp_offset{instance=\"$target\"}",
+              "legendFormat": "[remote-{{remote}}, refid-{{refid}}]",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "NTP Offset- Time difference (in milliseconds) between the switch and the NTP server",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 10,
+            "x": 11,
+            "y": 19
+          },
+          "id": 138,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "builder",
+              "expr": "sonic_ntp_when{instance=\"$target\"}",
+              "legendFormat": "[remote-{{remote}}, refid-{{refid}}]",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Time (in seconds) since last synchronized.",
+          "type": "timeseries"
+        }
+      ],
+      "title": "Network Time Protocol",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 5
       },
       "id": 58,
       "panels": [
@@ -934,7 +1874,7 @@
             "h": 6,
             "w": 12,
             "x": 0,
-            "y": 10
+            "y": 11
           },
           "id": 46,
           "options": {
@@ -1075,7 +2015,7 @@
             "h": 6,
             "w": 12,
             "x": 12,
-            "y": 10
+            "y": 11
           },
           "id": 36,
           "options": {
@@ -1213,7 +2153,7 @@
             "h": 6,
             "w": 12,
             "x": 0,
-            "y": 16
+            "y": 17
           },
           "id": 54,
           "options": {
@@ -1309,7 +2249,7 @@
             "h": 6,
             "w": 12,
             "x": 12,
-            "y": 16
+            "y": 17
           },
           "id": 55,
           "options": {
@@ -1405,7 +2345,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 22
+            "y": 23
           },
           "id": 52,
           "options": {
@@ -1501,7 +2441,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 22
+            "y": 23
           },
           "id": 56,
           "options": {
@@ -1597,7 +2537,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 30
+            "y": 31
           },
           "id": 30,
           "options": {
@@ -1693,7 +2633,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 30
+            "y": 31
           },
           "id": 53,
           "options": {
@@ -1789,7 +2729,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 38
+            "y": 39
           },
           "id": 51,
           "options": {
@@ -1886,7 +2826,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 38
+            "y": 39
           },
           "id": 59,
           "options": {
@@ -1982,7 +2922,7 @@
             "h": 6,
             "w": 12,
             "x": 0,
-            "y": 46
+            "y": 47
           },
           "id": 28,
           "options": {
@@ -2078,7 +3018,7 @@
             "h": 6,
             "w": 12,
             "x": 12,
-            "y": 46
+            "y": 47
           },
           "id": 60,
           "options": {
@@ -2125,7 +3065,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 6
       },
       "id": 64,
       "panels": [
@@ -3569,7 +4509,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 11
+        "y": 7
       },
       "id": 62,
       "panels": [
@@ -4370,7 +5310,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 12
+        "y": 8
       },
       "id": 4,
       "panels": [
@@ -4666,7 +5606,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 13
+        "y": 9
       },
       "id": 2,
       "panels": [
@@ -4678,7 +5618,7 @@
           "fieldConfig": {
             "defaults": {
               "color": {
-                "mode": "continuous-GrYlRd"
+                "mode": "thresholds"
               },
               "custom": {
                 "align": "auto",
@@ -4690,8 +5630,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -4707,7 +5646,7 @@
             "h": 6,
             "w": 9,
             "x": 0,
-            "y": 14
+            "y": 15
           },
           "id": 124,
           "options": {
@@ -4718,7 +5657,6 @@
               ],
               "show": false
             },
-            "frameIndex": 2,
             "showHeader": true
           },
           "pluginVersion": "9.0.6",
@@ -4778,7 +5716,8 @@
                   "vrf": 12
                 },
                 "renameByName": {
-                  "Last": "Peer Connected"
+                  "Last": "Peer Connected",
+                  "as": "host_as"
                 }
               }
             },
@@ -4840,8 +5779,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -4857,7 +5795,7 @@
             "h": 6,
             "w": 9,
             "x": 9,
-            "y": 14
+            "y": 15
           },
           "id": 97,
           "options": {
@@ -4930,8 +5868,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -4940,13 +5877,38 @@
                 ]
               }
             },
-            "overrides": []
+            "overrides": [
+              {
+                "__systemRef": "hideSeriesFrom",
+                "matcher": {
+                  "id": "byNames",
+                  "options": {
+                    "mode": "exclude",
+                    "names": [
+                      "Peer_AS=65101 Peer_Name="
+                    ],
+                    "prefix": "All except:",
+                    "readOnly": true
+                  }
+                },
+                "properties": [
+                  {
+                    "id": "custom.hideFrom",
+                    "value": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": true
+                    }
+                  }
+                ]
+              }
+            ]
           },
           "gridPos": {
             "h": 6,
             "w": 9,
             "x": 0,
-            "y": 20
+            "y": 21
           },
           "id": 93,
           "options": {
@@ -5019,8 +5981,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -5029,13 +5990,38 @@
                 ]
               }
             },
-            "overrides": []
+            "overrides": [
+              {
+                "__systemRef": "hideSeriesFrom",
+                "matcher": {
+                  "id": "byNames",
+                  "options": {
+                    "mode": "exclude",
+                    "names": [
+                      "Peer_AS65102 Peer_Name=1.1.1.3"
+                    ],
+                    "prefix": "All except:",
+                    "readOnly": true
+                  }
+                },
+                "properties": [
+                  {
+                    "id": "custom.hideFrom",
+                    "value": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": true
+                    }
+                  }
+                ]
+              }
+            ]
           },
           "gridPos": {
             "h": 6,
             "w": 10,
             "x": 9,
-            "y": 20
+            "y": 21
           },
           "id": 95,
           "options": {
@@ -5108,8 +6094,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -5118,38 +6103,13 @@
                 ]
               }
             },
-            "overrides": [
-              {
-                "__systemRef": "hideSeriesFrom",
-                "matcher": {
-                  "id": "byNames",
-                  "options": {
-                    "mode": "exclude",
-                    "names": [
-                      "Peer_AS=65101 Peer_Name=1.1.1.0"
-                    ],
-                    "prefix": "All except:",
-                    "readOnly": true
-                  }
-                },
-                "properties": [
-                  {
-                    "id": "custom.hideFrom",
-                    "value": {
-                      "legend": false,
-                      "tooltip": false,
-                      "viz": true
-                    }
-                  }
-                ]
-              }
-            ]
+            "overrides": []
           },
           "gridPos": {
             "h": 6,
             "w": 9,
             "x": 0,
-            "y": 26
+            "y": 27
           },
           "id": 101,
           "options": {
@@ -5222,8 +6182,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -5232,38 +6191,13 @@
                 ]
               }
             },
-            "overrides": [
-              {
-                "__systemRef": "hideSeriesFrom",
-                "matcher": {
-                  "id": "byNames",
-                  "options": {
-                    "mode": "exclude",
-                    "names": [
-                      "Peer_AS=65102 Peer_Name=1.1.1.3"
-                    ],
-                    "prefix": "All except:",
-                    "readOnly": true
-                  }
-                },
-                "properties": [
-                  {
-                    "id": "custom.hideFrom",
-                    "value": {
-                      "legend": false,
-                      "tooltip": false,
-                      "viz": true
-                    }
-                  }
-                ]
-              }
-            ]
+            "overrides": []
           },
           "gridPos": {
             "h": 6,
             "w": 10,
             "x": 9,
-            "y": 26
+            "y": 27
           },
           "id": 102,
           "options": {
@@ -5306,7 +6240,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 14
+        "y": 10
       },
       "id": 6,
       "panels": [
@@ -5837,7 +6771,7 @@
       "type": "row"
     }
   ],
-  "refresh": false,
+  "refresh": "5m",
   "schemaVersion": 36,
   "style": "dark",
   "tags": [],
@@ -5891,13 +6825,13 @@
     ]
   },
   "time": {
-    "from": "2022-09-20T03:17:35.514Z",
-    "to": "2022-09-20T08:37:03.759Z"
+    "from": "now-7d",
+    "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Sonic-Exporter Dashboard",
   "uid": "rXR50WmVk",
-  "version": 12,
+  "version": 31,
   "weekStart": ""
 }
