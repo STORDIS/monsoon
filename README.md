@@ -231,7 +231,6 @@ curl --cert client.crt --key client.key -k "https://${SWITCH}:5556/node/metrics"
 | VARIABLE                  | Description                                                           | Default           |
 | ------------------------- | --------------------------------------------------------------------- | ----------------- |
 | DEVELOPER_MODE            | This enables the Mock functionality of the exporter for local testing | `False`           |
-| REDIS_COLLECTION_INTERVAL | The interval in which the redis-client fetches data from the switch   | `30` (in seconds) |
 | SONIC_EXPORTER_PORT       | The port on which the exporter listens                                | `9101`            |
 | SONIC_EXPORTER_ADDRESS    | The address on which the exporter listens                             | `localhost`       |
 | SONIC_EXPORTER_LOGLEVEL   | The loglevel for the exporter                                         | `INFO`            |
