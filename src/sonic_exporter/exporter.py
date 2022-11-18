@@ -13,70 +13,53 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from sonic_exporter.utilities import ConfigDBVersion, timed_cache
-from sonic_exporter.enums import (
-    AddressFamily,
-    AirFlow,
-    InternetProtocol,
-    OSILayer,
-    AlarmType,
-    SwitchModel,
-)
-from sonic_exporter.converters import floatify, get_uptime, to_timestamp
-from sonic_exporter.converters import decode as _decode
-from sonic_exporter.converters import boolify
-from sonic_exporter.constants import (
-    NTP_SERVER,
-    NTP_SERVER_PATTERN,
-    CHASSIS_INFO,
-    CHASSIS_INFO_PATTERN,
-    COUNTER_IGNORE,
-    COUNTER_PORT_MAP,
-    COUNTER_QUEUE_MAP,
-    COUNTER_QUEUE_TYPE_MAP,
-    COUNTER_TABLE_PREFIX,
-    EEPROM_INFO,
-    EEPROM_INFO_PATTERN,
-    FAN_INFO_PATTERN,
-    PORT_TABLE_PREFIX,
-    PROCESS_STATS,
-    PROCESS_STATS_IGNORE,
-    PROCESS_STATS_PATTERN,
-    PSU_INFO,
-    PSU_INFO_PATTERN,
-    SAG,
-    SAG_GLOBAL,
-    SAG_PATTERN,
-    TEMP_SENSORS,
-    TEMPERATURE_INFO_PATTERN,
-    TRANSCEIVER_DOM_SENSOR,
-    TRANSCEIVER_DOM_SENSOR_PATTERN,
-    TRANSCEIVER_INFO,
-    TRANSCEIVER_INFO_PATTERN,
-    TRUE_VALUES,
-    VLAN_INTERFACE,
-    VXLAN_TUNNEL_MAP_PATTERN,
-    VXLAN_TUNNEL_TABLE,
-    VXLAN_TUNNEL_TABLE_PATTERN,
-)
 import ipaddress
 import os
 import re
 import socket
+import subprocess
 import sys
 import time
-import subprocess
-import prometheus_client as prom
-from prometheus_client.core import REGISTRY, GaugeMetricFamily, CounterMetricFamily
-import jc
+from concurrent.futures import ThreadPoolExecutor,ALL_COMPLETED, wait
+from datetime import datetime
 
-from sonic_exporter import logging
-from sonic_exporter import utilities
+import prometheus_client as prom
+from prometheus_client.core import (REGISTRY, CounterMetricFamily,
+                                    GaugeMetricFamily)
+
+from sonic_exporter import logging, utilities
+from sonic_exporter.constants import (CHASSIS_INFO, CHASSIS_INFO_PATTERN,
+                                      COUNTER_IGNORE, COUNTER_PORT_MAP,
+                                      COUNTER_QUEUE_MAP,
+                                      COUNTER_QUEUE_TYPE_MAP,
+                                      COUNTER_TABLE_PREFIX, EEPROM_INFO,
+                                      EEPROM_INFO_PATTERN, FAN_INFO_PATTERN,
+                                      NTP_SERVER, NTP_SERVER_PATTERN,
+                                      PORT_TABLE_PREFIX, PROCESS_STATS,
+                                      PROCESS_STATS_IGNORE,
+                                      PROCESS_STATS_PATTERN, PSU_INFO,
+                                      PSU_INFO_PATTERN, SAG, SAG_GLOBAL,
+                                      SAG_PATTERN, TEMP_SENSORS,
+                                      TEMPERATURE_INFO_PATTERN,
+                                      TRANSCEIVER_DOM_SENSOR,
+                                      TRANSCEIVER_DOM_SENSOR_PATTERN,
+                                      TRANSCEIVER_INFO,
+                                      TRANSCEIVER_INFO_PATTERN, TRUE_VALUES,
+                                      VLAN_INTERFACE, VXLAN_TUNNEL_MAP_PATTERN,
+                                      VXLAN_TUNNEL_TABLE,
+                                      VXLAN_TUNNEL_TABLE_PATTERN)
+from sonic_exporter.converters import boolify
+from sonic_exporter.converters import decode as _decode
+from sonic_exporter.converters import floatify, get_uptime, to_timestamp
+from sonic_exporter.enums import (AddressFamily, AirFlow, AlarmType,
+                                  InternetProtocol, OSILayer, SwitchModel)
+from sonic_exporter.utilities import ConfigDBVersion, timed_cache
 
 _logger = logging.getLogger(__name__)
 
 
 class SONiCCollector(object):
+
 
     rx_power_regex = re.compile(r"^rx(\d*)power$")
     tx_power_regex = re.compile(r"^tx(\d*)power$")
@@ -178,10 +161,10 @@ class SONiCCollector(object):
     def __init__(self, developer_mode: bool):
         if developer_mode:
             import sonic_exporter.test.mock_db as mock_db
-            from sonic_exporter.test.mock_sys_class_hwmon import MockSystemClassHWMon
-            from sonic_exporter.test.mock_sys_class_net import (
-                MockSystemClassNetworkInfo,
-            )
+            from sonic_exporter.test.mock_sys_class_hwmon import \
+                MockSystemClassHWMon
+            from sonic_exporter.test.mock_sys_class_net import \
+                MockSystemClassNetworkInfo
             from sonic_exporter.test.mock_vtysh import MockVtySH
 
             self.vtysh = MockVtySH()
@@ -190,8 +173,9 @@ class SONiCCollector(object):
             self.sonic_db = mock_db.SonicV2Connector(password="")
         else:
             import swsssdk
-            from sonic_exporter.sys_class_net import SystemClassNetworkInfo
+
             from sonic_exporter.sys_class_hwmon import SystemClassHWMon
+            from sonic_exporter.sys_class_net import SystemClassNetworkInfo
             from sonic_exporter.vtysh import VtySH
 
             self.vtysh = VtySH()
@@ -1373,48 +1357,44 @@ class SONiCCollector(object):
         try:
             air_flow = AirFlow(self.product_name[-1])
             switch_model = SwitchModel(self.platform_name.lower())
-            if not keys:
-                self.export_hwmon_temp_info(switch_model, air_flow)
-                return
         except ValueError as e:
             _logger.debug(f"export_temp_info :: exception={e}")
             unknown_switch_model = True
             pass
-        # implement a skip on state db if keys are empty
-        # Still try to get data from HWMon.
-
+        
         for key in keys or []:
-            try:
-                name = _decode(self.getFromDB(
-                    self.sonic_db.STATE_DB, key, "name"))
-                if name.lower().startswith("temp"):
-                    need_additional_temp_info = True
-
-                last_two_bytes: str = name[-2:]
-                if not unknown_switch_model:
-                    name = TEMP_SENSORS[switch_model][air_flow].get(
-                        last_two_bytes, name
-                    )
-                temp = floatify(
-                    _decode(self.getFromDB(
-                        self.sonic_db.STATE_DB, key, "temperature"))
-                )
-                high_threshold = floatify(
-                    _decode(
-                        self.getFromDB(self.sonic_db.STATE_DB,
-                                       key, "high_threshold")
-                    )
-                )
-                self.metric_device_sensor_celsius.add_metric([name], temp)
-                self.metric_device_threshold_sensor_celsius.add_metric(
-                    [name, AlarmType.HIGH_ALARM.value], high_threshold)
-                _logger.debug(
-                    f"export_temp_info :: name={name}, temp={temp}, high_threshold={high_threshold}"
-                )
-            except ValueError:
-                pass
-            if need_additional_temp_info and not unknown_switch_model:
-                self.export_hwmon_temp_info(switch_model, air_flow)
+           try:
+               name = _decode(self.getFromDB(
+                   self.sonic_db.STATE_DB, key, "name"))
+               if name.lower().startswith("temp"):
+                   need_additional_temp_info = True
+               last_two_bytes: str = name[-2:]
+               if not unknown_switch_model:
+                   name = TEMP_SENSORS[switch_model][air_flow].get(
+                       last_two_bytes, name
+                   )
+               
+               temp = floatify(
+                   _decode(self.getFromDB(
+                       self.sonic_db.STATE_DB, key, "temperature"))
+               )
+               high_threshold = floatify(
+                   _decode(
+                       self.getFromDB(self.sonic_db.STATE_DB,
+                                      key, "high_threshold")
+                   )
+               )
+               self.metric_device_sensor_celsius.add_metric([name], temp)
+               self.metric_device_threshold_sensor_celsius.add_metric(
+                   [name, AlarmType.HIGH_ALARM.value], high_threshold)
+               _logger.debug(
+                   f"export_temp_info :: name={name}, temp={temp}, high_threshold={high_threshold}"
+               )
+           except ValueError:
+               pass
+           
+        if (not keys or need_additional_temp_info) and not unknown_switch_model:
+            self.export_hwmon_temp_info(switch_model, air_flow)
 
     def export_system_info(self):
         self.metric_device_uptime.add_metric([], get_uptime().total_seconds())
@@ -1671,27 +1651,31 @@ class SONiCCollector(object):
         self.metric_sys_status.add_metric(
             [str(sts), str(sts_core)], floatify(sts & sts_core))
 
+    thread_pool = ThreadPoolExecutor(10)
+
     def collect(self):
         try:
             self._init_metrics()
-
-            self.export_interface_counters()
-            self.export_interface_queue_counters()
-            self.export_interface_cable_data()
-            self.export_interface_optic_data()
-            self.export_system_info()
-            self.export_psu_info()
-            self.export_fan_info()
-            self.export_temp_info()
-            self.export_vxlan_tunnel_info()
-            self.export_bgp_info()
-            self.export_evpn_vni_info()
-            self.export_static_anycast_gateway_info()
-            self.export_ntp_associations()
-            self.export_ntp_global()
-            self.export_ntp_server()
-            self.export_sys_status()
-
+            date_time = datetime.now()
+            wait([self.thread_pool.submit(self.export_interface_counters),
+            self.thread_pool.submit(self.export_interface_queue_counters),
+            self.thread_pool.submit(self.export_interface_cable_data),
+            self.thread_pool.submit(self.export_interface_optic_data),
+            self.thread_pool.submit(self.export_system_info),
+            self.thread_pool.submit(self.export_psu_info),
+            self.thread_pool.submit(self.export_fan_info),
+            self.thread_pool.submit(self.export_temp_info),
+            self.thread_pool.submit(self.export_vxlan_tunnel_info),
+            self.thread_pool.submit(self.export_bgp_info),
+            self.thread_pool.submit(self.export_evpn_vni_info),
+            self.thread_pool.submit(self.export_static_anycast_gateway_info),
+            self.thread_pool.submit(self.export_ntp_associations),
+            self.thread_pool.submit(self.export_ntp_global),
+            self.thread_pool.submit(self.export_ntp_server),
+            self.thread_pool.submit(self.export_sys_status),
+            self.thread_pool.submit(self.export_sys_status),],return_when=ALL_COMPLETED)
+            _logger.debug(f"Time taken in metrics collection {datetime.now() - date_time}")
+            
             yield self.metric_sys_status
             yield self.metric_ntp_jitter
             yield self.metric_ntp_offset
