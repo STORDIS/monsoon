@@ -1636,7 +1636,7 @@ class SONiCCollector(object):
             self.metric_ntp_associations.add_metric([op.get('remote'), op.get('refid'),
                                                      str(op.get('st')),
                                                      op.get('t'), str(op.get('poll')), str(op.get(
-                                                         'reach')), op.get('state')], 1)
+                                                         'reach')), " " if op.get('state') is None else op.get('state')], 1)
             self.metric_ntp_jitter.add_metric(
                 [op.get('remote'), op.get('refid')], floatify(op.get('jitter')))
             self.metric_ntp_offset.add_metric(
