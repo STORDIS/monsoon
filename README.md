@@ -10,6 +10,7 @@ Monsoon uses Prometheus and Grafana for data collection and visualization. Apart
   * [Install node-exporter](#install-node-exporter)
   * [Install Prometheus](#install-prometheus)
   * [Install Grafana](#install-grafana)
+* [Supported SONiC versions](#supported-sonic-versions)
 * [Build from source](#build-sonic-exporter-docker-image-from-source)
 * [sonic-exporter logging](#sonic-exporter-logging)
 * [Client certificate generation](#securing-sonic-exporter-and-node-exporter-with-central-client-certificate-generation)
@@ -94,6 +95,11 @@ A high level monsoon design is as follows, various components are explained in f
     ![Add Datasource](images/SaveDS.png)
 
   - By this step all tool chain is connected. Next, [Configure Grafana dashboard and data visualization](GrafanaDashBoard.md).
+
+## Supported SONiC Versions
+Following versions of SONiC are supported:\
+* Broadcom Enterprise SONiC
+
 
 ## Build sonic-exporter docker image from source
 >**NOTE**-As our [Dockerfile](Dockerfile) is multistage, The first part of docker build command below creates an intermediate image with specific tag and makes it easy to understand also single intermediate image is created every time otherwise user may find multiple intermediate images with the tag `<none>` and mixing this with dangling images.\
