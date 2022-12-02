@@ -97,7 +97,7 @@ A high level monsoon design is as follows, various components are explained in f
   - By this step all tool chain is connected. Next, [Configure Grafana dashboard and data visualization](GrafanaDashBoard.md).
 
 ## Supported SONiC Versions
-Following versions of SONiC are supported:\
+Following versions of SONiC are supported:
 * Broadcom Enterprise SONiC
 
 
