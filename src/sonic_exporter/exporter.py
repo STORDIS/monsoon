@@ -29,6 +29,8 @@ from prometheus_client.core import (REGISTRY, CounterMetricFamily,
 
 from sonic_exporter import logging, utilities
 from sonic_exporter.constants import (CHASSIS_INFO, CHASSIS_INFO_PATTERN,
+                                      MCLAG_DOMAIN,MCLAG_DOMAIN_PATTERN,
+                                      MCLAG_TABLE,MCLAG_TABLE_PATTERN,
                                       COUNTER_IGNORE, COUNTER_PORT_MAP,
                                       COUNTER_QUEUE_MAP,
                                       COUNTER_QUEUE_TYPE_MAP,
@@ -284,6 +286,18 @@ class SONiCCollector(object):
             "NTP associations",
             labels=["remote", "refid", "st", "t", "poll",
                     "reach", 'state'],
+        )
+
+        self.metric_mclag_domain = GaugeMetricFamily(
+            "sonic_mclag_domain",
+            "MCLAG Domain",
+            labels=["domain_id","source_ip","keepalive_interval","session_timeout","peer_ip","peer_link","mclag_system_mac"],
+        )
+        
+        self.metric_mclag_state = GaugeMetricFamily(
+            "sonic_mclag_state",
+            "MCLAG State",
+            labels=["domain_id","mclag_system_mac","role","system_mac","peer_mac","oper_status","reason"],
         )
 
         self.metric_sys_status = GaugeMetricFamily(
@@ -1633,10 +1647,13 @@ class SONiCCollector(object):
 
     def export_ntp_associations(self):
         for op in utilities.getJsonOutPut("ntpq -p -n"):
-            self.metric_ntp_associations.add_metric([op.get('remote'), op.get('refid'),
+            self.metric_ntp_associations.add_metric([op.get('remote'), 
+                                                     op.get('refid'),
                                                      str(op.get('st')),
-                                                     op.get('t'), str(op.get('poll')), str(op.get(
-                                                         'reach')), " " if op.get('state') is None else op.get('state')], 1)
+                                                     op.get('t'), 
+                                                     str(op.get('poll')), 
+                                                     str(op.get('reach')), 
+                                                     " " if op.get('state') is None else op.get('state')], 1)
             self.metric_ntp_jitter.add_metric(
                 [op.get('remote'), op.get('refid')], floatify(op.get('jitter')))
             self.metric_ntp_offset.add_metric(
@@ -1651,13 +1668,66 @@ class SONiCCollector(object):
         self.metric_sys_status.add_metric(
             [str(sts), str(sts_core)], floatify(sts & sts_core))
 
+    def export_mclag_domain(self):
+        mclag_domain = {_decode(key).replace(MCLAG_DOMAIN, ""): self.getAllFromDB(
+            self.sonic_db.CONFIG_DB, key
+        )
+            for key in self.getKeysFromDB(
+            self.sonic_db.CONFIG_DB, MCLAG_DOMAIN_PATTERN
+        )}
+        if mclag_domain and mclag_domain is not None:
+            for domain_id, domain_attr in mclag_domain.items():
+                source_ip = domain_attr.get("source_ip", "")
+                keepalive_interval = domain_attr.get(
+                    "keepalive_interval", "")
+                session_timeout = domain_attr.get("session_timeout", "")
+                peer_ip = domain_attr.get("peer_ip", "")
+                peer_link = domain_attr.get("peer_link", "")
+                mclag_system_mac = domain_attr.get("mclag_system_mac", "")
+                self.metric_mclag_domain.add_metric([domain_id,
+                                                     "" if not source_ip else source_ip,
+                                                     "" if not keepalive_interval else str(
+                                                         keepalive_interval),
+                                                     "" if not session_timeout else str(
+                                                         session_timeout),
+                                                     "" if not peer_ip else peer_ip,
+                                                     "" if not peer_link else peer_link,
+                                                     "" if not mclag_system_mac else mclag_system_mac], 1)
+                
+    def export_mclag_state(self):
+        mclag_state = {_decode(key).replace(MCLAG_TABLE, ""): self.getAllFromDB(
+            self.sonic_db.STATE_DB, key
+        )
+            for key in self.getKeysFromDB(
+            self.sonic_db.STATE_DB, MCLAG_TABLE_PATTERN
+        )}
+        if mclag_state and mclag_state is not None:
+            for domain_id, domain_state_attr in mclag_state.items():
+                mclag_system_mac = domain_state_attr.get(
+                    "mclag_system_mac", "")
+                role = domain_state_attr.get("role", "")
+                system_mac = domain_state_attr.get("system_mac", "")
+                peer_mac = domain_state_attr.get("peer_mac", "")
+                oper_status = domain_state_attr.get("oper_status", "")
+                reason = domain_state_attr.get("reason", "")
+                self.metric_mclag_state.add_metric([domain_id,
+                                                    "" if not mclag_system_mac else mclag_system_mac,
+                                                    "" if not role else role,
+                                                    "" if not system_mac else
+                                                    system_mac,
+                                                    "" if not peer_mac else peer_mac,
+                                                    "" if not oper_status else oper_status,
+                                                    "" if not reason else reason], 1)
+
     thread_pool = ThreadPoolExecutor(10)
 
     def collect(self):
         try:
             self._init_metrics()
             date_time = datetime.now()
-            wait([self.thread_pool.submit(self.export_interface_counters),
+            wait([self.thread_pool.submit(self.export_mclag_state),
+            self.thread_pool.submit(self.export_mclag_domain),
+            self.thread_pool.submit(self.export_interface_counters),
             self.thread_pool.submit(self.export_interface_queue_counters),
             self.thread_pool.submit(self.export_interface_cable_data),
             self.thread_pool.submit(self.export_interface_optic_data),
@@ -1672,10 +1742,11 @@ class SONiCCollector(object):
             self.thread_pool.submit(self.export_ntp_associations),
             self.thread_pool.submit(self.export_ntp_global),
             self.thread_pool.submit(self.export_ntp_server),
-            self.thread_pool.submit(self.export_sys_status),
             self.thread_pool.submit(self.export_sys_status),],return_when=ALL_COMPLETED)
             _logger.debug(f"Time taken in metrics collection {datetime.now() - date_time}")
             
+            yield self.metric_mclag_domain
+            yield self.metric_mclag_state
             yield self.metric_sys_status
             yield self.metric_ntp_jitter
             yield self.metric_ntp_offset
