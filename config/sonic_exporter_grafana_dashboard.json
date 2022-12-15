@@ -27,7 +27,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": ""
+      "version": "9.0.6"
     },
     {
       "type": "datasource",
@@ -159,7 +159,7 @@
         },
         "showHeader": false
       },
-      "pluginVersion": "",
+      "pluginVersion": "9.0.6",
       "targets": [
         {
           "datasource": {
@@ -299,7 +299,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": false
       },
-      "pluginVersion": "",
+      "pluginVersion": "9.0.6",
       "targets": [
         {
           "$$hashKey": "object:51",
@@ -362,7 +362,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -377,7 +378,7 @@
             "h": 7,
             "w": 12,
             "x": 0,
-            "y": 3
+            "y": 4
           },
           "id": 10,
           "options": {
@@ -469,7 +470,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -484,7 +486,7 @@
             "h": 5,
             "w": 8,
             "x": 12,
-            "y": 3
+            "y": 4
           },
           "id": 12,
           "options": {
@@ -536,7 +538,8 @@
                 "mode": "percentage",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "orange",
@@ -556,7 +559,7 @@
             "h": 5,
             "w": 8,
             "x": 12,
-            "y": 8
+            "y": 9
           },
           "id": 16,
           "options": {
@@ -604,7 +607,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -620,7 +624,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 10
+            "y": 11
           },
           "id": 26,
           "options": {
@@ -712,7 +716,8 @@
                 "mode": "percentage",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "orange",
@@ -732,7 +737,7 @@
             "h": 5,
             "w": 7,
             "x": 12,
-            "y": 13
+            "y": 14
           },
           "id": 14,
           "options": {
@@ -778,7 +783,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -794,7 +800,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 18
+            "y": 19
           },
           "id": 22,
           "options": {
@@ -853,7 +859,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -881,7 +888,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 18
+            "y": 19
           },
           "id": 24,
           "options": {
@@ -988,7 +995,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 26
+            "y": 27
           },
           "id": 18,
           "options": {
@@ -1064,7 +1071,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 26
+            "y": 27
           },
           "id": 20,
           "options": {
@@ -1121,8 +1128,253 @@
         "x": 0,
         "y": 4
       },
-      "id": 126,
+      "id": 146,
       "panels": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "0": {
+                      "color": "semi-dark-red",
+                      "index": 1,
+                      "text": "DOWN"
+                    },
+                    "1": {
+                      "color": "semi-dark-green",
+                      "index": 0,
+                      "text": "UP"
+                    }
+                  },
+                  "type": "value"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 16,
+            "x": 0,
+            "y": 5
+          },
+          "id": 150,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "9.0.6",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "builder",
+              "expr": "sonic_mclag_oper_state{instance=\"$target\"}",
+              "format": "table",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "MCLAG State Info",
+          "transformations": [
+            {
+              "id": "groupBy",
+              "options": {
+                "fields": {
+                  "Value": {
+                    "aggregations": [
+                      "last"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "domain_id": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "instance": {
+                    "aggregations": [
+                      "last"
+                    ]
+                  },
+                  "job": {
+                    "aggregations": [
+                      "last"
+                    ]
+                  },
+                  "mclag_system_mac": {
+                    "aggregations": [
+                      "last"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "oper_status": {
+                    "aggregations": [
+                      "last"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "peer_mac": {
+                    "aggregations": [
+                      "last"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "reason": {
+                    "aggregations": [
+                      "last"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "role": {
+                    "aggregations": [
+                      "last"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "system_mac": {
+                    "aggregations": [
+                      "last"
+                    ],
+                    "operation": "aggregate"
+                  }
+                }
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {},
+                "indexByName": {},
+                "renameByName": {
+                  "Value (last)": "Operational Status",
+                  "domain_id": "Domain ID",
+                  "mclag_system_mac (last)": "Mclag System Mac",
+                  "peer_mac (last)": "Peer MAC",
+                  "reason (last)": "Reason",
+                  "role (last)": "Role",
+                  "system_mac (last)": "System Mac"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "0": {
+                      "index": 1,
+                      "text": "DOWN"
+                    },
+                    "1": {
+                      "index": 0,
+                      "text": "UP"
+                    }
+                  },
+                  "type": "value"
+                }
+              ],
+              "max": 1,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 5,
+            "x": 16,
+            "y": 5
+          },
+          "id": 152,
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "last"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": true,
+            "showThresholdMarkers": true
+          },
+          "pluginVersion": "9.0.6",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "builder",
+              "expr": "sonic_mclag_oper_state{instance=\"$target\"}",
+              "format": "table",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Mclag Domain Operational Status",
+          "transformations": [],
+          "type": "gauge"
+        },
         {
           "datasource": {
             "type": "prometheus",
@@ -1156,6 +1408,151 @@
             "overrides": []
           },
           "gridPos": {
+            "h": 4,
+            "w": 16,
+            "x": 0,
+            "y": 9
+          },
+          "id": 148,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "9.0.6",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "builder",
+              "expr": "sonic_mclag_domain{instance=\"$target\"}",
+              "format": "table",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "MCLAG Domain Info",
+          "transformations": [
+            {
+              "id": "groupBy",
+              "options": {
+                "fields": {
+                  "domain_id": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "keepalive_interval": {
+                    "aggregations": [
+                      "last"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "mclag_system_mac": {
+                    "aggregations": [
+                      "last"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "peer_ip": {
+                    "aggregations": [
+                      "last"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "peer_link": {
+                    "aggregations": [
+                      "last"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "session_timeout": {
+                    "aggregations": [
+                      "last"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "source_ip": {
+                    "aggregations": [
+                      "last"
+                    ],
+                    "operation": "aggregate"
+                  }
+                }
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {},
+                "indexByName": {},
+                "renameByName": {
+                  "domain_id": "Domain ID",
+                  "keepalive_interval (last)": "Keepalive Interval (sec.)",
+                  "mclag_system_mac (last)": "Mclag System Mac",
+                  "peer_ip (last)": "Peer IP",
+                  "peer_link (last)": "Peer Link",
+                  "session_timeout (last)": "Session Timeout (sec.)",
+                  "source_ip (last)": "Source IP"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        }
+      ],
+      "title": "MCLAG",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
+      "id": 126,
+      "panels": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
             "h": 5,
             "w": 16,
             "x": 0,
@@ -1178,7 +1575,7 @@
               }
             ]
           },
-          "pluginVersion": "",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
@@ -1279,8 +1676,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1308,7 +1704,7 @@
             },
             "showHeader": true
           },
-          "pluginVersion": "",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
@@ -1394,8 +1790,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1423,7 +1818,7 @@
             },
             "showHeader": true
           },
-          "pluginVersion": "",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
@@ -1497,8 +1892,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1586,8 +1980,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1675,8 +2068,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1789,8 +2181,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1845,7 +2236,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 5
+        "y": 6
       },
       "id": 58,
       "panels": [
@@ -1866,8 +2257,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1882,7 +2272,7 @@
             "h": 6,
             "w": 12,
             "x": 0,
-            "y": 6
+            "y": 11
           },
           "id": 46,
           "options": {
@@ -1895,7 +2285,7 @@
             },
             "showHeader": true
           },
-          "pluginVersion": "",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
@@ -2008,8 +2398,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2024,7 +2413,7 @@
             "h": 6,
             "w": 12,
             "x": 12,
-            "y": 6
+            "y": 11
           },
           "id": 36,
           "options": {
@@ -2037,7 +2426,7 @@
             },
             "showHeader": true
           },
-          "pluginVersion": "",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
@@ -2146,8 +2535,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2163,7 +2551,7 @@
             "h": 6,
             "w": 12,
             "x": 0,
-            "y": 12
+            "y": 17
           },
           "id": 54,
           "options": {
@@ -2243,8 +2631,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2260,7 +2647,7 @@
             "h": 6,
             "w": 12,
             "x": 12,
-            "y": 12
+            "y": 17
           },
           "id": 55,
           "options": {
@@ -2340,8 +2727,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2357,7 +2743,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 18
+            "y": 23
           },
           "id": 52,
           "options": {
@@ -2437,8 +2823,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2454,7 +2839,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 18
+            "y": 23
           },
           "id": 56,
           "options": {
@@ -2534,8 +2919,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2551,7 +2935,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 26
+            "y": 31
           },
           "id": 30,
           "options": {
@@ -2631,8 +3015,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2648,7 +3031,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 26
+            "y": 31
           },
           "id": 53,
           "options": {
@@ -2728,8 +3111,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2745,7 +3127,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 34
+            "y": 39
           },
           "id": 51,
           "options": {
@@ -2826,8 +3208,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2843,7 +3224,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 34
+            "y": 39
           },
           "id": 59,
           "options": {
@@ -2939,7 +3320,7 @@
             "h": 6,
             "w": 12,
             "x": 0,
-            "y": 42
+            "y": 47
           },
           "id": 28,
           "options": {
@@ -3035,7 +3416,7 @@
             "h": 6,
             "w": 12,
             "x": 12,
-            "y": 42
+            "y": 47
           },
           "id": 60,
           "options": {
@@ -3082,7 +3463,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 6
+        "y": 7
       },
       "id": 64,
       "panels": [
@@ -4526,7 +4907,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 7
+        "y": 8
       },
       "id": 62,
       "panels": [
@@ -4550,8 +4931,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -4567,7 +4947,7 @@
             "h": 4,
             "w": 8,
             "x": 0,
-            "y": 8
+            "y": 12
           },
           "id": 44,
           "options": {
@@ -4580,7 +4960,7 @@
             },
             "showHeader": true
           },
-          "pluginVersion": "",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
@@ -4668,8 +5048,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -4684,7 +5063,7 @@
             "h": 4,
             "w": 8,
             "x": 8,
-            "y": 8
+            "y": 12
           },
           "id": 34,
           "options": {
@@ -4697,7 +5076,7 @@
             },
             "showHeader": true
           },
-          "pluginVersion": "",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
@@ -4793,8 +5172,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -4822,7 +5200,7 @@
             "h": 5,
             "w": 16,
             "x": 0,
-            "y": 12
+            "y": 16
           },
           "id": 32,
           "options": {
@@ -4838,7 +5216,7 @@
             "showHeader": true,
             "sortBy": []
           },
-          "pluginVersion": "",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
@@ -4922,8 +5300,7 @@
                 "mode": "percentage",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "orange",
@@ -4943,7 +5320,7 @@
             "h": 5,
             "w": 8,
             "x": 0,
-            "y": 17
+            "y": 21
           },
           "id": 50,
           "options": {
@@ -4958,7 +5335,7 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
@@ -4994,8 +5371,7 @@
                 "mode": "percentage",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "orange",
@@ -5015,7 +5391,7 @@
             "h": 5,
             "w": 8,
             "x": 8,
-            "y": 17
+            "y": 21
           },
           "id": 48,
           "options": {
@@ -5030,7 +5406,7 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
@@ -5066,8 +5442,7 @@
                 "mode": "percentage",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "orange",
@@ -5087,7 +5462,7 @@
             "h": 5,
             "w": 8,
             "x": 0,
-            "y": 22
+            "y": 26
           },
           "id": 38,
           "options": {
@@ -5102,7 +5477,7 @@
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
@@ -5170,8 +5545,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -5187,7 +5561,7 @@
             "h": 8,
             "w": 17,
             "x": 0,
-            "y": 27
+            "y": 31
           },
           "id": 40,
           "options": {
@@ -5267,8 +5641,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -5284,7 +5657,7 @@
             "h": 7,
             "w": 17,
             "x": 0,
-            "y": 35
+            "y": 39
           },
           "id": 42,
           "options": {
@@ -5335,7 +5708,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 8
+        "y": 9
       },
       "id": 4,
       "panels": [
@@ -5631,7 +6004,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 9
+        "y": 10
       },
       "id": 2,
       "panels": [
@@ -5655,8 +6028,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -5672,7 +6044,7 @@
             "h": 6,
             "w": 9,
             "x": 0,
-            "y": 10
+            "y": 15
           },
           "id": 124,
           "options": {
@@ -5685,7 +6057,7 @@
             },
             "showHeader": true
           },
-          "pluginVersion": "",
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
@@ -5805,8 +6177,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -5822,7 +6193,7 @@
             "h": 6,
             "w": 9,
             "x": 9,
-            "y": 10
+            "y": 15
           },
           "id": 97,
           "options": {
@@ -5895,8 +6266,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -5936,7 +6306,7 @@
             "h": 6,
             "w": 9,
             "x": 0,
-            "y": 16
+            "y": 21
           },
           "id": 93,
           "options": {
@@ -6009,8 +6379,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -6050,7 +6419,7 @@
             "h": 6,
             "w": 10,
             "x": 9,
-            "y": 16
+            "y": 21
           },
           "id": 95,
           "options": {
@@ -6123,8 +6492,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -6139,7 +6507,7 @@
             "h": 6,
             "w": 9,
             "x": 0,
-            "y": 22
+            "y": 27
           },
           "id": 101,
           "options": {
@@ -6212,8 +6580,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -6228,7 +6595,7 @@
             "h": 6,
             "w": 10,
             "x": 9,
-            "y": 22
+            "y": 27
           },
           "id": 102,
           "options": {
@@ -6271,7 +6638,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 11
       },
       "id": 6,
       "panels": [
@@ -6863,6 +7230,6 @@
   "timezone": "",
   "title": "Sonic-Exporter Dashboard",
   "uid": "rXR50WmVk",
-  "version": 39,
+  "version": 8,
   "weekStart": ""
 }
