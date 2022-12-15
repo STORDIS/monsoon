@@ -294,10 +294,10 @@ class SONiCCollector(object):
             labels=["domain_id","source_ip","keepalive_interval","session_timeout","peer_ip","peer_link","mclag_system_mac"],
         )
         
-        self.metric_mclag_state = GaugeMetricFamily(
-            "sonic_mclag_state",
-            "MCLAG State",
-            labels=["domain_id","mclag_system_mac","role","system_mac","peer_mac","oper_status","reason"],
+        self.metric_mclag_oper_state = GaugeMetricFamily(
+            "sonic_mclag_oper_state",
+            "MCLAG Operational State",
+            labels=["domain_id","mclag_system_mac","role","system_mac","peer_mac","reason"],
         )
 
         self.metric_sys_status = GaugeMetricFamily(
@@ -1694,7 +1694,7 @@ class SONiCCollector(object):
                                                      "" if not peer_link else peer_link,
                                                      "" if not mclag_system_mac else mclag_system_mac], 1)
                 
-    def export_mclag_state(self):
+    def export_mclag_oper_state(self):
         mclag_state = {_decode(key).replace(MCLAG_TABLE, ""): self.getAllFromDB(
             self.sonic_db.STATE_DB, key
         )
@@ -1708,16 +1708,15 @@ class SONiCCollector(object):
                 role = domain_state_attr.get("role", "")
                 system_mac = domain_state_attr.get("system_mac", "")
                 peer_mac = domain_state_attr.get("peer_mac", "")
-                oper_status = domain_state_attr.get("oper_status", "")
+                oper_status = 1 if domain_state_attr.get("oper_status", "") == "up" else 0
                 reason = domain_state_attr.get("reason", "")
-                self.metric_mclag_state.add_metric([domain_id,
+                self.metric_mclag_oper_state.add_metric([domain_id,
                                                     "" if not mclag_system_mac else mclag_system_mac,
                                                     "" if not role else role,
                                                     "" if not system_mac else
                                                     system_mac,
                                                     "" if not peer_mac else peer_mac,
-                                                    "" if not oper_status else oper_status,
-                                                    "" if not reason else reason], 1)
+                                                    "" if not reason else reason], oper_status)
 
     thread_pool = ThreadPoolExecutor(10)
 
@@ -1725,7 +1724,7 @@ class SONiCCollector(object):
         try:
             self._init_metrics()
             date_time = datetime.now()
-            wait([self.thread_pool.submit(self.export_mclag_state),
+            wait([self.thread_pool.submit(self.export_mclag_oper_state),
             self.thread_pool.submit(self.export_mclag_domain),
             self.thread_pool.submit(self.export_interface_counters),
             self.thread_pool.submit(self.export_interface_queue_counters),
@@ -1746,7 +1745,7 @@ class SONiCCollector(object):
             _logger.debug(f"Time taken in metrics collection {datetime.now() - date_time}")
             
             yield self.metric_mclag_domain
-            yield self.metric_mclag_state
+            yield self.metric_mclag_oper_state
             yield self.metric_sys_status
             yield self.metric_ntp_jitter
             yield self.metric_ntp_offset
