@@ -43,6 +43,12 @@
     },
     {
       "type": "panel",
+      "id": "text",
+      "name": "Text",
+      "version": ""
+    },
+    {
+      "type": "panel",
       "id": "timeseries",
       "name": "Time series",
       "version": ""
@@ -77,6 +83,26 @@
   "links": [],
   "liveNow": false,
   "panels": [
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 154,
+      "options": {
+        "content": "* Select the switch from the dropdown above.\n* For simulated GNS3 switches platform data like PDUs, FANs etc. will not be available for obvious reasons.\n* Graph may show \"No Data\" for the metrics which don't have respective configuration on the switch.\n* As an internal mgmt. in our lab, outside of working hours Real Physical Switches are powered down, Hence monsoon shows no data for that duration. ",
+        "mode": "markdown"
+      },
+      "pluginVersion": "9.0.6",
+      "title": "Information",
+      "type": "text"
+    },
     {
       "datasource": {
         "type": "prometheus",
@@ -146,7 +172,7 @@
         "h": 2,
         "w": 3,
         "x": 0,
-        "y": 0
+        "y": 5
       },
       "id": 142,
       "options": {
@@ -284,7 +310,7 @@
         "h": 3,
         "w": 3,
         "x": 3,
-        "y": 0
+        "y": 5
       },
       "id": 144,
       "options": {
@@ -341,7 +367,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 3
+        "y": 8
       },
       "id": 8,
       "panels": [
@@ -1126,7 +1152,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 4
+        "y": 9
       },
       "id": 146,
       "panels": [
@@ -1517,7 +1543,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 5
+        "y": 10
       },
       "id": 126,
       "panels": [
@@ -2236,7 +2262,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 6
+        "y": 11
       },
       "id": 58,
       "panels": [
@@ -3463,7 +3489,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 7
+        "y": 12
       },
       "id": 64,
       "panels": [
@@ -4907,7 +4933,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 8
+        "y": 13
       },
       "id": 62,
       "panels": [
@@ -5708,7 +5734,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 9
+        "y": 14
       },
       "id": 4,
       "panels": [
@@ -6004,7 +6030,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 15
       },
       "id": 2,
       "panels": [
@@ -6638,7 +6664,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 11
+        "y": 16
       },
       "id": 6,
       "panels": [
@@ -7184,7 +7210,7 @@
         "definition": "label_values(sonic_device_info{job=\"$sonic_expo\"}, instance)",
         "hide": 0,
         "includeAll": false,
-        "label": "Target",
+        "label": "Switch",
         "multi": false,
         "name": "target",
         "options": [],
@@ -7230,6 +7256,6 @@
   "timezone": "",
   "title": "Sonic-Exporter Dashboard",
   "uid": "rXR50WmVk",
-  "version": 8,
+  "version": 11,
   "weekStart": ""
 }
