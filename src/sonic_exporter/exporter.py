@@ -253,8 +253,13 @@ class SONiCCollector(object):
     def is_sonic_sys_ready(self, retries=db_default_retries, timeout=db_default_timeout):
         sts = self.getFromDB(self.sonic_db.STATE_DB, "SYSTEM_READY|SYSTEM_STATE",
                              "Status", retries=retries, timeout=timeout)
-        sts_core = self.getFromDB(
-            self.sonic_db.STATE_DB, "SYSTEM_READY_CORE|SYSTEM_STATE", "Status", retries=retries, timeout=timeout)
+        sts_core = sts
+        if self.db_version > ConfigDBVersion("version_4_0_0"):
+            ## this feature is only supported in newer ConfigDBs
+            ## Especially version_3_4_1 does not have this flag
+            ## so we use the sts flag for backwards compatible code.
+            sts_core = self.getFromDB(
+                self.sonic_db.STATE_DB, "SYSTEM_READY_CORE|SYSTEM_STATE", "Status", retries=retries, timeout=timeout)
         sts = True if sts and "UP" in sts else False
         sts_core = True if sts and "UP" in sts_core else False
         return sts, sts_core
