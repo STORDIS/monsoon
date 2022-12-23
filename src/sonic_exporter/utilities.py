@@ -1,17 +1,7 @@
 from distutils.version import Version
 import functools
-import os
 import re
-import jc
 from datetime import datetime, timedelta
-
-
-def exec_cli_cmd(cmd):
-    return os.popen(cmd).read()
-
-
-def getJsonOutPut(command):
-    return jc.parse(command.split(" ")[0], exec_cli_cmd(command))
 
 
 def timed_cache(**timedelta_kwargs):

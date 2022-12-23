@@ -15,10 +15,15 @@
 #
 import ipaddress
 import os
+import logging
+import logging.config
+import json
 import re
 import socket
 import subprocess
+import yaml
 import sys
+from pathlib import Path
 import time
 from concurrent.futures import ThreadPoolExecutor, ALL_COMPLETED, wait
 from datetime import datetime
@@ -26,7 +31,6 @@ from datetime import datetime
 import prometheus_client as prom
 from prometheus_client.core import REGISTRY, CounterMetricFamily, GaugeMetricFamily
 
-from sonic_exporter import logging, utilities
 from sonic_exporter.constants import (
     CHASSIS_INFO,
     CHASSIS_INFO_PATTERN,
@@ -78,11 +82,10 @@ from sonic_exporter.enums import (
 )
 from sonic_exporter.utilities import ConfigDBVersion, timed_cache
 
-_logger = logging.getLogger(__name__)
+BASE_PATH = Path(__file__).parent
 
 
 class SONiCCollector(object):
-
     rx_power_regex = re.compile(r"^rx(\d*)power$")
     tx_power_regex = re.compile(r"^tx(\d*)power$")
     tx_bias_regex = re.compile(r"^tx(\d*)bias$")
@@ -122,13 +125,13 @@ class SONiCCollector(object):
         for i in range(0, retries):
             keys = self.sonic_db.get(db_name, hash, key)
             if keys == None:
-                _logger.debug(
+                self.logger.debug(
                     "Couldn't retrieve {0} from hash {1} from db {2}.".format(
                         key, hash, db_name
                     )
                 )
                 if i < retries - 1:
-                    _logger.debug("Retrying in {0} secs.".format(timeout))
+                    self.logger.debug("Retrying in {0} secs.".format(timeout))
                     time.sleep(timeout)
                     continue
             return keys
@@ -139,14 +142,16 @@ class SONiCCollector(object):
         for i in range(0, retries):
             keys = self.sonic_db.keys(db_name, pattern=patrn)
             if keys == None:
-                _logger.debug("Couldn't retrieve {0} from {1}.".format(patrn, db_name))
+                self.logger.debug(
+                    "Couldn't retrieve {0} from {1}.".format(patrn, db_name)
+                )
                 if i < retries - 1:
-                    _logger.debug("Retrying in {0} secs.".format(timeout))
+                    self.logger.debug("Retrying in {0} secs.".format(timeout))
                     time.sleep(timeout)
             else:
-                # _logger.info("Finally retrieved values")
+                # self.logger.info("Finally retrieved values")
                 return keys
-        _logger.debug(
+        self.logger.debug(
             "Couldn't retrieve {0} from {1}, after {2} retries returning no results.".format(
                 patrn, db_name, retries
             )
@@ -160,15 +165,15 @@ class SONiCCollector(object):
         for i in range(0, retries):
             keys = self.sonic_db.get_all(db_name, hash)
             if keys == None:
-                _logger.debug(
+                self.logger.debug(
                     "Couldn't retrieve hash {0} from db {1}.".format(hash, db_name)
                 )
                 if i < retries - 1:
-                    _logger.debug("Retrying in {0} secs.".format(timeout))
+                    self.logger.debug("Retrying in {0} secs.".format(timeout))
                     time.sleep(timeout)
             else:
                 return keys
-        _logger.debug(
+        self.logger.debug(
             "Couldn't retrieve hash {0} from db {1}, after {2} retries.".format(
                 hash, db_name, retries
             )
@@ -184,29 +189,34 @@ class SONiCCollector(object):
                 MockSystemClassNetworkInfo,
             )
             from sonic_exporter.test.mock_vtysh import MockVtySH
+            from sonic_exporter.test.mock_ntpq import MockNTPQ
 
             self.vtysh = MockVtySH()
             self.sys_class_net = MockSystemClassNetworkInfo()
             self.sys_class_hwmon = MockSystemClassHWMon()
+            self.ntpq = MockNTPQ()
             self.sonic_db = mock_db.SonicV2Connector(password="")
+            self.ntpq = MockNTPQ()
         else:
             import swsssdk
 
             from sonic_exporter.sys_class_hwmon import SystemClassHWMon
             from sonic_exporter.sys_class_net import SystemClassNetworkInfo
             from sonic_exporter.vtysh import VtySH
+            from sonic_exporter.ntpq import NTPQ
 
             self.vtysh = VtySH()
             self.sys_class_net = SystemClassNetworkInfo()
             self.sys_class_hwmon = SystemClassHWMon()
             secret = subprocess.getoutput("cat /run/redis/auth/passwd")
             self.sonic_db = swsssdk.SonicV2Connector(password=secret)
+            self.ntpq = NTPQ()
 
         self.sonic_db.connect(self.sonic_db.COUNTERS_DB)
         self.sonic_db.connect(self.sonic_db.STATE_DB)
         self.sonic_db.connect(self.sonic_db.APPL_DB)
         self.sonic_db.connect(self.sonic_db.CONFIG_DB)
-
+        self.thread_pool = ThreadPoolExecutor(10)
         self.db_version = ConfigDBVersion(
             _decode(
                 self.getFromDB(
@@ -216,12 +226,12 @@ class SONiCCollector(object):
         )
 
         if not self.is_sonic_sys_ready(retries=15):
-            _logger.error(
+            self.logger.error(
                 "SONiC System isn't ready even after several retries, exiting sonic-exporter."
             )
             sys.exit(0)
 
-        _logger.info("SONiC System is ready.")
+        self.logger.info("SONiC System is ready.")
 
         self.chassis = {
             _decode(key).replace(CHASSIS_INFO, ""): self.getAllFromDB(
@@ -732,7 +742,7 @@ class SONiCCollector(object):
                 self.metric_vxlan_operational_status.add_metric(
                     [self.dns_lookup(neighbor)], is_operational
                 )
-                _logger.debug(
+                self.logger.debug(
                     f"export_vxlan_tunnel :: neighbor={neighbor}, is_operational={is_operational}"
                 )
             except ValueError as e:
@@ -961,7 +971,7 @@ class SONiCCollector(object):
                     )
                 ),
             )
-            _logger.debug("export_intf_counter :: ifname={}".format(ifname))
+            self.logger.debug("export_intf_counter :: ifname={}".format(ifname))
             try:
                 port_table_key = SONiCCollector.get_port_table_key(ifname)
                 is_operational = _decode(
@@ -1022,12 +1032,12 @@ class SONiCCollector(object):
                 queue_type = "multicast"
             if packet_type.endswith("UNICAST"):
                 queue_type = "unicast"
-            _logger.debug(
+            self.logger.debug(
                 "export_intf_queue_counters :: ifname={}, queue_type={}, packets={}".format(
                     ifname, queue_type, packets
                 )
             )
-            _logger.debug(
+            self.logger.debug(
                 "export_intf_queue_counters :: ifname={}, queue_type={}, bytes={}".format(
                     ifname, queue_type, bytes
                 )
@@ -1043,7 +1053,7 @@ class SONiCCollector(object):
         keys = self.getKeysFromDB(
             self.sonic_db.STATE_DB, TRANSCEIVER_DOM_SENSOR_PATTERN
         )
-        _logger.debug("export_interface_optic_data :: keys={}".format(keys))
+        self.logger.debug("export_interface_optic_data :: keys={}".format(keys))
         if not keys:
             return
         for key in keys:
@@ -1298,7 +1308,7 @@ class SONiCCollector(object):
                 )
             except ValueError:
                 pass
-            _logger.debug(
+            self.logger.debug(
                 f"export_interface_cable_data :: interface={self.get_additional_info(ifname)}"
             )
             self.metric_interface_transceiver_info.add_metric(
@@ -1343,7 +1353,7 @@ class SONiCCollector(object):
                 )
                 self.metric_device_psu_input_amperes.add_metric([slot], in_amperes)
                 self.metric_device_psu_input_volts.add_metric([slot], in_volts)
-                _logger.debug(
+                self.logger.debug(
                     f"export_psu_info :: slot={slot}, in_amperes={in_amperes}, in_volts={in_volts}"
                 )
             except ValueError:
@@ -1357,7 +1367,7 @@ class SONiCCollector(object):
                 )
                 self.metric_device_psu_output_amperes.add_metric([slot], out_amperes)
                 self.metric_device_psu_output_volts.add_metric([slot], out_volts)
-                _logger.debug(
+                self.logger.debug(
                     f"export_psu_info :: slot={slot}, out_amperes={out_amperes}, out_volts={out_volts}"
                 )
             except ValueError:
@@ -1420,7 +1430,7 @@ class SONiCCollector(object):
                 self.metric_device_fan_available_status.add_metric(
                     [name, slot], is_available
                 )
-                _logger.debug(
+                self.logger.debug(
                     f"export_fan_info :: fullname={fullname} oper={boolify(is_operational)}, presence={is_available}, rpm={rpm}"
                 )
             except ValueError:
@@ -1432,14 +1442,14 @@ class SONiCCollector(object):
                 last_two_bytes = sensor.address[-2:]
                 name = TEMP_SENSORS[switch_model][air_flow][last_two_bytes]
             except (ValueError, KeyError, TypeError) as e:
-                _logger.debug(
+                self.logger.debug(
                     f"export_hwmon_temp_info :: air_flow={air_flow}, switch_mode={switch_model} address={last_two_bytes}, e={e}"
                 )
                 continue
 
             for value in sensor.values:
                 _, subvalue = value.name.split("_", maxsplit=1)
-                _logger.debug(
+                self.logger.debug(
                     f"export_hwmon_temp_info :: name={name}, -> value={value}"
                 )
                 match subvalue:
@@ -1466,7 +1476,7 @@ class SONiCCollector(object):
             air_flow = AirFlow(self.product_name[-1])
             switch_model = SwitchModel(self.platform_name.lower())
         except ValueError as e:
-            _logger.debug(f"export_temp_info :: exception={e}")
+            self.logger.debug(f"export_temp_info :: exception={e}")
             unknown_switch_model = True
             pass
 
@@ -1493,7 +1503,7 @@ class SONiCCollector(object):
                 self.metric_device_threshold_sensor_celsius.add_metric(
                     [name, AlarmType.HIGH_ALARM.value], high_threshold
                 )
-                _logger.debug(
+                self.logger.debug(
                     f"export_temp_info :: name={name}, temp={temp}, high_threshold={high_threshold}"
                 )
             except ValueError:
@@ -1532,7 +1542,7 @@ class SONiCCollector(object):
                 ],
                 1,
             )
-            _logger.debug(
+            self.logger.debug(
                 "export_sys_info :: part_num={}, serial_num={}, mac_addr={}, software_version={}".format(
                     part_number, serial_number, mac_address, software_version
                 )
@@ -1550,7 +1560,7 @@ class SONiCCollector(object):
         memory_usage = sum(memory_usage for _, memory_usage in cpu_memory_usages)
         self.system_cpu_ratio.add_metric([], cpu_usage / 100)
         self.system_memory_ratio.add_metric([], memory_usage / 100)
-        _logger.debug(
+        self.logger.debug(
             f"export_sys_info :: cpu_usage={cpu_usage}, memory_usage={memory_usage}"
         )
 
@@ -1619,7 +1629,7 @@ class SONiCCollector(object):
                         self.sys_class_net.operational(interface),
                     )
                 except (KeyError, StopIteration, OSError):
-                    _logger.debug(
+                    self.logger.debug(
                         f"export_static_anycast_gateway_info :: No Static Anycast Gateway for interface={interface}"
                     )
                     pass
@@ -1748,14 +1758,11 @@ class SONiCCollector(object):
                 )
 
     def export_ntp_associations(self):
-        command = "ntpq -p -n"
-        ## TODO: Put local VRF commands into their own module
-        if self.getFromDB(self.sonic_db.CONFIG_DB, "vrf"):
-            if self.db_version < ConfigDBVersion("version_4_0_0"):
-                command = f"cgexec -g l3mdev:mgmt {command}"
-            else:
-                command = f"ip vrf exec mgmt {command}"
-        for op in utilities.getJsonOutPut(command):
+        associations = self.ntpq.get_associations(db_version=self.db_version, vrf=self.getFromDB(self.sonic_db.CONFIG_DB, "NTP|global", "vrf", retries=15))
+        self.logger.debug(f"hello {json.dumps(associations, indent=2)}")
+        for op in associations:
+            self.logger.debug(
+                f"export_ntp_associations :: {' '.join([f'{key}={value}' for key, value in op.items()])}")
             self.metric_ntp_associations.add_metric(
                 [
                     op.get("remote"),
@@ -1844,8 +1851,6 @@ class SONiCCollector(object):
                     oper_status,
                 )
 
-    thread_pool = ThreadPoolExecutor(10)
-
     def collect(self):
         try:
             self._init_metrics()
@@ -1873,7 +1878,7 @@ class SONiCCollector(object):
                 ],
                 return_when=ALL_COMPLETED,
             )
-            _logger.debug(
+            self.logger.debug(
                 f"Time taken in metrics collection {datetime.now() - date_time}"
             )
 
@@ -1954,12 +1959,23 @@ def main():
         os.environ.get("SONIC_EXPORTER_PORT", 9101)
     )  # setting port static as 9101. if required map it to someother port of host by editing compose file.
     address = str(os.environ.get("SONIC_EXPORTER_ADDRESS", "localhost"))
-    sonic_collector = SONiCCollector(
-        os.environ.get("DEVELOPER_MODE", "False").lower() in TRUE_VALUES
-    )
-    _logger.info("Starting Python exporter server at {}:{}".format(address, port))
+    logging_config_path = os.environ.get("SONIC_EXPORTER_LOGGING_CONFIG", (BASE_PATH / "./config/logging.yml").resolve())
+    LOGGING_CONFIG_RAW = ""
+    with open(logging_config_path, "r") as file:
+        LOGGING_CONFIG_RAW = file.read()
+    loglevel = os.environ.get("SONIC_EXPORTER_LOGLEVEL", None)
+    LOGGING_CONFIG = yaml.safe_load(LOGGING_CONFIG_RAW)
+    if loglevel and "handlers" in LOGGING_CONFIG and "console" in LOGGING_CONFIG["handlers"] and "level" in LOGGING_CONFIG["handlers"]["console"]:
+        LOGGING_CONFIG["handlers"]["console"]["level"] = loglevel
+    logging.config.dictConfig(LOGGING_CONFIG)
+    logging.info("Starting Python exporter server at {}:{}".format(address, port))
     # TODO ip address validation
     prom.start_http_server(port, addr=address)
+    classe = SONiCCollector
+    classe.logger = logging.getLogger("__name__")
+    sonic_collector = classe(
+        os.environ.get("DEVELOPER_MODE", "False").lower() in TRUE_VALUES
+    )
     REGISTRY.register(sonic_collector)
     while True:
         time.sleep(10**8)
