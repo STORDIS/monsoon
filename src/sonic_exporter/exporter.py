@@ -1758,11 +1758,17 @@ class SONiCCollector(object):
                 )
 
     def export_ntp_associations(self):
-        associations = self.ntpq.get_associations(db_version=self.db_version, vrf=self.getFromDB(self.sonic_db.CONFIG_DB, "NTP|global", "vrf", retries=15))
+        associations = self.ntpq.get_associations(
+            db_version=self.db_version,
+            vrf=self.getFromDB(
+                self.sonic_db.CONFIG_DB, "NTP|global", "vrf", retries=15
+            ),
+        )
         self.logger.debug(f"hello {json.dumps(associations, indent=2)}")
         for op in associations:
             self.logger.debug(
-                f"export_ntp_associations :: {' '.join([f'{key}={value}' for key, value in op.items()])}")
+                f"export_ntp_associations :: {' '.join([f'{key}={value}' for key, value in op.items()])}"
+            )
             self.metric_ntp_associations.add_metric(
                 [
                     op.get("remote"),
@@ -1959,13 +1965,20 @@ def main():
         os.environ.get("SONIC_EXPORTER_PORT", 9101)
     )  # setting port static as 9101. if required map it to someother port of host by editing compose file.
     address = str(os.environ.get("SONIC_EXPORTER_ADDRESS", "localhost"))
-    logging_config_path = os.environ.get("SONIC_EXPORTER_LOGGING_CONFIG", (BASE_PATH / "./config/logging.yml").resolve())
+    logging_config_path = os.environ.get(
+        "SONIC_EXPORTER_LOGGING_CONFIG", (BASE_PATH / "./config/logging.yml").resolve()
+    )
     LOGGING_CONFIG_RAW = ""
     with open(logging_config_path, "r") as file:
         LOGGING_CONFIG_RAW = file.read()
     loglevel = os.environ.get("SONIC_EXPORTER_LOGLEVEL", None)
     LOGGING_CONFIG = yaml.safe_load(LOGGING_CONFIG_RAW)
-    if loglevel and "handlers" in LOGGING_CONFIG and "console" in LOGGING_CONFIG["handlers"] and "level" in LOGGING_CONFIG["handlers"]["console"]:
+    if (
+        loglevel
+        and "handlers" in LOGGING_CONFIG
+        and "console" in LOGGING_CONFIG["handlers"]
+        and "level" in LOGGING_CONFIG["handlers"]["console"]
+    ):
         LOGGING_CONFIG["handlers"]["console"]["level"] = loglevel
     logging.config.dictConfig(LOGGING_CONFIG)
     logging.info("Starting Python exporter server at {}:{}".format(address, port))
