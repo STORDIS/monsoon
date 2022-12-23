@@ -234,12 +234,13 @@ curl --cert client.crt --key client.key -k "https://${SWITCH}:5556/node/metrics"
 
 ## Environment Variables
 
-| VARIABLE                  | Description                                                           | Default           |
-| ------------------------- | --------------------------------------------------------------------- | ----------------- |
-| DEVELOPER_MODE            | This enables the Mock functionality of the exporter for local testing | `False`           |
-| SONIC_EXPORTER_PORT       | The port on which the exporter listens                                | `9101`            |
-| SONIC_EXPORTER_ADDRESS    | The address on which the exporter listens                             | `localhost`       |
-| SONIC_EXPORTER_LOGLEVEL   | The loglevel for the exporter                                         | `INFO`            |
+| VARIABLE                      | Description                                                           | Default               |
+| ----------------------------- | --------------------------------------------------------------------- | --------------------- |
+| DEVELOPER_MODE                | This enables the Mock functionality of the exporter for local testing | `False`               |
+| SONIC_EXPORTER_PORT           | The port on which the exporter listens                                | `9101`                |
+| SONIC_EXPORTER_ADDRESS        | The address on which the exporter listens                             | `localhost`           |
+| SONIC_EXPORTER_LOGGING_CONFIG | The configuration path for logging config.                            | `./config/logging.yml |
+| SONIC_EXPORTER_LOGLEVEL       | The loglevel for the exporter                                         | `INFO`                |
 
 ## Get Mock Data
 
