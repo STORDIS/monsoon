@@ -59,8 +59,7 @@ class ConfigDBVersion(Version):
         # from the parsed tuple -- so I just store the string here for
         # use by __str__
         self.vstring = vstring
-        components = [x for x in self.component_re.split(
-            vstring) if x and x != "_"]
+        components = [x for x in self.component_re.split(vstring) if x and x != "_"]
         for i, obj in enumerate(components):
             try:
                 components[i] = int(obj)
