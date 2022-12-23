@@ -1748,7 +1748,14 @@ class SONiCCollector(object):
                 )
 
     def export_ntp_associations(self):
-        for op in utilities.getJsonOutPut("ntpq -p -n"):
+        command = "ntpq -p -n"
+        ## TODO: Put local VRF commands into their own module
+        if self.getFromDB(self.sonic_db.CONFIG_DB, "vrf"):
+            if self.db_version < ConfigDBVersion("version_4_0_0"):
+                command = f"cgexec -g l3mdev:mgmt {command}"
+            else:
+                command = f"ip vrf exec mgmt {command}"
+        for op in utilities.getJsonOutPut(command):
             self.metric_ntp_associations.add_metric(
                 [
                     op.get("remote"),
