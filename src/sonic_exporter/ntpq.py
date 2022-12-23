@@ -24,9 +24,9 @@ class NTPQ:
                 new_command = ["ip", "vrf", "exec", f"{vrf.strip()}", "ntpq"] + command
         try:
             out_put = run(new_command, check=True, stdout=PIPE).stdout.decode("utf-8")
-            return jc.parse("ntpq", out_put, raw=True)
-        except CalledProcessError:
-            return {}
+            return jc.parse("ntpq", out_put)
+        except CalledProcessError as e:
+            raise e
 
     def get_associations(
         self,
