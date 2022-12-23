@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
     nano \
     libopts25 \
     libedit2 \
+    libcgroup1 \
     && rm -rf /var/lib/apt/lists/*
 RUN pip3 install --pre -r /home/requirements.txt && pip3 install /home/*.tar.gz && mkdir -p /src && rm /home/*
 
