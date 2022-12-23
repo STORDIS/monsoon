@@ -11,7 +11,7 @@ class NTPQ:
     ):
         ## TODO: Put local VRF commands into their own module
         assert isinstance(db_version, ConfigDBVersion)
-        new_command = command
+        new_command = []
         if self.vrf:
             if db_version < ConfigDBVersion("version_4_0_0"):
                 new_command = [
@@ -22,6 +22,8 @@ class NTPQ:
                 ] + command
             else:
                 new_command = ["ip", "vrf", "exec", f"{vrf.strip()}", "ntpq"] + command
+        else:
+            new_command = ["ntpq"] + command
         try:
             out_put = run(new_command, check=True, stdout=PIPE).stdout.decode("utf-8")
             return jc.parse("ntpq", out_put)

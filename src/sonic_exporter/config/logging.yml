@@ -3,7 +3,7 @@ version: 1
 handlers:
     console:
         class: logging.StreamHandler
-        level: DEBUG
+        level: INFO
         formatter: format_1
         #args: (sys.stdout,)
 
