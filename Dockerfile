@@ -16,14 +16,6 @@ RUN apt-get update && apt-get install -y \
     libopts25 \
     libedit2 \
     libcgroup1 \
-    libelf1 \
-    libmnl0 \
-    libbsd0 \
-    libtirpc3 \
-    libxtables12 \
-    libdb5.3 \
-    libcap2 \
-    libcap2-bin \
     && rm -rf /var/lib/apt/lists/*
 RUN pip3 install --pre -r /home/requirements.txt && pip3 install /home/*.tar.gz && mkdir -p /src && rm /home/*
 
