@@ -196,7 +196,6 @@ class SONiCCollector(object):
             self.sys_class_hwmon = MockSystemClassHWMon()
             self.ntpq = MockNTPQ()
             self.sonic_db = mock_db.SonicV2Connector(password="")
-            self.ntpq = MockNTPQ()
         else:
             import swsssdk
 
@@ -322,9 +321,9 @@ class SONiCCollector(object):
         ]
         evpn_vni_labels = ["vni", "interface", "svi", "osi_layer", "vrf"]
 
-        self.metric_ntp_associations = GaugeMetricFamily(
-            "sonic_ntp_associations",
-            "NTP associations",
+        self.metric_ntp_peers = GaugeMetricFamily(
+            "sonic_ntp_peers",
+            "NTP peers",
             labels=["remote", "refid", "st", "t", "poll", "reach", "state"],
         )
 
@@ -361,6 +360,10 @@ class SONiCCollector(object):
             labels=["status", "status_core"],
         )
 
+        self.metric_ntp_sync_status = GaugeMetricFamily(
+            "sonic_ntp_sync_status",
+            "SONiC NTP Sync Status (0/1 0==Not in Sync 1==Sync)",
+        )
         self.metric_ntp_when = GaugeMetricFamily(
             "sonic_ntp_when",
             "Time (in seconds) since an NTP packet update was received",
@@ -1757,19 +1760,26 @@ class SONiCCollector(object):
                     1,
                 )
 
-    def export_ntp_associations(self):
-        associations = self.ntpq.get_associations(
-            db_version=self.db_version,
+    def export_ntp_peers(self):
+        peers = self.ntpq.get_peers(
             vrf=self.getFromDB(
                 self.sonic_db.CONFIG_DB, "NTP|global", "vrf", retries=15
             ),
         )
-        self.logger.debug(f"hello {json.dumps(associations, indent=2)}")
-        for op in associations:
+        ntp_rv = self.ntpq.get_rv(
+            vrf=self.getFromDB(self.sonic_db.CONFIG_DB, "NTP|global", "vrf", retries=15)
+        )
+        ntp_status = ntp_rv.get("associd", "")
+        if "leap_none" in ntp_status:
+            self.metric_ntp_sync_status.add_metric([], 1.0)
+        else:
+            self.metric_ntp_sync_status.add_metric([], 0)
+        self.logger.debug(f"hello {json.dumps(peers, indent=2)}")
+        for op in peers:
             self.logger.debug(
-                f"export_ntp_associations :: {' '.join([f'{key}={value}' for key, value in op.items()])}"
+                f"export_ntp_peers :: {' '.join([f'{key}={value}' for key, value in op.items()])}"
             )
-            self.metric_ntp_associations.add_metric(
+            self.metric_ntp_peers.add_metric(
                 [
                     op.get("remote"),
                     op.get("refid"),
@@ -1877,7 +1887,7 @@ class SONiCCollector(object):
                     self.thread_pool.submit(self.export_bgp_info),
                     self.thread_pool.submit(self.export_evpn_vni_info),
                     self.thread_pool.submit(self.export_static_anycast_gateway_info),
-                    self.thread_pool.submit(self.export_ntp_associations),
+                    self.thread_pool.submit(self.export_ntp_peers),
                     self.thread_pool.submit(self.export_ntp_global),
                     self.thread_pool.submit(self.export_ntp_server),
                     self.thread_pool.submit(self.export_sys_status),
@@ -1891,11 +1901,12 @@ class SONiCCollector(object):
             yield self.metric_mclag_domain
             yield self.metric_mclag_oper_state
             yield self.metric_sys_status
+            yield self.metric_ntp_sync_status
             yield self.metric_ntp_jitter
             yield self.metric_ntp_offset
             yield self.metric_ntp_rtd
             yield self.metric_ntp_when
-            yield self.metric_ntp_associations
+            yield self.metric_ntp_peers
             yield self.metric_ntp_global
             yield self.metric_ntp_server
             yield self.metric_interface_info
