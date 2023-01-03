@@ -405,6 +405,11 @@ class SONiCCollector(object):
             "Interface Information (Description, MTU, Speed)",
             labels=interface_labels + ["description", "mtu", "speed", "device"],
         )
+        self.metric_interface_speed = GaugeMetricFamily(
+            "sonic_interface_speed_bytes",
+            "The maximum interface speed in bytes per second",
+            labels=interface_labels,
+        )
         self.metric_interface_transmitted_bytes = CounterMetricFamily(
             "sonic_interface_transmitted_bytes_total",
             "Total transmitted Bytes by Interface",
@@ -756,17 +761,23 @@ class SONiCCollector(object):
         for ifname in maps:
             counter_key = SONiCCollector.get_counter_key(_decode(maps[ifname]))
             ifname_decoded = _decode(ifname)
+            # this should be GBit/s
             if ifname_decoded.lower() in COUNTER_IGNORE:
                 continue
+            interface_speed = int(round(int(self.get_portinfo(ifname, 'speed'))) / 1000) if self.get_portinfo(ifname, 'speed') else 0
             self.metric_interface_info.add_metric(
                 [
                     self.get_additional_info(ifname),
                     self.get_portinfo(ifname, "description"),
                     self.get_portinfo(ifname, "mtu"),
-                    f"{int(round(int(self.get_portinfo(ifname, 'speed'))) / 1000) if self.get_portinfo(ifname, 'speed') else ''}Gbps",
+                    f"{interface_speed}Gbps",
                     ifname,
                 ],
                 1,
+            )
+            self.metric_interface_speed.add_metric(
+                [self.get_additional_info(ifname)],
+                floatify(interface_speed * 1000 * 1000 * 1000 / 8),
             )
 
             # Ethernet RX
@@ -1761,13 +1772,14 @@ class SONiCCollector(object):
                 )
 
     def export_ntp_peers(self):
+        vrf =  self.getFromDB(
+                self.sonic_db.CONFIG_DB, "NTP|global", "vrf", retries=0, timeout=0
+            )
         peers = self.ntpq.get_peers(
-            vrf=self.getFromDB(
-                self.sonic_db.CONFIG_DB, "NTP|global", "vrf", retries=15
-            ),
+            vrf=vrf
         )
         ntp_rv = self.ntpq.get_rv(
-            vrf=self.getFromDB(self.sonic_db.CONFIG_DB, "NTP|global", "vrf", retries=15)
+            vrf=vrf
         )
         ntp_status = ntp_rv.get("associd", "")
         if "leap_none" in ntp_status:
@@ -1910,6 +1922,7 @@ class SONiCCollector(object):
             yield self.metric_ntp_global
             yield self.metric_ntp_server
             yield self.metric_interface_info
+            yield self.metric_interface_speed
             yield self.metric_interface_transmitted_bytes
             yield self.metric_interface_received_bytes
             yield self.metric_interface_transmitted_packets
