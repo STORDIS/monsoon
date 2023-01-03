@@ -39,7 +39,6 @@ def timed_cache(**timedelta_kwargs):
 
 
 class ConfigDBVersion(Version):
-
     component_re = re.compile(r"(\d+|_)", re.VERBOSE)
     vstring = ""
     version = []

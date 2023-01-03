@@ -764,7 +764,11 @@ class SONiCCollector(object):
             # this should be GBit/s
             if ifname_decoded.lower() in COUNTER_IGNORE:
                 continue
-            interface_speed = int(round(int(self.get_portinfo(ifname, 'speed'))) / 1000) if self.get_portinfo(ifname, 'speed') else 0
+            interface_speed = (
+                int(round(int(self.get_portinfo(ifname, "speed"))) / 1000)
+                if self.get_portinfo(ifname, "speed")
+                else 0
+            )
             self.metric_interface_info.add_metric(
                 [
                     self.get_additional_info(ifname),
@@ -1708,7 +1712,6 @@ class SONiCCollector(object):
                     pass
 
     def export_evpn_vni_info(self):
-
         evpn_vni_detail = self.vtysh.show_evpn_vni_detail()
         for evpn_vni in evpn_vni_detail:
             vni = _decode(str(evpn_vni["vni"]))
@@ -1772,15 +1775,11 @@ class SONiCCollector(object):
                 )
 
     def export_ntp_peers(self):
-        vrf =  self.getFromDB(
-                self.sonic_db.CONFIG_DB, "NTP|global", "vrf", retries=0, timeout=0
-            )
-        peers = self.ntpq.get_peers(
-            vrf=vrf
+        vrf = self.getFromDB(
+            self.sonic_db.CONFIG_DB, "NTP|global", "vrf", retries=0, timeout=0
         )
-        ntp_rv = self.ntpq.get_rv(
-            vrf=vrf
-        )
+        peers = self.ntpq.get_peers(vrf=vrf)
+        ntp_rv = self.ntpq.get_rv(vrf=vrf)
         ntp_status = ntp_rv.get("associd", "")
         if "leap_none" in ntp_status:
             self.metric_ntp_sync_status.add_metric([], 1.0)
