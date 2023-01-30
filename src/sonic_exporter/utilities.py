@@ -1,17 +1,7 @@
 from distutils.version import Version
 import functools
-import os
 import re
-import jc
 from datetime import datetime, timedelta
-
-
-def exec_cli_cmd(cmd):
-    return os.popen(cmd).read()
-
-
-def getJsonOutPut(command):
-    return jc.parse(command.split(" ")[0], exec_cli_cmd(command))
 
 
 def timed_cache(**timedelta_kwargs):
@@ -49,7 +39,6 @@ def timed_cache(**timedelta_kwargs):
 
 
 class ConfigDBVersion(Version):
-
     component_re = re.compile(r"(\d+|_)", re.VERBOSE)
     vstring = ""
     version = []
@@ -59,8 +48,7 @@ class ConfigDBVersion(Version):
         # from the parsed tuple -- so I just store the string here for
         # use by __str__
         self.vstring = vstring
-        components = [x for x in self.component_re.split(
-            vstring) if x and x != "_"]
+        components = [x for x in self.component_re.split(vstring) if x and x != "_"]
         for i, obj in enumerate(components):
             try:
                 components[i] = int(obj)
