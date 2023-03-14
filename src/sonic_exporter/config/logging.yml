@@ -1,13 +1,6 @@
 version: 1
 
 handlers:
-    file:
-        class : logging.handlers.RotatingFileHandler
-        formatter: format_1
-        filename: /var/log/sonic_exporter.log
-        maxBytes: 10485760 #10MB
-        backupCount: 5
-        level: INFO
     console:
         class: logging.StreamHandler
         level: INFO
@@ -20,5 +13,5 @@ formatters:
 
 root:
     level: NOTSET
-    handlers: [console,file]
+    handlers: [console]
     propogate: yes

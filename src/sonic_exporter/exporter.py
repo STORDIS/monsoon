@@ -15,59 +15,81 @@
 #
 import ipaddress
 import os
+import logging
+import logging.config
+import json
 import re
 import socket
 import subprocess
+import yaml
 import sys
+from pathlib import Path
 import time
-from concurrent.futures import ThreadPoolExecutor,ALL_COMPLETED, wait
+from concurrent.futures import ThreadPoolExecutor, ALL_COMPLETED, wait
 from datetime import datetime
 
 import prometheus_client as prom
-from prometheus_client.core import (REGISTRY, CounterMetricFamily,
-                                    GaugeMetricFamily)
+from prometheus_client.core import REGISTRY, CounterMetricFamily, GaugeMetricFamily
 
-from sonic_exporter import logging, utilities
-from sonic_exporter.constants import (CHASSIS_INFO, CHASSIS_INFO_PATTERN,
-                                      MCLAG_DOMAIN,MCLAG_DOMAIN_PATTERN,
-                                      MCLAG_TABLE,MCLAG_TABLE_PATTERN,
-                                      COUNTER_IGNORE, COUNTER_PORT_MAP,
-                                      COUNTER_QUEUE_MAP,
-                                      COUNTER_QUEUE_TYPE_MAP,
-                                      COUNTER_TABLE_PREFIX, EEPROM_INFO,
-                                      EEPROM_INFO_PATTERN, FAN_INFO_PATTERN,
-                                      NTP_SERVER, NTP_SERVER_PATTERN,
-                                      PORT_TABLE_PREFIX, PROCESS_STATS,
-                                      PROCESS_STATS_IGNORE,
-                                      PROCESS_STATS_PATTERN, PSU_INFO,
-                                      PSU_INFO_PATTERN, SAG, SAG_GLOBAL,
-                                      SAG_PATTERN, TEMP_SENSORS,
-                                      TEMPERATURE_INFO_PATTERN,
-                                      TRANSCEIVER_DOM_SENSOR,
-                                      TRANSCEIVER_DOM_SENSOR_PATTERN,
-                                      TRANSCEIVER_INFO,
-                                      TRANSCEIVER_INFO_PATTERN, TRUE_VALUES,
-                                      VLAN_INTERFACE, VXLAN_TUNNEL_MAP_PATTERN,
-                                      VXLAN_TUNNEL_TABLE,
-                                      VXLAN_TUNNEL_TABLE_PATTERN)
+from sonic_exporter.constants import (
+    CHASSIS_INFO,
+    CHASSIS_INFO_PATTERN,
+    MCLAG_DOMAIN,
+    MCLAG_DOMAIN_PATTERN,
+    MCLAG_TABLE,
+    MCLAG_TABLE_PATTERN,
+    COUNTER_IGNORE,
+    COUNTER_PORT_MAP,
+    COUNTER_QUEUE_MAP,
+    COUNTER_QUEUE_TYPE_MAP,
+    COUNTER_TABLE_PREFIX,
+    EEPROM_INFO,
+    EEPROM_INFO_PATTERN,
+    FAN_INFO_PATTERN,
+    NTP_SERVER,
+    NTP_SERVER_PATTERN,
+    PORT_TABLE_PREFIX,
+    PROCESS_STATS,
+    PROCESS_STATS_IGNORE,
+    PROCESS_STATS_PATTERN,
+    PSU_INFO,
+    PSU_INFO_PATTERN,
+    SAG,
+    SAG_GLOBAL,
+    SAG_PATTERN,
+    TEMP_SENSORS,
+    TEMPERATURE_INFO_PATTERN,
+    TRANSCEIVER_DOM_SENSOR,
+    TRANSCEIVER_DOM_SENSOR_PATTERN,
+    TRANSCEIVER_INFO,
+    TRANSCEIVER_INFO_PATTERN,
+    TRUE_VALUES,
+    VLAN_INTERFACE,
+    VXLAN_TUNNEL_MAP_PATTERN,
+    VXLAN_TUNNEL_TABLE,
+    VXLAN_TUNNEL_TABLE_PATTERN,
+)
 from sonic_exporter.converters import boolify
 from sonic_exporter.converters import decode as _decode
 from sonic_exporter.converters import floatify, get_uptime, to_timestamp
-from sonic_exporter.enums import (AddressFamily, AirFlow, AlarmType,
-                                  InternetProtocol, OSILayer, SwitchModel)
+from sonic_exporter.enums import (
+    AddressFamily,
+    AirFlow,
+    AlarmType,
+    InternetProtocol,
+    OSILayer,
+    SwitchModel,
+)
 from sonic_exporter.utilities import ConfigDBVersion, timed_cache
 
-_logger = logging.getLogger(__name__)
+BASE_PATH = Path(__file__).parent
 
 
 class SONiCCollector(object):
-
-
     rx_power_regex = re.compile(r"^rx(\d*)power$")
     tx_power_regex = re.compile(r"^tx(\d*)power$")
     tx_bias_regex = re.compile(r"^tx(\d*)bias$")
-    fan_slot_regex = re.compile(
-        r"^((?:PSU|Fantray).*?\d+).*?(?!FAN|_).*?(\d+)$")
+    fan_slot_regex = re.compile(r"^((?:PSU|Fantray).*?\d+).*?(?!FAN|_).*?(\d+)$")
     chassis_slot_regex = re.compile(r"^.*?(\d+)$")
     db_default_retries = 1
     # timeout applicable only when retries >1
@@ -103,13 +125,13 @@ class SONiCCollector(object):
         for i in range(0, retries):
             keys = self.sonic_db.get(db_name, hash, key)
             if keys == None:
-                _logger.debug(
+                self.logger.debug(
                     "Couldn't retrieve {0} from hash {1} from db {2}.".format(
                         key, hash, db_name
                     )
                 )
                 if i < retries - 1:
-                    _logger.debug("Retrying in {0} secs.".format(timeout))
+                    self.logger.debug("Retrying in {0} secs.".format(timeout))
                     time.sleep(timeout)
                     continue
             return keys
@@ -120,16 +142,16 @@ class SONiCCollector(object):
         for i in range(0, retries):
             keys = self.sonic_db.keys(db_name, pattern=patrn)
             if keys == None:
-                _logger.debug(
+                self.logger.debug(
                     "Couldn't retrieve {0} from {1}.".format(patrn, db_name)
                 )
                 if i < retries - 1:
-                    _logger.debug("Retrying in {0} secs.".format(timeout))
+                    self.logger.debug("Retrying in {0} secs.".format(timeout))
                     time.sleep(timeout)
             else:
-                #_logger.info("Finally retrieved values")
+                # self.logger.info("Finally retrieved values")
                 return keys
-        _logger.debug(
+        self.logger.debug(
             "Couldn't retrieve {0} from {1}, after {2} retries returning no results.".format(
                 patrn, db_name, retries
             )
@@ -143,16 +165,15 @@ class SONiCCollector(object):
         for i in range(0, retries):
             keys = self.sonic_db.get_all(db_name, hash)
             if keys == None:
-                _logger.debug(
-                    "Couldn't retrieve hash {0} from db {1}.".format(
-                        hash, db_name)
+                self.logger.debug(
+                    "Couldn't retrieve hash {0} from db {1}.".format(hash, db_name)
                 )
                 if i < retries - 1:
-                    _logger.debug("Retrying in {0} secs.".format(timeout))
+                    self.logger.debug("Retrying in {0} secs.".format(timeout))
                     time.sleep(timeout)
             else:
                 return keys
-        _logger.debug(
+        self.logger.debug(
             "Couldn't retrieve hash {0} from db {1}, after {2} retries.".format(
                 hash, db_name, retries
             )
@@ -163,15 +184,17 @@ class SONiCCollector(object):
     def __init__(self, developer_mode: bool):
         if developer_mode:
             import sonic_exporter.test.mock_db as mock_db
-            from sonic_exporter.test.mock_sys_class_hwmon import \
-                MockSystemClassHWMon
-            from sonic_exporter.test.mock_sys_class_net import \
-                MockSystemClassNetworkInfo
+            from sonic_exporter.test.mock_sys_class_hwmon import MockSystemClassHWMon
+            from sonic_exporter.test.mock_sys_class_net import (
+                MockSystemClassNetworkInfo,
+            )
             from sonic_exporter.test.mock_vtysh import MockVtySH
+            from sonic_exporter.test.mock_ntpq import MockNTPQ
 
             self.vtysh = MockVtySH()
             self.sys_class_net = MockSystemClassNetworkInfo()
             self.sys_class_hwmon = MockSystemClassHWMon()
+            self.ntpq = MockNTPQ()
             self.sonic_db = mock_db.SonicV2Connector(password="")
         else:
             import swsssdk
@@ -179,32 +202,41 @@ class SONiCCollector(object):
             from sonic_exporter.sys_class_hwmon import SystemClassHWMon
             from sonic_exporter.sys_class_net import SystemClassNetworkInfo
             from sonic_exporter.vtysh import VtySH
+            from sonic_exporter.ntpq import NTPQ
 
             self.vtysh = VtySH()
             self.sys_class_net = SystemClassNetworkInfo()
             self.sys_class_hwmon = SystemClassHWMon()
             secret = subprocess.getoutput("cat /run/redis/auth/passwd")
             self.sonic_db = swsssdk.SonicV2Connector(password=secret)
+            self.ntpq = NTPQ()
 
         self.sonic_db.connect(self.sonic_db.COUNTERS_DB)
         self.sonic_db.connect(self.sonic_db.STATE_DB)
         self.sonic_db.connect(self.sonic_db.APPL_DB)
         self.sonic_db.connect(self.sonic_db.CONFIG_DB)
+        self.thread_pool = ThreadPoolExecutor(10)
+        self.db_version = ConfigDBVersion(
+            _decode(
+                self.getFromDB(
+                    self.sonic_db.CONFIG_DB, "VERSIONS|DATABASE", "VERSION", retries=15
+                )
+            )
+        )
 
         if not self.is_sonic_sys_ready(retries=15):
-            _logger.error(
-                "SONiC System isn't ready even after several retries, exiting sonic-exporter.")
+            self.logger.error(
+                "SONiC System isn't ready even after several retries, exiting sonic-exporter."
+            )
             sys.exit(0)
 
-        _logger.info("SONiC System is ready.")
+        self.logger.info("SONiC System is ready.")
 
         self.chassis = {
             _decode(key).replace(CHASSIS_INFO, ""): self.getAllFromDB(
                 self.sonic_db.STATE_DB, key
             )
-            for key in self.getKeysFromDB(
-                self.sonic_db.STATE_DB, CHASSIS_INFO_PATTERN
-            )
+            for key in self.getKeysFromDB(self.sonic_db.STATE_DB, CHASSIS_INFO_PATTERN)
         }
 
         self.syseeprom = {
@@ -212,9 +244,7 @@ class SONiCCollector(object):
             .replace(EEPROM_INFO, "")
             .replace(" ", "_")
             .lower(): self.getAllFromDB(self.sonic_db.STATE_DB, key)
-            for key in self.getKeysFromDB(
-                self.sonic_db.STATE_DB, EEPROM_INFO_PATTERN
-            )
+            for key in self.getKeysFromDB(self.sonic_db.STATE_DB, EEPROM_INFO_PATTERN)
         }
 
         self.platform_name: str = list(
@@ -234,13 +264,6 @@ class SONiCCollector(object):
         if not self.product_name:
             self.product_name = self._find_in_syseeprom("product_name")
 
-        self.db_version = ConfigDBVersion(
-            _decode(
-                self.getFromDB(self.sonic_db.CONFIG_DB,
-                               "VERSIONS|DATABASE", "VERSION")
-            )
-        )
-
     def _find_in_syseeprom(self, key: str):
         return list(
             set(
@@ -250,11 +273,28 @@ class SONiCCollector(object):
             )
         )[0].strip()
 
-    def is_sonic_sys_ready(self, retries=db_default_retries, timeout=db_default_timeout):
-        sts = self.getFromDB(self.sonic_db.STATE_DB, "SYSTEM_READY|SYSTEM_STATE",
-                             "Status", retries=retries, timeout=timeout)
-        sts_core = self.getFromDB(
-            self.sonic_db.STATE_DB, "SYSTEM_READY_CORE|SYSTEM_STATE", "Status", retries=retries, timeout=timeout)
+    def is_sonic_sys_ready(
+        self, retries=db_default_retries, timeout=db_default_timeout
+    ):
+        sts = self.getFromDB(
+            self.sonic_db.STATE_DB,
+            "SYSTEM_READY|SYSTEM_STATE",
+            "Status",
+            retries=retries,
+            timeout=timeout,
+        )
+        sts_core = sts
+        if self.db_version > ConfigDBVersion("version_4_0_0"):
+            ## this feature is only supported in newer ConfigDBs
+            ## Especially version_3_4_1 does not have this flag
+            ## so we use the sts flag for backwards compatible code.
+            sts_core = self.getFromDB(
+                self.sonic_db.STATE_DB,
+                "SYSTEM_READY_CORE|SYSTEM_STATE",
+                "Status",
+                retries=retries,
+                timeout=timeout,
+            )
         sts = True if sts and "UP" in sts else False
         sts_core = True if sts and "UP" in sts_core else False
         return sts, sts_core
@@ -281,23 +321,37 @@ class SONiCCollector(object):
         ]
         evpn_vni_labels = ["vni", "interface", "svi", "osi_layer", "vrf"]
 
-        self.metric_ntp_associations = GaugeMetricFamily(
-            "sonic_ntp_associations",
-            "NTP associations",
-            labels=["remote", "refid", "st", "t", "poll",
-                    "reach", 'state'],
+        self.metric_ntp_peers = GaugeMetricFamily(
+            "sonic_ntp_peers",
+            "NTP peers",
+            labels=["remote", "refid", "st", "t", "poll", "reach", "state"],
         )
 
         self.metric_mclag_domain = GaugeMetricFamily(
             "sonic_mclag_domain",
             "MCLAG Domain",
-            labels=["domain_id","source_ip","keepalive_interval","session_timeout","peer_ip","peer_link","mclag_system_mac"],
+            labels=[
+                "domain_id",
+                "source_ip",
+                "keepalive_interval",
+                "session_timeout",
+                "peer_ip",
+                "peer_link",
+                "mclag_system_mac",
+            ],
         )
-        
+
         self.metric_mclag_oper_state = GaugeMetricFamily(
             "sonic_mclag_oper_state",
             "MCLAG Operational State",
-            labels=["domain_id","mclag_system_mac","role","system_mac","peer_mac","reason"],
+            labels=[
+                "domain_id",
+                "mclag_system_mac",
+                "role",
+                "system_mac",
+                "peer_mac",
+                "reason",
+            ],
         )
 
         self.metric_sys_status = GaugeMetricFamily(
@@ -306,6 +360,10 @@ class SONiCCollector(object):
             labels=["status", "status_core"],
         )
 
+        self.metric_ntp_sync_status = GaugeMetricFamily(
+            "sonic_ntp_sync_status",
+            "SONiC NTP Sync Status (0/1 0==Not in Sync 1==Sync)",
+        )
         self.metric_ntp_when = GaugeMetricFamily(
             "sonic_ntp_when",
             "Time (in seconds) since an NTP packet update was received",
@@ -345,8 +403,12 @@ class SONiCCollector(object):
         self.metric_interface_info = GaugeMetricFamily(
             "sonic_interface_info",
             "Interface Information (Description, MTU, Speed)",
-            labels=interface_labels +
-            ["description", "mtu", "speed", "device"],
+            labels=interface_labels + ["description", "mtu", "speed", "device"],
+        )
+        self.metric_interface_speed = GaugeMetricFamily(
+            "sonic_interface_speed_bytes",
+            "The maximum interface speed in bytes per second",
+            labels=interface_labels,
         )
         self.metric_interface_transmitted_bytes = CounterMetricFamily(
             "sonic_interface_transmitted_bytes_total",
@@ -529,7 +591,9 @@ class SONiCCollector(object):
         )
         # FAN Info
         self.metric_device_fan_rpm = GaugeMetricFamily(
-            "sonic_device_fan_rpm", "The Rounds per minute of the fan", labels=["name", "slot"]
+            "sonic_device_fan_rpm",
+            "The Rounds per minute of the fan",
+            labels=["name", "slot"],
         )
         self.metric_device_fan_operational_status = GaugeMetricFamily(
             "sonic_device_fan_operational_status",
@@ -633,7 +697,9 @@ class SONiCCollector(object):
         )
         # EVPN Information
         self.metric_evpn_status = GaugeMetricFamily(
-            "sonic_evpn_status", "The Status of the EVPN Endpoints", labels=evpn_vni_labels
+            "sonic_evpn_status",
+            "The Status of the EVPN Endpoints",
+            labels=evpn_vni_labels,
         )
         self.metric_evpn_remote_vteps = GaugeMetricFamily(
             "sonic_evpn_remote_vteps",
@@ -652,7 +718,9 @@ class SONiCCollector(object):
             labels=evpn_vni_labels,
         )
         self.metric_evpn_arps = GaugeMetricFamily(
-            "sonic_evpn_arps", "The number of ARPs cached for the VNI", labels=evpn_vni_labels
+            "sonic_evpn_arps",
+            "The number of ARPs cached for the VNI",
+            labels=evpn_vni_labels,
         )
 
     def get_portinfo(self, ifname, sub_key):
@@ -669,22 +737,20 @@ class SONiCCollector(object):
         return self.get_portinfo(ifname, "alias") or ifname
 
     def export_vxlan_tunnel_info(self):
-        keys = self.getKeysFromDB(
-            self.sonic_db.STATE_DB, VXLAN_TUNNEL_TABLE_PATTERN)
+        keys = self.getKeysFromDB(self.sonic_db.STATE_DB, VXLAN_TUNNEL_TABLE_PATTERN)
         if not keys:
             return
         for key in keys:
             try:
                 neighbor = ""
-                _, neighbor = tuple(key.replace(
-                    VXLAN_TUNNEL_TABLE, "").split("_"))
+                _, neighbor = tuple(key.replace(VXLAN_TUNNEL_TABLE, "").split("_"))
                 is_operational = boolify(
-                    _decode(self.getFromDB(
-                        self.sonic_db.STATE_DB, key, "operstatus"))
+                    _decode(self.getFromDB(self.sonic_db.STATE_DB, key, "operstatus"))
                 )
                 self.metric_vxlan_operational_status.add_metric(
-                    [self.dns_lookup(neighbor)], is_operational)
-                _logger.debug(
+                    [self.dns_lookup(neighbor)], is_operational
+                )
+                self.logger.debug(
                     f"export_vxlan_tunnel :: neighbor={neighbor}, is_operational={is_operational}"
                 )
             except ValueError as e:
@@ -695,14 +761,27 @@ class SONiCCollector(object):
         for ifname in maps:
             counter_key = SONiCCollector.get_counter_key(_decode(maps[ifname]))
             ifname_decoded = _decode(ifname)
+            # this should be GBit/s
             if ifname_decoded.lower() in COUNTER_IGNORE:
                 continue
+            interface_speed = (
+                int(round(int(self.get_portinfo(ifname, "speed"))) / 1000)
+                if self.get_portinfo(ifname, "speed")
+                else 0
+            )
             self.metric_interface_info.add_metric(
-                [self.get_additional_info(ifname),
-                 self.get_portinfo(ifname, "description"),
-                 self.get_portinfo(ifname, "mtu"),
-                 f"{int(round(int(self.get_portinfo(ifname, 'speed'))) / 1000) if self.get_portinfo(ifname, 'speed') else ''}Gbps",
-                 ifname], 1
+                [
+                    self.get_additional_info(ifname),
+                    self.get_portinfo(ifname, "description"),
+                    self.get_portinfo(ifname, "mtu"),
+                    f"{interface_speed}Gbps",
+                    ifname,
+                ],
+                1,
+            )
+            self.metric_interface_speed.add_metric(
+                [self.get_additional_info(ifname)],
+                floatify(interface_speed * 1000 * 1000 * 1000 / 8),
             )
 
             # Ethernet RX
@@ -725,10 +804,9 @@ class SONiCCollector(object):
                     [self.get_additional_info(ifname), str(size)],
                     floatify(
                         _decode(
-                            self.getFromDB(
-                                self.sonic_db.COUNTERS_DB, counter_key, key)
+                            self.getFromDB(self.sonic_db.COUNTERS_DB, counter_key, key)
                         )
-                    )
+                    ),
                 )
             # Ethernet TX
             for size, key in zip(
@@ -750,10 +828,9 @@ class SONiCCollector(object):
                     [self.get_additional_info(ifname), str(size)],
                     floatify(
                         _decode(
-                            self.getFromDB(
-                                self.sonic_db.COUNTERS_DB, counter_key, key)
+                            self.getFromDB(self.sonic_db.COUNTERS_DB, counter_key, key)
                         )
-                    )
+                    ),
                 )
             # RX
             self.metric_interface_received_bytes.add_metric(
@@ -764,7 +841,7 @@ class SONiCCollector(object):
                         counter_key,
                         "SAI_PORT_STAT_IF_IN_OCTETS",
                     )
-                )
+                ),
             )
             self.metric_interface_received_packets.add_metric(
                 [self.get_additional_info(ifname), "unicast"],
@@ -774,7 +851,7 @@ class SONiCCollector(object):
                         counter_key,
                         "SAI_PORT_STAT_IF_IN_UCAST_PKTS",
                     )
-                )
+                ),
             )
             self.metric_interface_received_packets.add_metric(
                 [self.get_additional_info(ifname), "multicast"],
@@ -784,7 +861,7 @@ class SONiCCollector(object):
                         counter_key,
                         "SAI_PORT_STAT_IF_IN_MULTICAST_PKTS",
                     )
-                )
+                ),
             )
             self.metric_interface_received_packets.add_metric(
                 [self.get_additional_info(ifname), "broadcast"],
@@ -794,7 +871,7 @@ class SONiCCollector(object):
                         counter_key,
                         "SAI_PORT_STAT_IF_IN_BROADCAST_PKTS",
                     )
-                )
+                ),
             )
 
             # RX Errors
@@ -806,7 +883,7 @@ class SONiCCollector(object):
                         counter_key,
                         "SAI_PORT_STAT_IF_IN_ERRORS",
                     )
-                )
+                ),
             )
             self.metric_interface_receive_error_input_packets.add_metric(
                 [self.get_additional_info(ifname), "discard"],
@@ -816,7 +893,7 @@ class SONiCCollector(object):
                         counter_key,
                         "SAI_PORT_STAT_IF_IN_DISCARDS",
                     )
-                )
+                ),
             )
             if self.db_version < ConfigDBVersion("version_4_0_0"):
                 self.metric_interface_receive_error_input_packets.add_metric(
@@ -827,7 +904,7 @@ class SONiCCollector(object):
                             counter_key,
                             "SAI_PORT_STAT_IN_DROPPED_PKTS",
                         )
-                    )
+                    ),
                 )
             self.metric_interface_receive_error_input_packets.add_metric(
                 [self.get_additional_info(ifname), "pause"],
@@ -837,7 +914,7 @@ class SONiCCollector(object):
                         counter_key,
                         "SAI_PORT_STAT_PAUSE_RX_PKTS",
                     )
-                )
+                ),
             )
             # TX
             self.metric_interface_transmitted_bytes.add_metric(
@@ -848,7 +925,7 @@ class SONiCCollector(object):
                         counter_key,
                         "SAI_PORT_STAT_IF_OUT_OCTETS",
                     )
-                )
+                ),
             )
             self.metric_interface_transmitted_packets.add_metric(
                 [self.get_additional_info(ifname), "unicast"],
@@ -858,7 +935,7 @@ class SONiCCollector(object):
                         counter_key,
                         "SAI_PORT_STAT_IF_OUT_UCAST_PKTS",
                     )
-                )
+                ),
             )
             self.metric_interface_transmitted_packets.add_metric(
                 [self.get_additional_info(ifname), "multicast"],
@@ -868,7 +945,7 @@ class SONiCCollector(object):
                         counter_key,
                         "SAI_PORT_STAT_IF_OUT_MULTICAST_PKTS",
                     )
-                )
+                ),
             )
             self.metric_interface_transmitted_packets.add_metric(
                 [self.get_additional_info(ifname), "broadcast"],
@@ -878,7 +955,7 @@ class SONiCCollector(object):
                         counter_key,
                         "SAI_PORT_STAT_IF_OUT_BROADCAST_PKTS",
                     )
-                )
+                ),
             )
             # SAI_PORT_STAT_ETHER_TX_OVERSIZE_PKTS
             # TX Errors
@@ -890,7 +967,7 @@ class SONiCCollector(object):
                         counter_key,
                         "SAI_PORT_STAT_IF_OUT_ERRORS",
                     )
-                )
+                ),
             )
             self.metric_interface_transmit_error_output_packets.add_metric(
                 [self.get_additional_info(ifname), "discard"],
@@ -900,7 +977,7 @@ class SONiCCollector(object):
                         counter_key,
                         "SAI_PORT_STAT_IF_OUT_DISCARDS",
                     )
-                )
+                ),
             )
             self.metric_interface_transmit_error_output_packets.add_metric(
                 [self.get_additional_info(ifname), "pause"],
@@ -910,14 +987,13 @@ class SONiCCollector(object):
                         counter_key,
                         "SAI_PORT_STAT_PAUSE_TX_PKTS",
                     )
-                )
+                ),
             )
-            _logger.debug("export_intf_counter :: ifname={}".format(ifname))
+            self.logger.debug("export_intf_counter :: ifname={}".format(ifname))
             try:
                 port_table_key = SONiCCollector.get_port_table_key(ifname)
                 is_operational = _decode(
-                    self.getFromDB(self.sonic_db.APPL_DB,
-                                   port_table_key, "oper_status")
+                    self.getFromDB(self.sonic_db.APPL_DB, port_table_key, "oper_status")
                 )
                 last_flapped_seconds = to_timestamp(
                     floatify(
@@ -932,11 +1008,14 @@ class SONiCCollector(object):
                 )
                 is_admin = self.get_portinfo(ifname, "admin_status")
                 self.metric_interface_operational_status.add_metric(
-                    [self.get_additional_info(ifname)], boolify(is_operational))
+                    [self.get_additional_info(ifname)], boolify(is_operational)
+                )
                 self.metric_interface_admin_status.add_metric(
-                    [self.get_additional_info(ifname)], boolify(is_admin))
+                    [self.get_additional_info(ifname)], boolify(is_admin)
+                )
                 self.metric_interface_last_flapped_seconds.add_metric(
-                    [self.get_additional_info(ifname)], floatify(last_flapped_seconds))
+                    [self.get_additional_info(ifname)], floatify(last_flapped_seconds)
+                )
             except ValueError:
                 pass
 
@@ -971,32 +1050,33 @@ class SONiCCollector(object):
                 queue_type = "multicast"
             if packet_type.endswith("UNICAST"):
                 queue_type = "unicast"
-            _logger.debug(
+            self.logger.debug(
                 "export_intf_queue_counters :: ifname={}, queue_type={}, packets={}".format(
                     ifname, queue_type, packets
                 )
             )
-            _logger.debug(
+            self.logger.debug(
                 "export_intf_queue_counters :: ifname={}, queue_type={}, bytes={}".format(
                     ifname, queue_type, bytes
                 )
             )
             self.metric_interface_queue_processed_packets.add_metric(
-                [self.get_additional_info(ifname), queue, queue_type], packets)
+                [self.get_additional_info(ifname), queue, queue_type], packets
+            )
             self.metric_interface_queue_processed_bytes.add_metric(
-                [self.get_additional_info(ifname), queue, queue_type], bytes)
+                [self.get_additional_info(ifname), queue, queue_type], bytes
+            )
 
     def export_interface_optic_data(self):
         keys = self.getKeysFromDB(
             self.sonic_db.STATE_DB, TRANSCEIVER_DOM_SENSOR_PATTERN
         )
-        _logger.debug("export_interface_optic_data :: keys={}".format(keys))
+        self.logger.debug("export_interface_optic_data :: keys={}".format(keys))
         if not keys:
             return
         for key in keys:
             ifname = _decode(key).replace(TRANSCEIVER_DOM_SENSOR, "")
-            transceiver_sensor_data = self.getAllFromDB(
-                self.sonic_db.STATE_DB, key)
+            transceiver_sensor_data = self.getAllFromDB(self.sonic_db.STATE_DB, key)
             for measure in transceiver_sensor_data:
                 measure_dec = _decode(measure)
                 try:
@@ -1005,145 +1085,199 @@ class SONiCCollector(object):
                         match measure_dec:
                             case "voltage":
                                 self.metric_interface_optic_volts.add_metric(
-                                    [self.get_additional_info(ifname)], floatify(value))
+                                    [self.get_additional_info(ifname)], floatify(value)
+                                )
                             case "vcchighalarm":
                                 self.metric_interface_threshold_optic_volts.add_metric(
-                                    [self.get_additional_info(ifname),
-                                     AlarmType.HIGH_ALARM.value], floatify(value))
+                                    [
+                                        self.get_additional_info(ifname),
+                                        AlarmType.HIGH_ALARM.value,
+                                    ],
+                                    floatify(value),
+                                )
                             case "vcchighwarning":
                                 self.metric_interface_threshold_optic_volts.add_metric(
-                                    [self.get_additional_info(ifname),
-                                     AlarmType.HIGH_WARNING.value, ], floatify(value))
+                                    [
+                                        self.get_additional_info(ifname),
+                                        AlarmType.HIGH_WARNING.value,
+                                    ],
+                                    floatify(value),
+                                )
                             case "vcclowalarm":
                                 self.metric_interface_threshold_optic_volts.add_metric(
-                                    [self.get_additional_info(ifname),
-                                     AlarmType.LOW_ALARM.value, ], floatify(value))
+                                    [
+                                        self.get_additional_info(ifname),
+                                        AlarmType.LOW_ALARM.value,
+                                    ],
+                                    floatify(value),
+                                )
                             case "vcclowwarning":
                                 self.metric_interface_threshold_optic_volts.add_metric(
-                                    [self.get_additional_info(ifname),
-                                     AlarmType.LOW_WARNING.value, ], floatify(value))
+                                    [
+                                        self.get_additional_info(ifname),
+                                        AlarmType.LOW_WARNING.value,
+                                    ],
+                                    floatify(value),
+                                )
                             case "temperature":
                                 self.metric_interface_optic_celsius.add_metric(
-                                    [self.get_additional_info(ifname)], floatify(value))
+                                    [self.get_additional_info(ifname)], floatify(value)
+                                )
                             case "temphighalarm":
                                 self.metric_interface_threshold_optic_celsius.add_metric(
-                                    [self.get_additional_info(ifname),
-                                     AlarmType.HIGH_ALARM.value, ], floatify(value))
+                                    [
+                                        self.get_additional_info(ifname),
+                                        AlarmType.HIGH_ALARM.value,
+                                    ],
+                                    floatify(value),
+                                )
                             case "temphighwarning":
                                 self.metric_interface_threshold_optic_celsius.add_metric(
-                                    [self.get_additional_info(ifname),
-                                     AlarmType.HIGH_WARNING.value, ], floatify(value))
+                                    [
+                                        self.get_additional_info(ifname),
+                                        AlarmType.HIGH_WARNING.value,
+                                    ],
+                                    floatify(value),
+                                )
                             case "templowalarm":
                                 self.metric_interface_threshold_optic_celsius.add_metric(
-                                    [self.get_additional_info(ifname),
-                                     AlarmType.LOW_ALARM.value, ], floatify(value))
+                                    [
+                                        self.get_additional_info(ifname),
+                                        AlarmType.LOW_ALARM.value,
+                                    ],
+                                    floatify(value),
+                                )
                             case "templowwarning":
                                 self.metric_interface_threshold_optic_celsius.add_metric(
-                                    [self.get_additional_info(ifname),
-                                     AlarmType.LOW_WARNING.value, ], floatify(value))
+                                    [
+                                        self.get_additional_info(ifname),
+                                        AlarmType.LOW_WARNING.value,
+                                    ],
+                                    floatify(value),
+                                )
                             case "txbiashighalarm":
                                 self.metric_interface_threshold_transmit_optic_bias_amperes.add_metric(
-                                    [self.get_additional_info(ifname),
-                                     AlarmType.HIGH_ALARM.value, ],
-                                    floatify(value) / 1000
+                                    [
+                                        self.get_additional_info(ifname),
+                                        AlarmType.HIGH_ALARM.value,
+                                    ],
+                                    floatify(value) / 1000,
                                 )
                             case "txbiashighwarning":
                                 self.metric_interface_threshold_transmit_optic_bias_amperes.add_metric(
-                                    [self.get_additional_info(ifname),
-                                     AlarmType.HIGH_WARNING.value, ],
-                                    floatify(value) / 1000
+                                    [
+                                        self.get_additional_info(ifname),
+                                        AlarmType.HIGH_WARNING.value,
+                                    ],
+                                    floatify(value) / 1000,
                                 )
                             case "txbiaslowalarm":
                                 self.metric_interface_threshold_transmit_optic_bias_amperes.add_metric(
-                                    [self.get_additional_info(ifname),
-                                     AlarmType.LOW_ALARM.value, ],
-                                    floatify(value) / 1000
+                                    [
+                                        self.get_additional_info(ifname),
+                                        AlarmType.LOW_ALARM.value,
+                                    ],
+                                    floatify(value) / 1000,
                                 )
                             case "txbiaslowwarning":
                                 self.metric_interface_threshold_transmit_optic_bias_amperes.add_metric(
-                                    [self.get_additional_info(ifname),
-                                     AlarmType.LOW_WARNING.value, ],
-                                    floatify(value) / 1000
+                                    [
+                                        self.get_additional_info(ifname),
+                                        AlarmType.LOW_WARNING.value,
+                                    ],
+                                    floatify(value) / 1000,
                                 )
                             case "txpowerhighalarm":
                                 self.metric_interface_threshold_transmit_optic_power_dbm.add_metric(
-                                    [self.get_additional_info(ifname),
-                                     AlarmType.HIGH_ALARM.value, ],
-                                    floatify(value)
+                                    [
+                                        self.get_additional_info(ifname),
+                                        AlarmType.HIGH_ALARM.value,
+                                    ],
+                                    floatify(value),
                                 )
                             case "txpowerhighwarning":
                                 self.metric_interface_threshold_transmit_optic_power_dbm.add_metric(
-                                    [self.get_additional_info(ifname),
-                                     AlarmType.HIGH_WARNING.value, ],
-                                    floatify(value)
+                                    [
+                                        self.get_additional_info(ifname),
+                                        AlarmType.HIGH_WARNING.value,
+                                    ],
+                                    floatify(value),
                                 )
                             case "txpowerlowalarm":
                                 self.metric_interface_threshold_transmit_optic_power_dbm.add_metric(
-                                    [self.get_additional_info(ifname),
-                                     AlarmType.LOW_ALARM.value, ],
-                                    floatify(value)
+                                    [
+                                        self.get_additional_info(ifname),
+                                        AlarmType.LOW_ALARM.value,
+                                    ],
+                                    floatify(value),
                                 )
                             case "txpowerlowwarning":
                                 self.metric_interface_threshold_transmit_optic_power_dbm.add_metric(
-                                    [self.get_additional_info(ifname),
-                                     AlarmType.LOW_WARNING.value, ],
-                                    floatify(value)
+                                    [
+                                        self.get_additional_info(ifname),
+                                        AlarmType.LOW_WARNING.value,
+                                    ],
+                                    floatify(value),
                                 )
                             case "rxpowerhighalarm":
                                 self.metric_interface_threshold_receive_optic_power_dbm.add_metric(
-                                    [self.get_additional_info(ifname),
-                                     AlarmType.HIGH_ALARM.value, ],
-                                    floatify(value)
+                                    [
+                                        self.get_additional_info(ifname),
+                                        AlarmType.HIGH_ALARM.value,
+                                    ],
+                                    floatify(value),
                                 )
                             case "rxpowerhighwarning":
                                 self.metric_interface_threshold_receive_optic_power_dbm.add_metric(
-                                    [self.get_additional_info(ifname),
-                                     AlarmType.HIGH_WARNING.value, ],
-                                    floatify(value)
+                                    [
+                                        self.get_additional_info(ifname),
+                                        AlarmType.HIGH_WARNING.value,
+                                    ],
+                                    floatify(value),
                                 )
                             case "rxpowerlowalarm":
                                 self.metric_interface_threshold_receive_optic_power_dbm.add_metric(
-                                    [self.get_additional_info(ifname),
-                                     AlarmType.LOW_ALARM.value, ],
-                                    floatify(value)
+                                    [
+                                        self.get_additional_info(ifname),
+                                        AlarmType.LOW_ALARM.value,
+                                    ],
+                                    floatify(value),
                                 )
                             case "rxpowerlowwarning":
                                 self.metric_interface_threshold_receive_optic_power_dbm.add_metric(
-                                    [self.get_additional_info(ifname),
-                                     AlarmType.LOW_WARNING.value, ],
-                                    floatify(value)
+                                    [
+                                        self.get_additional_info(ifname),
+                                        AlarmType.LOW_WARNING.value,
+                                    ],
+                                    floatify(value),
                                 )
                             case _:
                                 if match := self.rx_power_regex.fullmatch(measure_dec):
                                     optic_unit = match.group(1)
                                     self.metric_interface_receive_optic_power_dbm.add_metric(
-                                        [self.get_additional_info(
-                                            ifname), optic_unit],
-                                        floatify(value)
+                                        [self.get_additional_info(ifname), optic_unit],
+                                        floatify(value),
                                     )
                                 elif match := self.tx_power_regex.fullmatch(
                                     measure_dec
                                 ):
                                     optic_unit = match.group(1)
                                     self.metric_interface_transmit_optic_power_dbm.add_metric(
-                                        [self.get_additional_info(
-                                            ifname), optic_unit],
-                                        floatify(value)
+                                        [self.get_additional_info(ifname), optic_unit],
+                                        floatify(value),
                                     )
                                 elif match := self.tx_bias_regex.fullmatch(measure_dec):
                                     optic_unit = match.group(1)
                                     # This resolves mA to Amperes
                                     self.metric_interface_transmit_optic_bias_amperes.add_metric(
-                                        [self.get_additional_info(
-                                            ifname), optic_unit],
-                                        floatify(value) / 1000
+                                        [self.get_additional_info(ifname), optic_unit],
+                                        floatify(value) / 1000,
                                     )
                 except ValueError:
                     pass
 
     def export_interface_cable_data(self):
-        keys = self.getKeysFromDB(
-            self.sonic_db.STATE_DB, TRANSCEIVER_INFO_PATTERN)
+        keys = self.getKeysFromDB(self.sonic_db.STATE_DB, TRANSCEIVER_INFO_PATTERN)
         if not keys:
             return
         for key in keys:
@@ -1152,27 +1286,23 @@ class SONiCCollector(object):
             if self.db_version < ConfigDBVersion("version_4_0_0"):
                 cable_type = _decode(
                     str(
-                        self.getFromDB(self.sonic_db.STATE_DB,
-                                       key, "Connector")
+                        self.getFromDB(self.sonic_db.STATE_DB, key, "Connector")
                     ).lower()
                 )
             else:
                 cable_type = _decode(
                     str(
-                        self.getFromDB(self.sonic_db.STATE_DB,
-                                       key, "connector")
+                        self.getFromDB(self.sonic_db.STATE_DB, key, "connector")
                     ).lower()
                 )
             connector_type = _decode(
                 str(self.getFromDB(self.sonic_db.STATE_DB, key, "connector_type"))
             ).lower()
             serial = _decode(
-                self.getFromDB(self.sonic_db.STATE_DB,
-                               key, "vendor_serial_number")
+                self.getFromDB(self.sonic_db.STATE_DB, key, "vendor_serial_number")
             )
             part_number = _decode(
-                self.getFromDB(self.sonic_db.STATE_DB,
-                               key, "vendor_part_number")
+                self.getFromDB(self.sonic_db.STATE_DB, key, "vendor_part_number")
             )
             revision = _decode(
                 self.getFromDB(self.sonic_db.STATE_DB, key, "vendor_revision")
@@ -1191,21 +1321,27 @@ class SONiCCollector(object):
                     self.getFromDB(self.sonic_db.STATE_DB, key, "cable_length")
                 )
                 self.metric_interface_cable_length_meters.add_metric(
-                    [self.get_additional_info(ifname), cable_type, connector_type], cable_len)
+                    [self.get_additional_info(ifname), cable_type, connector_type],
+                    cable_len,
+                )
             except ValueError:
                 pass
-            _logger.debug(
+            self.logger.debug(
                 f"export_interface_cable_data :: interface={self.get_additional_info(ifname)}"
             )
             self.metric_interface_transceiver_info.add_metric(
-                [self.get_additional_info(ifname),
-                 serial,
-                 part_number,
-                 revision,
-                 form_factor,
-                 connector_type,
-                 display_name,
-                 media_interface], 1)
+                [
+                    self.get_additional_info(ifname),
+                    serial,
+                    part_number,
+                    revision,
+                    form_factor,
+                    connector_type,
+                    display_name,
+                    media_interface,
+                ],
+                1,
+            )
 
     def export_psu_info(self):
         keys = self.getKeysFromDB(self.sonic_db.STATE_DB, PSU_INFO_PATTERN)
@@ -1224,40 +1360,32 @@ class SONiCCollector(object):
             model = _decode(
                 self.getFromDB(self.sonic_db.STATE_DB, key, "model")
             ).strip()
-            model_name = _decode(self.getFromDB(
-                self.sonic_db.STATE_DB, key, "name"))
+            model_name = _decode(self.getFromDB(self.sonic_db.STATE_DB, key, "name"))
             _, slot = _decode(key.replace(PSU_INFO, "")).lower().split(" ")
             try:
                 in_volts = floatify(
-                    self.getFromDB(self.sonic_db.STATE_DB,
-                                   key, "input_voltage")
+                    self.getFromDB(self.sonic_db.STATE_DB, key, "input_voltage")
                 )
                 in_amperes = floatify(
-                    self.getFromDB(self.sonic_db.STATE_DB,
-                                   key, "input_current")
+                    self.getFromDB(self.sonic_db.STATE_DB, key, "input_current")
                 )
-                self.metric_device_psu_input_amperes.add_metric(
-                    [slot], in_amperes)
+                self.metric_device_psu_input_amperes.add_metric([slot], in_amperes)
                 self.metric_device_psu_input_volts.add_metric([slot], in_volts)
-                _logger.debug(
+                self.logger.debug(
                     f"export_psu_info :: slot={slot}, in_amperes={in_amperes}, in_volts={in_volts}"
                 )
             except ValueError:
                 pass
             try:
                 out_volts = floatify(
-                    self.getFromDB(self.sonic_db.STATE_DB,
-                                   key, "output_voltage")
+                    self.getFromDB(self.sonic_db.STATE_DB, key, "output_voltage")
                 )
                 out_amperes = floatify(
-                    self.getFromDB(self.sonic_db.STATE_DB,
-                                   key, "output_current")
+                    self.getFromDB(self.sonic_db.STATE_DB, key, "output_current")
                 )
-                self.metric_device_psu_output_amperes.add_metric(
-                    [slot], out_amperes)
-                self.metric_device_psu_output_volts.add_metric(
-                    [slot], out_volts)
-                _logger.debug(
+                self.metric_device_psu_output_amperes.add_metric([slot], out_amperes)
+                self.metric_device_psu_output_volts.add_metric([slot], out_volts)
+                self.logger.debug(
                     f"export_psu_info :: slot={slot}, out_amperes={out_amperes}, out_volts={out_volts}"
                 )
             except ValueError:
@@ -1266,8 +1394,7 @@ class SONiCCollector(object):
                 temperature = float("-Inf")
                 if self.db_version < ConfigDBVersion("version_4_0_0"):
                     temperature = floatify(
-                        self.getFromDB(self.sonic_db.STATE_DB,
-                                       key, "temperature")
+                        self.getFromDB(self.sonic_db.STATE_DB, key, "temperature")
                     )
                 else:
                     temperature = floatify(
@@ -1276,16 +1403,13 @@ class SONiCCollector(object):
                 self.metric_device_psu_celsius.add_metric([slot], temperature)
             except ValueError:
                 pass
-            self.metric_device_psu_available_status.add_metric([slot],
-                                                               boolify(
-                                                                   available_status)
-                                                               )
-            self.metric_device_psu_operational_status.add_metric([slot],
-                                                                 boolify(
-                                                                     operational_status)
-                                                                 )
-            self.metric_device_psu_info.add_metric(
-                [slot, serial, model_name, model], 1)
+            self.metric_device_psu_available_status.add_metric(
+                [slot], boolify(available_status)
+            )
+            self.metric_device_psu_operational_status.add_metric(
+                [slot], boolify(operational_status)
+            )
+            self.metric_device_psu_info.add_metric([slot, serial, model_name, model], 1)
 
     def export_fan_info(self):
         keys = self.getKeysFromDB(self.sonic_db.STATE_DB, FAN_INFO_PATTERN)
@@ -1293,16 +1417,13 @@ class SONiCCollector(object):
             return
         for key in keys:
             try:
-                fullname = _decode(self.getFromDB(
-                    self.sonic_db.STATE_DB, key, "name"))
-                rpm = floatify(self.getFromDB(
-                    self.sonic_db.STATE_DB, key, "speed"))
+                fullname = _decode(self.getFromDB(self.sonic_db.STATE_DB, key, "name"))
+                rpm = floatify(self.getFromDB(self.sonic_db.STATE_DB, key, "speed"))
                 is_operational = _decode(
                     self.getFromDB(self.sonic_db.STATE_DB, key, "status")
                 )
                 is_available = boolify(
-                    _decode(self.getFromDB(
-                        self.sonic_db.STATE_DB, key, "presence"))
+                    _decode(self.getFromDB(self.sonic_db.STATE_DB, key, "presence"))
                 )
                 name = fullname
                 slot = "0"
@@ -1321,14 +1442,13 @@ class SONiCCollector(object):
                             )
                         )
                 self.metric_device_fan_rpm.add_metric([name, slot], rpm)
-                self.metric_device_fan_operational_status.add_metric([name, slot],
-                                                                     boolify(
-                                                                         is_operational)
-                                                                     )
-                self.metric_device_fan_available_status.add_metric([name, slot],
-                                                                   is_available
-                                                                   )
-                _logger.debug(
+                self.metric_device_fan_operational_status.add_metric(
+                    [name, slot], boolify(is_operational)
+                )
+                self.metric_device_fan_available_status.add_metric(
+                    [name, slot], is_available
+                )
+                self.logger.debug(
                     f"export_fan_info :: fullname={fullname} oper={boolify(is_operational)}, presence={is_available}, rpm={rpm}"
                 )
             except ValueError:
@@ -1340,30 +1460,32 @@ class SONiCCollector(object):
                 last_two_bytes = sensor.address[-2:]
                 name = TEMP_SENSORS[switch_model][air_flow][last_two_bytes]
             except (ValueError, KeyError, TypeError) as e:
-                _logger.debug(
+                self.logger.debug(
                     f"export_hwmon_temp_info :: air_flow={air_flow}, switch_mode={switch_model} address={last_two_bytes}, e={e}"
                 )
                 continue
 
             for value in sensor.values:
                 _, subvalue = value.name.split("_", maxsplit=1)
-                _logger.debug(
+                self.logger.debug(
                     f"export_hwmon_temp_info :: name={name}, -> value={value}"
                 )
                 match subvalue:
                     case "max":
                         self.metric_device_threshold_sensor_celsius.add_metric(
-                            [name, AlarmType.HIGH_ALARM.value], value.value)
+                            [name, AlarmType.HIGH_ALARM.value], value.value
+                        )
                     case "max_hyst":
                         self.metric_device_threshold_sensor_celsius.add_metric(
-                            [name, AlarmType.HIGH_WARNING.value], value.value)
+                            [name, AlarmType.HIGH_WARNING.value], value.value
+                        )
                     case "input":
                         self.metric_device_sensor_celsius.add_metric(
-                            [name], value.value)
+                            [name], value.value
+                        )
 
     def export_temp_info(self):
-        keys = self.getKeysFromDB(
-            self.sonic_db.STATE_DB, TEMPERATURE_INFO_PATTERN)
+        keys = self.getKeysFromDB(self.sonic_db.STATE_DB, TEMPERATURE_INFO_PATTERN)
         need_additional_temp_info = False
         unknown_switch_model = False
         air_flow = None
@@ -1372,41 +1494,39 @@ class SONiCCollector(object):
             air_flow = AirFlow(self.product_name[-1])
             switch_model = SwitchModel(self.platform_name.lower())
         except ValueError as e:
-            _logger.debug(f"export_temp_info :: exception={e}")
+            self.logger.debug(f"export_temp_info :: exception={e}")
             unknown_switch_model = True
             pass
-        
+
         for key in keys or []:
-           try:
-               name = _decode(self.getFromDB(
-                   self.sonic_db.STATE_DB, key, "name"))
-               if name.lower().startswith("temp"):
-                   need_additional_temp_info = True
-               last_two_bytes: str = name[-2:]
-               if not unknown_switch_model:
-                   name = TEMP_SENSORS[switch_model][air_flow].get(
-                       last_two_bytes, name
-                   )
-               
-               temp = floatify(
-                   _decode(self.getFromDB(
-                       self.sonic_db.STATE_DB, key, "temperature"))
-               )
-               high_threshold = floatify(
-                   _decode(
-                       self.getFromDB(self.sonic_db.STATE_DB,
-                                      key, "high_threshold")
-                   )
-               )
-               self.metric_device_sensor_celsius.add_metric([name], temp)
-               self.metric_device_threshold_sensor_celsius.add_metric(
-                   [name, AlarmType.HIGH_ALARM.value], high_threshold)
-               _logger.debug(
-                   f"export_temp_info :: name={name}, temp={temp}, high_threshold={high_threshold}"
-               )
-           except ValueError:
-               pass
-           
+            try:
+                name = _decode(self.getFromDB(self.sonic_db.STATE_DB, key, "name"))
+                if name.lower().startswith("temp"):
+                    need_additional_temp_info = True
+                last_two_bytes: str = name[-2:]
+                if not unknown_switch_model:
+                    name = TEMP_SENSORS[switch_model][air_flow].get(
+                        last_two_bytes, name
+                    )
+
+                temp = floatify(
+                    _decode(self.getFromDB(self.sonic_db.STATE_DB, key, "temperature"))
+                )
+                high_threshold = floatify(
+                    _decode(
+                        self.getFromDB(self.sonic_db.STATE_DB, key, "high_threshold")
+                    )
+                )
+                self.metric_device_sensor_celsius.add_metric([name], temp)
+                self.metric_device_threshold_sensor_celsius.add_metric(
+                    [name, AlarmType.HIGH_ALARM.value], high_threshold
+                )
+                self.logger.debug(
+                    f"export_temp_info :: name={name}, temp={temp}, high_threshold={high_threshold}"
+                )
+            except ValueError:
+                pass
+
         if (not keys or need_additional_temp_info) and not unknown_switch_model:
             self.export_hwmon_temp_info(switch_model, air_flow)
 
@@ -1421,45 +1541,44 @@ class SONiCCollector(object):
             mac_address = _decode(data.get("base_mac_addr", ""))
             onie_version = _decode(data.get("onie_version", ""))
             software_version = _decode(
-                self.getFromDB(self.sonic_db.STATE_DB,
-                               "IMAGE_GLOBAL|config", "current")
+                self.getFromDB(self.sonic_db.STATE_DB, "IMAGE_GLOBAL|config", "current")
             )
             platform_name = _decode(data.get("platform_name", ""))
             hardware_revision = _decode(data.get("hardware_revision", ""))
             product_name = _decode(data.get("product_name", ""))
             self.metric_device_info.add_metric(
-                [chassis,
-                 platform_name,
-                 part_number,
-                 serial_number,
-                 mac_address,
-                 software_version,
-                 onie_version,
-                 hardware_revision,
-                 product_name, ], 1)
-            _logger.debug(
+                [
+                    chassis,
+                    platform_name,
+                    part_number,
+                    serial_number,
+                    mac_address,
+                    software_version,
+                    onie_version,
+                    hardware_revision,
+                    product_name,
+                ],
+                1,
+            )
+            self.logger.debug(
                 "export_sys_info :: part_num={}, serial_num={}, mac_addr={}, software_version={}".format(
                     part_number, serial_number, mac_address, software_version
                 )
             )
-        keys = self.getKeysFromDB(
-            self.sonic_db.STATE_DB, PROCESS_STATS_PATTERN)
+        keys = self.getKeysFromDB(self.sonic_db.STATE_DB, PROCESS_STATS_PATTERN)
         cpu_memory_usages = [
             (
-                floatify(_decode(self.getFromDB(
-                    self.sonic_db.STATE_DB, key, "%CPU"))),
-                floatify(_decode(self.getFromDB(
-                    self.sonic_db.STATE_DB, key, "%MEM"))),
+                floatify(_decode(self.getFromDB(self.sonic_db.STATE_DB, key, "%CPU"))),
+                floatify(_decode(self.getFromDB(self.sonic_db.STATE_DB, key, "%MEM"))),
             )
             for key in keys
             if not key.replace(PROCESS_STATS, "").lower() in PROCESS_STATS_IGNORE
         ]
         cpu_usage = sum(cpu_usage for cpu_usage, _ in cpu_memory_usages)
-        memory_usage = sum(memory_usage for _,
-                           memory_usage in cpu_memory_usages)
+        memory_usage = sum(memory_usage for _, memory_usage in cpu_memory_usages)
         self.system_cpu_ratio.add_metric([], cpu_usage / 100)
         self.system_memory_ratio.add_metric([], memory_usage / 100)
-        _logger.debug(
+        self.logger.debug(
             f"export_sys_info :: cpu_usage={cpu_usage}, memory_usage={memory_usage}"
         )
 
@@ -1488,7 +1607,8 @@ class SONiCCollector(object):
             if global_data and boolify(global_data[internet_protocol.value].lower()):
                 exportable[internet_protocol] = True
                 self.metric_sag_info.add_metric(
-                    [internet_protocol.value.lower(), _decode(global_data["gwmac"])], 1)
+                    [internet_protocol.value.lower(), _decode(global_data["gwmac"])], 1
+                )
 
         if not keys or not vxlan_tunnel_map:
             return
@@ -1519,11 +1639,15 @@ class SONiCCollector(object):
                         self.getFromDB(self.sonic_db.CONFIG_DB, vni_key, "vni")
                     )
                     self.metric_sag_admin_status.add_metric(
-                        [interface, vrf, gateway_ip, ip_family.value.lower(), str(vni)], self.sys_class_net.admin_enabled(interface))
+                        [interface, vrf, gateway_ip, ip_family.value.lower(), str(vni)],
+                        self.sys_class_net.admin_enabled(interface),
+                    )
                     self.metric_sag_operational_status.add_metric(
-                        [interface, vrf, gateway_ip, ip_family.value.lower(), str(vni)], self.sys_class_net.operational(interface))
+                        [interface, vrf, gateway_ip, ip_family.value.lower(), str(vni)],
+                        self.sys_class_net.operational(interface),
+                    )
                 except (KeyError, StopIteration, OSError):
-                    _logger.debug(
+                    self.logger.debug(
                         f"export_static_anycast_gateway_info :: No Static Anycast Gateway for interface={interface}"
                     )
                     pass
@@ -1560,41 +1684,34 @@ class SONiCCollector(object):
                             vrf,
                             str(as_id),
                             peername,
-                            peerdata.get(
-                                "hostname", self.dns_lookup(peername)),
+                            peerdata.get("hostname", self.dns_lookup(peername)),
                             peerdata.get("idType", ""),
                             self.vtysh.addressfamily(family),
                             str(peerdata.get("remoteAs")),
                         ]
-                        self.metric_bgp_uptime_seconds.add_metric([*bgp_lbl],
-                                                                  floatify(peerdata.get(
-                                                                      "peerUptimeMsec", 1000) / 1000)
-                                                                  )
-                        self.metric_bgp_status.add_metric([*bgp_lbl],
-                                                          boolify(
-                                                              peerdata.get("state", ""))
-                                                          )
-                        self.metric_bgp_prefixes_received.add_metric([*bgp_lbl],
-                                                                     floatify(
-                                                                         peerdata.get("pfxRcd", 0))
-                                                                     )
-                        self.metric_bgp_prefixes_transmitted.add_metric([*bgp_lbl],
-                                                                        floatify(
-                                                                            peerdata.get("pfxSnt", 0))
-                                                                        )
-                        self.metric_bgp_messages_received.add_metric([*bgp_lbl],
-                                                                     floatify(
-                                                                         peerdata.get("msgRcvd", 0))
-                                                                     )
-                        self.metric_bgp_messages_transmitted.add_metric([*bgp_lbl],
-                                                                        floatify(
-                                                                            peerdata.get("msgSent", 0))
-                                                                        )
+                        self.metric_bgp_uptime_seconds.add_metric(
+                            [*bgp_lbl],
+                            floatify(peerdata.get("peerUptimeMsec", 1000) / 1000),
+                        )
+                        self.metric_bgp_status.add_metric(
+                            [*bgp_lbl], boolify(peerdata.get("state", ""))
+                        )
+                        self.metric_bgp_prefixes_received.add_metric(
+                            [*bgp_lbl], floatify(peerdata.get("pfxRcd", 0))
+                        )
+                        self.metric_bgp_prefixes_transmitted.add_metric(
+                            [*bgp_lbl], floatify(peerdata.get("pfxSnt", 0))
+                        )
+                        self.metric_bgp_messages_received.add_metric(
+                            [*bgp_lbl], floatify(peerdata.get("msgRcvd", 0))
+                        )
+                        self.metric_bgp_messages_transmitted.add_metric(
+                            [*bgp_lbl], floatify(peerdata.get("msgSent", 0))
+                        )
                 except KeyError:
                     pass
 
     def export_evpn_vni_info(self):
-
         evpn_vni_detail = self.vtysh.show_evpn_vni_detail()
         for evpn_vni in evpn_vni_detail:
             vni = _decode(str(evpn_vni["vni"]))
@@ -1609,152 +1726,202 @@ class SONiCCollector(object):
                     interface = _decode(evpn_vni["vxlanIntf"])
                     state = _decode(evpn_vni["state"].lower())
                     self.metric_evpn_l2_vnis.add_metric(
-                        [vni, interface, svi, layer.value, vrf], floatify(len(evpn_vni["l2Vnis"])))
+                        [vni, interface, svi, layer.value, vrf],
+                        floatify(len(evpn_vni["l2Vnis"])),
+                    )
                 case OSILayer.L2:
                     interface = _decode(evpn_vni["vxlanInterface"])
                     state = self.sys_class_net.operational(interface)
                     self.metric_evpn_remote_vteps.add_metric(
-                        [vni, interface, svi, layer.value, vrf], floatify(len(evpn_vni.get("numRemoteVteps", []))))
+                        [vni, interface, svi, layer.value, vrf],
+                        floatify(len(evpn_vni.get("numRemoteVteps", []))),
+                    )
                     self.metric_evpn_arps.add_metric(
-                        [vni, interface, svi, layer.value, vrf], evpn_vni["numArpNd"])
+                        [vni, interface, svi, layer.value, vrf], evpn_vni["numArpNd"]
+                    )
                     self.metric_evpn_mac_addresses.add_metric(
-                        [vni, interface, svi, layer.value, vrf], floatify(evpn_vni["numMacs"]))
-            self.metric_evpn_status.add_metric([vni, interface, svi, layer.value, vrf],
-                                               boolify(state)
-                                               )
+                        [vni, interface, svi, layer.value, vrf],
+                        floatify(evpn_vni["numMacs"]),
+                    )
+            self.metric_evpn_status.add_metric(
+                [vni, interface, svi, layer.value, vrf], boolify(state)
+            )
 
     def export_ntp_global(self):
         dict = self.getAllFromDB(self.sonic_db.CONFIG_DB, "NTP|global")
         if dict:
-            self.metric_ntp_global.add_metric([dict.get("vrf") if "vrf" in dict else "",
-                                               dict.get(
-                                                   "auth_enabled") if "auth_enabled" in dict else "",
-                                               dict.get(
-                                                   "src_intf@") if "src_intf@" in dict else "",
-                                               dict.get("trusted_key@") if "trusted_key@" in dict else "", ], 1)
+            self.metric_ntp_global.add_metric(
+                [
+                    dict.get("vrf") if "vrf" in dict else "",
+                    dict.get("auth_enabled") if "auth_enabled" in dict else "",
+                    dict.get("src_intf@") if "src_intf@" in dict else "",
+                    dict.get("trusted_key@") if "trusted_key@" in dict else "",
+                ],
+                1,
+            )
 
     def export_ntp_server(self):
-        for key in self.getKeysFromDB(
-                self.sonic_db.CONFIG_DB, NTP_SERVER_PATTERN):
+        for key in self.getKeysFromDB(self.sonic_db.CONFIG_DB, NTP_SERVER_PATTERN):
             dict = self.getAllFromDB(self.sonic_db.CONFIG_DB, key)
             if dict:
-                self.metric_ntp_server.add_metric([key.split("|")[1],
-                                                   dict.get(
-                                                       'key_id') if 'key_id' in dict else "",
-                                                   dict.get(
-                                                       'minpoll') if 'minpoll' in dict else "",
-                                                   dict.get('maxpoll') if 'maxpoll' in dict else "", ], 1)
+                self.metric_ntp_server.add_metric(
+                    [
+                        key.split("|")[1],
+                        dict.get("key_id") if "key_id" in dict else "",
+                        dict.get("minpoll") if "minpoll" in dict else "",
+                        dict.get("maxpoll") if "maxpoll" in dict else "",
+                    ],
+                    1,
+                )
 
-    def export_ntp_associations(self):
-        for op in utilities.getJsonOutPut("ntpq -p -n"):
-            self.metric_ntp_associations.add_metric([op.get('remote'), 
-                                                     op.get('refid'),
-                                                     str(op.get('st')),
-                                                     op.get('t'), 
-                                                     str(op.get('poll')), 
-                                                     str(op.get('reach')), 
-                                                     " " if op.get('state') is None else op.get('state')], 1)
+    def export_ntp_peers(self):
+        vrf = self.getFromDB(
+            self.sonic_db.CONFIG_DB, "NTP|global", "vrf", retries=0, timeout=0
+        )
+        peers = self.ntpq.get_peers(vrf=vrf)
+        ntp_rv = self.ntpq.get_rv(vrf=vrf)
+        ntp_status = ntp_rv.get("associd", "")
+        if "leap_none" in ntp_status:
+            self.metric_ntp_sync_status.add_metric([], 1.0)
+        else:
+            self.metric_ntp_sync_status.add_metric([], 0)
+        self.logger.debug(f"hello {json.dumps(peers, indent=2)}")
+        for op in peers:
+            self.logger.debug(
+                f"export_ntp_peers :: {' '.join([f'{key}={value}' for key, value in op.items()])}"
+            )
+            self.metric_ntp_peers.add_metric(
+                [
+                    op.get("remote"),
+                    op.get("refid"),
+                    str(op.get("st")),
+                    op.get("t"),
+                    str(op.get("poll")),
+                    str(op.get("reach")),
+                    " " if op.get("state") is None else op.get("state"),
+                ],
+                1,
+            )
             self.metric_ntp_jitter.add_metric(
-                [op.get('remote'), op.get('refid')], floatify(op.get('jitter')))
+                [op.get("remote"), op.get("refid")], floatify(op.get("jitter"))
+            )
             self.metric_ntp_offset.add_metric(
-                [op.get('remote'), op.get('refid')], floatify(op.get('offset')))
+                [op.get("remote"), op.get("refid")], floatify(op.get("offset"))
+            )
             self.metric_ntp_rtd.add_metric(
-                [op.get('remote'), op.get('refid')], floatify(op.get('delay')))
+                [op.get("remote"), op.get("refid")], floatify(op.get("delay"))
+            )
             self.metric_ntp_when.add_metric(
-                [op.get('remote'), op.get('refid')], floatify(op.get('when')))
+                [op.get("remote"), op.get("refid")], floatify(op.get("when"))
+            )
 
     def export_sys_status(self):
         sts, sts_core = self.is_sonic_sys_ready()
         self.metric_sys_status.add_metric(
-            [str(sts), str(sts_core)], floatify(sts & sts_core))
+            [str(sts), str(sts_core)], floatify(sts & sts_core)
+        )
 
     def export_mclag_domain(self):
-        mclag_domain = {_decode(key).replace(MCLAG_DOMAIN, ""): self.getAllFromDB(
-            self.sonic_db.CONFIG_DB, key
-        )
-            for key in self.getKeysFromDB(
-            self.sonic_db.CONFIG_DB, MCLAG_DOMAIN_PATTERN
-        )}
+        mclag_domain = {
+            _decode(key).replace(MCLAG_DOMAIN, ""): self.getAllFromDB(
+                self.sonic_db.CONFIG_DB, key
+            )
+            for key in self.getKeysFromDB(self.sonic_db.CONFIG_DB, MCLAG_DOMAIN_PATTERN)
+        }
         if mclag_domain and mclag_domain is not None:
             for domain_id, domain_attr in mclag_domain.items():
                 source_ip = domain_attr.get("source_ip", "")
-                keepalive_interval = domain_attr.get(
-                    "keepalive_interval", "")
+                keepalive_interval = domain_attr.get("keepalive_interval", "")
                 session_timeout = domain_attr.get("session_timeout", "")
                 peer_ip = domain_attr.get("peer_ip", "")
                 peer_link = domain_attr.get("peer_link", "")
                 mclag_system_mac = domain_attr.get("mclag_system_mac", "")
-                self.metric_mclag_domain.add_metric([domain_id,
-                                                     "" if not source_ip else source_ip,
-                                                     "" if not keepalive_interval else str(
-                                                         keepalive_interval),
-                                                     "" if not session_timeout else str(
-                                                         session_timeout),
-                                                     "" if not peer_ip else peer_ip,
-                                                     "" if not peer_link else peer_link,
-                                                     "" if not mclag_system_mac else mclag_system_mac], 1)
-                
+                self.metric_mclag_domain.add_metric(
+                    [
+                        domain_id,
+                        "" if not source_ip else source_ip,
+                        "" if not keepalive_interval else str(keepalive_interval),
+                        "" if not session_timeout else str(session_timeout),
+                        "" if not peer_ip else peer_ip,
+                        "" if not peer_link else peer_link,
+                        "" if not mclag_system_mac else mclag_system_mac,
+                    ],
+                    1,
+                )
+
     def export_mclag_oper_state(self):
-        mclag_state = {_decode(key).replace(MCLAG_TABLE, ""): self.getAllFromDB(
-            self.sonic_db.STATE_DB, key
-        )
-            for key in self.getKeysFromDB(
-            self.sonic_db.STATE_DB, MCLAG_TABLE_PATTERN
-        )}
+        mclag_state = {
+            _decode(key).replace(MCLAG_TABLE, ""): self.getAllFromDB(
+                self.sonic_db.STATE_DB, key
+            )
+            for key in self.getKeysFromDB(self.sonic_db.STATE_DB, MCLAG_TABLE_PATTERN)
+        }
         if mclag_state and mclag_state is not None:
             for domain_id, domain_state_attr in mclag_state.items():
-                mclag_system_mac = domain_state_attr.get(
-                    "mclag_system_mac", "")
+                mclag_system_mac = domain_state_attr.get("mclag_system_mac", "")
                 role = domain_state_attr.get("role", "")
                 system_mac = domain_state_attr.get("system_mac", "")
                 peer_mac = domain_state_attr.get("peer_mac", "")
-                oper_status = 1 if domain_state_attr.get("oper_status", "") == "up" else 0
+                oper_status = (
+                    1 if domain_state_attr.get("oper_status", "") == "up" else 0
+                )
                 reason = domain_state_attr.get("reason", "")
-                self.metric_mclag_oper_state.add_metric([domain_id,
-                                                    "" if not mclag_system_mac else mclag_system_mac,
-                                                    "" if not role else role,
-                                                    "" if not system_mac else
-                                                    system_mac,
-                                                    "" if not peer_mac else peer_mac,
-                                                    "" if not reason else reason], oper_status)
-
-    thread_pool = ThreadPoolExecutor(10)
+                self.metric_mclag_oper_state.add_metric(
+                    [
+                        domain_id,
+                        "" if not mclag_system_mac else mclag_system_mac,
+                        "" if not role else role,
+                        "" if not system_mac else system_mac,
+                        "" if not peer_mac else peer_mac,
+                        "" if not reason else reason,
+                    ],
+                    oper_status,
+                )
 
     def collect(self):
         try:
             self._init_metrics()
             date_time = datetime.now()
-            wait([self.thread_pool.submit(self.export_mclag_oper_state),
-            self.thread_pool.submit(self.export_mclag_domain),
-            self.thread_pool.submit(self.export_interface_counters),
-            self.thread_pool.submit(self.export_interface_queue_counters),
-            self.thread_pool.submit(self.export_interface_cable_data),
-            self.thread_pool.submit(self.export_interface_optic_data),
-            self.thread_pool.submit(self.export_system_info),
-            self.thread_pool.submit(self.export_psu_info),
-            self.thread_pool.submit(self.export_fan_info),
-            self.thread_pool.submit(self.export_temp_info),
-            self.thread_pool.submit(self.export_vxlan_tunnel_info),
-            self.thread_pool.submit(self.export_bgp_info),
-            self.thread_pool.submit(self.export_evpn_vni_info),
-            self.thread_pool.submit(self.export_static_anycast_gateway_info),
-            self.thread_pool.submit(self.export_ntp_associations),
-            self.thread_pool.submit(self.export_ntp_global),
-            self.thread_pool.submit(self.export_ntp_server),
-            self.thread_pool.submit(self.export_sys_status),],return_when=ALL_COMPLETED)
-            _logger.debug(f"Time taken in metrics collection {datetime.now() - date_time}")
-            
+            wait(
+                [
+                    self.thread_pool.submit(self.export_mclag_oper_state),
+                    self.thread_pool.submit(self.export_mclag_domain),
+                    self.thread_pool.submit(self.export_interface_counters),
+                    self.thread_pool.submit(self.export_interface_queue_counters),
+                    self.thread_pool.submit(self.export_interface_cable_data),
+                    self.thread_pool.submit(self.export_interface_optic_data),
+                    self.thread_pool.submit(self.export_system_info),
+                    self.thread_pool.submit(self.export_psu_info),
+                    self.thread_pool.submit(self.export_fan_info),
+                    self.thread_pool.submit(self.export_temp_info),
+                    self.thread_pool.submit(self.export_vxlan_tunnel_info),
+                    self.thread_pool.submit(self.export_bgp_info),
+                    self.thread_pool.submit(self.export_evpn_vni_info),
+                    self.thread_pool.submit(self.export_static_anycast_gateway_info),
+                    self.thread_pool.submit(self.export_ntp_peers),
+                    self.thread_pool.submit(self.export_ntp_global),
+                    self.thread_pool.submit(self.export_ntp_server),
+                    self.thread_pool.submit(self.export_sys_status),
+                ],
+                return_when=ALL_COMPLETED,
+            )
+            self.logger.debug(
+                f"Time taken in metrics collection {datetime.now() - date_time}"
+            )
+
             yield self.metric_mclag_domain
             yield self.metric_mclag_oper_state
             yield self.metric_sys_status
+            yield self.metric_ntp_sync_status
             yield self.metric_ntp_jitter
             yield self.metric_ntp_offset
             yield self.metric_ntp_rtd
             yield self.metric_ntp_when
-            yield self.metric_ntp_associations
+            yield self.metric_ntp_peers
             yield self.metric_ntp_global
             yield self.metric_ntp_server
             yield self.metric_interface_info
+            yield self.metric_interface_speed
             yield self.metric_interface_transmitted_bytes
             yield self.metric_interface_received_bytes
             yield self.metric_interface_transmitted_packets
@@ -1821,12 +1988,30 @@ def main():
         os.environ.get("SONIC_EXPORTER_PORT", 9101)
     )  # setting port static as 9101. if required map it to someother port of host by editing compose file.
     address = str(os.environ.get("SONIC_EXPORTER_ADDRESS", "localhost"))
-    sonic_collector = SONiCCollector(os.environ.get(
-        "DEVELOPER_MODE", "False").lower() in TRUE_VALUES)
-    _logger.info(
-        "Starting Python exporter server at {}:{}".format(address, port))
+    logging_config_path = os.environ.get(
+        "SONIC_EXPORTER_LOGGING_CONFIG", (BASE_PATH / "./config/logging.yml").resolve()
+    )
+    LOGGING_CONFIG_RAW = ""
+    with open(logging_config_path, "r") as file:
+        LOGGING_CONFIG_RAW = file.read()
+    loglevel = os.environ.get("SONIC_EXPORTER_LOGLEVEL", None)
+    LOGGING_CONFIG = yaml.safe_load(LOGGING_CONFIG_RAW)
+    if (
+        loglevel
+        and "handlers" in LOGGING_CONFIG
+        and "console" in LOGGING_CONFIG["handlers"]
+        and "level" in LOGGING_CONFIG["handlers"]["console"]
+    ):
+        LOGGING_CONFIG["handlers"]["console"]["level"] = loglevel
+    logging.config.dictConfig(LOGGING_CONFIG)
+    logging.info("Starting Python exporter server at {}:{}".format(address, port))
     # TODO ip address validation
     prom.start_http_server(port, addr=address)
+    classe = SONiCCollector
+    classe.logger = logging.getLogger("__name__")
+    sonic_collector = classe(
+        os.environ.get("DEVELOPER_MODE", "False").lower() in TRUE_VALUES
+    )
     REGISTRY.register(sonic_collector)
     while True:
         time.sleep(10**8)

@@ -7,7 +7,6 @@ from sonic_exporter.test import ressources
 
 
 class MockSystemClassHWMon(SystemClassHWMon):
-
     model: SwitchModel = SwitchModel.AS9716
 
     @property
