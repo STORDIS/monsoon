@@ -4,20 +4,25 @@ Try [Live Demo](http://monsoon.stordis.com:8080).
 
 Monsoon uses Prometheus and Grafana for data collection and visualization. Apart from using 'node_exporter' (standard data collector for prometheus client) Monsoon uses sonic-exporter to fetch data from SONiC DB to Prometheus and Grafana.
 
-* [Monsoon Design](#monsoon-design-monsoon-designimagesmonsoonjpg)
-* [Getting started with monsoon](#getting-started-with-monsoon)
-  * [Install sonic-exporter](#install-sonic-exporter)
-  * [Install node-exporter](#install-node-exporter)
-  * [Install Prometheus](#install-prometheus)
-  * [Install Grafana](#install-grafana)
-* [Supported SONiC versions](#supported-sonic-versions)
-* [Build from source](#build-sonic-exporter-docker-image-from-source)
-* [sonic-exporter logging](#sonic-exporter-logging)
-* [Client certificate generation](#securing-sonic-exporter-and-node-exporter-with-central-client-certificate-generation)
+- [Monsoon - A data visualization and monitoring solution for SONiC](#monsoon---a-data-visualization-and-monitoring-solution-for-sonic)
+  - [Monsoon Design](#monsoon-design)
+  - [Getting started with monsoon](#getting-started-with-monsoon)
+  - [Supported SONiC Versions](#supported-sonic-versions)
+  - [Build sonic-exporter docker image from source](#build-sonic-exporter-docker-image-from-source)
+  - [sonic-exporter logging](#sonic-exporter-logging)
+  - [Securing sonic-exporter and node-exporter with Central Client Certificate Generation](#securing-sonic-exporter-and-node-exporter-with-central-client-certificate-generation)
+  - [Preparation](#preparation)
+  - [Installation](#installation)
+  - [Verifying Installation works](#verifying-installation-works)
+  - [Details:](#details)
+  - [Environment Variables](#environment-variables)
+  - [Get Mock Data](#get-mock-data)
+  - [Building](#building)
+  - [Loading the image on a switch](#loading-the-image-on-a-switch)
   
 ## Monsoon Design 
 A high level monsoon design is as follows, various components are explained in further sections.
-![Monsoon Design](images/monsoon.jpg)
+![Monsoon Design](images/monsoon_design.png)
 
 ## Getting started with monsoon
   There are 4 major components of monsoon project- sonic-exporter, node-exporter, Prometheus, Grafana.
