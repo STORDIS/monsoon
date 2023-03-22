@@ -53,7 +53,7 @@ A high level monsoon design is as follows, various components are explained in f
   #### Start sonic-exporter container
     Execute following command on SONiC host to start sonic-exporter container :
     ```
-    docker run -e SONIC_EXPORTER_ADDRESS="0.0.0.0" --name sonic-exporter --network=host --pid=host --privileged --restart=always -d -v /var/run/redis:/var/run/redis -v /usr/bin/vtysh:/usr/bin/vtysh -v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/ntpq:/usr/bin/ntpq -v /usr/lib/x86_64-linux-gnu/:/usr/lib/x86_64-linux-gnu/ stordis/sonic-exporter:main
+    docker run -e SONIC_EXPORTER_ADDRESS="0.0.0.0" --name sonic-exporter --network=host --pid=host --privileged --restart=always -d -v /var/run/redis:/var/run/redis -v /usr/bin/vtysh:/usr/bin/vtysh -v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/ntpq:/usr/bin/ntpq -v /usr/lib/x86_64-linux-gnu/:/usr/lib/x86_64-linux-gnu/ --log-opt mode=non-blocking --log-opt max-buffer-size=4m --log-driver json-file --log-opt max-size=10m --log-opt max-file=3 --log-opt compress=true stordis/sonic-exporter:main
     ```
 
   #### Verify sonic-exporter installation:
@@ -75,7 +75,7 @@ A high level monsoon design is as follows, various components are explained in f
     ```
   #### Start node-exporter container on SONiC switch
     ```
-    docker run --name node-exporter --network=host --pid=host --privileged --restart=always -d -v /proc:/host/proc:ro -v /sys:/host/sys:ro -v /:/rootfs:ro prom/node-exporter:v1.3.1 --path.rootfs=/host --no-collector.fibrechannel --no-collector.infiniband --no-collector.ipvs --no-collector.mdadm --no-collector.nfs --no-collector.nfsd --no-collector.nvme --no-collector.os --no-collector.pressure --no-collector.tapestats --no-collector.zfs --no-collector.netstat --no-collector.arp
+    docker run --name node-exporter --network=host --pid=host --privileged --restart=always -d --log-opt mode=non-blocking --log-opt max-buffer-size=4m --log-driver json-file --log-opt max-size=10m --log-opt max-file=3 --log-opt compress=true -v /proc:/host/proc:ro -v /sys:/host/sys:ro -v /:/rootfs:ro prom/node-exporter:v1.3.1 --path.rootfs=/host --no-collector.fibrechannel --no-collector.infiniband --no-collector.ipvs --no-collector.mdadm --no-collector.nfs --no-collector.nfsd --no-collector.nvme --no-collector.os --no-collector.pressure --no-collector.tapestats --no-collector.zfs --no-collector.netstat --no-collector.arp
     ```
   #### Verify node-exporter installation 
     Metrices from node-exporter should be available in raw text format with following:
@@ -88,7 +88,7 @@ A high level monsoon design is as follows, various components are explained in f
   It is reommended to install Prometheus on separate host i.e. Ubuntu_20.04 etc.
   Config file ~/monsoon/config/prometheus.yml can be used for prometheus installation, also replace the exporter IPs at the bottom in this file with your SONiC switch. Then execute following :
   ```
-  docker run -d -p 9090:9090 -v ~/monsoon/config/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus:v2.37.0
+  docker run -d -p 9090:9090 -v ~/monsoon/config/prometheus.yml:/etc/prometheus/prometheus.yml --log-opt mode=non-blocking --log-opt max-buffer-size=4m --log-driver json-file --log-opt max-size=10m --log-opt max-file=3 --log-opt compress=true prom/prometheus:v2.37.0
   ```
   Further details of Prometheus installation are [here](https://prometheus.io/docs/prometheus/latest/installation/).
 
@@ -100,7 +100,7 @@ A high level monsoon design is as follows, various components are explained in f
   Grafana is a configurable data visulization tool, In opur case it help to visualize data fetched from prometheus (in step above). Grafana can be installed on same host as Prometheus but recommended is to install it on a separate host i.e. Ubuntu_20.04 etc. 
   On Debian/Ubuntu Grafana container can be started as follows : 
   ```
-  docker run -d -p 3000:3000 --name grafana grafana/grafana-oss:9.0.6
+  docker run -d -p 3000:3000 --name grafana --log-opt mode=non-blocking --log-opt max-buffer-size=4m --log-driver json-file --log-opt max-size=10m --log-opt max-file=3 --log-opt compress=true grafana/grafana-oss:9.0.6
   ```
   Further details to run Grafana container are [here](https://grafana.com/docs/grafana/latest/setup-grafana/installation/docker/).
   #### Verify Grafana Installation
