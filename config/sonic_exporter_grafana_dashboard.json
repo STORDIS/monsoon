@@ -170,7 +170,7 @@
       },
       "gridPos": {
         "h": 2,
-        "w": 3,
+        "w": 6,
         "x": 0,
         "y": 5
       },
@@ -266,7 +266,38 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 30,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 7,
+            "pointSize": 6,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [
             {
@@ -291,14 +322,6 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 0
-              },
-              {
-                "color": "green",
-                "value": 1
               }
             ]
           },
@@ -307,23 +330,24 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 3,
-        "w": 3,
-        "x": 3,
-        "y": 5
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 7
       },
       "id": 144,
       "options": {
-        "orientation": "auto",
-        "reduceOptions": {
+        "legend": {
           "calcs": [
-            "lastNotNull"
+            "last"
           ],
-          "fields": "",
-          "values": false
+          "displayMode": "list",
+          "placement": "bottom"
         },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": false
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
       },
       "pluginVersion": "9.0.6",
       "targets": [
@@ -341,6 +365,7 @@
           "displayType": "Annotation",
           "displayValueWithAlias": "When Alias Displayed",
           "editorMode": "builder",
+          "exemplar": false,
           "expr": "sonic_system_status{instance=\"$target\"}",
           "group": {
             "$$hashKey": "object:24",
@@ -348,7 +373,8 @@
             "name": "Status Checks",
             "url": ""
           },
-          "legendFormat": "__auto",
+          "instant": false,
+          "legendFormat": "{{instance}}",
           "range": true,
           "refId": "A",
           "units": "none",
@@ -359,7 +385,7 @@
         }
       ],
       "title": "Sonic System Status",
-      "type": "gauge"
+      "type": "timeseries"
     },
     {
       "collapsed": true,
@@ -367,7 +393,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 8
+        "y": 13
       },
       "id": 8,
       "panels": [
@@ -388,8 +414,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -404,7 +429,7 @@
             "h": 7,
             "w": 12,
             "x": 0,
-            "y": 4
+            "y": 13
           },
           "id": 10,
           "options": {
@@ -496,8 +521,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -512,7 +536,7 @@
             "h": 5,
             "w": 8,
             "x": 12,
-            "y": 4
+            "y": 13
           },
           "id": 12,
           "options": {
@@ -564,8 +588,7 @@
                 "mode": "percentage",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "orange",
@@ -585,7 +608,7 @@
             "h": 5,
             "w": 8,
             "x": 12,
-            "y": 9
+            "y": 18
           },
           "id": 16,
           "options": {
@@ -633,8 +656,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -650,7 +672,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 11
+            "y": 20
           },
           "id": 26,
           "options": {
@@ -742,8 +764,7 @@
                 "mode": "percentage",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "orange",
@@ -763,7 +784,7 @@
             "h": 5,
             "w": 7,
             "x": 12,
-            "y": 14
+            "y": 23
           },
           "id": 14,
           "options": {
@@ -809,8 +830,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -826,7 +846,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 19
+            "y": 28
           },
           "id": 22,
           "options": {
@@ -885,8 +905,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -914,7 +933,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 19
+            "y": 28
           },
           "id": 24,
           "options": {
@@ -1021,7 +1040,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 27
+            "y": 36
           },
           "id": 18,
           "options": {
@@ -1097,7 +1116,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 27
+            "y": 36
           },
           "id": 20,
           "options": {
@@ -1152,7 +1171,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 9
+        "y": 14
       },
       "id": 146,
       "panels": [
@@ -1192,8 +1211,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1208,7 +1226,7 @@
             "h": 4,
             "w": 16,
             "x": 0,
-            "y": 5
+            "y": 14
           },
           "id": 150,
           "options": {
@@ -1334,10 +1352,12 @@
                 {
                   "options": {
                     "0": {
+                      "color": "red",
                       "index": 1,
                       "text": "DOWN"
                     },
                     "1": {
+                      "color": "green",
                       "index": 0,
                       "text": "UP"
                     }
@@ -1351,12 +1371,11 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "transparent"
                   },
                   {
-                    "color": "red",
-                    "value": 80
+                    "color": "green",
+                    "value": 1
                   }
                 ]
               }
@@ -1367,7 +1386,7 @@
             "h": 8,
             "w": 5,
             "x": 16,
-            "y": 5
+            "y": 14
           },
           "id": 152,
           "options": {
@@ -1421,8 +1440,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1437,7 +1455,7 @@
             "h": 4,
             "w": 16,
             "x": 0,
-            "y": 9
+            "y": 18
           },
           "id": 148,
           "options": {
@@ -1543,7 +1561,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 15
       },
       "id": 126,
       "panels": [
@@ -1557,147 +1575,25 @@
               "color": {
                 "mode": "thresholds"
               },
-              "custom": {
-                "align": "auto",
-                "displayMode": "auto",
-                "inspect": false
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
+              "mappings": [
+                {
+                  "options": {
+                    "0": {
+                      "color": "red",
+                      "index": 0,
+                      "text": "Not in Sync"
+                    },
+                    "1": {
+                      "color": "dark-green",
+                      "index": 1,
+                      "text": "In sync"
+                    }
                   },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 5,
-            "w": 16,
-            "x": 0,
-            "y": 5
-          },
-          "id": 128,
-          "options": {
-            "footer": {
-              "fields": "",
-              "reducer": [
-                "sum"
+                  "type": "value"
+                }
               ],
-              "show": false
-            },
-            "showHeader": true,
-            "sortBy": [
-              {
-                "desc": true,
-                "displayName": "NTP Device Type"
-              }
-            ]
-          },
-          "pluginVersion": "9.0.6",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
-              },
-              "editorMode": "builder",
-              "expr": "sonic_ntp_associations{instance=\"$target\"}",
-              "format": "table",
-              "legendFormat": "__auto",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "NTP Associations",
-          "transformations": [
-            {
-              "id": "groupBy",
-              "options": {
-                "fields": {
-                  "poll": {
-                    "aggregations": [
-                      "last"
-                    ],
-                    "operation": "aggregate"
-                  },
-                  "reach": {
-                    "aggregations": [
-                      "last"
-                    ],
-                    "operation": "aggregate"
-                  },
-                  "refid": {
-                    "aggregations": [],
-                    "operation": "groupby"
-                  },
-                  "remote": {
-                    "aggregations": [],
-                    "operation": "groupby"
-                  },
-                  "st": {
-                    "aggregations": [
-                      "last"
-                    ],
-                    "operation": "aggregate"
-                  },
-                  "state": {
-                    "aggregations": [
-                      "last"
-                    ],
-                    "operation": "aggregate"
-                  },
-                  "t": {
-                    "aggregations": [
-                      "last"
-                    ],
-                    "operation": "aggregate"
-                  }
-                }
-              }
-            },
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {},
-                "indexByName": {},
-                "renameByName": {
-                  "poll (last)": "Polling Interval (sec.)",
-                  "reach (last)": "Reachability",
-                  "refid": "Sync Device",
-                  "remote": "NTP Server",
-                  "st (last)": "Stratum level",
-                  "state (last)": "State",
-                  "t (last)": "NTP Device Type"
-                }
-              }
-            }
-          ],
-          "type": "table"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "auto",
-                "displayMode": "auto",
-                "inspect": false
-              },
-              "mappings": [],
+              "max": 1,
+              "min": 0,
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
@@ -1715,20 +1611,25 @@
           },
           "gridPos": {
             "h": 6,
-            "w": 8,
+            "w": 4,
             "x": 0,
-            "y": 10
+            "y": 15
           },
-          "id": 132,
+          "id": 156,
           "options": {
-            "footer": {
-              "fields": "",
-              "reducer": [
-                "sum"
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
               ],
-              "show": false
+              "fields": "",
+              "values": false
             },
-            "showHeader": true
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "text": {
+              "titleSize": 1
+            }
           },
           "pluginVersion": "9.0.6",
           "targets": [
@@ -1738,142 +1639,14 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_ntp_server{instance=\"$target\"}",
-              "format": "table",
+              "expr": "sonic_ntp_sync_status{instance=\"$target\"}",
               "legendFormat": "__auto",
               "range": true,
               "refId": "A"
             }
           ],
-          "title": "NTP Servers",
-          "transformations": [
-            {
-              "id": "groupBy",
-              "options": {
-                "fields": {
-                  "Value": {
-                    "aggregations": [
-                      "last"
-                    ]
-                  },
-                  "key_id": {
-                    "aggregations": [
-                      "last"
-                    ],
-                    "operation": "aggregate"
-                  },
-                  "maxpoll": {
-                    "aggregations": [
-                      "last"
-                    ],
-                    "operation": "aggregate"
-                  },
-                  "minpoll": {
-                    "aggregations": [
-                      "last"
-                    ],
-                    "operation": "aggregate"
-                  },
-                  "ntp_server": {
-                    "aggregations": [],
-                    "operation": "groupby"
-                  }
-                }
-              }
-            },
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {},
-                "indexByName": {},
-                "renameByName": {
-                  "key_id (last)": "Key_ID",
-                  "maxpoll (last)": "Maxpoll",
-                  "minpoll (last)": "Minpoll"
-                }
-              }
-            }
-          ],
-          "type": "table"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "auto",
-                "displayMode": "auto",
-                "inspect": false
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 6,
-            "w": 8,
-            "x": 8,
-            "y": 10
-          },
-          "id": 130,
-          "options": {
-            "footer": {
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "showHeader": true
-          },
-          "pluginVersion": "9.0.6",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
-              },
-              "editorMode": "builder",
-              "expr": "sonic_ntp_global{instance=\"$target\"}",
-              "legendFormat": "__auto",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "NTP Global",
-          "transformations": [
-            {
-              "id": "labelsToFields",
-              "options": {
-                "keepLabels": [
-                  "auth_enabled",
-                  "src_intf",
-                  "trusted_key",
-                  "vrf"
-                ],
-                "mode": "rows"
-              }
-            }
-          ],
-          "type": "table"
+          "title": "NTP Sync Status",
+          "type": "gauge"
         },
         {
           "datasource": {
@@ -1925,15 +1698,16 @@
                     "value": 80
                   }
                 ]
-              }
+              },
+              "unit": "s"
             },
             "overrides": []
           },
           "gridPos": {
             "h": 6,
-            "w": 11,
-            "x": 0,
-            "y": 16
+            "w": 18,
+            "x": 4,
+            "y": 15
           },
           "id": 134,
           "options": {
@@ -2013,95 +1787,8 @@
                     "value": 80
                   }
                 ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 6,
-            "w": 10,
-            "x": 11,
-            "y": 16
-          },
-          "id": 140,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
               },
-              "editorMode": "builder",
-              "expr": "sonic_ntp_rtd{instance=\"$target\"}",
-              "legendFormat": "[remote-{{remote}}, refid-{{refid}}]",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Round-trip delay (in milliseconds) to the NTP server.",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
+              "unit": "s"
             },
             "overrides": [
               {
@@ -2111,7 +1798,7 @@
                   "options": {
                     "mode": "exclude",
                     "names": [
-                      "[remote-10.10.131.254, refid-217.91.44.17]"
+                      "[remote-10.10.131.254, refid-131.188.3.220]"
                     ],
                     "prefix": "All except:",
                     "readOnly": true
@@ -2131,10 +1818,10 @@
             ]
           },
           "gridPos": {
-            "h": 7,
+            "h": 6,
             "w": 11,
             "x": 0,
-            "y": 22
+            "y": 21
           },
           "id": 136,
           "options": {
@@ -2161,7 +1848,7 @@
               "refId": "A"
             }
           ],
-          "title": "NTP Offset- Time difference (in milliseconds) between the switch and the NTP server",
+          "title": "NTP Offset- Time difference between the switch and the NTP server",
           "type": "timeseries"
         },
         {
@@ -2214,15 +1901,105 @@
                     "value": 80
                   }
                 ]
-              }
+              },
+              "unit": "s"
             },
             "overrides": []
           },
           "gridPos": {
-            "h": 7,
-            "w": 10,
+            "h": 6,
+            "w": 11,
             "x": 11,
-            "y": 22
+            "y": 21
+          },
+          "id": 140,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "builder",
+              "expr": "sonic_ntp_rtd{instance=\"$target\"}",
+              "legendFormat": "[remote-{{remote}}, refid-{{refid}}]",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Round-trip delay to the NTP server.",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "s"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 22,
+            "x": 0,
+            "y": 27
           },
           "id": 138,
           "options": {
@@ -2249,7 +2026,7 @@
               "refId": "A"
             }
           ],
-          "title": "Time (in seconds) since last synchronized.",
+          "title": "Time since last synchronized.",
           "type": "timeseries"
         }
       ],
@@ -2262,7 +2039,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 11
+        "y": 16
       },
       "id": 58,
       "panels": [
@@ -2298,7 +2075,7 @@
             "h": 6,
             "w": 12,
             "x": 0,
-            "y": 11
+            "y": 24
           },
           "id": 46,
           "options": {
@@ -2439,7 +2216,7 @@
             "h": 6,
             "w": 12,
             "x": 12,
-            "y": 11
+            "y": 24
           },
           "id": 36,
           "options": {
@@ -2577,7 +2354,7 @@
             "h": 6,
             "w": 12,
             "x": 0,
-            "y": 17
+            "y": 30
           },
           "id": 54,
           "options": {
@@ -2673,7 +2450,7 @@
             "h": 6,
             "w": 12,
             "x": 12,
-            "y": 17
+            "y": 30
           },
           "id": 55,
           "options": {
@@ -2769,7 +2546,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 23
+            "y": 36
           },
           "id": 52,
           "options": {
@@ -2865,7 +2642,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 23
+            "y": 36
           },
           "id": 56,
           "options": {
@@ -2961,7 +2738,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 31
+            "y": 44
           },
           "id": 30,
           "options": {
@@ -3057,7 +2834,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 31
+            "y": 44
           },
           "id": 53,
           "options": {
@@ -3153,7 +2930,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 39
+            "y": 52
           },
           "id": 51,
           "options": {
@@ -3250,7 +3027,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 39
+            "y": 52
           },
           "id": 59,
           "options": {
@@ -3346,7 +3123,7 @@
             "h": 6,
             "w": 12,
             "x": 0,
-            "y": 47
+            "y": 60
           },
           "id": 28,
           "options": {
@@ -3442,7 +3219,7 @@
             "h": 6,
             "w": 12,
             "x": 12,
-            "y": 47
+            "y": 60
           },
           "id": 60,
           "options": {
@@ -3489,7 +3266,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 12
+        "y": 17
       },
       "id": 64,
       "panels": [
@@ -3551,7 +3328,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 3
+            "y": 17
           },
           "id": 86,
           "options": {
@@ -3626,7 +3403,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 3
+            "y": 17
           },
           "id": 84,
           "options": {
@@ -3777,7 +3554,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 11
+            "y": 25
           },
           "id": 82,
           "options": {
@@ -3872,7 +3649,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 11
+            "y": 25
           },
           "id": 80,
           "options": {
@@ -3944,7 +3721,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 19
+            "y": 33
           },
           "id": 78,
           "options": {
@@ -4088,7 +3865,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 19
+            "y": 33
           },
           "id": 91,
           "options": {
@@ -4183,7 +3960,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 27
+            "y": 41
           },
           "id": 76,
           "options": {
@@ -4278,7 +4055,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 27
+            "y": 41
           },
           "id": 87,
           "options": {
@@ -4373,7 +4150,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 35
+            "y": 49
           },
           "id": 74,
           "options": {
@@ -4468,7 +4245,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 35
+            "y": 49
           },
           "id": 88,
           "options": {
@@ -4563,7 +4340,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 43
+            "y": 57
           },
           "id": 72,
           "options": {
@@ -4658,7 +4435,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 43
+            "y": 57
           },
           "id": 70,
           "options": {
@@ -4731,7 +4508,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 51
+            "y": 65
           },
           "id": 68,
           "options": {
@@ -4884,7 +4661,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 51
+            "y": 65
           },
           "id": 66,
           "options": {
@@ -4933,7 +4710,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 13
+        "y": 18
       },
       "id": 62,
       "panels": [
@@ -4973,7 +4750,7 @@
             "h": 4,
             "w": 8,
             "x": 0,
-            "y": 12
+            "y": 26
           },
           "id": 44,
           "options": {
@@ -5089,7 +4866,7 @@
             "h": 4,
             "w": 8,
             "x": 8,
-            "y": 12
+            "y": 26
           },
           "id": 34,
           "options": {
@@ -5226,7 +5003,7 @@
             "h": 5,
             "w": 16,
             "x": 0,
-            "y": 16
+            "y": 30
           },
           "id": 32,
           "options": {
@@ -5346,7 +5123,7 @@
             "h": 5,
             "w": 8,
             "x": 0,
-            "y": 21
+            "y": 35
           },
           "id": 50,
           "options": {
@@ -5417,7 +5194,7 @@
             "h": 5,
             "w": 8,
             "x": 8,
-            "y": 21
+            "y": 35
           },
           "id": 48,
           "options": {
@@ -5488,7 +5265,7 @@
             "h": 5,
             "w": 8,
             "x": 0,
-            "y": 26
+            "y": 40
           },
           "id": 38,
           "options": {
@@ -5587,7 +5364,7 @@
             "h": 8,
             "w": 17,
             "x": 0,
-            "y": 31
+            "y": 45
           },
           "id": 40,
           "options": {
@@ -5683,7 +5460,7 @@
             "h": 7,
             "w": 17,
             "x": 0,
-            "y": 39
+            "y": 53
           },
           "id": 42,
           "options": {
@@ -5734,7 +5511,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 14
+        "y": 19
       },
       "id": 4,
       "panels": [
@@ -5773,7 +5550,7 @@
             "h": 4,
             "w": 11,
             "x": 0,
-            "y": 5
+            "y": 27
           },
           "id": 104,
           "options": {
@@ -5904,7 +5681,7 @@
             "h": 4,
             "w": 11,
             "x": 11,
-            "y": 5
+            "y": 27
           },
           "id": 106,
           "options": {
@@ -5991,7 +5768,7 @@
             "h": 4,
             "w": 11,
             "x": 0,
-            "y": 9
+            "y": 31
           },
           "id": 108,
           "options": {
@@ -6030,7 +5807,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 15
+        "y": 20
       },
       "id": 2,
       "panels": [
@@ -6070,7 +5847,7 @@
             "h": 6,
             "w": 9,
             "x": 0,
-            "y": 15
+            "y": 20
           },
           "id": 124,
           "options": {
@@ -6219,7 +5996,7 @@
             "h": 6,
             "w": 9,
             "x": 9,
-            "y": 15
+            "y": 20
           },
           "id": 97,
           "options": {
@@ -6301,38 +6078,13 @@
                 ]
               }
             },
-            "overrides": [
-              {
-                "__systemRef": "hideSeriesFrom",
-                "matcher": {
-                  "id": "byNames",
-                  "options": {
-                    "mode": "exclude",
-                    "names": [
-                      "Peer_AS=65101 Peer_Name="
-                    ],
-                    "prefix": "All except:",
-                    "readOnly": true
-                  }
-                },
-                "properties": [
-                  {
-                    "id": "custom.hideFrom",
-                    "value": {
-                      "legend": false,
-                      "tooltip": false,
-                      "viz": true
-                    }
-                  }
-                ]
-              }
-            ]
+            "overrides": []
           },
           "gridPos": {
             "h": 6,
             "w": 9,
             "x": 0,
-            "y": 21
+            "y": 26
           },
           "id": 93,
           "options": {
@@ -6414,38 +6166,13 @@
                 ]
               }
             },
-            "overrides": [
-              {
-                "__systemRef": "hideSeriesFrom",
-                "matcher": {
-                  "id": "byNames",
-                  "options": {
-                    "mode": "exclude",
-                    "names": [
-                      "Peer_AS65102 Peer_Name=1.1.1.3"
-                    ],
-                    "prefix": "All except:",
-                    "readOnly": true
-                  }
-                },
-                "properties": [
-                  {
-                    "id": "custom.hideFrom",
-                    "value": {
-                      "legend": false,
-                      "tooltip": false,
-                      "viz": true
-                    }
-                  }
-                ]
-              }
-            ]
+            "overrides": []
           },
           "gridPos": {
             "h": 6,
             "w": 10,
             "x": 9,
-            "y": 21
+            "y": 26
           },
           "id": 95,
           "options": {
@@ -6533,7 +6260,7 @@
             "h": 6,
             "w": 9,
             "x": 0,
-            "y": 27
+            "y": 32
           },
           "id": 101,
           "options": {
@@ -6621,7 +6348,7 @@
             "h": 6,
             "w": 10,
             "x": 9,
-            "y": 27
+            "y": 32
           },
           "id": 102,
           "options": {
@@ -6664,7 +6391,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 16
+        "y": 21
       },
       "id": 6,
       "panels": [
@@ -6726,7 +6453,7 @@
             "h": 4,
             "w": 10,
             "x": 0,
-            "y": 7
+            "y": 29
           },
           "id": 120,
           "options": {
@@ -6813,7 +6540,7 @@
             "h": 4,
             "w": 10,
             "x": 10,
-            "y": 7
+            "y": 29
           },
           "id": 114,
           "options": {
@@ -6900,7 +6627,7 @@
             "h": 4,
             "w": 10,
             "x": 0,
-            "y": 11
+            "y": 33
           },
           "id": 118,
           "options": {
@@ -6987,7 +6714,7 @@
             "h": 4,
             "w": 10,
             "x": 10,
-            "y": 11
+            "y": 33
           },
           "id": 110,
           "options": {
@@ -7074,7 +6801,7 @@
             "h": 4,
             "w": 10,
             "x": 0,
-            "y": 15
+            "y": 37
           },
           "id": 116,
           "options": {
@@ -7161,7 +6888,7 @@
             "h": 4,
             "w": 10,
             "x": 10,
-            "y": 15
+            "y": 37
           },
           "id": 112,
           "options": {
@@ -7256,6 +6983,6 @@
   "timezone": "",
   "title": "Sonic-Exporter Dashboard",
   "uid": "rXR50WmVk",
-  "version": 11,
+  "version": 2,
   "weekStart": ""
 }
