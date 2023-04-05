@@ -1598,7 +1598,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1613,7 +1614,7 @@
             "h": 6,
             "w": 4,
             "x": 0,
-            "y": 15
+            "y": 16
           },
           "id": 156,
           "options": {
@@ -1691,7 +1692,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1707,7 +1709,7 @@
             "h": 6,
             "w": 18,
             "x": 4,
-            "y": 15
+            "y": 16
           },
           "id": 134,
           "options": {
@@ -1780,7 +1782,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1821,7 +1824,7 @@
             "h": 6,
             "w": 11,
             "x": 0,
-            "y": 21
+            "y": 22
           },
           "id": 136,
           "options": {
@@ -1894,7 +1897,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1910,7 +1914,7 @@
             "h": 6,
             "w": 11,
             "x": 11,
-            "y": 21
+            "y": 22
           },
           "id": 140,
           "options": {
@@ -1983,7 +1987,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1999,7 +2004,7 @@
             "h": 6,
             "w": 22,
             "x": 0,
-            "y": 27
+            "y": 28
           },
           "id": 138,
           "options": {
@@ -2060,7 +2065,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2075,7 +2081,7 @@
             "h": 6,
             "w": 12,
             "x": 0,
-            "y": 24
+            "y": 17
           },
           "id": 46,
           "options": {
@@ -2201,7 +2207,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2216,7 +2223,7 @@
             "h": 6,
             "w": 12,
             "x": 12,
-            "y": 24
+            "y": 17
           },
           "id": 36,
           "options": {
@@ -2338,7 +2345,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2354,7 +2362,7 @@
             "h": 6,
             "w": 12,
             "x": 0,
-            "y": 30
+            "y": 23
           },
           "id": 54,
           "options": {
@@ -2434,7 +2442,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2450,7 +2459,7 @@
             "h": 6,
             "w": 12,
             "x": 12,
-            "y": 30
+            "y": 23
           },
           "id": 55,
           "options": {
@@ -2530,7 +2539,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2546,7 +2556,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 36
+            "y": 29
           },
           "id": 52,
           "options": {
@@ -2626,7 +2636,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2642,7 +2653,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 36
+            "y": 29
           },
           "id": 56,
           "options": {
@@ -2722,7 +2733,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2738,7 +2750,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 44
+            "y": 37
           },
           "id": 30,
           "options": {
@@ -2818,7 +2830,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2834,7 +2847,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 44
+            "y": 37
           },
           "id": 53,
           "options": {
@@ -2914,7 +2927,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2930,7 +2944,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 52
+            "y": 45
           },
           "id": 51,
           "options": {
@@ -3011,7 +3025,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -3027,7 +3042,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 52
+            "y": 45
           },
           "id": 59,
           "options": {
@@ -3107,7 +3122,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -3123,7 +3139,7 @@
             "h": 6,
             "w": 12,
             "x": 0,
-            "y": 60
+            "y": 53
           },
           "id": 28,
           "options": {
@@ -3203,7 +3219,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -3219,7 +3236,7 @@
             "h": 6,
             "w": 12,
             "x": 12,
-            "y": 60
+            "y": 53
           },
           "id": 60,
           "options": {
@@ -5535,7 +5552,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -5548,9 +5566,9 @@
           },
           "gridPos": {
             "h": 4,
-            "w": 11,
+            "w": 6,
             "x": 0,
-            "y": 27
+            "y": 20
           },
           "id": 104,
           "options": {
@@ -5638,7 +5656,7 @@
                 "axisPlacement": "auto",
                 "barAlignment": 0,
                 "drawStyle": "line",
-                "fillOpacity": 0,
+                "fillOpacity": 31,
                 "gradientMode": "none",
                 "hideFrom": {
                   "legend": false,
@@ -5646,7 +5664,7 @@
                   "viz": false
                 },
                 "lineInterpolation": "linear",
-                "lineWidth": 1,
+                "lineWidth": 8,
                 "pointSize": 5,
                 "scaleDistribution": {
                   "type": "linear"
@@ -5661,12 +5679,29 @@
                   "mode": "off"
                 }
               },
-              "mappings": [],
+              "mappings": [
+                {
+                  "options": {
+                    "0": {
+                      "index": 0,
+                      "text": "DOWN"
+                    },
+                    "1": {
+                      "index": 1,
+                      "text": "UP"
+                    }
+                  },
+                  "type": "value"
+                }
+              ],
+              "max": 1,
+              "min": 0,
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -5678,10 +5713,10 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 4,
-            "w": 11,
-            "x": 11,
-            "y": 27
+            "h": 8,
+            "w": 10,
+            "x": 6,
+            "y": 20
           },
           "id": 106,
           "options": {
@@ -5702,7 +5737,8 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_sag_admin_status",
+              "expr": "sonic_sag_admin_status{instance=\"$target\"}",
+              "legendFormat": "gw_ip={{gateway_ip}} intfc={{interface}} ip_fmly={{ip_family}} vni={{vni}}",
               "range": true,
               "refId": "A"
             }
@@ -5753,7 +5789,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -5766,9 +5803,9 @@
           },
           "gridPos": {
             "h": 4,
-            "w": 11,
+            "w": 6,
             "x": 0,
-            "y": 31
+            "y": 24
           },
           "id": 108,
           "options": {
@@ -5845,9 +5882,9 @@
           },
           "gridPos": {
             "h": 6,
-            "w": 9,
+            "w": 18,
             "x": 0,
-            "y": 20
+            "y": 29
           },
           "id": 124,
           "options": {
@@ -5901,20 +5938,18 @@
                   "peer_count": true
                 },
                 "indexByName": {
-                  "Field": 0,
-                  "Last": 8,
-                  "__name__": 1,
-                  "as": 3,
-                  "host": 13,
-                  "instance": 2,
-                  "ip_family": 9,
-                  "job": 10,
-                  "message_type": 11,
-                  "neighbor": 7,
-                  "peer_host": 6,
-                  "peer_name": 5,
-                  "remote_as": 4,
-                  "vrf": 12
+                  "Field": 1,
+                  "Last": 7,
+                  "__name__": 2,
+                  "as": 4,
+                  "instance": 3,
+                  "ip_family": 8,
+                  "job": 9,
+                  "message_type": 0,
+                  "peer_host": 10,
+                  "peer_name": 6,
+                  "remote_as": 5,
+                  "vrf": 11
                 },
                 "renameByName": {
                   "Last": "Peer Connected",
@@ -5995,8 +6030,122 @@
           "gridPos": {
             "h": 6,
             "w": 9,
+            "x": 0,
+            "y": 35
+          },
+          "id": 161,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "builder",
+              "expr": "sonic_bgp_uptime_seconds_total{instance=\"$target\", message_type=\"ipv4\"}",
+              "legendFormat": "Peer_AS={{remote_as}} Peer={{peer_name}} MsgType={{message_type}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "BGP IPV4 Peer Uptime",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "s"
+            },
+            "overrides": [
+              {
+                "__systemRef": "hideSeriesFrom",
+                "matcher": {
+                  "id": "byNames",
+                  "options": {
+                    "mode": "exclude",
+                    "names": [
+                      "Peer_AS=65102 Peer=1.1.1.3 MsgType=evpn"
+                    ],
+                    "prefix": "All except:",
+                    "readOnly": true
+                  }
+                },
+                "properties": [
+                  {
+                    "id": "custom.hideFrom",
+                    "value": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": true
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 9,
             "x": 9,
-            "y": 20
+            "y": 35
           },
           "id": 97,
           "options": {
@@ -6017,13 +6166,13 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_bgp_uptime_seconds_total{instance=\"$target\"}",
-              "legendFormat": "Peer_AS={{remote_as}} Peer_Name={{peer_name}}",
+              "expr": "sonic_bgp_uptime_seconds_total{instance=\"$target\", message_type=\"evpn\"}",
+              "legendFormat": "Peer_AS={{remote_as}} Peer={{peer_name}} MsgType={{message_type}}",
               "range": true,
               "refId": "A"
             }
           ],
-          "title": "BGP Peer Uptime",
+          "title": "BGP EVPN Peer Uptime",
           "type": "timeseries"
         },
         {
@@ -6084,7 +6233,7 @@
             "h": 6,
             "w": 9,
             "x": 0,
-            "y": 26
+            "y": 41
           },
           "id": 93,
           "options": {
@@ -6105,13 +6254,13 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_bgp_messages_transmitted_total{instance=\"$target\"}",
-              "legendFormat": "Peer_AS={{remote_as}} Peer_Name=",
+              "expr": "sonic_bgp_messages_transmitted_total{instance=\"$target\", message_type=\"ipv4\"}",
+              "legendFormat": "Peer_AS={{remote_as}} Peer={{peer_name}} MsgType={{message_type}}",
               "range": true,
               "refId": "A"
             }
           ],
-          "title": "Total BGP Messages Tx from Peers",
+          "title": "Total IPV4 BGP Messages Tx from Peers",
           "type": "timeseries"
         },
         {
@@ -6170,11 +6319,11 @@
           },
           "gridPos": {
             "h": 6,
-            "w": 10,
+            "w": 9,
             "x": 9,
-            "y": 26
+            "y": 41
           },
-          "id": 95,
+          "id": 157,
           "options": {
             "legend": {
               "calcs": [],
@@ -6193,13 +6342,13 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_bgp_messages_received_total{instance=\"$target\"}",
-              "legendFormat": "Peer_AS{{remote_as}} Peer_Name={{peer_name}}",
+              "expr": "sonic_bgp_messages_transmitted_total{instance=\"$target\", message_type=\"evpn\"}",
+              "legendFormat": "Peer_AS={{remote_as}} Peer={{peer_name}} MsgType={{message_type}}",
               "range": true,
               "refId": "A"
             }
           ],
-          "title": "Total BGP Messages Rx by Peers",
+          "title": "Total EVPN BGP Messages Tx from Peers",
           "type": "timeseries"
         },
         {
@@ -6260,9 +6409,9 @@
             "h": 6,
             "w": 9,
             "x": 0,
-            "y": 32
+            "y": 47
           },
-          "id": 101,
+          "id": 95,
           "options": {
             "legend": {
               "calcs": [],
@@ -6281,13 +6430,13 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_bgp_prefixes_transmitted_total{instance=\"$target\"}",
-              "legendFormat": "Peer_AS={{remote_as}} Peer_Name={{peer_name}}",
+              "expr": "sonic_bgp_messages_received_total{instance=\"$target\", message_type=\"ipv4\"}",
+              "legendFormat": "Peer_AS{{remote_as}} Peer={{peer_name}} MsgType={{message_type}}",
               "range": true,
               "refId": "A"
             }
           ],
-          "title": "BGP Prefixes Tx from Peers",
+          "title": "Total BGP IPV4 Messages Rx by Peers",
           "type": "timeseries"
         },
         {
@@ -6346,9 +6495,298 @@
           },
           "gridPos": {
             "h": 6,
-            "w": 10,
+            "w": 9,
             "x": 9,
-            "y": 32
+            "y": 47
+          },
+          "id": 159,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "builder",
+              "expr": "sonic_bgp_messages_received_total{instance=\"$target\", message_type=\"evpn\"}",
+              "legendFormat": "Peer_AS{{remote_as}} Peer={{peer_name}} MsgType={{message_type}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Total BGP EVPN Messages Rx by Peers",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 9,
+            "x": 0,
+            "y": 53
+          },
+          "id": 101,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "builder",
+              "expr": "sonic_bgp_prefixes_transmitted_total{instance=\"$target\", message_type=\"ipv4\"}",
+              "legendFormat": "Peer_AS={{remote_as}} Peer={{peer_name}} MsgType={{message_type}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "BGP IPV4 Prefixes Tx from Peers",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 9,
+            "x": 9,
+            "y": 53
+          },
+          "id": 158,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "builder",
+              "expr": "sonic_bgp_prefixes_transmitted_total{instance=\"$target\", message_type=\"evpn\"}",
+              "legendFormat": "Peer_AS={{remote_as}} Peer={{peer_name}} MsgType={{message_type}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "BGP EVPN Prefixes Tx from Peers",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "__systemRef": "hideSeriesFrom",
+                "matcher": {
+                  "id": "byNames",
+                  "options": {
+                    "mode": "exclude",
+                    "names": [
+                      "Peer_AS=65102 Peer=1.1.1.3 MsgType=ipv4"
+                    ],
+                    "prefix": "All except:",
+                    "readOnly": true
+                  }
+                },
+                "properties": [
+                  {
+                    "id": "custom.hideFrom",
+                    "value": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": true
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 9,
+            "x": 0,
+            "y": 59
           },
           "id": 102,
           "options": {
@@ -6370,15 +6808,106 @@
               },
               "editorMode": "builder",
               "exemplar": false,
-              "expr": "sonic_bgp_prefixes_received_total{instance=\"$target\"}",
+              "expr": "sonic_bgp_prefixes_received_total{instance=\"$target\", message_type=\"ipv4\"}",
               "format": "time_series",
               "instant": false,
-              "legendFormat": "Peer_AS={{remote_as}} Peer_Name={{peer_name}}",
+              "legendFormat": "Peer_AS={{remote_as}} Peer={{peer_name}} MsgType={{message_type}}",
               "range": true,
               "refId": "A"
             }
           ],
-          "title": "BGP Prefixes Rx by Peers",
+          "title": "BGP IPV4 Prefixes Rx by Peers",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 9,
+            "x": 9,
+            "y": 59
+          },
+          "id": 160,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "builder",
+              "exemplar": false,
+              "expr": "sonic_bgp_prefixes_received_total{instance=\"$target\", message_type=\"evpn\"}",
+              "format": "time_series",
+              "instant": false,
+              "legendFormat": "Peer_AS={{remote_as}} Peer={{peer_name}} MsgType={{message_type}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "BGP EVPN Prefixes Rx by Peers",
           "type": "timeseries"
         }
       ],
@@ -6410,15 +6939,15 @@
                 "axisPlacement": "auto",
                 "barAlignment": 0,
                 "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
+                "fillOpacity": 40,
+                "gradientMode": "hue",
                 "hideFrom": {
                   "legend": false,
                   "tooltip": false,
                   "viz": false
                 },
                 "lineInterpolation": "linear",
-                "lineWidth": 1,
+                "lineWidth": 8,
                 "pointSize": 5,
                 "scaleDistribution": {
                   "type": "linear"
@@ -6433,7 +6962,23 @@
                   "mode": "off"
                 }
               },
-              "mappings": [],
+              "mappings": [
+                {
+                  "options": {
+                    "0": {
+                      "index": 1,
+                      "text": "DOWN"
+                    },
+                    "1": {
+                      "index": 0,
+                      "text": "UP"
+                    }
+                  },
+                  "type": "value"
+                }
+              ],
+              "max": 1,
+              "min": 0,
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
@@ -6445,15 +6990,16 @@
                     "value": 80
                   }
                 ]
-              }
+              },
+              "unit": "none"
             },
             "overrides": []
           },
           "gridPos": {
-            "h": 4,
-            "w": 10,
+            "h": 6,
+            "w": 9,
             "x": 0,
-            "y": 29
+            "y": 22
           },
           "id": 120,
           "options": {
@@ -6474,7 +7020,8 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_evpn_status",
+              "expr": "sonic_evpn_status{instance=\"$target\"}",
+              "legendFormat": "intfc={{interface}} osi_layer={{osi_layer}}",
               "range": true,
               "refId": "A"
             }
@@ -6497,7 +7044,7 @@
                 "axisPlacement": "auto",
                 "barAlignment": 0,
                 "drawStyle": "line",
-                "fillOpacity": 0,
+                "fillOpacity": 28,
                 "gradientMode": "none",
                 "hideFrom": {
                   "legend": false,
@@ -6505,7 +7052,7 @@
                   "viz": false
                 },
                 "lineInterpolation": "linear",
-                "lineWidth": 1,
+                "lineWidth": 6,
                 "pointSize": 5,
                 "scaleDistribution": {
                   "type": "linear"
@@ -6520,7 +7067,23 @@
                   "mode": "off"
                 }
               },
-              "mappings": [],
+              "mappings": [
+                {
+                  "options": {
+                    "0": {
+                      "index": 0,
+                      "text": "DOWN"
+                    },
+                    "1": {
+                      "index": 1,
+                      "text": "UP"
+                    }
+                  },
+                  "type": "value"
+                }
+              ],
+              "max": 1,
+              "min": 0,
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
@@ -6537,10 +7100,10 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 4,
-            "w": 10,
-            "x": 10,
-            "y": 29
+            "h": 6,
+            "w": 9,
+            "x": 9,
+            "y": 22
           },
           "id": 114,
           "options": {
@@ -6561,7 +7124,8 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_vxlan_operational_status",
+              "expr": "sonic_vxlan_operational_status{instance=\"$target\"}",
+              "legendFormat": "neighbor={{neighbor}}",
               "range": true,
               "refId": "A"
             }
@@ -6624,10 +7188,10 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 4,
-            "w": 10,
+            "h": 5,
+            "w": 9,
             "x": 0,
-            "y": 33
+            "y": 28
           },
           "id": 118,
           "options": {
@@ -6648,7 +7212,8 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_evpn_remote_vteps",
+              "expr": "sonic_evpn_remote_vteps{instance=\"$target\"}",
+              "legendFormat": "intfc={{interface}} osi_layer={{osi_layer}} vni={{vni}} vrf={{vrf}}",
               "range": true,
               "refId": "A"
             }
@@ -6711,10 +7276,10 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 4,
-            "w": 10,
-            "x": 10,
-            "y": 33
+            "h": 5,
+            "w": 9,
+            "x": 9,
+            "y": 28
           },
           "id": 110,
           "options": {
@@ -6735,7 +7300,8 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_evpn_arps",
+              "expr": "sonic_evpn_arps{instance=\"$target\"}",
+              "legendFormat": "intfc={{interface}} osi_layer={{osi_layer}} vni={{vni}} vrf={{vrf}}",
               "range": true,
               "refId": "A"
             }
@@ -6798,10 +7364,10 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 4,
-            "w": 10,
+            "h": 5,
+            "w": 9,
             "x": 0,
-            "y": 37
+            "y": 33
           },
           "id": 116,
           "options": {
@@ -6822,7 +7388,8 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_evpn_l2_vnis",
+              "expr": "sonic_evpn_l2_vnis{instance=\"$target\"}",
+              "legendFormat": "intfc={{interface}} osi_layer={{osi_layer}} svi={{svi}} vni={{vni}} vrf={{vrf}}",
               "range": true,
               "refId": "A"
             }
@@ -6885,10 +7452,10 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 4,
-            "w": 10,
-            "x": 10,
-            "y": 37
+            "h": 5,
+            "w": 9,
+            "x": 9,
+            "y": 33
           },
           "id": 112,
           "options": {
@@ -6909,7 +7476,8 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_evpn_mac_addresses",
+              "expr": "sonic_evpn_mac_addresses{instance=\"$target\"}",
+              "legendFormat": "intfc={{interface}} osi_layer={{osi_layer}} vni={{vni}} vrf={{vrf}}",
               "range": true,
               "refId": "A"
             }
@@ -6983,6 +7551,6 @@
   "timezone": "",
   "title": "Sonic-Exporter Dashboard",
   "uid": "rXR50WmVk",
-  "version": 2,
+  "version": 17,
   "weekStart": ""
 }
