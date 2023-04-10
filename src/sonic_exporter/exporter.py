@@ -303,6 +303,7 @@ class SONiCCollector(object):
         # at start of server get counters data and negate it with current data while exporting
         # Interface counters
         interface_labels = ["interface"]
+        port_label = ["port"]
         bgp_labels = [
             "vrf",
             "as",
@@ -481,52 +482,34 @@ class SONiCCollector(object):
         self.metric_interface_receive_optic_power_dbm = GaugeMetricFamily(
             "sonic_interface_receive_optic_power_dbm",
             "Power value for all the interfaces",
-            labels=interface_labels + ["optic_unit"],
+            labels=port_label+interface_labels + ["optic_unit"],
         )
         self.metric_interface_transmit_optic_power_dbm = GaugeMetricFamily(
             "sonic_interface_transmit_optic_power_dbm",
             "Power value for all the interfaces",
-            labels=interface_labels + ["optic_unit"],
+            labels=port_label+interface_labels + ["optic_unit"],
         )
         self.metric_interface_transmit_optic_bias_amperes = GaugeMetricFamily(
             "sonic_interface_transmit_optic_bias_amperes",
             "Transmit Bias Current for all optics in the interface",
-            labels=interface_labels + ["optic_unit"],
+            labels=port_label+interface_labels + ["optic_unit"],
         )
         self.metric_interface_optic_celsius = GaugeMetricFamily(
             "sonic_interface_optic_celsius",
             "Temperature for all interfaces",
-            labels=interface_labels,
+            labels=port_label+interface_labels,
         )
         self.metric_interface_optic_volts = GaugeMetricFamily(
             "sonic_interface_optic_volts",
             "Voltage of all transceiver optics per interface",
-            labels=interface_labels,
+            labels=port_label+interface_labels,
         )
-        self.metric_interface_threshold_optic_volts = GaugeMetricFamily(
-            "sonic_interface_threshold_optic_volts",
-            f"Thresholds for the Voltage of the transceivers {', '.join(alarm_type.value for alarm_type in AlarmType)}",
-            labels=interface_labels + ["alarm_type"],
-        )
-        self.metric_interface_threshold_optic_celsius = GaugeMetricFamily(
-            "sonic_interface_threshold_optic_celsius",
-            f"Thresholds for the Temperatures of the transceivers {', '.join(alarm_type.value for alarm_type in AlarmType)}",
-            labels=interface_labels + ["alarm_type"],
-        )
-        self.metric_interface_threshold_receive_optic_power_dbm = GaugeMetricFamily(
-            "sonic_interface_threshold_receive_optic_power_dbm",
-            f"Thresholds for the power on receiving end of the transceivers {', '.join(alarm_type.value for alarm_type in AlarmType)}",
-            labels=interface_labels + ["alarm_type"],
-        )
-        self.metric_interface_threshold_transmit_optic_power_dbm = GaugeMetricFamily(
-            "sonic_interface_threshold_transmit_optic_power_dbm",
-            f"Thresholds for the power on transmit end of the transceivers {', '.join(alarm_type.value for alarm_type in AlarmType)}",
-            labels=interface_labels + ["alarm_type"],
-        )
-        self.metric_interface_threshold_transmit_optic_bias_amperes = GaugeMetricFamily(
-            "sonic_interface_threshold_transmit_optic_bias_amperes",
-            f"Thresholds for the power on transmit bias current end of the transceivers {', '.join(alarm_type.value for alarm_type in AlarmType)}",
-            labels=interface_labels + ["alarm_type"],
+        self.metric_transceiver_threshold_info = GaugeMetricFamily(
+            "sonic_transceiver_threshold_info",
+            "Thresholds info for the transceivers inserted",
+            labels=port_label+interface_labels +["vcchighalarm", "vcchighwarning", "vcclowalarm", "vcclowwarning", "temphighalarm", "temphighwarning", "templowalarm", "templowwarning", "txbiashighalarm",
+                                                  "txbiashighwarning", "txbiaslowalarm", "txbiaslowwarning", "txpowerhighalarm", "txpowerhighwarning", "txpowerlowalarm",
+                                                  "txpowerlowwarning", "rxpowerhighalarm", "rxpowerhighwarning", "rxpowerlowalarm", "rxpowerlowwarning", ],
         )
         # Transceiver Info
         self.metric_interface_transceiver_info = GaugeMetricFamily(
@@ -1072,209 +1055,97 @@ class SONiCCollector(object):
             self.sonic_db.STATE_DB, TRANSCEIVER_DOM_SENSOR_PATTERN
         )
         self.logger.debug("export_interface_optic_data :: keys={}".format(keys))
+        
         if not keys:
             return
         for key in keys:
             ifname = _decode(key).replace(TRANSCEIVER_DOM_SENSOR, "")
             transceiver_sensor_data = self.getAllFromDB(self.sonic_db.STATE_DB, key)
+
+            vcchighalarm = vcchighwarning = vcclowalarm = vcclowwarning = temphighalarm = temphighwarning = templowalarm = templowwarning = txbiashighalarm =\
+                txbiashighwarning = txbiaslowalarm = txbiaslowwarning = txpowerhighalarm = txpowerhighwarning = txpowerlowalarm =\
+                txpowerlowwarning = rxpowerhighalarm = rxpowerhighwarning = rxpowerlowalarm = rxpowerlowwarning = "none"
             for measure in transceiver_sensor_data:
                 measure_dec = _decode(measure)
                 try:
-                    value = transceiver_sensor_data[measure]
-                    if floatify(value):
-                        match measure_dec:
-                            case "voltage":
-                                self.metric_interface_optic_volts.add_metric(
-                                    [self.get_additional_info(ifname)], floatify(value)
-                                )
-                            case "vcchighalarm":
-                                self.metric_interface_threshold_optic_volts.add_metric(
-                                    [
-                                        self.get_additional_info(ifname),
-                                        AlarmType.HIGH_ALARM.value,
-                                    ],
+                    value = transceiver_sensor_data[measure_dec]
+                    match measure_dec:
+                        case "voltage":
+                            self.metric_interface_optic_volts.add_metric(
+                                [ifname,self.get_additional_info(ifname)], floatify(value)
+                            )
+                        case "vcchighalarm":
+                            vcchighalarm =str(value)
+                        case "vcchighwarning":
+                            vcchighwarning=str(value)
+                        case "vcclowalarm":
+                            vcclowalarm=str(value)
+                        case "vcclowwarning":
+                            vcclowwarning=str(value)
+                        case "temphighalarm":
+                            temphighalarm=str(value)
+                        case "temphighwarning": 
+                            temphighwarning=str(value)
+                        case "templowalarm":
+                            templowalarm=str(value)
+                        case "templowwarning":
+                            templowwarning=str(value)
+                        case "txbiashighalarm":
+                            txbiashighalarm=str(value)
+                        case "txbiashighwarning":
+                            txbiashighwarning=str(value)
+                        case "txbiaslowalarm":
+                            txbiaslowalarm=str(value)
+                        case "txbiaslowwarning":
+                            txbiaslowwarning=str(value)
+                        case "txpowerhighalarm":
+                            txpowerhighalarm=str(value)
+                        case "txpowerhighwarning":
+                            txpowerhighwarning=str(value)
+                        case "txpowerlowalarm":
+                            txpowerlowalarm=str(value)
+                        case "txpowerlowwarning":
+                            txpowerlowwarning=str(value)
+                        case "rxpowerhighalarm":
+                            rxpowerhighalarm=str(value)
+                        case "rxpowerhighwarning":
+                            rxpowerhighwarning=str(value)
+                        case "rxpowerlowalarm":
+                            rxpowerlowalarm=str(value)
+                        case "rxpowerlowwarning":
+                            rxpowerlowwarning=str(value)
+                        case "temperature":
+                            self.metric_interface_optic_celsius.add_metric(
+                                [ifname,self.get_additional_info(ifname)], floatify(value)
+                            )
+                        case _:
+                            if match := self.rx_power_regex.fullmatch(measure_dec):
+                                optic_unit = match.group(1)
+                                self.metric_interface_receive_optic_power_dbm.add_metric(
+                                    [ifname,self.get_additional_info(ifname), optic_unit],
                                     floatify(value),
                                 )
-                            case "vcchighwarning":
-                                self.metric_interface_threshold_optic_volts.add_metric(
-                                    [
-                                        self.get_additional_info(ifname),
-                                        AlarmType.HIGH_WARNING.value,
-                                    ],
+                            elif match := self.tx_power_regex.fullmatch(
+                                measure_dec
+                            ):
+                                optic_unit = match.group(1)
+                                self.metric_interface_transmit_optic_power_dbm.add_metric(
+                                    [ifname,self.get_additional_info(ifname), optic_unit],
                                     floatify(value),
                                 )
-                            case "vcclowalarm":
-                                self.metric_interface_threshold_optic_volts.add_metric(
-                                    [
-                                        self.get_additional_info(ifname),
-                                        AlarmType.LOW_ALARM.value,
-                                    ],
-                                    floatify(value),
-                                )
-                            case "vcclowwarning":
-                                self.metric_interface_threshold_optic_volts.add_metric(
-                                    [
-                                        self.get_additional_info(ifname),
-                                        AlarmType.LOW_WARNING.value,
-                                    ],
-                                    floatify(value),
-                                )
-                            case "temperature":
-                                self.metric_interface_optic_celsius.add_metric(
-                                    [self.get_additional_info(ifname)], floatify(value)
-                                )
-                            case "temphighalarm":
-                                self.metric_interface_threshold_optic_celsius.add_metric(
-                                    [
-                                        self.get_additional_info(ifname),
-                                        AlarmType.HIGH_ALARM.value,
-                                    ],
-                                    floatify(value),
-                                )
-                            case "temphighwarning":
-                                self.metric_interface_threshold_optic_celsius.add_metric(
-                                    [
-                                        self.get_additional_info(ifname),
-                                        AlarmType.HIGH_WARNING.value,
-                                    ],
-                                    floatify(value),
-                                )
-                            case "templowalarm":
-                                self.metric_interface_threshold_optic_celsius.add_metric(
-                                    [
-                                        self.get_additional_info(ifname),
-                                        AlarmType.LOW_ALARM.value,
-                                    ],
-                                    floatify(value),
-                                )
-                            case "templowwarning":
-                                self.metric_interface_threshold_optic_celsius.add_metric(
-                                    [
-                                        self.get_additional_info(ifname),
-                                        AlarmType.LOW_WARNING.value,
-                                    ],
-                                    floatify(value),
-                                )
-                            case "txbiashighalarm":
-                                self.metric_interface_threshold_transmit_optic_bias_amperes.add_metric(
-                                    [
-                                        self.get_additional_info(ifname),
-                                        AlarmType.HIGH_ALARM.value,
-                                    ],
+                            elif match := self.tx_bias_regex.fullmatch(measure_dec):
+                                optic_unit = match.group(1)
+                                # This resolves mA to Amperes
+                                self.metric_interface_transmit_optic_bias_amperes.add_metric(
+                                    [ifname,self.get_additional_info(ifname), optic_unit],
                                     floatify(value) / 1000,
                                 )
-                            case "txbiashighwarning":
-                                self.metric_interface_threshold_transmit_optic_bias_amperes.add_metric(
-                                    [
-                                        self.get_additional_info(ifname),
-                                        AlarmType.HIGH_WARNING.value,
-                                    ],
-                                    floatify(value) / 1000,
-                                )
-                            case "txbiaslowalarm":
-                                self.metric_interface_threshold_transmit_optic_bias_amperes.add_metric(
-                                    [
-                                        self.get_additional_info(ifname),
-                                        AlarmType.LOW_ALARM.value,
-                                    ],
-                                    floatify(value) / 1000,
-                                )
-                            case "txbiaslowwarning":
-                                self.metric_interface_threshold_transmit_optic_bias_amperes.add_metric(
-                                    [
-                                        self.get_additional_info(ifname),
-                                        AlarmType.LOW_WARNING.value,
-                                    ],
-                                    floatify(value) / 1000,
-                                )
-                            case "txpowerhighalarm":
-                                self.metric_interface_threshold_transmit_optic_power_dbm.add_metric(
-                                    [
-                                        self.get_additional_info(ifname),
-                                        AlarmType.HIGH_ALARM.value,
-                                    ],
-                                    floatify(value),
-                                )
-                            case "txpowerhighwarning":
-                                self.metric_interface_threshold_transmit_optic_power_dbm.add_metric(
-                                    [
-                                        self.get_additional_info(ifname),
-                                        AlarmType.HIGH_WARNING.value,
-                                    ],
-                                    floatify(value),
-                                )
-                            case "txpowerlowalarm":
-                                self.metric_interface_threshold_transmit_optic_power_dbm.add_metric(
-                                    [
-                                        self.get_additional_info(ifname),
-                                        AlarmType.LOW_ALARM.value,
-                                    ],
-                                    floatify(value),
-                                )
-                            case "txpowerlowwarning":
-                                self.metric_interface_threshold_transmit_optic_power_dbm.add_metric(
-                                    [
-                                        self.get_additional_info(ifname),
-                                        AlarmType.LOW_WARNING.value,
-                                    ],
-                                    floatify(value),
-                                )
-                            case "rxpowerhighalarm":
-                                self.metric_interface_threshold_receive_optic_power_dbm.add_metric(
-                                    [
-                                        self.get_additional_info(ifname),
-                                        AlarmType.HIGH_ALARM.value,
-                                    ],
-                                    floatify(value),
-                                )
-                            case "rxpowerhighwarning":
-                                self.metric_interface_threshold_receive_optic_power_dbm.add_metric(
-                                    [
-                                        self.get_additional_info(ifname),
-                                        AlarmType.HIGH_WARNING.value,
-                                    ],
-                                    floatify(value),
-                                )
-                            case "rxpowerlowalarm":
-                                self.metric_interface_threshold_receive_optic_power_dbm.add_metric(
-                                    [
-                                        self.get_additional_info(ifname),
-                                        AlarmType.LOW_ALARM.value,
-                                    ],
-                                    floatify(value),
-                                )
-                            case "rxpowerlowwarning":
-                                self.metric_interface_threshold_receive_optic_power_dbm.add_metric(
-                                    [
-                                        self.get_additional_info(ifname),
-                                        AlarmType.LOW_WARNING.value,
-                                    ],
-                                    floatify(value),
-                                )
-                            case _:
-                                if match := self.rx_power_regex.fullmatch(measure_dec):
-                                    optic_unit = match.group(1)
-                                    self.metric_interface_receive_optic_power_dbm.add_metric(
-                                        [self.get_additional_info(ifname), optic_unit],
-                                        floatify(value),
-                                    )
-                                elif match := self.tx_power_regex.fullmatch(
-                                    measure_dec
-                                ):
-                                    optic_unit = match.group(1)
-                                    self.metric_interface_transmit_optic_power_dbm.add_metric(
-                                        [self.get_additional_info(ifname), optic_unit],
-                                        floatify(value),
-                                    )
-                                elif match := self.tx_bias_regex.fullmatch(measure_dec):
-                                    optic_unit = match.group(1)
-                                    # This resolves mA to Amperes
-                                    self.metric_interface_transmit_optic_bias_amperes.add_metric(
-                                        [self.get_additional_info(ifname), optic_unit],
-                                        floatify(value) / 1000,
-                                    )
-                except ValueError:
+                except ValueError as e:
                     pass
+            
+            self.metric_transceiver_threshold_info.add_metric([ifname, self.get_additional_info(ifname), vcchighalarm, vcchighwarning, vcclowalarm, vcclowwarning, temphighalarm, temphighwarning, templowalarm, templowwarning, txbiashighalarm,
+                                                               txbiashighwarning, txbiaslowalarm, txbiaslowwarning, txpowerhighalarm, txpowerhighwarning, txpowerlowalarm,
+                                                               txpowerlowwarning, rxpowerhighalarm, rxpowerhighwarning, rxpowerlowalarm, rxpowerlowwarning, ], 1)
 
     def export_interface_cable_data(self):
         keys = self.getKeysFromDB(self.sonic_db.STATE_DB, TRANSCEIVER_INFO_PATTERN)
@@ -1940,11 +1811,7 @@ class SONiCCollector(object):
             yield self.metric_interface_transmit_optic_bias_amperes
             yield self.metric_interface_optic_celsius
             yield self.metric_interface_optic_volts
-            yield self.metric_interface_threshold_optic_volts
-            yield self.metric_interface_threshold_optic_celsius
-            yield self.metric_interface_threshold_receive_optic_power_dbm
-            yield self.metric_interface_threshold_transmit_optic_power_dbm
-            yield self.metric_interface_threshold_transmit_optic_bias_amperes
+            yield self.metric_transceiver_threshold_info
             yield self.metric_interface_transceiver_info
             yield self.metric_interface_cable_length_meters
             yield self.metric_device_psu_input_volts

@@ -1598,8 +1598,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1692,8 +1691,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1782,8 +1780,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1897,8 +1894,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1987,8 +1983,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2078,7 +2073,7 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 6,
+            "h": 9,
             "w": 12,
             "x": 0,
             "y": 17
@@ -2220,7 +2215,7 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 6,
+            "h": 9,
             "w": 12,
             "x": 12,
             "y": 17
@@ -2310,35 +2305,12 @@
           "fieldConfig": {
             "defaults": {
               "color": {
-                "mode": "palette-classic"
+                "mode": "thresholds"
               },
               "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
               },
               "mappings": [],
               "thresholds": {
@@ -2354,28 +2326,28 @@
                   }
                 ]
               },
-              "unit": "volt"
+              "unit": "celsius"
             },
             "overrides": []
           },
           "gridPos": {
-            "h": 6,
-            "w": 12,
+            "h": 7,
+            "w": 24,
             "x": 0,
-            "y": 23
+            "y": 26
           },
-          "id": 54,
+          "id": 52,
           "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom"
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
             },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "none"
-            }
+            "showHeader": true
           },
+          "pluginVersion": "9.0.6",
           "targets": [
             {
               "datasource": {
@@ -2383,21 +2355,68 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_interface_threshold_optic_volts{instance=\"$target\"}",
+              "expr": "sonic_transceiver_threshold_info{instance=\"$target\"}",
               "range": true,
               "refId": "A"
             }
           ],
-          "title": "DOM Optic Voltage Threshold",
+          "title": "DOM Optic Threshold Info.",
           "transformations": [
             {
-              "id": "labelsToFields",
+              "id": "reduce",
               "options": {
-                "valueLabel": "interface"
+                "labelsToFields": true,
+                "reducers": [
+                  "last"
+                ]
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Field": true,
+                  "Last": true,
+                  "__name__": true,
+                  "instance": true,
+                  "job": true
+                },
+                "indexByName": {
+                  "Field": 0,
+                  "Last": 26,
+                  "__name__": 1,
+                  "instance": 2,
+                  "interface": 3,
+                  "job": 5,
+                  "port": 4,
+                  "rxpowerhighalarm": 6,
+                  "rxpowerhighwarning": 7,
+                  "rxpowerlowalarm": 8,
+                  "rxpowerlowwarning": 9,
+                  "temphighalarm": 10,
+                  "temphighwarning": 11,
+                  "templowalarm": 12,
+                  "templowwarning": 13,
+                  "txbiashighalarm": 14,
+                  "txbiashighwarning": 15,
+                  "txbiaslowalarm": 16,
+                  "txbiaslowwarning": 17,
+                  "txpowerhighalarm": 18,
+                  "txpowerhighwarning": 19,
+                  "txpowerlowalarm": 20,
+                  "txpowerlowwarning": 21,
+                  "vcchighalarm": 22,
+                  "vcchighwarning": 23,
+                  "vcclowalarm": 24,
+                  "vcclowwarning": 25
+                },
+                "renameByName": {
+                  "Field": ""
+                }
               }
             }
           ],
-          "type": "timeseries"
+          "type": "table"
         },
         {
           "datasource": {
@@ -2456,10 +2475,10 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 6,
+            "h": 8,
             "w": 12,
-            "x": 12,
-            "y": 23
+            "x": 0,
+            "y": 33
           },
           "id": 55,
           "options": {
@@ -2480,20 +2499,16 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
+              "exemplar": false,
               "expr": "sonic_interface_optic_volts{instance=\"$target\"}",
+              "instant": false,
+              "legendFormat": "{{port}} {{interface}}",
               "range": true,
               "refId": "A"
             }
           ],
           "title": "DOM Optic Voltage",
-          "transformations": [
-            {
-              "id": "labelsToFields",
-              "options": {
-                "valueLabel": "interface"
-              }
-            }
-          ],
+          "transformations": [],
           "type": "timeseries"
         },
         {
@@ -2555,105 +2570,8 @@
           "gridPos": {
             "h": 8,
             "w": 12,
-            "x": 0,
-            "y": 29
-          },
-          "id": 52,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "none"
-            }
-          },
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
-              },
-              "editorMode": "builder",
-              "expr": "sonic_interface_threshold_optic_celsius{instance=\"$target\"}",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "DOM Optic Threshold Tempt.",
-          "transformations": [
-            {
-              "id": "labelsToFields",
-              "options": {
-                "valueLabel": "interface"
-              }
-            }
-          ],
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "volt"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
             "x": 12,
-            "y": 29
+            "y": 33
           },
           "id": 56,
           "options": {
@@ -2675,19 +2593,13 @@
               },
               "editorMode": "builder",
               "expr": "sonic_interface_optic_celsius{instance=\"$target\"}",
+              "legendFormat": "{{port}} {{interface}}",
               "range": true,
               "refId": "A"
             }
           ],
           "title": "DOM Optic Tempt.",
-          "transformations": [
-            {
-              "id": "labelsToFields",
-              "options": {
-                "valueLabel": "interface"
-              }
-            }
-          ],
+          "transformations": [],
           "type": "timeseries"
         },
         {
@@ -2750,104 +2662,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 37
-          },
-          "id": 30,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "none"
-            }
-          },
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
-              },
-              "editorMode": "builder",
-              "expr": "sonic_interface_threshold_transmit_optic_bias_amperes{instance=\"$target\"}",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "DOM Bias Ampere Threshold",
-          "transformations": [
-            {
-              "id": "labelsToFields",
-              "options": {
-                "valueLabel": "interface"
-              }
-            }
-          ],
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "mamp"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 37
+            "y": 41
           },
           "id": 53,
           "options": {
@@ -2869,117 +2684,13 @@
               },
               "editorMode": "builder",
               "expr": "sonic_interface_transmit_optic_bias_amperes{instance=\"$target\"}",
+              "legendFormat": "{{port}} {{interface}}",
               "range": true,
               "refId": "A"
             }
           ],
           "title": "DOM Bias Ampere",
-          "transformations": [
-            {
-              "id": "labelsToFields",
-              "options": {
-                "valueLabel": "interface"
-              }
-            }
-          ],
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "dBm"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 45
-          },
-          "id": 51,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "9.0.4",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
-              },
-              "editorMode": "builder",
-              "expr": "sonic_interface_threshold_receive_optic_power_dbm{instance=\"$target\"}",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "DOM Rx Power Threshold",
-          "transformations": [
-            {
-              "id": "labelsToFields",
-              "options": {
-                "valueLabel": "interface"
-              }
-            }
-          ],
+          "transformations": [],
           "type": "timeseries"
         },
         {
@@ -3042,7 +2753,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 45
+            "y": 41
           },
           "id": 59,
           "options": {
@@ -3064,19 +2775,13 @@
               },
               "editorMode": "builder",
               "expr": "sonic_interface_receive_optic_power_dbm{instance=\"$target\"}",
+              "legendFormat": "{{port}} {{interface}}",
               "range": true,
               "refId": "A"
             }
           ],
           "title": "DOM Optic Rx Power",
-          "transformations": [
-            {
-              "id": "labelsToFields",
-              "options": {
-                "valueLabel": "interface"
-              }
-            }
-          ],
+          "transformations": [],
           "type": "timeseries"
         },
         {
@@ -3136,107 +2841,10 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 6,
+            "h": 7,
             "w": 12,
             "x": 0,
-            "y": 53
-          },
-          "id": 28,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "none"
-            }
-          },
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
-              },
-              "editorMode": "builder",
-              "expr": "sonic_interface_threshold_transmit_optic_power_dbm{instance=\"$target\"}",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "DOM Tx Power Threshold",
-          "transformations": [
-            {
-              "id": "labelsToFields",
-              "options": {
-                "valueLabel": "interface"
-              }
-            }
-          ],
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "dBm"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 6,
-            "w": 12,
-            "x": 12,
-            "y": 53
+            "y": 49
           },
           "id": 60,
           "options": {
@@ -3258,6 +2866,7 @@
               },
               "editorMode": "builder",
               "expr": "sonic_interface_transmit_optic_power_dbm{instance=\"$target\"}",
+              "legendFormat": "{{port}} {{interface}}",
               "range": true,
               "refId": "A"
             }
@@ -5552,8 +5161,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -5700,8 +5308,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -5789,8 +5396,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -7551,6 +7157,6 @@
   "timezone": "",
   "title": "Sonic-Exporter Dashboard",
   "uid": "rXR50WmVk",
-  "version": 17,
+  "version": 22,
   "weekStart": ""
 }
