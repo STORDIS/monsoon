@@ -2326,7 +2326,7 @@
                   }
                 ]
               },
-              "unit": "celsius"
+              "unit": "none"
             },
             "overrides": []
           },
@@ -2360,7 +2360,7 @@
               "refId": "A"
             }
           ],
-          "title": "DOM Optic Threshold Info.",
+          "title": "DOM Optic Threshold Info. (power=dBm, vcc=volts, tempt.= °C, bias= mA)",
           "transformations": [
             {
               "id": "reduce",
@@ -2411,7 +2411,10 @@
                   "vcclowwarning": 25
                 },
                 "renameByName": {
-                  "Field": ""
+                  "Field": "",
+                  "rxpowerhighalarm": "",
+                  "rxpowerhighwarning": "",
+                  "rxpowerlowalarm": ""
                 }
               }
             }
@@ -2838,7 +2841,32 @@
               },
               "unit": "dBm"
             },
-            "overrides": []
+            "overrides": [
+              {
+                "__systemRef": "hideSeriesFrom",
+                "matcher": {
+                  "id": "byNames",
+                  "options": {
+                    "mode": "exclude",
+                    "names": [
+                      "Eth1/24"
+                    ],
+                    "prefix": "All except:",
+                    "readOnly": true
+                  }
+                },
+                "properties": [
+                  {
+                    "id": "custom.hideFrom",
+                    "value": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": true
+                    }
+                  }
+                ]
+              }
+            ]
           },
           "gridPos": {
             "h": 7,
@@ -2939,7 +2967,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2954,7 +2983,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 17
+            "y": 18
           },
           "id": 86,
           "options": {
@@ -3014,7 +3043,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -3029,7 +3059,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 17
+            "y": 18
           },
           "id": 84,
           "options": {
@@ -3165,7 +3195,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -3180,7 +3211,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 25
+            "y": 26
           },
           "id": 82,
           "options": {
@@ -3260,7 +3291,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -3275,7 +3307,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 25
+            "y": 26
           },
           "id": 80,
           "options": {
@@ -3332,7 +3364,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -3347,7 +3380,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 33
+            "y": 34
           },
           "id": 78,
           "options": {
@@ -3476,7 +3509,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -3491,7 +3525,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 33
+            "y": 34
           },
           "id": 91,
           "options": {
@@ -3586,7 +3620,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 41
+            "y": 42
           },
           "id": 76,
           "options": {
@@ -3681,7 +3715,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 41
+            "y": 42
           },
           "id": 87,
           "options": {
@@ -3776,7 +3810,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 49
+            "y": 50
           },
           "id": 74,
           "options": {
@@ -3871,7 +3905,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 49
+            "y": 50
           },
           "id": 88,
           "options": {
@@ -3966,7 +4000,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 57
+            "y": 58
           },
           "id": 72,
           "options": {
@@ -4061,7 +4095,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 57
+            "y": 58
           },
           "id": 70,
           "options": {
@@ -4134,7 +4168,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 65
+            "y": 66
           },
           "id": 68,
           "options": {
@@ -4287,7 +4321,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 65
+            "y": 66
           },
           "id": 66,
           "options": {
@@ -6589,7 +6623,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -6694,7 +6729,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -6782,7 +6818,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -6870,7 +6907,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -6958,7 +6996,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -7046,7 +7085,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -7157,6 +7197,6 @@
   "timezone": "",
   "title": "Sonic-Exporter Dashboard",
   "uid": "rXR50WmVk",
-  "version": 22,
+  "version": 25,
   "weekStart": ""
 }
