@@ -5,6 +5,7 @@ Try [Live Demo](http://monsoon.stordis.com:8080).
 Monsoon uses Prometheus and Grafana for data collection and visualization. Apart from using 'node_exporter' (standard data collector for prometheus client) Monsoon uses sonic-exporter to fetch data from SONiC DB to Prometheus and Grafana.
 
 - [Monsoon - A data visualization and monitoring solution for SONiC](#monsoon---a-data-visualization-and-monitoring-solution-for-sonic)
+  - [How to contribute](#how-to-contribute)
   - [Monsoon Design](#monsoon-design)
   - [Getting started with monsoon](#getting-started-with-monsoon)
     - [Install sonic-exporter](#install-sonic-exporter)
@@ -32,7 +33,13 @@ Monsoon uses Prometheus and Grafana for data collection and visualization. Apart
     - [Get Mock Data](#get-mock-data)
     - [Building](#building)
     - [Loading the image on a switch](#loading-the-image-on-a-switch)
-  
+
+## How to contribute
+Contributions can be made to Monsoon Project by :
+- **Reporting issues or Requesting new features** - You can directly raise the issue in repository.
+- **Updating documentation** - Currently all the documentation is in this README.md and GrafanaDashBoard.md, You can create pull requests with more READMEs or updating this one.
+- **Code contributions** -  Create pull requests for bug fixes, features or any other improvements.
+
 ## Monsoon Design 
 A high level monsoon design is as follows, various components are explained in further sections.
 ![Monsoon Design](images/monsoon_design.png)
@@ -345,4 +352,3 @@ c7e4a0cae15f: Loading layer  36.35kB/36.35kB
 2d345aa4239f: Loading layer   10.3MB/10.3MB
 Loaded image: localhost/sonic-exporter:${VERSION}
 ```
-
