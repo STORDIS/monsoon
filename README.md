@@ -47,60 +47,55 @@ A high level monsoon design is as follows, various components are explained in f
 ## Getting started with monsoon
   There are 4 major components of monsoon project- sonic-exporter, node-exporter, Prometheus, Grafana.
 ### Install sonic-exporter
-    sonic-exporter component is developed as one of the parts of monsoon project which utilizes sonic-py-swsssdk APIs, To install sonic-exporter execute following commands:
+sonic-exporter component is developed as one of the parts of monsoon project which utilizes sonic-py-swsssdk APIs, To install sonic-exporter execute following commands:
 #### Get the sonic-exporter docker image (only when SONiC switch is not connected to internet else go to next step and start sonic-exporter)
     
-    If your switch is not connected to internet, then on any of your host connected to internet do following :
-    ```
+If your switch is not connected to internet, then on any of your host connected to internet do following :
+
     docker pull stordis/sonic-exporter
     docker save stordis/sonic-exporter | gzip > sonic-exporter.tar.gz
     scp sonic-exporter.tar.gz admin@<switch_ip>:
     ssh admin@<switch_ip> "docker load -i sonic-exporter.tar.gz"
-    ```
   #### Start sonic-exporter container
-    Execute following command on SONiC host to start sonic-exporter container :
-    ```
+  Execute following command on SONiC host to start sonic-exporter container :
+
     docker run -e SONIC_EXPORTER_ADDRESS="0.0.0.0" --name sonic-exporter --network=host --pid=host --privileged --restart=always -d -v /var/run/redis:/var/run/redis -v /usr/bin/vtysh:/usr/bin/vtysh -v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/ntpq:/usr/bin/ntpq -v /usr/lib/x86_64-linux-gnu/:/usr/lib/x86_64-linux-gnu/ --log-opt mode=non-blocking --log-opt max-buffer-size=4m --log-driver json-file --log-opt max-size=10m --log-opt max-file=3 --log-opt compress=true stordis/sonic-exporter:main
-    ```
 
   #### Verify sonic-exporter installation:
-      Metrices from sonic-exporter should be available in raw text format ``` curl "http://sonic_switch_ip:9101/metrics" ```
+  Metrices from sonic-exporter should be available in raw text format :
+  
+    curl "http://sonic_switch_ip:9101/metrics" 
 
   ### Install node-exporter
   node-exporter is standard module of prometheus, node exporter can be started as follows: 
   #### Get the node-exporter docker image (only when SONiC switch is not connected to internet else go to next step and start node-exporter)
-    If your switch is connected to internet :
-    ```
+  If your switch is connected to internet :
+
     docker pull prom/node-exporter:v1.3.1
-    ```
-    If your switch is not connected to internet, then on any of your host connected to internet do following :
-    ```
+
+  If your switch is not connected to internet, then on any of your host connected to internet do following :
+
     docker pull prom/node-exporter:v1.3.1
     docker save prom/node-exporter:v1.3.1 | gzip > node-exporter_v1.3.1.tar.gz
     scp node-exporter_v1.3.1.tar.gz admin@<switch_ip>:
     ssh admin@<switch_ip> "docker load -i node-exporter_v1.3.1.tar.gz"
-    ```
   #### Start node-exporter container on SONiC switch
-    ```
     docker run --name node-exporter --network=host --pid=host --privileged --restart=always -d --log-opt mode=non-blocking --log-opt max-buffer-size=4m --log-driver json-file --log-opt max-size=10m --log-opt max-file=3 --log-opt compress=true -v /proc:/host/proc:ro -v /sys:/host/sys:ro -v /:/rootfs:ro prom/node-exporter:v1.3.1 --path.rootfs=/host --no-collector.fibrechannel --no-collector.infiniband --no-collector.ipvs --no-collector.mdadm --no-collector.nfs --no-collector.nfsd --no-collector.nvme --no-collector.os --no-collector.pressure --no-collector.tapestats --no-collector.zfs --no-collector.netstat --no-collector.arp
-    ```
   #### Verify node-exporter installation 
-    Metrices from node-exporter should be available in raw text format with following:
-    ``` 
+  Metrices from node-exporter should be available in raw text format with following:
+    
     curl "http://<sonic_switch_ip>:9100/metrics" 
-    ```
 
   ### Install Prometheus 
   Prometheus acts as a data collector tool for monsoon and supplies data for visualization in Grafana (in the next step).
   It is reommended to install Prometheus on separate host i.e. Ubuntu_20.04 etc.
   Config file ~/monsoon/config/prometheus.yml can be used for prometheus installation, also replace the exporter IPs at the bottom in this file with your SONiC switch. Then execute following :
-  ```
-  docker run -d -p 9090:9090 -v ~/monsoon/config/prometheus.yml:/etc/prometheus/prometheus.yml --log-opt mode=non-blocking --log-opt max-buffer-size=4m --log-driver json-file --log-opt max-size=10m --log-opt max-file=3 --log-opt compress=true prom/prometheus:v2.37.0
-  ```
+    
+    docker run -d -p 9090:9090 -v ~/monsoon/config/prometheus.yml:/etc/prometheus/prometheus.yml --log-opt mode=non-blocking --log-opt max-buffer-size=4m --log-driver json-file --log-opt max-size=10m --log-opt max-file=3 --log-opt compress=true prom/prometheus:v2.37.0
   Further details of Prometheus installation are [here](https://prometheus.io/docs/prometheus/latest/installation/).
 
   #### Verify Prometheus Targets Status :
-    Open Prometheus web console at http://prometheus_ip:9090 and check for target status under 'status' tab.  ![Target Status](images/prom_target_sts.png)
+  Open Prometheus web console at http://prometheus_ip:9090 and check for target status under 'status' tab.  ![Target Status](images/prom_target_sts.png)
 
 
   ### Install Grafana
@@ -111,9 +106,9 @@ A high level monsoon design is as follows, various components are explained in f
   ```
   Further details to run Grafana container are [here](https://grafana.com/docs/grafana/latest/setup-grafana/installation/docker/).
   #### Verify Grafana Installation
-    Grafana web console can be accessed at http://grafan_host_ip:3000 and login with default credentials admin/admin. 
+  Grafana web console can be accessed at http://grafan_host_ip:3000 and login with default credentials admin/admin. 
   #### Add data source to Grafana
-    Login to Grafana portal http://grafana_host_ip:3030 , Then :
+  Login to Grafana portal http://grafana_host_ip:3030 , Then :
     ![Add Datasource](images/AddDS.jpg)
     ![Select Prometheus Datasource](images/PromDS.jpg)
     ![Provide Prometheus IP](images/PromDS_IP.png)
@@ -130,21 +125,31 @@ Following versions of SONiC are supported:
 >**NOTE**-As our [Dockerfile](Dockerfile) is multistage, The first part of docker build command below creates an intermediate image with specific tag and makes it easy to understand also single intermediate image is created every time otherwise user may find multiple intermediate images with the tag `<none>` and mixing this with dangling images.\
 Alternative could be to execute `docker image prune -f` after the sonic-exporter docker image is built but be carefull, doing this will remove every unsed docker images on your machine.
 
-To build sonic-exporter docker image execute following : \
-`git clone --recurse-submodules git@github.com:STORDIS/monsoon.git`\
-`docker build --target builder -t intermediate:latest . && docker build -t sonic-exporter:latest .`
-- Get a docker image archieve :\
-`docker save -o sonic-exporter_latest.tar.gz sonic-exporter:latest`\
-To install image on switch, copy sonic-exporter_latest.tar.gz to switch and on switch execute :\
-`docker load -i sonic-exporter_latest.tar.gz`\
-And run the container with the command given in the [section](#start-sonic-exporter-container) above. Please mind changing the version of image in the command.
+To build sonic-exporter docker image execute following :
+- Clone the code :
+  
+      git clone --recurse-submodules git@github.com:STORDIS/monsoon.git
+      docker build --target builder -t intermediate:latest . && docker build -t sonic-exporter:latest .
+- Create a docker image archieve :
+      
+      docker save -o sonic-exporter_latest.tar.gz sonic-exporter:latest
+- To install image on switch, copy sonic-exporter_latest.tar.gz to switch and on switch execute :
+    
+      docker load -i sonic-exporter_latest.tar.gz
+- And run the container with the command given in the [section](#start-sonic-exporter-container) above. Please mind changing the version of image in the command.
 - (Optional) Push docker image to docker hub :\
-`docker tag <sonic_exporter_img_id> <repository_name at hub.docker.com>/sonic-exporter:latest`\
-`docker push <repository_name at hub.docker.com>/sonic-exporter:latest`
+    
+      docker tag <sonic_exporter_img_id> <repository_name at hub.docker.com>/sonic-exporter:latest
+      docker push <repository_name at hub.docker.com>/sonic-exporter:latest
 
 ## sonic-exporter logging
 sonic-exporter logs are controlled via the logging config file [logging.yaml](src/sonic_exporter/config/logging.yml).\
-In order to change the logging configuration just get into the running sonic-exporter container with the command `docker exec -it sonic-exporter bash` and update the file `/usr/local/lib/python3.10/site-packages/sonic_exporter/config/logging.yml` as needed.\
+In order to change the logging configuration just get into the running sonic-exporter container with the command:
+  
+    docker exec -it sonic-exporter bash
+  
+  
+and update the file `/usr/local/lib/python3.10/site-packages/sonic_exporter/config/logging.yml` as needed.\
 If you are building docker image your self then the logging.yml can be updated before building the image.\
 As sonic-exporter runs in a docker container, the default logging configuration done for docker deamon applies for sonic-exporter, as explained here https://docs.docker.com/config/containers/logging/configure/ .
 
