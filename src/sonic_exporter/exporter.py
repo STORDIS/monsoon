@@ -482,34 +482,55 @@ class SONiCCollector(object):
         self.metric_interface_receive_optic_power_dbm = GaugeMetricFamily(
             "sonic_interface_receive_optic_power_dbm",
             "Power value for all the interfaces",
-            labels=port_label+interface_labels + ["optic_unit"],
+            labels=port_label + interface_labels + ["optic_unit"],
         )
         self.metric_interface_transmit_optic_power_dbm = GaugeMetricFamily(
             "sonic_interface_transmit_optic_power_dbm",
             "Power value for all the interfaces",
-            labels=port_label+interface_labels + ["optic_unit"],
+            labels=port_label + interface_labels + ["optic_unit"],
         )
         self.metric_interface_transmit_optic_bias_amperes = GaugeMetricFamily(
             "sonic_interface_transmit_optic_bias_amperes",
             "Transmit Bias Current for all optics in the interface",
-            labels=port_label+interface_labels + ["optic_unit"],
+            labels=port_label + interface_labels + ["optic_unit"],
         )
         self.metric_interface_optic_celsius = GaugeMetricFamily(
             "sonic_interface_optic_celsius",
             "Temperature for all interfaces",
-            labels=port_label+interface_labels,
+            labels=port_label + interface_labels,
         )
         self.metric_interface_optic_volts = GaugeMetricFamily(
             "sonic_interface_optic_volts",
             "Voltage of all transceiver optics per interface",
-            labels=port_label+interface_labels,
+            labels=port_label + interface_labels,
         )
         self.metric_transceiver_threshold_info = GaugeMetricFamily(
             "sonic_transceiver_threshold_info",
             "Thresholds info for the transceivers inserted",
-            labels=port_label+interface_labels +["vcchighalarm", "vcchighwarning", "vcclowalarm", "vcclowwarning", "temphighalarm", "temphighwarning", "templowalarm", "templowwarning", "txbiashighalarm",
-                                                  "txbiashighwarning", "txbiaslowalarm", "txbiaslowwarning", "txpowerhighalarm", "txpowerhighwarning", "txpowerlowalarm",
-                                                  "txpowerlowwarning", "rxpowerhighalarm", "rxpowerhighwarning", "rxpowerlowalarm", "rxpowerlowwarning", ],
+            labels=port_label
+            + interface_labels
+            + [
+                "vcchighalarm",
+                "vcchighwarning",
+                "vcclowalarm",
+                "vcclowwarning",
+                "temphighalarm",
+                "temphighwarning",
+                "templowalarm",
+                "templowwarning",
+                "txbiashighalarm",
+                "txbiashighwarning",
+                "txbiaslowalarm",
+                "txbiaslowwarning",
+                "txpowerhighalarm",
+                "txpowerhighwarning",
+                "txpowerlowalarm",
+                "txpowerlowwarning",
+                "rxpowerhighalarm",
+                "rxpowerhighwarning",
+                "rxpowerlowalarm",
+                "rxpowerlowwarning",
+            ],
         )
         # Transceiver Info
         self.metric_interface_transceiver_info = GaugeMetricFamily(
@@ -704,6 +725,282 @@ class SONiCCollector(object):
             "sonic_evpn_arps",
             "The number of ARPs cached for the VNI",
             labels=evpn_vni_labels,
+        )
+
+        self.crm_acl_stats_egress_lag_crm_stats_acl_group_used = GaugeMetricFamily(
+            "crm_acl_stats_egress_lag_crm_stats_acl_group_used",
+            "crm_acl_stats_egress_lag_crm_stats_acl_group_used",
+        )
+        self.crm_acl_stats_egress_lag_crm_stats_acl_table_used = GaugeMetricFamily(
+            "crm_acl_stats_egress_lag_crm_stats_acl_table_used",
+            "crm_acl_stats_egress_lag_crm_stats_acl_table_used",
+        )
+        self.crm_acl_stats_egress_lag_crm_stats_acl_group_available = GaugeMetricFamily(
+            "crm_acl_stats_egress_lag_crm_stats_acl_group_available",
+            "crm_acl_stats_egress_lag_crm_stats_acl_group_available",
+        )
+        self.crm_acl_stats_egress_lag_crm_stats_acl_table_available = GaugeMetricFamily(
+            "crm_acl_stats_egress_lag_crm_stats_acl_table_available",
+            "crm_acl_stats_egress_lag_crm_stats_acl_table_available",
+        )
+
+        self.crm_acl_stats_egress_port_crm_stats_acl_group_used = GaugeMetricFamily(
+            "crm_acl_stats_egress_port_crm_stats_acl_group_used",
+            "crm_acl_stats_egress_port_crm_stats_acl_group_used",
+        )
+        self.crm_acl_stats_egress_port_crm_stats_acl_table_used = GaugeMetricFamily(
+            "crm_acl_stats_egress_port_crm_stats_acl_table_used",
+            "crm_acl_stats_egress_port_crm_stats_acl_table_used",
+        )
+        self.crm_acl_stats_egress_port_crm_stats_acl_group_available = (
+            GaugeMetricFamily(
+                "crm_acl_stats_egress_port_crm_stats_acl_group_available",
+                "crm_acl_stats_egress_port_crm_stats_acl_group_available",
+            )
+        )
+        self.crm_acl_stats_egress_port_crm_stats_acl_table_available = (
+            GaugeMetricFamily(
+                "crm_acl_stats_egress_port_crm_stats_acl_table_available",
+                "crm_acl_stats_egress_port_crm_stats_acl_table_available",
+            )
+        )
+
+        self.crm_acl_stats_egress_rif_crm_stats_acl_group_used = GaugeMetricFamily(
+            "crm_acl_stats_egress_rif_crm_stats_acl_group_used",
+            "crm_acl_stats_egress_rif_crm_stats_acl_group_used",
+        )
+        self.crm_acl_stats_egress_rif_crm_stats_acl_table_used = GaugeMetricFamily(
+            "crm_acl_stats_egress_rif_crm_stats_acl_table_used",
+            "crm_acl_stats_egress_rif_crm_stats_acl_table_used",
+        )
+        self.crm_acl_stats_egress_rif_crm_stats_acl_group_available = GaugeMetricFamily(
+            "crm_acl_stats_egress_rif_crm_stats_acl_group_available",
+            "crm_acl_stats_egress_rif_crm_stats_acl_group_available",
+        )
+        self.crm_acl_stats_egress_rif_crm_stats_acl_table_available = GaugeMetricFamily(
+            "crm_acl_stats_egress_rif_crm_stats_acl_table_available",
+            "crm_acl_stats_egress_rif_crm_stats_acl_table_available",
+        )
+
+        self.crm_acl_stats_egress_switch_crm_stats_acl_group_used = GaugeMetricFamily(
+            "crm_acl_stats_egress_switch_crm_stats_acl_group_used",
+            "crm_acl_stats_egress_switch_crm_stats_acl_group_used",
+        )
+        self.crm_acl_stats_egress_switch_crm_stats_acl_table_used = GaugeMetricFamily(
+            "crm_acl_stats_egress_switch_crm_stats_acl_table_used",
+            "crm_acl_stats_egress_switch_crm_stats_acl_table_used",
+        )
+        self.crm_acl_stats_egress_switch_crm_stats_acl_group_available = (
+            GaugeMetricFamily(
+                "crm_acl_stats_egress_switch_crm_stats_acl_group_available",
+                "crm_acl_stats_egress_switch_crm_stats_acl_group_available",
+            )
+        )
+        self.crm_acl_stats_egress_switch_crm_stats_acl_table_available = (
+            GaugeMetricFamily(
+                "crm_acl_stats_egress_switch_crm_stats_acl_table_available",
+                "crm_acl_stats_egress_switch_crm_stats_acl_table_available",
+            )
+        )
+
+        self.crm_acl_stats_egress_vlan_crm_stats_acl_group_used = GaugeMetricFamily(
+            "crm_acl_stats_egress_vlan_crm_stats_acl_group_used",
+            "crm_acl_stats_egress_vlan_crm_stats_acl_group_used",
+        )
+        self.crm_acl_stats_egress_vlan_crm_stats_acl_table_used = GaugeMetricFamily(
+            "crm_acl_stats_egress_vlan_crm_stats_acl_table_used",
+            "crm_acl_stats_egress_vlan_crm_stats_acl_table_used",
+        )
+        self.crm_acl_stats_egress_vlan_crm_stats_acl_group_available = (
+            GaugeMetricFamily(
+                "crm_acl_stats_egress_vlan_crm_stats_acl_group_available",
+                "crm_acl_stats_egress_vlan_crm_stats_acl_group_available",
+            )
+        )
+        self.crm_acl_stats_egress_vlan_crm_stats_acl_table_available = (
+            GaugeMetricFamily(
+                "crm_acl_stats_egress_vlan_crm_stats_acl_table_available",
+                "crm_acl_stats_egress_vlan_crm_stats_acl_table_available",
+            )
+        )
+
+        self.crm_acl_stats_ingress_lag_crm_stats_acl_group_used = GaugeMetricFamily(
+            "crm_acl_stats_ingress_lag_crm_stats_acl_group_used",
+            "crm_acl_stats_ingress_lag_crm_stats_acl_group_used",
+        )
+        self.crm_acl_stats_ingress_lag_crm_stats_acl_table_used = GaugeMetricFamily(
+            "crm_acl_stats_ingress_lag_crm_stats_acl_table_used",
+            "crm_acl_stats_ingress_lag_crm_stats_acl_table_used",
+        )
+        self.crm_acl_stats_ingress_lag_crm_stats_acl_group_available = (
+            GaugeMetricFamily(
+                "crm_acl_stats_ingress_lag_crm_stats_acl_group_available",
+                "crm_acl_stats_ingress_lag_crm_stats_acl_group_available",
+            )
+        )
+        self.crm_acl_stats_ingress_lag_crm_stats_acl_table_available = (
+            GaugeMetricFamily(
+                "crm_acl_stats_ingress_lag_crm_stats_acl_table_available",
+                "crm_acl_stats_ingress_lag_crm_stats_acl_table_available",
+            )
+        )
+
+        self.crm_acl_stats_ingress_port_crm_stats_acl_group_used = GaugeMetricFamily(
+            "crm_acl_stats_ingress_port_crm_stats_acl_group_used",
+            "crm_acl_stats_ingress_port_crm_stats_acl_group_used",
+        )
+        self.crm_acl_stats_ingress_port_crm_stats_acl_table_used = GaugeMetricFamily(
+            "crm_acl_stats_ingress_port_crm_stats_acl_table_used",
+            "crm_acl_stats_ingress_port_crm_stats_acl_table_used",
+        )
+        self.crm_acl_stats_ingress_port_crm_stats_acl_group_available = (
+            GaugeMetricFamily(
+                "crm_acl_stats_ingress_port_crm_stats_acl_group_available",
+                "crm_acl_stats_ingress_port_crm_stats_acl_group_available",
+            )
+        )
+        self.crm_acl_stats_ingress_port_crm_stats_acl_table_available = (
+            GaugeMetricFamily(
+                "crm_acl_stats_ingress_port_crm_stats_acl_table_available",
+                "crm_acl_stats_ingress_port_crm_stats_acl_table_available",
+            )
+        )
+
+        self.crm_acl_stats_ingress_rif_crm_stats_acl_group_used = GaugeMetricFamily(
+            "crm_acl_stats_ingress_rif_crm_stats_acl_group_used",
+            "crm_acl_stats_ingress_rif_crm_stats_acl_group_used",
+        )
+        self.crm_acl_stats_ingress_rif_crm_stats_acl_table_used = GaugeMetricFamily(
+            "crm_acl_stats_ingress_rif_crm_stats_acl_table_used",
+            "crm_acl_stats_ingress_rif_crm_stats_acl_table_used",
+        )
+        self.crm_acl_stats_ingress_rif_crm_stats_acl_group_available = (
+            GaugeMetricFamily(
+                "crm_acl_stats_ingress_rif_crm_stats_acl_group_available",
+                "crm_acl_stats_ingress_rif_crm_stats_acl_group_available",
+            )
+        )
+        self.crm_acl_stats_ingress_rif_crm_stats_acl_table_available = (
+            GaugeMetricFamily(
+                "crm_acl_stats_ingress_rif_crm_stats_acl_table_available",
+                "crm_acl_stats_ingress_rif_crm_stats_acl_table_available",
+            )
+        )
+
+        self.crm_acl_stats_ingress_switch_crm_stats_acl_group_used = GaugeMetricFamily(
+            "crm_acl_stats_ingress_switch_crm_stats_acl_group_used",
+            "crm_acl_stats_ingress_switch_crm_stats_acl_group_used",
+        )
+        self.crm_acl_stats_ingress_switch_crm_stats_acl_table_used = GaugeMetricFamily(
+            "crm_acl_stats_ingress_switch_crm_stats_acl_table_used",
+            "crm_acl_stats_ingress_switch_crm_stats_acl_table_used",
+        )
+        self.crm_acl_stats_ingress_switch_crm_stats_acl_group_available = (
+            GaugeMetricFamily(
+                "crm_acl_stats_ingress_switch_crm_stats_acl_group_available",
+                "crm_acl_stats_ingress_switch_crm_stats_acl_group_available",
+            )
+        )
+        self.crm_acl_stats_ingress_switch_crm_stats_acl_table_available = (
+            GaugeMetricFamily(
+                "crm_acl_stats_ingress_switch_crm_stats_acl_table_available",
+                "crm_acl_stats_ingress_switch_crm_stats_acl_table_available",
+            )
+        )
+
+        self.crm_acl_stats_ingress_vlan_crm_stats_acl_group_used = GaugeMetricFamily(
+            "crm_acl_stats_ingress_vlan_crm_stats_acl_group_used",
+            "crm_acl_stats_ingress_vlan_crm_stats_acl_group_used",
+        )
+        self.crm_acl_stats_ingress_vlan_crm_stats_acl_table_used = GaugeMetricFamily(
+            "crm_acl_stats_ingress_vlan_crm_stats_acl_table_used",
+            "crm_acl_stats_ingress_vlan_crm_stats_acl_table_used",
+        )
+        self.crm_acl_stats_ingress_vlan_crm_stats_acl_group_available = (
+            GaugeMetricFamily(
+                "crm_acl_stats_ingress_vlan_crm_stats_acl_group_available",
+                "crm_acl_stats_ingress_vlan_crm_stats_acl_group_available",
+            )
+        )
+        self.crm_acl_stats_ingress_vlan_crm_stats_acl_table_available = (
+            GaugeMetricFamily(
+                "crm_acl_stats_ingress_vlan_crm_stats_acl_table_available",
+                "crm_acl_stats_ingress_vlan_crm_stats_acl_table_available",
+            )
+        )
+
+        self.crm_stats_dnat_entry_used = GaugeMetricFamily(
+            "crm_stats_dnat_entry_used", "crm_stats_dnat_entry_used"
+        )
+        self.crm_stats_fdb_entry_used = GaugeMetricFamily(
+            "crm_stats_fdb_entry_used", "crm_stats_fdb_entry_used"
+        )
+        self.crm_stats_ipmc_entry_used = GaugeMetricFamily(
+            "crm_stats_ipmc_entry_used", "crm_stats_ipmc_entry_used"
+        )
+        self.crm_stats_ipv4_neighbor_used = GaugeMetricFamily(
+            "crm_stats_ipv4_neighbor_used", "crm_stats_ipv4_neighbor_used"
+        )
+        self.crm_stats_ipv4_nexthop_used = GaugeMetricFamily(
+            "crm_stats_ipv4_nexthop_used", "crm_stats_ipv4_nexthop_used"
+        )
+        self.crm_stats_ipv4_route_used = GaugeMetricFamily(
+            "crm_stats_ipv4_route_used", "crm_stats_ipv4_route_used"
+        )
+        self.crm_stats_ipv6_neighbor_used = GaugeMetricFamily(
+            "crm_stats_ipv6_neighbor_used", "crm_stats_ipv6_neighbor_used"
+        )
+        self.crm_stats_ipv6_nexthop_used = GaugeMetricFamily(
+            "crm_stats_ipv6_nexthop_used", "crm_stats_ipv6_nexthop_used"
+        )
+        self.crm_stats_ipv6_route_used = GaugeMetricFamily(
+            "crm_stats_ipv6_route_used", "crm_stats_ipv6_route_used"
+        )
+        self.crm_stats_nexthop_group_member_used = GaugeMetricFamily(
+            "crm_stats_nexthop_group_member_used", "crm_stats_nexthop_group_member_used"
+        )
+        self.crm_stats_nexthop_group_used = GaugeMetricFamily(
+            "crm_stats_nexthop_group_used", "crm_stats_nexthop_group_used"
+        )
+        self.crm_stats_snat_entry_used = GaugeMetricFamily(
+            "crm_stats_snat_entry_used", "crm_stats_snat_entry_used"
+        )
+        self.crm_stats_dnat_entry_available = GaugeMetricFamily(
+            "crm_stats_dnat_entry_available", "crm_stats_dnat_entry_available"
+        )
+        self.crm_stats_fdb_entry_available = GaugeMetricFamily(
+            "crm_stats_fdb_entry_available", "crm_stats_fdb_entry_available"
+        )
+        self.crm_stats_ipmc_entry_available = GaugeMetricFamily(
+            "crm_stats_ipmc_entry_available", "crm_stats_ipmc_entry_available"
+        )
+        self.crm_stats_ipv4_neighbor_available = GaugeMetricFamily(
+            "crm_stats_ipv4_neighbor_available", "crm_stats_ipv4_neighbor_available"
+        )
+        self.crm_stats_ipv4_nexthop_available = GaugeMetricFamily(
+            "crm_stats_ipv4_nexthop_available", "crm_stats_ipv4_nexthop_available"
+        )
+        self.crm_stats_ipv4_route_available = GaugeMetricFamily(
+            "crm_stats_ipv4_route_available", "crm_stats_ipv4_route_available"
+        )
+        self.crm_stats_ipv6_neighbor_available = GaugeMetricFamily(
+            "crm_stats_ipv6_neighbor_available", "crm_stats_ipv6_neighbor_available"
+        )
+        self.crm_stats_ipv6_nexthop_available = GaugeMetricFamily(
+            "crm_stats_ipv6_nexthop_available", "crm_stats_ipv6_nexthop_available"
+        )
+        self.crm_stats_ipv6_route_available = GaugeMetricFamily(
+            "crm_stats_ipv6_route_available", "crm_stats_ipv6_route_available"
+        )
+        self.crm_stats_nexthop_group_available = GaugeMetricFamily(
+            "crm_stats_nexthop_group_available", "crm_stats_nexthop_group_available"
+        )
+        self.crm_stats_nexthop_group_member_available = GaugeMetricFamily(
+            "crm_stats_nexthop_group_member_available",
+            "crm_stats_nexthop_group_member_available",
+        )
+        self.crm_stats_snat_entry_available = GaugeMetricFamily(
+            "crm_stats_snat_entry_available", "crm_stats_snat_entry_available"
         )
 
     def get_portinfo(self, ifname, sub_key):
@@ -1055,16 +1352,46 @@ class SONiCCollector(object):
             self.sonic_db.STATE_DB, TRANSCEIVER_DOM_SENSOR_PATTERN
         )
         self.logger.debug("export_interface_optic_data :: keys={}".format(keys))
-        
+
         if not keys:
             return
         for key in keys:
             ifname = _decode(key).replace(TRANSCEIVER_DOM_SENSOR, "")
             transceiver_sensor_data = self.getAllFromDB(self.sonic_db.STATE_DB, key)
 
-            vcchighalarm = vcchighwarning = vcclowalarm = vcclowwarning = temphighalarm = temphighwarning = templowalarm = templowwarning = txbiashighalarm =\
-                txbiashighwarning = txbiaslowalarm = txbiaslowwarning = txpowerhighalarm = txpowerhighwarning = txpowerlowalarm =\
-                txpowerlowwarning = rxpowerhighalarm = rxpowerhighwarning = rxpowerlowalarm = rxpowerlowwarning = "none"
+            vcchighalarm = (
+                vcchighwarning
+            ) = (
+                vcclowalarm
+            ) = (
+                vcclowwarning
+            ) = (
+                temphighalarm
+            ) = (
+                temphighwarning
+            ) = (
+                templowalarm
+            ) = (
+                templowwarning
+            ) = (
+                txbiashighalarm
+            ) = (
+                txbiashighwarning
+            ) = (
+                txbiaslowalarm
+            ) = (
+                txbiaslowwarning
+            ) = (
+                txpowerhighalarm
+            ) = (
+                txpowerhighwarning
+            ) = (
+                txpowerlowalarm
+            ) = (
+                txpowerlowwarning
+            ) = (
+                rxpowerhighalarm
+            ) = rxpowerhighwarning = rxpowerlowalarm = rxpowerlowwarning = "none"
             for measure in transceiver_sensor_data:
                 measure_dec = _decode(measure)
                 try:
@@ -1072,80 +1399,116 @@ class SONiCCollector(object):
                     match measure_dec:
                         case "voltage":
                             self.metric_interface_optic_volts.add_metric(
-                                [ifname,self.get_additional_info(ifname)], floatify(value)
+                                [ifname, self.get_additional_info(ifname)],
+                                floatify(value),
                             )
                         case "vcchighalarm":
-                            vcchighalarm =str(value)
+                            vcchighalarm = str(value)
                         case "vcchighwarning":
-                            vcchighwarning=str(value)
+                            vcchighwarning = str(value)
                         case "vcclowalarm":
-                            vcclowalarm=str(value)
+                            vcclowalarm = str(value)
                         case "vcclowwarning":
-                            vcclowwarning=str(value)
+                            vcclowwarning = str(value)
                         case "temphighalarm":
-                            temphighalarm=str(value)
-                        case "temphighwarning": 
-                            temphighwarning=str(value)
+                            temphighalarm = str(value)
+                        case "temphighwarning":
+                            temphighwarning = str(value)
                         case "templowalarm":
-                            templowalarm=str(value)
+                            templowalarm = str(value)
                         case "templowwarning":
-                            templowwarning=str(value)
+                            templowwarning = str(value)
                         case "txbiashighalarm":
-                            txbiashighalarm=str(value)
+                            txbiashighalarm = str(value)
                         case "txbiashighwarning":
-                            txbiashighwarning=str(value)
+                            txbiashighwarning = str(value)
                         case "txbiaslowalarm":
-                            txbiaslowalarm=str(value)
+                            txbiaslowalarm = str(value)
                         case "txbiaslowwarning":
-                            txbiaslowwarning=str(value)
+                            txbiaslowwarning = str(value)
                         case "txpowerhighalarm":
-                            txpowerhighalarm=str(value)
+                            txpowerhighalarm = str(value)
                         case "txpowerhighwarning":
-                            txpowerhighwarning=str(value)
+                            txpowerhighwarning = str(value)
                         case "txpowerlowalarm":
-                            txpowerlowalarm=str(value)
+                            txpowerlowalarm = str(value)
                         case "txpowerlowwarning":
-                            txpowerlowwarning=str(value)
+                            txpowerlowwarning = str(value)
                         case "rxpowerhighalarm":
-                            rxpowerhighalarm=str(value)
+                            rxpowerhighalarm = str(value)
                         case "rxpowerhighwarning":
-                            rxpowerhighwarning=str(value)
+                            rxpowerhighwarning = str(value)
                         case "rxpowerlowalarm":
-                            rxpowerlowalarm=str(value)
+                            rxpowerlowalarm = str(value)
                         case "rxpowerlowwarning":
-                            rxpowerlowwarning=str(value)
+                            rxpowerlowwarning = str(value)
                         case "temperature":
                             self.metric_interface_optic_celsius.add_metric(
-                                [ifname,self.get_additional_info(ifname)], floatify(value)
+                                [ifname, self.get_additional_info(ifname)],
+                                floatify(value),
                             )
                         case _:
                             if match := self.rx_power_regex.fullmatch(measure_dec):
                                 optic_unit = match.group(1)
                                 self.metric_interface_receive_optic_power_dbm.add_metric(
-                                    [ifname,self.get_additional_info(ifname), optic_unit],
+                                    [
+                                        ifname,
+                                        self.get_additional_info(ifname),
+                                        optic_unit,
+                                    ],
                                     floatify(value),
                                 )
-                            elif match := self.tx_power_regex.fullmatch(
-                                measure_dec
-                            ):
+                            elif match := self.tx_power_regex.fullmatch(measure_dec):
                                 optic_unit = match.group(1)
                                 self.metric_interface_transmit_optic_power_dbm.add_metric(
-                                    [ifname,self.get_additional_info(ifname), optic_unit],
+                                    [
+                                        ifname,
+                                        self.get_additional_info(ifname),
+                                        optic_unit,
+                                    ],
                                     floatify(value),
                                 )
                             elif match := self.tx_bias_regex.fullmatch(measure_dec):
                                 optic_unit = match.group(1)
                                 # This resolves mA to Amperes
                                 self.metric_interface_transmit_optic_bias_amperes.add_metric(
-                                    [ifname,self.get_additional_info(ifname), optic_unit],
+                                    [
+                                        ifname,
+                                        self.get_additional_info(ifname),
+                                        optic_unit,
+                                    ],
                                     floatify(value) / 1000,
                                 )
                 except ValueError as e:
                     pass
-            
-            self.metric_transceiver_threshold_info.add_metric([ifname, self.get_additional_info(ifname), vcchighalarm, vcchighwarning, vcclowalarm, vcclowwarning, temphighalarm, temphighwarning, templowalarm, templowwarning, txbiashighalarm,
-                                                               txbiashighwarning, txbiaslowalarm, txbiaslowwarning, txpowerhighalarm, txpowerhighwarning, txpowerlowalarm,
-                                                               txpowerlowwarning, rxpowerhighalarm, rxpowerhighwarning, rxpowerlowalarm, rxpowerlowwarning, ], 1)
+
+            self.metric_transceiver_threshold_info.add_metric(
+                [
+                    ifname,
+                    self.get_additional_info(ifname),
+                    vcchighalarm,
+                    vcchighwarning,
+                    vcclowalarm,
+                    vcclowwarning,
+                    temphighalarm,
+                    temphighwarning,
+                    templowalarm,
+                    templowwarning,
+                    txbiashighalarm,
+                    txbiashighwarning,
+                    txbiaslowalarm,
+                    txbiaslowwarning,
+                    txpowerhighalarm,
+                    txpowerhighwarning,
+                    txpowerlowalarm,
+                    txpowerlowwarning,
+                    rxpowerhighalarm,
+                    rxpowerhighwarning,
+                    rxpowerlowalarm,
+                    rxpowerlowwarning,
+                ],
+                1,
+            )
 
     def export_interface_cable_data(self):
         keys = self.getKeysFromDB(self.sonic_db.STATE_DB, TRANSCEIVER_INFO_PATTERN)
@@ -1749,12 +2112,244 @@ class SONiCCollector(object):
                     oper_status,
                 )
 
+    def export_crm(self):
+        try:
+            out_put = self.getAllFromDB(
+                self.sonic_db.COUNTERS_DB, "CRM:ACL_STATS:EGRESS:LAG"
+            )
+            self.crm_acl_stats_egress_lag_crm_stats_acl_group_used.add_metric(
+                [], out_put.get("crm_stats_acl_group_used")
+            )
+            self.crm_acl_stats_egress_lag_crm_stats_acl_table_used.add_metric(
+                [], out_put.get("crm_stats_acl_table_used")
+            )
+            self.crm_acl_stats_egress_lag_crm_stats_acl_group_available.add_metric(
+                [], out_put.get("crm_stats_acl_group_available")
+            )
+            self.crm_acl_stats_egress_lag_crm_stats_acl_table_available.add_metric(
+                [], out_put.get("crm_stats_acl_table_available")
+            )
+            out_put = self.getAllFromDB(
+                self.sonic_db.COUNTERS_DB, "CRM:ACL_STATS:EGRESS:PORT"
+            )
+            self.crm_acl_stats_egress_port_crm_stats_acl_group_used.add_metric(
+                [], out_put.get("crm_stats_acl_group_used")
+            )
+            self.crm_acl_stats_egress_port_crm_stats_acl_table_used.add_metric(
+                [], out_put.get("crm_stats_acl_table_used")
+            )
+            self.crm_acl_stats_egress_port_crm_stats_acl_group_available.add_metric(
+                [], out_put.get("crm_stats_acl_group_available")
+            )
+            self.crm_acl_stats_egress_port_crm_stats_acl_table_available.add_metric(
+                [], out_put.get("crm_stats_acl_table_available")
+            )
+            out_put = self.getAllFromDB(
+                self.sonic_db.COUNTERS_DB, "CRM:ACL_STATS:EGRESS:RIF"
+            )
+            self.crm_acl_stats_egress_rif_crm_stats_acl_group_used.add_metric(
+                [], out_put.get("crm_stats_acl_group_used")
+            )
+            self.crm_acl_stats_egress_rif_crm_stats_acl_table_used.add_metric(
+                [], out_put.get("crm_stats_acl_table_used")
+            )
+            self.crm_acl_stats_egress_rif_crm_stats_acl_group_available.add_metric(
+                [], out_put.get("crm_stats_acl_group_available")
+            )
+            self.crm_acl_stats_egress_rif_crm_stats_acl_table_available.add_metric(
+                [], out_put.get("crm_stats_acl_table_available")
+            )
+            out_put = self.getAllFromDB(
+                self.sonic_db.COUNTERS_DB, "CRM:ACL_STATS:EGRESS:SWITCH"
+            )
+            self.crm_acl_stats_egress_switch_crm_stats_acl_group_used.add_metric(
+                [], out_put.get("crm_stats_acl_group_used")
+            )
+            self.crm_acl_stats_egress_switch_crm_stats_acl_table_used.add_metric(
+                [], out_put.get("crm_stats_acl_table_used")
+            )
+            self.crm_acl_stats_egress_switch_crm_stats_acl_group_available.add_metric(
+                [], out_put.get("crm_stats_acl_group_available")
+            )
+            self.crm_acl_stats_egress_switch_crm_stats_acl_table_available.add_metric(
+                [], out_put.get("crm_stats_acl_table_available")
+            )
+            out_put = self.getAllFromDB(
+                self.sonic_db.COUNTERS_DB, "CRM:ACL_STATS:EGRESS:VLAN"
+            )
+            self.crm_acl_stats_egress_vlan_crm_stats_acl_group_used.add_metric(
+                [], out_put.get("crm_stats_acl_group_used")
+            )
+            self.crm_acl_stats_egress_vlan_crm_stats_acl_table_used.add_metric(
+                [], out_put.get("crm_stats_acl_table_used")
+            )
+            self.crm_acl_stats_egress_vlan_crm_stats_acl_group_available.add_metric(
+                [], out_put.get("crm_stats_acl_group_available")
+            )
+            self.crm_acl_stats_egress_vlan_crm_stats_acl_table_available.add_metric(
+                [], out_put.get("crm_stats_acl_table_available")
+            )
+
+            out_put = self.getAllFromDB(
+                self.sonic_db.COUNTERS_DB, "CRM:ACL_STATS:INGRESS:LAG"
+            )
+            self.crm_acl_stats_ingress_lag_crm_stats_acl_group_used.add_metric(
+                [], out_put.get("crm_stats_acl_group_used")
+            )
+            self.crm_acl_stats_ingress_lag_crm_stats_acl_table_used.add_metric(
+                [], out_put.get("crm_stats_acl_table_used")
+            )
+            self.crm_acl_stats_ingress_lag_crm_stats_acl_group_available.add_metric(
+                [], out_put.get("crm_stats_acl_group_available")
+            )
+            self.crm_acl_stats_ingress_lag_crm_stats_acl_table_available.add_metric(
+                [], out_put.get("crm_stats_acl_table_available")
+            )
+            out_put = self.getAllFromDB(
+                self.sonic_db.COUNTERS_DB, "CRM:ACL_STATS:INGRESS:PORT"
+            )
+            self.crm_acl_stats_ingress_port_crm_stats_acl_group_used.add_metric(
+                [], out_put.get("crm_stats_acl_group_used")
+            )
+            self.crm_acl_stats_ingress_port_crm_stats_acl_table_used.add_metric(
+                [], out_put.get("crm_stats_acl_table_used")
+            )
+            self.crm_acl_stats_ingress_port_crm_stats_acl_group_available.add_metric(
+                [], out_put.get("crm_stats_acl_group_available")
+            )
+            self.crm_acl_stats_ingress_port_crm_stats_acl_table_available.add_metric(
+                [], out_put.get("crm_stats_acl_table_available")
+            )
+            out_put = self.getAllFromDB(
+                self.sonic_db.COUNTERS_DB, "CRM:ACL_STATS:INGRESS:RIF"
+            )
+            self.crm_acl_stats_ingress_rif_crm_stats_acl_group_used.add_metric(
+                [], out_put.get("crm_stats_acl_group_used")
+            )
+            self.crm_acl_stats_ingress_rif_crm_stats_acl_table_used.add_metric(
+                [], out_put.get("crm_stats_acl_table_used")
+            )
+            self.crm_acl_stats_ingress_rif_crm_stats_acl_group_available.add_metric(
+                [], out_put.get("crm_stats_acl_group_available")
+            )
+            self.crm_acl_stats_ingress_rif_crm_stats_acl_table_available.add_metric(
+                [], out_put.get("crm_stats_acl_table_available")
+            )
+            out_put = self.getAllFromDB(
+                self.sonic_db.COUNTERS_DB, "CRM:ACL_STATS:INGRESS:SWITCH"
+            )
+            self.crm_acl_stats_ingress_switch_crm_stats_acl_group_used.add_metric(
+                [], out_put.get("crm_stats_acl_group_used")
+            )
+            self.crm_acl_stats_ingress_switch_crm_stats_acl_table_used.add_metric(
+                [], out_put.get("crm_stats_acl_table_used")
+            )
+            self.crm_acl_stats_ingress_switch_crm_stats_acl_group_available.add_metric(
+                [], out_put.get("crm_stats_acl_group_available")
+            )
+            self.crm_acl_stats_ingress_switch_crm_stats_acl_table_available.add_metric(
+                [], out_put.get("crm_stats_acl_table_available")
+            )
+            out_put = self.getAllFromDB(
+                self.sonic_db.COUNTERS_DB, "CRM:ACL_STATS:INGRESS:VLAN"
+            )
+            self.crm_acl_stats_ingress_vlan_crm_stats_acl_group_used.add_metric(
+                [], out_put.get("crm_stats_acl_group_used")
+            )
+            self.crm_acl_stats_ingress_vlan_crm_stats_acl_table_used.add_metric(
+                [], out_put.get("crm_stats_acl_table_used")
+            )
+            self.crm_acl_stats_ingress_vlan_crm_stats_acl_group_available.add_metric(
+                [], out_put.get("crm_stats_acl_group_available")
+            )
+            self.crm_acl_stats_ingress_vlan_crm_stats_acl_table_available.add_metric(
+                [], out_put.get("crm_stats_acl_table_available")
+            )
+
+            out_put = self.getAllFromDB(self.sonic_db.COUNTERS_DB, "CRM:STATS")
+            self.crm_stats_dnat_entry_used.add_metric(
+                [], out_put.get("crm_stats_dnat_entry_used")
+            )
+            self.crm_stats_fdb_entry_used.add_metric(
+                [], out_put.get("crm_stats_fdb_entry_used")
+            )
+            self.crm_stats_ipmc_entry_used.add_metric(
+                [], out_put.get("crm_stats_ipmc_entry_used")
+            )
+            self.crm_stats_ipv4_neighbor_used.add_metric(
+                [], out_put.get("crm_stats_ipv4_neighbor_used")
+            )
+            self.crm_stats_ipv4_nexthop_used.add_metric(
+                [], out_put.get("crm_stats_ipv4_nexthop_used")
+            )
+            self.crm_stats_ipv4_route_used.add_metric(
+                [], out_put.get("crm_stats_ipv4_route_used")
+            )
+            self.crm_stats_ipv6_neighbor_used.add_metric(
+                [], out_put.get("crm_stats_ipv6_neighbor_used")
+            )
+            self.crm_stats_ipv6_nexthop_used.add_metric(
+                [], out_put.get("crm_stats_ipv6_nexthop_used")
+            )
+            self.crm_stats_ipv6_route_used.add_metric(
+                [], out_put.get("crm_stats_ipv6_route_used")
+            )
+            self.crm_stats_nexthop_group_member_used.add_metric(
+                [], out_put.get("crm_stats_nexthop_group_member_used")
+            )
+            self.crm_stats_nexthop_group_used.add_metric(
+                [], out_put.get("crm_stats_nexthop_group_used")
+            )
+            self.crm_stats_snat_entry_used.add_metric(
+                [], out_put.get("crm_stats_snat_entry_used")
+            )
+            self.crm_stats_dnat_entry_available.add_metric(
+                [], out_put.get("crm_stats_dnat_entry_available")
+            )
+            self.crm_stats_fdb_entry_available.add_metric(
+                [], out_put.get("crm_stats_fdb_entry_available")
+            )
+            self.crm_stats_ipmc_entry_available.add_metric(
+                [], out_put.get("crm_stats_ipmc_entry_available")
+            )
+            self.crm_stats_ipv4_neighbor_available.add_metric(
+                [], out_put.get("crm_stats_ipv4_neighbor_available")
+            )
+            self.crm_stats_ipv4_nexthop_available.add_metric(
+                [], out_put.get("crm_stats_ipv4_nexthop_available")
+            )
+            self.crm_stats_ipv4_route_available.add_metric(
+                [], out_put.get("crm_stats_ipv4_route_available")
+            )
+            self.crm_stats_ipv6_neighbor_available.add_metric(
+                [], out_put.get("crm_stats_ipv6_neighbor_available")
+            )
+            self.crm_stats_ipv6_nexthop_available.add_metric(
+                [], out_put.get("crm_stats_ipv6_nexthop_available")
+            )
+            self.crm_stats_ipv6_route_available.add_metric(
+                [], out_put.get("crm_stats_ipv6_route_available")
+            )
+            self.crm_stats_nexthop_group_available.add_metric(
+                [], out_put.get("crm_stats_nexthop_group_available")
+            )
+            self.crm_stats_nexthop_group_member_available.add_metric(
+                [], out_put.get("crm_stats_nexthop_group_member_available")
+            )
+            self.crm_stats_snat_entry_available.add_metric(
+                [], out_put.get("crm_stats_snat_entry_available")
+            )
+
+        except Exception as e:
+            logging.info(e)
+
     def collect(self):
         try:
             self._init_metrics()
             date_time = datetime.now()
             wait(
                 [
+                    self.thread_pool.submit(self.export_crm),
                     self.thread_pool.submit(self.export_mclag_oper_state),
                     self.thread_pool.submit(self.export_mclag_domain),
                     self.thread_pool.submit(self.export_interface_counters),
@@ -1776,10 +2371,75 @@ class SONiCCollector(object):
                 ],
                 return_when=ALL_COMPLETED,
             )
+
             self.logger.debug(
                 f"Time taken in metrics collection {datetime.now() - date_time}"
             )
 
+            yield self.crm_acl_stats_egress_lag_crm_stats_acl_group_used
+            yield self.crm_acl_stats_egress_lag_crm_stats_acl_table_used
+            yield self.crm_acl_stats_egress_lag_crm_stats_acl_group_available
+            yield self.crm_acl_stats_egress_lag_crm_stats_acl_table_available
+            yield self.crm_acl_stats_egress_port_crm_stats_acl_group_used
+            yield self.crm_acl_stats_egress_port_crm_stats_acl_table_used
+            yield self.crm_acl_stats_egress_port_crm_stats_acl_group_available
+            yield self.crm_acl_stats_egress_port_crm_stats_acl_table_available
+            yield self.crm_acl_stats_egress_rif_crm_stats_acl_group_used
+            yield self.crm_acl_stats_egress_rif_crm_stats_acl_table_used
+            yield self.crm_acl_stats_egress_rif_crm_stats_acl_group_available
+            yield self.crm_acl_stats_egress_rif_crm_stats_acl_table_available
+            yield self.crm_acl_stats_egress_switch_crm_stats_acl_group_used
+            yield self.crm_acl_stats_egress_switch_crm_stats_acl_table_used
+            yield self.crm_acl_stats_egress_switch_crm_stats_acl_group_available
+            yield self.crm_acl_stats_egress_switch_crm_stats_acl_table_available
+            yield self.crm_acl_stats_egress_vlan_crm_stats_acl_group_used
+            yield self.crm_acl_stats_egress_vlan_crm_stats_acl_table_used
+            yield self.crm_acl_stats_egress_vlan_crm_stats_acl_group_available
+            yield self.crm_acl_stats_egress_vlan_crm_stats_acl_table_available
+            yield self.crm_acl_stats_ingress_lag_crm_stats_acl_group_used
+            yield self.crm_acl_stats_ingress_lag_crm_stats_acl_table_used
+            yield self.crm_acl_stats_ingress_lag_crm_stats_acl_group_available
+            yield self.crm_acl_stats_ingress_lag_crm_stats_acl_table_available
+            yield self.crm_acl_stats_ingress_port_crm_stats_acl_group_used
+            yield self.crm_acl_stats_ingress_port_crm_stats_acl_table_used
+            yield self.crm_acl_stats_ingress_port_crm_stats_acl_group_available
+            yield self.crm_acl_stats_ingress_port_crm_stats_acl_table_available
+            yield self.crm_acl_stats_ingress_rif_crm_stats_acl_group_used
+            yield self.crm_acl_stats_ingress_rif_crm_stats_acl_table_used
+            yield self.crm_acl_stats_ingress_rif_crm_stats_acl_group_available
+            yield self.crm_acl_stats_ingress_rif_crm_stats_acl_table_available
+            yield self.crm_acl_stats_ingress_switch_crm_stats_acl_group_used
+            yield self.crm_acl_stats_ingress_switch_crm_stats_acl_table_used
+            yield self.crm_acl_stats_ingress_switch_crm_stats_acl_group_available
+            yield self.crm_acl_stats_ingress_switch_crm_stats_acl_table_available
+            yield self.crm_acl_stats_ingress_vlan_crm_stats_acl_group_used
+            yield self.crm_acl_stats_ingress_vlan_crm_stats_acl_table_used
+            yield self.crm_acl_stats_ingress_vlan_crm_stats_acl_group_available
+            yield self.crm_acl_stats_ingress_vlan_crm_stats_acl_table_available
+            yield self.crm_stats_dnat_entry_used
+            yield self.crm_stats_fdb_entry_used
+            yield self.crm_stats_ipmc_entry_used
+            yield self.crm_stats_ipv4_neighbor_used
+            yield self.crm_stats_ipv4_nexthop_used
+            yield self.crm_stats_ipv4_route_used
+            yield self.crm_stats_ipv6_neighbor_used
+            yield self.crm_stats_ipv6_nexthop_used
+            yield self.crm_stats_ipv6_route_used
+            yield self.crm_stats_nexthop_group_member_used
+            yield self.crm_stats_nexthop_group_used
+            yield self.crm_stats_snat_entry_used
+            yield self.crm_stats_dnat_entry_available
+            yield self.crm_stats_fdb_entry_available
+            yield self.crm_stats_ipmc_entry_available
+            yield self.crm_stats_ipv4_neighbor_available
+            yield self.crm_stats_ipv4_nexthop_available
+            yield self.crm_stats_ipv4_route_available
+            yield self.crm_stats_ipv6_neighbor_available
+            yield self.crm_stats_ipv6_nexthop_available
+            yield self.crm_stats_ipv6_route_available
+            yield self.crm_stats_nexthop_group_available
+            yield self.crm_stats_nexthop_group_member_available
+            yield self.crm_stats_snat_entry_available
             yield self.metric_mclag_domain
             yield self.metric_mclag_oper_state
             yield self.metric_sys_status
