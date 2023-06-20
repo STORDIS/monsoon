@@ -28,19 +28,19 @@ class VtySH:
         except CalledProcessError:
             return {}
 
-    def show_bgp_vrf_all_l2vpn_evpn_summary(self, vrf: Optional[str] = None) -> dict:
+    def show_bgp_vrf_all_ipv4_unicast_summary(self, vrf: Optional[str] = None) -> dict:
         data = self.run_command("show bgp vrf all ipv4 unicast summary")
         if vrf is not None:
             return data[vrf]
         return data
 
-    def show_bgp_vrf_all_ipv4_unicast_summary(self, vrf: Optional[str] = None) -> dict:
+    def show_bgp_vrf_all_ipv6_unicast_summary(self, vrf: Optional[str] = None) -> dict:
         data = self.run_command("show bgp vrf all ipv6 unicast summary")
         if vrf is not None:
             return data[vrf]
         return data
 
-    def show_bgp_vrf_all_ipv6_unicast_summary(self, vrf: Optional[str] = None) -> dict:
+    def show_bgp_vrf_all_l2vpn_evpn_summary(self, vrf: Optional[str] = None) -> dict:
         data = self.run_command("show bgp vrf all l2vpn evpn summary")
         if vrf is not None:
             return data[vrf]
