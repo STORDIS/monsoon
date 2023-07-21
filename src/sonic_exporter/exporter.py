@@ -1344,10 +1344,10 @@ class SONiCCollector(object):
                 )
             )
             self.metric_interface_queue_processed_packets.add_metric(
-                [self.get_additional_info(ifname), queue, queue_type], packets
+                [self.get_additional_info(ifname), queue, queue_type], floatify(packets)
             )
             self.metric_interface_queue_processed_bytes.add_metric(
-                [self.get_additional_info(ifname), queue, queue_type], bytes
+                [self.get_additional_info(ifname), queue, queue_type], floatify(bytes)
             )
 
     def export_interface_optic_data(self):
