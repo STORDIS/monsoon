@@ -207,8 +207,11 @@ class SONiCCollector(object):
             self.vtysh = VtySH()
             self.sys_class_net = SystemClassNetworkInfo()
             self.sys_class_hwmon = SystemClassHWMon()
-            secret = subprocess.getoutput("cat /run/redis/auth/passwd")
-            self.sonic_db = swsssdk.SonicV2Connector(password=secret)
+            try:
+                with open("/run/redis/auth/passwd", "r") as secret:
+                    self.sonic_db = swsssdk.SonicV2Connector(password=secret.read().strip())
+            except FileNotFoundError:
+                self.sonic_db = swsssdk.SonicV2Connector()
             self.ntpq = NTPQ()
 
         self.sonic_db.connect(self.sonic_db.COUNTERS_DB)
