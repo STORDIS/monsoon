@@ -207,8 +207,11 @@ class SONiCCollector(object):
             self.vtysh = VtySH()
             self.sys_class_net = SystemClassNetworkInfo()
             self.sys_class_hwmon = SystemClassHWMon()
-            secret = subprocess.getoutput("cat /run/redis/auth/passwd")
-            self.sonic_db = swsssdk.SonicV2Connector(password=secret)
+            try:
+                with open("/run/redis/auth/passwd", "r") as secret:
+                    self.sonic_db = swsssdk.SonicV2Connector(password=secret.read().strip())
+            except FileNotFoundError:
+                self.sonic_db = swsssdk.SonicV2Connector()
             self.ntpq = NTPQ()
 
         self.sonic_db.connect(self.sonic_db.COUNTERS_DB)
@@ -1341,10 +1344,10 @@ class SONiCCollector(object):
                 )
             )
             self.metric_interface_queue_processed_packets.add_metric(
-                [self.get_additional_info(ifname), queue, queue_type], packets
+                [self.get_additional_info(ifname), queue, queue_type], floatify(packets)
             )
             self.metric_interface_queue_processed_bytes.add_metric(
-                [self.get_additional_info(ifname), queue, queue_type], bytes
+                [self.get_additional_info(ifname), queue, queue_type], floatify(bytes)
             )
 
     def export_interface_optic_data(self):
