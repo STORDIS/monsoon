@@ -91,9 +91,7 @@ class SONiCCollector(object):
     tx_bias_regex = re.compile(r"^tx(\d*)bias$")
     fan_slot_regex = re.compile(r"^((?:PSU|Fantray).*?\d+).*?(?!FAN|_).*?(\d+)$")
     chassis_slot_regex = re.compile(r"^.*?(\d+)$")
-    db_default_retries = 1
-    # timeout applicable only when retries >1
-    db_default_timeout = 3
+    
 
     @staticmethod
     def get_counter_key(name: str) -> str:
@@ -116,70 +114,6 @@ class SONiCCollector(object):
         except (ValueError, socket.herror):
             return ip
 
-    # Non default values of retries and timeout are usefull for DB calls, when DB may not be ready to serve requests
-    # e.g. right after SONiC boots up while getting sonic system status from DB.
-
-    def getFromDB(
-        self, db_name, hash, key, retries=db_default_retries, timeout=db_default_timeout
-    ):
-        for i in range(0, retries):
-            keys = self.sonic_db.get(db_name, hash, key)
-            if keys == None:
-                self.logger.debug(
-                    "Couldn't retrieve {0} from hash {1} from db {2}.".format(
-                        key, hash, db_name
-                    )
-                )
-                if i < retries - 1:
-                    self.logger.debug("Retrying in {0} secs.".format(timeout))
-                    time.sleep(timeout)
-                    continue
-            return keys
-
-    def getKeysFromDB(
-        self, db_name, patrn, retries=db_default_retries, timeout=db_default_timeout
-    ):
-        for i in range(0, retries):
-            keys = self.sonic_db.keys(db_name, pattern=patrn)
-            if keys == None:
-                self.logger.debug(
-                    "Couldn't retrieve {0} from {1}.".format(patrn, db_name)
-                )
-                if i < retries - 1:
-                    self.logger.debug("Retrying in {0} secs.".format(timeout))
-                    time.sleep(timeout)
-            else:
-                # self.logger.info("Finally retrieved values")
-                return keys
-        self.logger.debug(
-            "Couldn't retrieve {0} from {1}, after {2} retries returning no results.".format(
-                patrn, db_name, retries
-            )
-        )
-        # return empty array instead of NoneType
-        return []
-
-    def getAllFromDB(
-        self, db_name, hash, retries=db_default_retries, timeout=db_default_timeout
-    ):
-        for i in range(0, retries):
-            keys = self.sonic_db.get_all(db_name, hash)
-            if keys == None:
-                self.logger.debug(
-                    "Couldn't retrieve hash {0} from db {1}.".format(hash, db_name)
-                )
-                if i < retries - 1:
-                    self.logger.debug("Retrying in {0} secs.".format(timeout))
-                    time.sleep(timeout)
-            else:
-                return keys
-        self.logger.debug(
-            "Couldn't retrieve hash {0} from db {1}, after {2} retries.".format(
-                hash, db_name, retries
-            )
-        )
-        # return empty array instead of NoneType
-        return []
 
     def __init__(self, developer_mode: bool):
         if developer_mode:
@@ -1984,74 +1918,6 @@ class SONiCCollector(object):
                 [vni, interface, svi, layer.value, vrf], boolify(state)
             )
 
-    def export_ntp_global(self):
-        dict = self.getAllFromDB(self.sonic_db.CONFIG_DB, "NTP|global")
-        if dict:
-            self.metric_ntp_global.add_metric(
-                [
-                    dict.get("vrf") if "vrf" in dict else "",
-                    dict.get("auth_enabled") if "auth_enabled" in dict else "",
-                    dict.get("src_intf@") if "src_intf@" in dict else "",
-                    dict.get("trusted_key@") if "trusted_key@" in dict else "",
-                ],
-                1,
-            )
-
-    def export_ntp_server(self):
-        for key in self.getKeysFromDB(self.sonic_db.CONFIG_DB, NTP_SERVER_PATTERN):
-            dict = self.getAllFromDB(self.sonic_db.CONFIG_DB, key)
-            if dict:
-                self.metric_ntp_server.add_metric(
-                    [
-                        key.split("|")[1],
-                        dict.get("key_id") if "key_id" in dict else "",
-                        dict.get("minpoll") if "minpoll" in dict else "",
-                        dict.get("maxpoll") if "maxpoll" in dict else "",
-                    ],
-                    1,
-                )
-
-    def export_ntp_peers(self):
-        vrf = self.getFromDB(
-            self.sonic_db.CONFIG_DB, "NTP|global", "vrf", retries=0, timeout=0
-        )
-        peers = self.ntpq.get_peers(vrf=vrf)
-        ntp_rv = self.ntpq.get_rv(vrf=vrf)
-        ntp_status = ntp_rv.get("associd", "")
-        if "leap_none" in ntp_status:
-            self.metric_ntp_sync_status.add_metric([], 1.0)
-        else:
-            self.metric_ntp_sync_status.add_metric([], 0)
-        self.logger.debug(f"hello {json.dumps(peers, indent=2)}")
-        for op in peers:
-            self.logger.debug(
-                f"export_ntp_peers :: {' '.join([f'{key}={value}' for key, value in op.items()])}"
-            )
-            self.metric_ntp_peers.add_metric(
-                [
-                    op.get("remote"),
-                    op.get("refid"),
-                    str(op.get("st")),
-                    op.get("t"),
-                    str(op.get("poll")),
-                    str(op.get("reach")),
-                    " " if op.get("state") is None else op.get("state"),
-                ],
-                1,
-            )
-            self.metric_ntp_jitter.add_metric(
-                [op.get("remote"), op.get("refid")], floatify(op.get("jitter"))
-            )
-            self.metric_ntp_offset.add_metric(
-                [op.get("remote"), op.get("refid")], floatify(op.get("offset"))
-            )
-            self.metric_ntp_rtd.add_metric(
-                [op.get("remote"), op.get("refid")], floatify(op.get("delay"))
-            )
-            self.metric_ntp_when.add_metric(
-                [op.get("remote"), op.get("refid")], floatify(op.get("when"))
-            )
-
     def export_sys_status(self):
         sts, sts_core = self.is_sonic_sys_ready()
         self.metric_sys_status.add_metric(
@@ -2512,7 +2378,7 @@ class SONiCCollector(object):
         except KeyboardInterrupt as e:
             raise e
 
-
+developer_mode=  os.environ.get("DEVELOPER_MODE", "False").lower() in TRUE_VALUES
 def main():
     port = int(
         os.environ.get("SONIC_EXPORTER_PORT", 9101)
@@ -2539,9 +2405,7 @@ def main():
     prom.start_http_server(port, addr=address)
     classe = SONiCCollector
     classe.logger = logging.getLogger("__name__")
-    sonic_collector = classe(
-        os.environ.get("DEVELOPER_MODE", "False").lower() in TRUE_VALUES
-    )
+    sonic_collector = classe(developer_mode)
     REGISTRY.register(sonic_collector)
     while True:
         time.sleep(10**8)
