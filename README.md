@@ -102,7 +102,7 @@ If your switch is not connected to internet, then on any of your host connected 
   Grafana is a configurable data visulization tool, In opur case it help to visualize data fetched from prometheus (in step above). Grafana can be installed on same host as Prometheus but recommended is to install it on a separate host i.e. Ubuntu_20.04 etc. 
   On Debian/Ubuntu Grafana container can be started as follows : 
   ```
-  docker run -d -p 3000:3000 --name grafana --log-opt mode=non-blocking --log-opt max-buffer-size=4m --log-driver json-file --log-opt max-size=10m --log-opt max-file=3 --log-opt compress=true grafana/grafana-oss:9.0.6
+  docker run -d -p 3000:3000 --name grafana --log-opt mode=non-blocking --log-opt max-buffer-size=4m --log-driver json-file --log-opt max-size=10m --log-opt max-file=3 --log-opt compress=true -e "GF_SERVER_ENABLE_GZIP=true" grafana/grafana-oss:9.0.6
   ```
   Further details to run Grafana container are [here](https://grafana.com/docs/grafana/latest/setup-grafana/installation/docker/).
   #### Verify Grafana Installation
