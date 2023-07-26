@@ -3,8 +3,15 @@ from subprocess import PIPE, CalledProcessError, run
 from typing import Optional
 
 from sonic_exporter.enums import AddressFamily
+from exporter import developer_mode
 
-
+if developer_mode:
+    from sonic_exporter.test.mock_vtysh import MockVtySH
+    vtysh = MockVtySH()
+else:
+    from sonic_exporter.vtysh import VtySH
+    vtysh = VtySH()
+    
 class VtySH:
     @staticmethod
     def addressfamily(family: AddressFamily):

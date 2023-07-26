@@ -1,7 +1,8 @@
-from distutils.version import Version
 import functools
-import re
 from datetime import datetime, timedelta
+import ipaddress
+import socket
+from db_util import db_default_retries, db_default_timeout, getFromDB,sonic_db,db_version,ConfigDBVersion
 
 
 def timed_cache(**timedelta_kwargs):
@@ -38,40 +39,39 @@ def timed_cache(**timedelta_kwargs):
     return _wrapper
 
 
-class ConfigDBVersion(Version):
-    component_re = re.compile(r"(\d+|_)", re.VERBOSE)
-    vstring = ""
-    version = []
+def is_sonic_sys_ready(
+    retries=db_default_retries, timeout=db_default_timeout
+):
+    sts = getFromDB(
+        sonic_db.STATE_DB,
+        "SYSTEM_READY|SYSTEM_STATE",
+        "Status",
+        retries=retries,
+        timeout=timeout,
+    )
+    sts_core = sts
+    if db_version > ConfigDBVersion("version_4_0_0"):
+        ## this feature is only supported in newer ConfigDBs
+        ## Especially version_3_4_1 does not have this flag
+        ## so we use the sts flag for backwards compatible code.
+        sts_core = getFromDB(
+            sonic_db.STATE_DB,
+            "SYSTEM_READY_CORE|SYSTEM_STATE",
+            "Status",
+            retries=retries,
+            timeout=timeout,
+        )
+    sts = True if sts and "UP" in sts else False
+    sts_core = True if sts and "UP" in sts_core else False
+    return sts, sts_core
 
-    def parse(self, vstring):
-        # I've given up on thinking I can reconstruct the version string
-        # from the parsed tuple -- so I just store the string here for
-        # use by __str__
-        self.vstring = vstring
-        components = [x for x in self.component_re.split(vstring) if x and x != "_"]
-        for i, obj in enumerate(components):
-            try:
-                components[i] = int(obj)
-            except ValueError:
-                pass
 
-        self.version = components
-
-    def __str__(self):
-        return self.vstring
-
-    def __repr__(self):
-        return "ConfigDBVersion ('{}')".format(self)
-
-    def _cmp(self, other):
-        if isinstance(other, str):
-            other = ConfigDBVersion(other)
-        elif not isinstance(other, ConfigDBVersion):
-            return NotImplemented
-
-        if self.version == other.version:
-            return 0
-        if self.version < other.version:
-            return -1
-        if self.version > other.version:
-            return 1
+@timed_cache(seconds=600)
+def dns_lookup(ip: str) -> str:
+    if ip is None:
+        return ""
+    try:
+        ipaddress.ip_address(ip)
+        return socket.gethostbyaddr(ip)[0]
+    except (ValueError, socket.herror):
+        return ip

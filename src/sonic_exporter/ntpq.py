@@ -5,15 +5,60 @@ from typing import Optional
 from sonic_exporter.constants import NTP_SERVER_PATTERN
 
 from sonic_exporter.converters import floatify
-from sonic_exporter.db_util import getAllFromDB, getFromDB, getKeysFromDB
+from sonic_exporter.db_util import getAllFromDB, getFromDB, getKeysFromDB,sonic_db
+from prometheus_client.core import GaugeMetricFamily
+
 
 
 _logger = logging.getLogger(__name__)
 
-if developer_mode:
-    ntpq = MockNTPQ()
-else:
-    ntpq = NTPQ()
+metric_ntp_peers = GaugeMetricFamily(
+    "sonic_ntp_peers",
+    "NTP peers",
+    labels=["remote", "refid", "st", "t", "poll", "reach", "state"],
+)
+
+metric_ntp_sync_status = GaugeMetricFamily(
+            "sonic_ntp_sync_status",
+            "SONiC NTP Sync Status (0/1 0==Not in Sync 1==Sync)",
+)
+metric_ntp_when = GaugeMetricFamily(
+    "sonic_ntp_when",
+    "Time (in seconds) since an NTP packet update was received",
+    labels=["remote", "refid"],
+)
+
+metric_ntp_rtd = GaugeMetricFamily(
+    "sonic_ntp_rtd",
+    "Round-trip delay (in milliseconds) to the NTP server.",
+    labels=["remote", "refid"],
+)
+
+metric_ntp_offset = GaugeMetricFamily(
+    "sonic_ntp_offset",
+    "Time difference (in milliseconds) between the switch and the NTP server or another NTP peer.",
+    labels=["remote", "refid"],
+)
+
+metric_ntp_jitter = GaugeMetricFamily(
+    "sonic_ntp_jitter",
+    "Mean deviation in times between the switch and the NTP server",
+    labels=["remote", "refid"],
+)
+
+metric_ntp_global = GaugeMetricFamily(
+    "sonic_ntp_global",
+    "NTP Global",
+    labels=["vrf", "auth_enabled", "src_intf", "trusted_key"],
+)
+
+metric_ntp_server = GaugeMetricFamily(
+    "sonic_ntp_server",
+    "NTP Servers",
+    labels=["ntp_server", "key_id", "minpoll", "maxpoll"],
+)
+
+
 
 def run_command(command: list, vrf: Optional[str] = None):
     ## TODO: Put local VRF commands into their own module
@@ -89,8 +134,8 @@ def export_ntp_peers():
     vrf = getFromDB(
         sonic_db.CONFIG_DB, "NTP|global", "vrf", retries=0, timeout=0
     )
-    peers = ntpq.get_peers(vrf=vrf)
-    ntp_rv = ntpq.get_rv(vrf=vrf)
+    peers = get_peers(vrf=vrf)
+    ntp_rv = get_rv(vrf=vrf)
     ntp_status = ntp_rv.get("associd", "")
     if "leap_none" in ntp_status:
         metric_ntp_sync_status.add_metric([], 1.0)
