@@ -57,12 +57,12 @@ def check_sonic_ready():
 
     _logger.info("SONiC System is ready.")
 
+
 class SONiCCollector(object):
     thread_pool = ThreadPoolExecutor(10)
 
     def collect(self):
         try:
-            self._init_metrics()
             date_time = datetime.now()
             wait(
                 [
@@ -77,7 +77,7 @@ class SONiCCollector(object):
                     self.thread_pool.submit(psu.export_psu_info),
                     self.thread_pool.submit(fan.export_fan_info),
                     self.thread_pool.submit(system.export_temp_info),
-                    self.thread_pool.submit(vxlan.vxlan.export_vxlan_tunnel_info),
+                    self.thread_pool.submit(vxlan.export_vxlan_tunnel_info),
                     self.thread_pool.submit(bgp.export_bgp_info),
                     self.thread_pool.submit(evpn.export_evpn_vni_info),
                     self.thread_pool.submit(sag.export_static_anycast_gateway_info),
@@ -89,7 +89,7 @@ class SONiCCollector(object):
                 return_when=ALL_COMPLETED,
             )
 
-            self.logger.debug(
+            _logger.debug(
                 f"Time taken in metrics collection {datetime.now() - date_time}"
             )
 
@@ -204,7 +204,7 @@ class SONiCCollector(object):
             yield fan.metric_device_fan_available_status
             yield system.metric_device_sensor_celsius
             yield system.metric_device_threshold_sensor_celsius
-            yield system.metric_vxlan_operational_status
+            yield vxlan.metric_vxlan_operational_status
             yield system.metric_device_uptime
             yield system.metric_device_info
             yield system.system_memory_ratio
