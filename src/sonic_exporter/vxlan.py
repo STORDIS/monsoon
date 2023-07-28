@@ -1,11 +1,11 @@
 import logging
 from prometheus_client.core import GaugeMetricFamily
 
-from constants import VXLAN_TUNNEL_TABLE, VXLAN_TUNNEL_TABLE_PATTERN
-from converters import boolify
-from db_util import getFromDB, getKeysFromDB, sonic_db
-from sonic_exporter.converters import decode
-from utilities import dns_lookup
+from .constants import VXLAN_TUNNEL_TABLE, VXLAN_TUNNEL_TABLE_PATTERN
+from .converters import boolify
+from .db_util import getFromDB, getKeysFromDB, sonic_db
+from .converters import decode
+from .utilities import dns_lookup
 
 _logger = logging.getLogger(__name__)
 

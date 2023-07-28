@@ -1,10 +1,10 @@
 import logging
 from prometheus_client.core import GaugeMetricFamily
 from prometheus_client.core import GaugeMetricFamily
-from constants import PSU_INFO, PSU_INFO_PATTERN
-from db_util import ConfigDBVersion, getFromDB, db_version, getKeysFromDB
-from sonic_exporter.converters import boolify, decode as _decode, floatify
-from db_util import sonic_db
+from .constants import PSU_INFO, PSU_INFO_PATTERN
+from .db_util import ConfigDBVersion, getFromDB, db_version, getKeysFromDB
+from .converters import boolify, decode as _decode, floatify
+from .db_util import sonic_db
 
 _logger = logging.getLogger(__name__)
 

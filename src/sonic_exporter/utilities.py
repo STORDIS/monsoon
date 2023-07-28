@@ -1,8 +1,12 @@
 import functools
 from datetime import datetime, timedelta
 import ipaddress
+import os
 import socket
-from db_util import db_default_retries, db_default_timeout, getFromDB,sonic_db,db_version,ConfigDBVersion
+
+from .constants import TRUE_VALUES
+
+developer_mode = os.environ.get("DEVELOPER_MODE", "False").lower() in TRUE_VALUES
 
 
 def timed_cache(**timedelta_kwargs):
@@ -37,33 +41,6 @@ def timed_cache(**timedelta_kwargs):
         return _wrapped
 
     return _wrapper
-
-
-def is_sonic_sys_ready(
-    retries=db_default_retries, timeout=db_default_timeout
-):
-    sts = getFromDB(
-        sonic_db.STATE_DB,
-        "SYSTEM_READY|SYSTEM_STATE",
-        "Status",
-        retries=retries,
-        timeout=timeout,
-    )
-    sts_core = sts
-    if db_version > ConfigDBVersion("version_4_0_0"):
-        ## this feature is only supported in newer ConfigDBs
-        ## Especially version_3_4_1 does not have this flag
-        ## so we use the sts flag for backwards compatible code.
-        sts_core = getFromDB(
-            sonic_db.STATE_DB,
-            "SYSTEM_READY_CORE|SYSTEM_STATE",
-            "Status",
-            retries=retries,
-            timeout=timeout,
-        )
-    sts = True if sts and "UP" in sts else False
-    sts_core = True if sts and "UP" in sts_core else False
-    return sts, sts_core
 
 
 @timed_cache(seconds=600)

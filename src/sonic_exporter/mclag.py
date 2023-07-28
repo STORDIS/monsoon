@@ -1,13 +1,13 @@
 import logging
 from prometheus_client.core import GaugeMetricFamily
-from constants import (
+from .constants import (
     MCLAG_DOMAIN,
     MCLAG_DOMAIN_PATTERN,
     MCLAG_TABLE,
     MCLAG_TABLE_PATTERN,
 )
-from db_util import getAllFromDB, getKeysFromDB, sonic_db
-from sonic_exporter.converters import decode
+from .db_util import getAllFromDB, getKeysFromDB, sonic_db
+from .converters import decode
 
 _logger = logging.getLogger(__name__)
 metric_mclag_domain = GaugeMetricFamily(
@@ -40,9 +40,7 @@ metric_mclag_oper_state = GaugeMetricFamily(
 
 def export_mclag_domain():
     mclag_domain = {
-        decode(key).replace(MCLAG_DOMAIN, ""): getAllFromDB(
-            sonic_db.CONFIG_DB, key
-        )
+        decode(key).replace(MCLAG_DOMAIN, ""): getAllFromDB(sonic_db.CONFIG_DB, key)
         for key in getKeysFromDB(sonic_db.CONFIG_DB, MCLAG_DOMAIN_PATTERN)
     }
     if mclag_domain and mclag_domain is not None:
@@ -69,9 +67,7 @@ def export_mclag_domain():
 
 def export_mclag_oper_state():
     mclag_state = {
-        decode(key).replace(MCLAG_TABLE, ""): getAllFromDB(
-            sonic_db.STATE_DB, key
-        )
+        decode(key).replace(MCLAG_TABLE, ""): getAllFromDB(sonic_db.STATE_DB, key)
         for key in getKeysFromDB(sonic_db.STATE_DB, MCLAG_TABLE_PATTERN)
     }
     if mclag_state and mclag_state is not None:

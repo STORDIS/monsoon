@@ -1,7 +1,7 @@
 import logging
 import re
 from prometheus_client.core import GaugeMetricFamily, CounterMetricFamily
-from constants import (
+from .constants import (
     CHASSIS_INFO,
     CHASSIS_INFO_PATTERN,
     EEPROM_INFO,
@@ -12,12 +12,11 @@ from constants import (
     TEMP_SENSORS,
     TEMPERATURE_INFO_PATTERN,
 )
-from db_util import getAllFromDB, getFromDB, getKeysFromDB, sonic_db
+from .db_util import getAllFromDB, getFromDB, getKeysFromDB, is_sonic_sys_ready, sonic_db
 
-from enums import AirFlow, AlarmType, SwitchModel
-from sonic_exporter.converters import decode, floatify, get_uptime
-from exporter import developer_mode
-from utilities import is_sonic_sys_ready
+from .enums import AirFlow, AlarmType, SwitchModel
+from .converters import decode, floatify, get_uptime
+from .utilities import developer_mode
 
 _logger = logging.getLogger(__name__)
 metric_sys_status = GaugeMetricFamily(
@@ -237,6 +236,4 @@ def export_system_info():
 
 def export_sys_status():
     sts, sts_core = is_sonic_sys_ready()
-    metric_sys_status.add_metric(
-        [str(sts), str(sts_core)], floatify(sts & sts_core)
-    )  
+    metric_sys_status.add_metric([str(sts), str(sts_core)], floatify(sts & sts_core))

@@ -1,9 +1,10 @@
 import logging
 import re
 from prometheus_client.core import GaugeMetricFamily
-from constants import FAN_INFO_PATTERN, PSU_INFO
-from db_util import getFromDB, getKeysFromDB, sonic_db
-from sonic_exporter.converters import boolify, decode, floatify
+from .constants import FAN_INFO_PATTERN, PSU_INFO
+from .db_util import getFromDB, getKeysFromDB, sonic_db
+from .converters import boolify, decode, floatify
+
 _logger = logging.getLogger(__name__)
 
 metric_device_fan_rpm = GaugeMetricFamily(
@@ -32,9 +33,7 @@ def export_fan_info():
         try:
             fullname = decode(getFromDB(sonic_db.STATE_DB, key, "name"))
             rpm = floatify(getFromDB(sonic_db.STATE_DB, key, "speed"))
-            is_operational = decode(
-                getFromDB(sonic_db.STATE_DB, key, "status")
-            )
+            is_operational = decode(getFromDB(sonic_db.STATE_DB, key, "status"))
             is_available = boolify(
                 decode(getFromDB(sonic_db.STATE_DB, key, "presence"))
             )
@@ -58,9 +57,7 @@ def export_fan_info():
             metric_device_fan_operational_status.add_metric(
                 [name, slot], boolify(is_operational)
             )
-            metric_device_fan_available_status.add_metric(
-                [name, slot], is_available
-            )
+            metric_device_fan_available_status.add_metric([name, slot], is_available)
             _logger.debug(
                 f"export_fan_info :: fullname={fullname} oper={boolify(is_operational)}, presence={is_available}, rpm={rpm}"
             )

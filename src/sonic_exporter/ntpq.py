@@ -2,12 +2,11 @@ import jc
 import logging
 from subprocess import PIPE, CalledProcessError, run
 from typing import Optional
-from sonic_exporter.constants import NTP_SERVER_PATTERN
+from .constants import NTP_SERVER_PATTERN
 
-from sonic_exporter.converters import floatify
-from sonic_exporter.db_util import getAllFromDB, getFromDB, getKeysFromDB,sonic_db
+from .converters import floatify
+from .db_util import getAllFromDB, getFromDB, getKeysFromDB, sonic_db
 from prometheus_client.core import GaugeMetricFamily
-
 
 
 _logger = logging.getLogger(__name__)
@@ -19,8 +18,8 @@ metric_ntp_peers = GaugeMetricFamily(
 )
 
 metric_ntp_sync_status = GaugeMetricFamily(
-            "sonic_ntp_sync_status",
-            "SONiC NTP Sync Status (0/1 0==Not in Sync 1==Sync)",
+    "sonic_ntp_sync_status",
+    "SONiC NTP Sync Status (0/1 0==Not in Sync 1==Sync)",
 )
 metric_ntp_when = GaugeMetricFamily(
     "sonic_ntp_when",
@@ -59,7 +58,6 @@ metric_ntp_server = GaugeMetricFamily(
 )
 
 
-
 def run_command(command: list, vrf: Optional[str] = None):
     ## TODO: Put local VRF commands into their own module
     command = ["ntpq"] + command
@@ -82,12 +80,14 @@ def run_command(command: list, vrf: Optional[str] = None):
         )
         raise e
 
+
 def get_peers(
     vrf: Optional[str] = None,
 ):
     data = jc.parse("ntpq", run_command(["-p", "-n"], vrf=vrf))
     _logger.debug(f"parsed data :: {data}")
     return data
+
 
 def get_rv(vrf: Optional[str] = None):
     rv = {}
@@ -102,9 +102,8 @@ def get_rv(vrf: Optional[str] = None):
     return rv
 
 
-
 def export_ntp_global():
-    dict =getAllFromDB(sonic_db.CONFIG_DB, "NTP|global")
+    dict = getAllFromDB(sonic_db.CONFIG_DB, "NTP|global")
     if dict:
         metric_ntp_global.add_metric(
             [
@@ -115,6 +114,7 @@ def export_ntp_global():
             ],
             1,
         )
+
 
 def export_ntp_server():
     for key in getKeysFromDB(sonic_db.CONFIG_DB, NTP_SERVER_PATTERN):
@@ -130,10 +130,9 @@ def export_ntp_server():
                 1,
             )
 
+
 def export_ntp_peers():
-    vrf = getFromDB(
-        sonic_db.CONFIG_DB, "NTP|global", "vrf", retries=0, timeout=0
-    )
+    vrf = getFromDB(sonic_db.CONFIG_DB, "NTP|global", "vrf", retries=0, timeout=0)
     peers = get_peers(vrf=vrf)
     ntp_rv = get_rv(vrf=vrf)
     ntp_status = ntp_rv.get("associd", "")
@@ -170,7 +169,6 @@ def export_ntp_peers():
         metric_ntp_when.add_metric(
             [op.get("remote"), op.get("refid")], floatify(op.get("when"))
         )
-
 
 
 if __name__ == "__main__":

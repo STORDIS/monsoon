@@ -1,9 +1,10 @@
 import logging
 from prometheus_client.core import GaugeMetricFamily
-from enums import OSILayer
-from sonic_exporter.converters import boolify, decode, floatify
-from vtysh import vtysh
-from exporter import developer_mode
+from .enums import OSILayer
+from .converters import boolify, decode, floatify
+from .vtysh import vtysh
+from .utilities import developer_mode
+
 _logger = logging.getLogger(__name__)
 
 evpn_vni_labels = ["vni", "interface", "svi", "osi_layer", "vrf"]
@@ -39,11 +40,14 @@ if developer_mode:
     from sonic_exporter.test.mock_sys_class_net import (
         MockSystemClassNetworkInfo,
     )
+
     sys_class_net = MockSystemClassNetworkInfo()
 else:
     from sonic_exporter.sys_class_net import SystemClassNetworkInfo
+
     sys_class_net = SystemClassNetworkInfo()
-    
+
+
 def export_evpn_vni_info():
     evpn_vni_detail = vtysh.show_evpn_vni_detail()
     for evpn_vni in evpn_vni_detail:

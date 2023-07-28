@@ -1,4 +1,4 @@
-from sonic_exporter.enums import AirFlow, SwitchModel
+from .enums import AirFlow, SwitchModel
 
 
 def GET_PATTERN(data: str) -> str:

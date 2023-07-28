@@ -1,7 +1,7 @@
 import logging
 from prometheus_client.core import GaugeMetricFamily
-from db_util import getAllFromDB
-from db_util import sonic_db
+from .db_util import getAllFromDB
+from .db_util import sonic_db
 
 _logger = logging.getLogger(__name__)
 crm_acl_stats_egress_lag_crm_stats_acl_group_used = GaugeMetricFamily(

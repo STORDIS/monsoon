@@ -1,7 +1,7 @@
 import enum
 from pathlib import Path
 
-from sonic_exporter.converters import boolify
+from .converters import boolify
 
 
 class SystemClassNetworkInfo:

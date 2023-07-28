@@ -1,9 +1,9 @@
 from prometheus_client.core import CounterMetricFamily, GaugeMetricFamily
-from converters import boolify, floatify
+from .converters import boolify, floatify
 
-from enums import AddressFamily
-from utilities import dns_lookup
-from vtysh import vtysh
+from .enums import AddressFamily
+from .utilities import dns_lookup
+from .vtysh import vtysh
 
 bgp_labels = [
     "vrf",

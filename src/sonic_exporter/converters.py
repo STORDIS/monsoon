@@ -2,7 +2,7 @@ import datetime
 import time
 from typing import Optional, Union
 
-from sonic_exporter.constants import TRUE_VALUES
+from .constants import TRUE_VALUES
 
 
 def boolify(data: Union[str, bool]) -> bool:

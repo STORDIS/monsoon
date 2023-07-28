@@ -1,10 +1,10 @@
 import logging
 from distutils.version import Version
-from sonic_exporter.converters import decode as _decode
+import re
+from .converters import decode as _decode
+from .utilities import developer_mode
 
 import time
-from exporter import developer_mode
-from test import mock_db
 _logger = logging.getLogger(__name__)
 
 db_default_retries = 1
@@ -14,6 +14,7 @@ db_default_timeout = 3
 # e.g. right after SONiC boots up while getting sonic system status from DB.
 import swsssdk
 if developer_mode:
+    import sonic_exporter.test.mock_db as mock_db
     sonic_db = mock_db.SonicV2Connector(password="")
 else:
     try:
@@ -135,3 +136,28 @@ db_version = ConfigDBVersion(
         )
     )
 )
+
+
+def is_sonic_sys_ready(retries=db_default_retries, timeout=db_default_timeout):
+    sts = getFromDB(
+        sonic_db.STATE_DB,
+        "SYSTEM_READY|SYSTEM_STATE",
+        "Status",
+        retries=retries,
+        timeout=timeout,
+    )
+    sts_core = sts
+    if db_version > ConfigDBVersion("version_4_0_0"):
+        ## this feature is only supported in newer ConfigDBs
+        ## Especially version_3_4_1 does not have this flag
+        ## so we use the sts flag for backwards compatible code.
+        sts_core = getFromDB(
+            sonic_db.STATE_DB,
+            "SYSTEM_READY_CORE|SYSTEM_STATE",
+            "Status",
+            retries=retries,
+            timeout=timeout,
+        )
+    sts = True if sts and "UP" in sts else False
+    sts_core = True if sts and "UP" in sts_core else False
+    return sts, sts_core

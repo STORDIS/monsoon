@@ -1,7 +1,7 @@
 import logging
 import re
 from prometheus_client.core import CounterMetricFamily, GaugeMetricFamily
-from constants import (
+from .constants import (
     COUNTER_IGNORE,
     COUNTER_PORT_MAP,
     COUNTER_QUEUE_MAP,
@@ -13,9 +13,8 @@ from constants import (
     TRANSCEIVER_INFO,
     TRANSCEIVER_INFO_PATTERN,
 )
-from db_util import ConfigDBVersion, getAllFromDB, getFromDB, db_version, getKeysFromDB
-from sonic_exporter.converters import boolify, decode as _decode, floatify, to_timestamp
-from db_util import sonic_db
+from .db_util import ConfigDBVersion, getAllFromDB, getFromDB, db_version, getKeysFromDB,sonic_db
+from .converters import boolify, decode as _decode, floatify, to_timestamp
 
 _logger = logging.getLogger(__name__)
 

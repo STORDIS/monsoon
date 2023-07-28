@@ -1,13 +1,19 @@
 import logging
 from prometheus_client.core import GaugeMetricFamily
-from constants import SAG, SAG_GLOBAL, SAG_PATTERN, VLAN_INTERFACE, VXLAN_TUNNEL_MAP_PATTERN
-from converters import boolify
-from db_util import getAllFromDB, getFromDB, getKeysFromDB,sonic_db
-from sonic_exporter.converters import decode
-from exporter import developer_mode
-from enums import InternetProtocol
-_logger = logging.getLogger(__name__)
+from .constants import (
+    SAG,
+    SAG_GLOBAL,
+    SAG_PATTERN,
+    VLAN_INTERFACE,
+    VXLAN_TUNNEL_MAP_PATTERN,
+)
+from .converters import boolify
+from .db_util import getAllFromDB, getFromDB, getKeysFromDB, sonic_db
+from .converters import decode
+from .utilities import developer_mode
+from .enums import InternetProtocol
 
+_logger = logging.getLogger(__name__)
 
 sag_labels = [
     "interface",
@@ -36,10 +42,13 @@ if developer_mode:
     from sonic_exporter.test.mock_sys_class_net import (
         MockSystemClassNetworkInfo,
     )
+
     sys_class_net = MockSystemClassNetworkInfo()
 else:
     from sonic_exporter.sys_class_net import SystemClassNetworkInfo
+
     sys_class_net = SystemClassNetworkInfo()
+
 
 def export_static_anycast_gateway_info():
     # SAG Static Anycast Gateway
@@ -58,9 +67,7 @@ def export_static_anycast_gateway_info():
         # break if no SAG is configured
         return
     global_data = getAllFromDB(sonic_db.CONFIG_DB, SAG_GLOBAL)
-    vxlan_tunnel_map = getKeysFromDB(
-        sonic_db.CONFIG_DB, VXLAN_TUNNEL_MAP_PATTERN
-    )
+    vxlan_tunnel_map = getKeysFromDB(sonic_db.CONFIG_DB, VXLAN_TUNNEL_MAP_PATTERN)
 
     for internet_protocol in InternetProtocol:
         if global_data and boolify(global_data[internet_protocol.value].lower()):
@@ -86,17 +93,13 @@ def export_static_anycast_gateway_info():
                         "vrf_name",
                     )
                 )
-                gateway_ip = decode(
-                    getFromDB(sonic_db.CONFIG_DB, key, "gwip@")
-                )
+                gateway_ip = decode(getFromDB(sonic_db.CONFIG_DB, key, "gwip@"))
                 vni_key = next(
                     vxlan_tunnel_key
                     for vxlan_tunnel_key in vxlan_tunnel_map
                     if decode(vxlan_tunnel_key).endswith(interface)
                 )
-                vni = decode(
-                    getFromDB(sonic_db.CONFIG_DB, vni_key, "vni")
-                )
+                vni = decode(getFromDB(sonic_db.CONFIG_DB, vni_key, "vni"))
                 metric_sag_admin_status.add_metric(
                     [interface, vrf, gateway_ip, ip_family.value.lower(), str(vni)],
                     sys_class_net.admin_enabled(interface),
