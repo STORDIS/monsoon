@@ -14,9 +14,10 @@
 #
 
 import jc
-import logging
 from subprocess import PIPE, CalledProcessError, run
 from typing import Optional
+
+from .utilities import get_logger
 from .constants import NTP_SERVER_PATTERN
 
 from .converters import floatify
@@ -24,7 +25,7 @@ from .db_util import getAllFromDB, getFromDB, getKeysFromDB, sonic_db
 from prometheus_client.core import GaugeMetricFamily
 
 
-_logger = logging.getLogger(__name__)
+_logger = get_logger().getLogger(__name__)
 
 metric_ntp_peers = GaugeMetricFamily(
     "sonic_ntp_peers",

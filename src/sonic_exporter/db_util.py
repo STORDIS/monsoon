@@ -13,23 +13,25 @@
 # limitations under the License.
 #
 
-import logging
 from distutils.version import Version
 import re
 from .converters import decode as _decode
-from .utilities import developer_mode
+from .utilities import developer_mode, get_logger
 
 import time
-_logger = logging.getLogger(__name__)
+
+_logger = get_logger().getLogger(__name__)
 
 db_default_retries = 1
-    # timeout applicable only when retries >1
+# timeout applicable only when retries >1
 db_default_timeout = 3
 # Non default values of retries and timeout are usefull for DB calls, when DB may not be ready to serve requests
 # e.g. right after SONiC boots up while getting sonic system status from DB.
 import swsssdk
+
 if developer_mode:
     import sonic_exporter.test.mock_db as mock_db
+
     sonic_db = mock_db.SonicV2Connector(password="")
 else:
     try:
@@ -42,7 +44,6 @@ sonic_db.connect(sonic_db.COUNTERS_DB)
 sonic_db.connect(sonic_db.STATE_DB)
 sonic_db.connect(sonic_db.APPL_DB)
 sonic_db.connect(sonic_db.CONFIG_DB)
-
 
 
 def getFromDB(
@@ -62,14 +63,14 @@ def getFromDB(
                 continue
         return keys
 
-def getKeysFromDB( db_name, patrn, retries=db_default_retries, timeout=db_default_timeout
+
+def getKeysFromDB(
+    db_name, patrn, retries=db_default_retries, timeout=db_default_timeout
 ):
     for i in range(0, retries):
         keys = sonic_db.keys(db_name, pattern=patrn)
         if keys == None:
-            _logger.debug(
-                "Couldn't retrieve {0} from {1}.".format(patrn, db_name)
-            )
+            _logger.debug("Couldn't retrieve {0} from {1}.".format(patrn, db_name))
             if i < retries - 1:
                 _logger.debug("Retrying in {0} secs.".format(timeout))
                 time.sleep(timeout)
@@ -83,8 +84,8 @@ def getKeysFromDB( db_name, patrn, retries=db_default_retries, timeout=db_defaul
     # return empty array instead of NoneType
     return []
 
-def getAllFromDB(db_name, hash, retries=db_default_retries, timeout=db_default_timeout
-):
+
+def getAllFromDB(db_name, hash, retries=db_default_retries, timeout=db_default_timeout):
     for i in range(0, retries):
         keys = sonic_db.get_all(db_name, hash)
         if keys == None:
@@ -142,14 +143,10 @@ class ConfigDBVersion(Version):
             return -1
         if self.version > other.version:
             return 1
-        
-        
+
+
 db_version = ConfigDBVersion(
-    _decode(
-        getFromDB(
-            sonic_db.CONFIG_DB, "VERSIONS|DATABASE", "VERSION", retries=15
-        )
-    )
+    _decode(getFromDB(sonic_db.CONFIG_DB, "VERSIONS|DATABASE", "VERSION", retries=15))
 )
 
 

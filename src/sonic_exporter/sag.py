@@ -26,10 +26,10 @@ from .constants import (
 from .converters import boolify
 from .db_util import getAllFromDB, getFromDB, getKeysFromDB, sonic_db
 from .converters import decode
-from .utilities import developer_mode
+from .utilities import developer_mode, get_logger
 from .enums import InternetProtocol
 
-_logger = logging.getLogger(__name__)
+_logger = get_logger().getLogger(__name__)
 
 sag_labels = [
     "interface",

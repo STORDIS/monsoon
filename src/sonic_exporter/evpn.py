@@ -13,14 +13,12 @@
 # limitations under the License.
 #
 
-import logging
 from prometheus_client.core import GaugeMetricFamily
 from .enums import OSILayer
 from .converters import boolify, decode, floatify
 from .vtysh import vtysh
 from .utilities import developer_mode
 
-_logger = logging.getLogger(__name__)
 
 evpn_vni_labels = ["vni", "interface", "svi", "osi_layer", "vrf"]
 

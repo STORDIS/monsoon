@@ -14,17 +14,15 @@
 #
 
 import os
-import logging
-import logging.config
-import yaml
 import sys
-from pathlib import Path
 import time
 from concurrent.futures import ThreadPoolExecutor, ALL_COMPLETED, wait
 from datetime import datetime
 
 import prometheus_client as prom
 from prometheus_client.core import REGISTRY
+
+from .utilities import get_logger
 from . import bgp
 from . import crm
 from . import evpn
@@ -37,15 +35,10 @@ from . import sag
 from . import system
 from . import vxlan
 
-from .constants import (
-    TRUE_VALUES,
-)
 from .db_util import is_sonic_sys_ready
 
-BASE_PATH = Path(__file__).parent
 
-
-_logger = logging.getLogger(__name__)
+_logger = get_logger().getLogger(__name__)
 
 
 def check_sonic_ready():
@@ -232,23 +225,8 @@ def main():
         os.environ.get("SONIC_EXPORTER_PORT", 9101)
     )  # setting port static as 9101. if required map it to someother port of host by editing compose file.
     address = str(os.environ.get("SONIC_EXPORTER_ADDRESS", "localhost"))
-    logging_config_path = os.environ.get(
-        "SONIC_EXPORTER_LOGGING_CONFIG", (BASE_PATH / "./config/logging.yml").resolve()
-    )
-    LOGGING_CONFIG_RAW = ""
-    with open(logging_config_path, "r") as file:
-        LOGGING_CONFIG_RAW = file.read()
-    loglevel = os.environ.get("SONIC_EXPORTER_LOGLEVEL", None)
-    LOGGING_CONFIG = yaml.safe_load(LOGGING_CONFIG_RAW)
-    if (
-        loglevel
-        and "handlers" in LOGGING_CONFIG
-        and "console" in LOGGING_CONFIG["handlers"]
-        and "level" in LOGGING_CONFIG["handlers"]["console"]
-    ):
-        LOGGING_CONFIG["handlers"]["console"]["level"] = loglevel
-    logging.config.dictConfig(LOGGING_CONFIG)
-    logging.info("Starting Python exporter server at {}:{}".format(address, port))
+
+    _logger.info("Starting Python exporter server at {}:{}".format(address, port))
     # TODO ip address validation
     prom.start_http_server(port, addr=address)
     sonic_collector = SONiCCollector()

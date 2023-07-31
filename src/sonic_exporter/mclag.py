@@ -13,8 +13,8 @@
 # limitations under the License.
 #
 
-import logging
 from prometheus_client.core import GaugeMetricFamily
+
 from .constants import (
     MCLAG_DOMAIN,
     MCLAG_DOMAIN_PATTERN,
@@ -24,7 +24,6 @@ from .constants import (
 from .db_util import getAllFromDB, getKeysFromDB, sonic_db
 from .converters import decode
 
-_logger = logging.getLogger(__name__)
 metric_mclag_domain = GaugeMetricFamily(
     "sonic_mclag_domain",
     "MCLAG Domain",

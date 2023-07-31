@@ -13,14 +13,15 @@
 # limitations under the License.
 #
 
-import logging
 import re
 from prometheus_client.core import GaugeMetricFamily
+
+from .utilities import get_logger
 from .constants import FAN_INFO_PATTERN, PSU_INFO
 from .db_util import getFromDB, getKeysFromDB, sonic_db
 from .converters import boolify, decode, floatify
 
-_logger = logging.getLogger(__name__)
+_logger = get_logger().getLogger(__name__)
 
 metric_device_fan_rpm = GaugeMetricFamily(
     "sonic_device_fan_rpm",

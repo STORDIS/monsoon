@@ -16,8 +16,13 @@
 import functools
 from datetime import datetime, timedelta
 import ipaddress
+import logging
+import logging.config
 import os
+from pathlib import Path
 import socket
+
+import yaml
 
 from .constants import TRUE_VALUES
 
@@ -67,3 +72,29 @@ def dns_lookup(ip: str) -> str:
         return socket.gethostbyaddr(ip)[0]
     except (ValueError, socket.herror):
         return ip
+
+
+BASE_PATH = Path(__file__).parent
+
+_logging_initialized=False
+def get_logger():
+    global _logging_initialized
+    if not _logging_initialized:
+        logging_config_path = os.environ.get(
+            "SONIC_EXPORTER_LOGGING_CONFIG", (BASE_PATH / "./config/logging.yml").resolve()
+        )
+        LOGGING_CONFIG_RAW = ""
+        with open(logging_config_path, "r") as file:
+            LOGGING_CONFIG_RAW = file.read()
+        loglevel = os.environ.get("SONIC_EXPORTER_LOGLEVEL", None)
+        LOGGING_CONFIG = yaml.safe_load(LOGGING_CONFIG_RAW)
+        if (
+            loglevel
+            and "handlers" in LOGGING_CONFIG
+            and "console" in LOGGING_CONFIG["handlers"]
+            and "level" in LOGGING_CONFIG["handlers"]["console"]
+        ):
+            LOGGING_CONFIG["handlers"]["console"]["level"] = loglevel
+        logging.config.dictConfig(LOGGING_CONFIG)
+        _logging_initialized=True
+    return logging

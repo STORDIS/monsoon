@@ -13,15 +13,16 @@
 # limitations under the License.
 #
 
-import logging
 from prometheus_client.core import GaugeMetricFamily
 from prometheus_client.core import GaugeMetricFamily
+
+from .utilities import get_logger
 from .constants import PSU_INFO, PSU_INFO_PATTERN
 from .db_util import ConfigDBVersion, getFromDB, db_version, getKeysFromDB
 from .converters import boolify, decode as _decode, floatify
 from .db_util import sonic_db
 
-_logger = logging.getLogger(__name__)
+_logger = get_logger().getLogger(__name__)
 
 metric_device_psu_input_volts = GaugeMetricFamily(
     "sonic_device_psu_input_volts",

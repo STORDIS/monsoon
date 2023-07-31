@@ -13,9 +13,10 @@
 # limitations under the License.
 #
 
-import logging
 import re
 from prometheus_client.core import CounterMetricFamily, GaugeMetricFamily
+
+from .utilities import get_logger
 from .constants import (
     COUNTER_IGNORE,
     COUNTER_PORT_MAP,
@@ -38,7 +39,7 @@ from .db_util import (
 )
 from .converters import boolify, decode as _decode, floatify, to_timestamp
 
-_logger = logging.getLogger(__name__)
+_logger = get_logger().getLogger(__name__)
 
 interface_labels = ["interface"]
 port_label = ["port"]

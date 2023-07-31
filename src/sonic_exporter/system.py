@@ -13,7 +13,6 @@
 # limitations under the License.
 #
 
-import logging
 import re
 from prometheus_client.core import GaugeMetricFamily, CounterMetricFamily
 from .constants import (
@@ -37,9 +36,10 @@ from .db_util import (
 
 from .enums import AirFlow, AlarmType, SwitchModel
 from .converters import decode, floatify, get_uptime
-from .utilities import developer_mode
+from .utilities import developer_mode, get_logger
 
-_logger = logging.getLogger(__name__)
+_logger = get_logger().getLogger(__name__)
+
 metric_sys_status = GaugeMetricFamily(
     "sonic_system_status",
     "SONiC System Status",
@@ -142,12 +142,13 @@ def _find_in_syseeprom(key: str):
     )[0].strip()
 
 
-def export_temp_info():
-    chassis = {
-        decode(key).replace(CHASSIS_INFO, ""): getAllFromDB(sonic_db.STATE_DB, key)
-        for key in getKeysFromDB(sonic_db.STATE_DB, CHASSIS_INFO_PATTERN)
-    }
+chassis = {
+    decode(key).replace(CHASSIS_INFO, ""): getAllFromDB(sonic_db.STATE_DB, key)
+    for key in getKeysFromDB(sonic_db.STATE_DB, CHASSIS_INFO_PATTERN)
+}
 
+
+def export_temp_info():
     platform_name: str = list(
         set(decode(chassis.get("platform_name", "")) for chassis in chassis.values())
     )[0].strip()
@@ -205,9 +206,9 @@ chassis_slot_regex = re.compile(r"^.*?(\d+)$")
 def export_system_info():
     metric_device_uptime.add_metric([], get_uptime().total_seconds())
     for chassis_raw, data in chassis.items():
-        chassis = chassis_raw
+        chs = chassis_raw
         if match := chassis_slot_regex.fullmatch(chassis_raw):
-            chassis = match.group(1)
+            chs = match.group(1)
         part_number = decode(data.get("part_num", ""))
         serial_number = decode(data.get("serial_num", ""))
         mac_address = decode(data.get("base_mac_addr", ""))
@@ -220,7 +221,7 @@ def export_system_info():
         product_name = decode(data.get("product_name", ""))
         metric_device_info.add_metric(
             [
-                chassis,
+                chs,
                 platform_name,
                 part_number,
                 serial_number,
