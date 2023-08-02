@@ -13,6 +13,7 @@
 # limitations under the License.
 #
 
+import traceback
 from prometheus_client.core import GaugeMetricFamily
 
 from .utilities import get_logger
@@ -473,5 +474,5 @@ def export_crm():
             [], out_put.get("crm_stats_snat_entry_available", 0)
         )
 
-    except Exception as e:
-        _logger.info(e)
+    except :
+        _logger.error(traceback.print_exc())
