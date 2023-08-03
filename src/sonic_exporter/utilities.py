@@ -13,6 +13,7 @@
 # limitations under the License.
 #
 
+from concurrent.futures import ThreadPoolExecutor
 import functools
 from datetime import datetime, timedelta
 import ipaddress
@@ -28,6 +29,7 @@ from .constants import TRUE_VALUES
 
 developer_mode = os.environ.get("DEVELOPER_MODE", "False").lower() in TRUE_VALUES
 
+thread_pool = ThreadPoolExecutor(20)
 
 def timed_cache(**timedelta_kwargs):
     def _wrapper(f):
