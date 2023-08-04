@@ -32,15 +32,11 @@ class PsuCollector(object):
         date_time = datetime.now()
         self.__init_metrics()
         wait(
-            [
-                thread_pool.submit(self.export_psu_info)
-            ],
+            [thread_pool.submit(self.export_psu_info)],
             return_when=ALL_COMPLETED,
         )
 
-        _logger.debug(
-            f"Time taken in metrics collection {datetime.now() - date_time}"
-        )
+        _logger.debug(f"Time taken in metrics collection {datetime.now() - date_time}")
         yield self.metric_device_psu_input_volts
         yield self.metric_device_psu_input_amperes
         yield self.metric_device_psu_output_volts
@@ -97,22 +93,18 @@ class PsuCollector(object):
         if not keys:
             return
         for key in keys:
-            serial = _decode(
-                getFromDB(sonic_db.STATE_DB, key, "serial")).strip()
-            available_status = _decode(
-                getFromDB(sonic_db.STATE_DB, key, "presence"))
-            operational_status = _decode(
-                getFromDB(sonic_db.STATE_DB, key, "status"))
+            serial = _decode(getFromDB(sonic_db.STATE_DB, key, "serial")).strip()
+            available_status = _decode(getFromDB(sonic_db.STATE_DB, key, "presence"))
+            operational_status = _decode(getFromDB(sonic_db.STATE_DB, key, "status"))
             model = _decode(getFromDB(sonic_db.STATE_DB, key, "model")).strip()
             model_name = _decode(getFromDB(sonic_db.STATE_DB, key, "name"))
             _, slot = _decode(key.replace(PSU_INFO, "")).lower().split(" ")
             try:
-                in_volts = floatify(
-                    getFromDB(sonic_db.STATE_DB, key, "input_voltage"))
+                in_volts = floatify(getFromDB(sonic_db.STATE_DB, key, "input_voltage"))
                 in_amperes = floatify(
-                    getFromDB(sonic_db.STATE_DB, key, "input_current"))
-                self.metric_device_psu_input_amperes.add_metric(
-                    [slot], in_amperes)
+                    getFromDB(sonic_db.STATE_DB, key, "input_current")
+                )
+                self.metric_device_psu_input_amperes.add_metric([slot], in_amperes)
                 self.metric_device_psu_input_volts.add_metric([slot], in_volts)
                 _logger.debug(
                     f"export_psu_info :: slot={slot}, in_amperes={in_amperes}, in_volts={in_volts}"
@@ -121,13 +113,13 @@ class PsuCollector(object):
                 pass
             try:
                 out_volts = floatify(
-                    getFromDB(sonic_db.STATE_DB, key, "output_voltage"))
+                    getFromDB(sonic_db.STATE_DB, key, "output_voltage")
+                )
                 out_amperes = floatify(
-                    getFromDB(sonic_db.STATE_DB, key, "output_current"))
-                self.metric_device_psu_output_amperes.add_metric(
-                    [slot], out_amperes)
-                self.metric_device_psu_output_volts.add_metric(
-                    [slot], out_volts)
+                    getFromDB(sonic_db.STATE_DB, key, "output_current")
+                )
+                self.metric_device_psu_output_amperes.add_metric([slot], out_amperes)
+                self.metric_device_psu_output_volts.add_metric([slot], out_volts)
                 _logger.debug(
                     f"export_psu_info :: slot={slot}, out_amperes={out_amperes}, out_volts={out_volts}"
                 )
@@ -137,17 +129,17 @@ class PsuCollector(object):
                 temperature = float("-Inf")
                 if db_version < ConfigDBVersion("version_4_0_0"):
                     temperature = floatify(
-                        getFromDB(sonic_db.STATE_DB, key, "temperature"))
+                        getFromDB(sonic_db.STATE_DB, key, "temperature")
+                    )
                 else:
-                    temperature = floatify(
-                        getFromDB(sonic_db.STATE_DB, key, "temp"))
+                    temperature = floatify(getFromDB(sonic_db.STATE_DB, key, "temp"))
                 self.metric_device_psu_celsius.add_metric([slot], temperature)
             except ValueError:
                 pass
             self.metric_device_psu_available_status.add_metric(
-                [slot], boolify(available_status))
+                [slot], boolify(available_status)
+            )
             self.metric_device_psu_operational_status.add_metric(
                 [slot], boolify(operational_status)
             )
-            self.metric_device_psu_info.add_metric(
-                [slot, serial, model_name, model], 1)
+            self.metric_device_psu_info.add_metric([slot, serial, model_name, model], 1)

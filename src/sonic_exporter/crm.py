@@ -25,61 +25,36 @@ from .db_util import sonic_db
 _logger = get_logger().getLogger(__name__)
 
 
-class CrmCollector():
-
+class CrmCollector:
     def collect(self):
         date_time = datetime.now()
         self.__init_metrics()
         wait(
-            [
-                thread_pool.submit(self.export_crm)
-            ],
+            [thread_pool.submit(self.export_crm)],
             return_when=ALL_COMPLETED,
         )
 
-        _logger.debug(
-            f"Time taken in metrics collection {datetime.now() - date_time}"
-        )
+        _logger.debug(f"Time taken in metrics collection {datetime.now() - date_time}")
         yield self.crm_acl_stats_egress_lag_crm_stats_acl_group_used
         yield self.crm_acl_stats_egress_lag_crm_stats_acl_table_used
-        yield self.crm_acl_stats_egress_lag_crm_stats_acl_group_available
-        yield self.crm_acl_stats_egress_lag_crm_stats_acl_table_available
         yield self.crm_acl_stats_egress_port_crm_stats_acl_group_used
         yield self.crm_acl_stats_egress_port_crm_stats_acl_table_used
-        yield self.crm_acl_stats_egress_port_crm_stats_acl_group_available
-        yield self.crm_acl_stats_egress_port_crm_stats_acl_table_available
         yield self.crm_acl_stats_egress_rif_crm_stats_acl_group_used
         yield self.crm_acl_stats_egress_rif_crm_stats_acl_table_used
-        yield self.crm_acl_stats_egress_rif_crm_stats_acl_group_available
-        yield self.crm_acl_stats_egress_rif_crm_stats_acl_table_available
         yield self.crm_acl_stats_egress_switch_crm_stats_acl_group_used
         yield self.crm_acl_stats_egress_switch_crm_stats_acl_table_used
-        yield self.crm_acl_stats_egress_switch_crm_stats_acl_group_available
-        yield self.crm_acl_stats_egress_switch_crm_stats_acl_table_available
         yield self.crm_acl_stats_egress_vlan_crm_stats_acl_group_used
         yield self.crm_acl_stats_egress_vlan_crm_stats_acl_table_used
-        yield self.crm_acl_stats_egress_vlan_crm_stats_acl_group_available
-        yield self.crm_acl_stats_egress_vlan_crm_stats_acl_table_available
         yield self.crm_acl_stats_ingress_lag_crm_stats_acl_group_used
         yield self.crm_acl_stats_ingress_lag_crm_stats_acl_table_used
-        yield self.crm_acl_stats_ingress_lag_crm_stats_acl_group_available
-        yield self.crm_acl_stats_ingress_lag_crm_stats_acl_table_available
         yield self.crm_acl_stats_ingress_port_crm_stats_acl_group_used
         yield self.crm_acl_stats_ingress_port_crm_stats_acl_table_used
-        yield self.crm_acl_stats_ingress_port_crm_stats_acl_group_available
-        yield self.crm_acl_stats_ingress_port_crm_stats_acl_table_available
         yield self.crm_acl_stats_ingress_rif_crm_stats_acl_group_used
         yield self.crm_acl_stats_ingress_rif_crm_stats_acl_table_used
-        yield self.crm_acl_stats_ingress_rif_crm_stats_acl_group_available
-        yield self.crm_acl_stats_ingress_rif_crm_stats_acl_table_available
         yield self.crm_acl_stats_ingress_switch_crm_stats_acl_group_used
         yield self.crm_acl_stats_ingress_switch_crm_stats_acl_table_used
-        yield self.crm_acl_stats_ingress_switch_crm_stats_acl_group_available
-        yield self.crm_acl_stats_ingress_switch_crm_stats_acl_table_available
         yield self.crm_acl_stats_ingress_vlan_crm_stats_acl_group_used
         yield self.crm_acl_stats_ingress_vlan_crm_stats_acl_table_used
-        yield self.crm_acl_stats_ingress_vlan_crm_stats_acl_group_available
-        yield self.crm_acl_stats_ingress_vlan_crm_stats_acl_table_available
         yield self.crm_stats_dnat_entry_used
         yield self.crm_stats_fdb_entry_used
         yield self.crm_stats_ipmc_entry_used
@@ -92,500 +67,318 @@ class CrmCollector():
         yield self.crm_stats_nexthop_group_member_used
         yield self.crm_stats_nexthop_group_used
         yield self.crm_stats_snat_entry_used
-        yield self.crm_stats_dnat_entry_available
-        yield self.crm_stats_fdb_entry_available
-        yield self.crm_stats_ipmc_entry_available
-        yield self.crm_stats_ipv4_neighbor_available
-        yield self.crm_stats_ipv4_nexthop_available
-        yield self.crm_stats_ipv4_route_available
-        yield self.crm_stats_ipv6_neighbor_available
-        yield self.crm_stats_ipv6_nexthop_available
-        yield self.crm_stats_ipv6_route_available
-        yield self.crm_stats_nexthop_group_available
-        yield self.crm_stats_nexthop_group_member_available
-        yield self.crm_stats_snat_entry_available
 
     def __init_metrics(self):
+        lbl = ["available"]
         self.crm_acl_stats_egress_lag_crm_stats_acl_group_used = GaugeMetricFamily(
             "crm_acl_stats_egress_lag_crm_stats_acl_group_used",
             "crm_acl_stats_egress_lag_crm_stats_acl_group_used",
+            labels=lbl,
         )
         self.crm_acl_stats_egress_lag_crm_stats_acl_table_used = GaugeMetricFamily(
             "crm_acl_stats_egress_lag_crm_stats_acl_table_used",
             "crm_acl_stats_egress_lag_crm_stats_acl_table_used",
+            labels=lbl,
         )
-        self.crm_acl_stats_egress_lag_crm_stats_acl_group_available = GaugeMetricFamily(
-            "crm_acl_stats_egress_lag_crm_stats_acl_group_available",
-            "crm_acl_stats_egress_lag_crm_stats_acl_group_available",
-        )
-        self.crm_acl_stats_egress_lag_crm_stats_acl_table_available = GaugeMetricFamily(
-            "crm_acl_stats_egress_lag_crm_stats_acl_table_available",
-            "crm_acl_stats_egress_lag_crm_stats_acl_table_available",
-        )
-
         self.crm_acl_stats_egress_port_crm_stats_acl_group_used = GaugeMetricFamily(
             "crm_acl_stats_egress_port_crm_stats_acl_group_used",
             "crm_acl_stats_egress_port_crm_stats_acl_group_used",
+            labels=lbl,
         )
         self.crm_acl_stats_egress_port_crm_stats_acl_table_used = GaugeMetricFamily(
             "crm_acl_stats_egress_port_crm_stats_acl_table_used",
             "crm_acl_stats_egress_port_crm_stats_acl_table_used",
-        )
-        self.crm_acl_stats_egress_port_crm_stats_acl_group_available = GaugeMetricFamily(
-            "crm_acl_stats_egress_port_crm_stats_acl_group_available",
-            "crm_acl_stats_egress_port_crm_stats_acl_group_available",
-        )
-        self.crm_acl_stats_egress_port_crm_stats_acl_table_available = GaugeMetricFamily(
-            "crm_acl_stats_egress_port_crm_stats_acl_table_available",
-            "crm_acl_stats_egress_port_crm_stats_acl_table_available",
+            labels=lbl,
         )
 
         self.crm_acl_stats_egress_rif_crm_stats_acl_group_used = GaugeMetricFamily(
             "crm_acl_stats_egress_rif_crm_stats_acl_group_used",
             "crm_acl_stats_egress_rif_crm_stats_acl_group_used",
+            labels=lbl,
         )
         self.crm_acl_stats_egress_rif_crm_stats_acl_table_used = GaugeMetricFamily(
             "crm_acl_stats_egress_rif_crm_stats_acl_table_used",
             "crm_acl_stats_egress_rif_crm_stats_acl_table_used",
-        )
-        self.crm_acl_stats_egress_rif_crm_stats_acl_group_available = GaugeMetricFamily(
-            "crm_acl_stats_egress_rif_crm_stats_acl_group_available",
-            "crm_acl_stats_egress_rif_crm_stats_acl_group_available",
-        )
-        self.crm_acl_stats_egress_rif_crm_stats_acl_table_available = GaugeMetricFamily(
-            "crm_acl_stats_egress_rif_crm_stats_acl_table_available",
-            "crm_acl_stats_egress_rif_crm_stats_acl_table_available",
+            labels=lbl,
         )
 
         self.crm_acl_stats_egress_switch_crm_stats_acl_group_used = GaugeMetricFamily(
             "crm_acl_stats_egress_switch_crm_stats_acl_group_used",
             "crm_acl_stats_egress_switch_crm_stats_acl_group_used",
+            labels=lbl,
         )
         self.crm_acl_stats_egress_switch_crm_stats_acl_table_used = GaugeMetricFamily(
             "crm_acl_stats_egress_switch_crm_stats_acl_table_used",
             "crm_acl_stats_egress_switch_crm_stats_acl_table_used",
-        )
-        self.crm_acl_stats_egress_switch_crm_stats_acl_group_available = GaugeMetricFamily(
-            "crm_acl_stats_egress_switch_crm_stats_acl_group_available",
-            "crm_acl_stats_egress_switch_crm_stats_acl_group_available",
-        )
-        self.crm_acl_stats_egress_switch_crm_stats_acl_table_available = GaugeMetricFamily(
-            "crm_acl_stats_egress_switch_crm_stats_acl_table_available",
-            "crm_acl_stats_egress_switch_crm_stats_acl_table_available",
+            labels=lbl,
         )
 
         self.crm_acl_stats_egress_vlan_crm_stats_acl_group_used = GaugeMetricFamily(
             "crm_acl_stats_egress_vlan_crm_stats_acl_group_used",
             "crm_acl_stats_egress_vlan_crm_stats_acl_group_used",
+            labels=lbl,
         )
         self.crm_acl_stats_egress_vlan_crm_stats_acl_table_used = GaugeMetricFamily(
             "crm_acl_stats_egress_vlan_crm_stats_acl_table_used",
             "crm_acl_stats_egress_vlan_crm_stats_acl_table_used",
-        )
-        self.crm_acl_stats_egress_vlan_crm_stats_acl_group_available = GaugeMetricFamily(
-            "crm_acl_stats_egress_vlan_crm_stats_acl_group_available",
-            "crm_acl_stats_egress_vlan_crm_stats_acl_group_available",
-        )
-        self.crm_acl_stats_egress_vlan_crm_stats_acl_table_available = GaugeMetricFamily(
-            "crm_acl_stats_egress_vlan_crm_stats_acl_table_available",
-            "crm_acl_stats_egress_vlan_crm_stats_acl_table_available",
+            labels=lbl,
         )
 
         self.crm_acl_stats_ingress_lag_crm_stats_acl_group_used = GaugeMetricFamily(
             "crm_acl_stats_ingress_lag_crm_stats_acl_group_used",
             "crm_acl_stats_ingress_lag_crm_stats_acl_group_used",
+            labels=lbl,
         )
         self.crm_acl_stats_ingress_lag_crm_stats_acl_table_used = GaugeMetricFamily(
             "crm_acl_stats_ingress_lag_crm_stats_acl_table_used",
             "crm_acl_stats_ingress_lag_crm_stats_acl_table_used",
-        )
-        self.crm_acl_stats_ingress_lag_crm_stats_acl_group_available = GaugeMetricFamily(
-            "crm_acl_stats_ingress_lag_crm_stats_acl_group_available",
-            "crm_acl_stats_ingress_lag_crm_stats_acl_group_available",
-        )
-        self.crm_acl_stats_ingress_lag_crm_stats_acl_table_available = GaugeMetricFamily(
-            "crm_acl_stats_ingress_lag_crm_stats_acl_table_available",
-            "crm_acl_stats_ingress_lag_crm_stats_acl_table_available",
+            labels=lbl,
         )
 
         self.crm_acl_stats_ingress_port_crm_stats_acl_group_used = GaugeMetricFamily(
             "crm_acl_stats_ingress_port_crm_stats_acl_group_used",
             "crm_acl_stats_ingress_port_crm_stats_acl_group_used",
+            labels=lbl,
         )
         self.crm_acl_stats_ingress_port_crm_stats_acl_table_used = GaugeMetricFamily(
             "crm_acl_stats_ingress_port_crm_stats_acl_table_used",
             "crm_acl_stats_ingress_port_crm_stats_acl_table_used",
-        )
-        self.crm_acl_stats_ingress_port_crm_stats_acl_group_available = GaugeMetricFamily(
-            "crm_acl_stats_ingress_port_crm_stats_acl_group_available",
-            "crm_acl_stats_ingress_port_crm_stats_acl_group_available",
-        )
-        self.crm_acl_stats_ingress_port_crm_stats_acl_table_available = GaugeMetricFamily(
-            "crm_acl_stats_ingress_port_crm_stats_acl_table_available",
-            "crm_acl_stats_ingress_port_crm_stats_acl_table_available",
+            labels=lbl,
         )
 
         self.crm_acl_stats_ingress_rif_crm_stats_acl_group_used = GaugeMetricFamily(
             "crm_acl_stats_ingress_rif_crm_stats_acl_group_used",
             "crm_acl_stats_ingress_rif_crm_stats_acl_group_used",
+            labels=lbl,
         )
         self.crm_acl_stats_ingress_rif_crm_stats_acl_table_used = GaugeMetricFamily(
             "crm_acl_stats_ingress_rif_crm_stats_acl_table_used",
             "crm_acl_stats_ingress_rif_crm_stats_acl_table_used",
-        )
-        self.crm_acl_stats_ingress_rif_crm_stats_acl_group_available = GaugeMetricFamily(
-            "crm_acl_stats_ingress_rif_crm_stats_acl_group_available",
-            "crm_acl_stats_ingress_rif_crm_stats_acl_group_available",
-        )
-        self.crm_acl_stats_ingress_rif_crm_stats_acl_table_available = GaugeMetricFamily(
-            "crm_acl_stats_ingress_rif_crm_stats_acl_table_available",
-            "crm_acl_stats_ingress_rif_crm_stats_acl_table_available",
+            labels=lbl,
         )
 
         self.crm_acl_stats_ingress_switch_crm_stats_acl_group_used = GaugeMetricFamily(
             "crm_acl_stats_ingress_switch_crm_stats_acl_group_used",
             "crm_acl_stats_ingress_switch_crm_stats_acl_group_used",
+            labels=lbl,
         )
         self.crm_acl_stats_ingress_switch_crm_stats_acl_table_used = GaugeMetricFamily(
             "crm_acl_stats_ingress_switch_crm_stats_acl_table_used",
             "crm_acl_stats_ingress_switch_crm_stats_acl_table_used",
-        )
-        self.crm_acl_stats_ingress_switch_crm_stats_acl_group_available = GaugeMetricFamily(
-            "crm_acl_stats_ingress_switch_crm_stats_acl_group_available",
-            "crm_acl_stats_ingress_switch_crm_stats_acl_group_available",
-        )
-        self.crm_acl_stats_ingress_switch_crm_stats_acl_table_available = GaugeMetricFamily(
-            "crm_acl_stats_ingress_switch_crm_stats_acl_table_available",
-            "crm_acl_stats_ingress_switch_crm_stats_acl_table_available",
+            labels=lbl,
         )
 
         self.crm_acl_stats_ingress_vlan_crm_stats_acl_group_used = GaugeMetricFamily(
             "crm_acl_stats_ingress_vlan_crm_stats_acl_group_used",
             "crm_acl_stats_ingress_vlan_crm_stats_acl_group_used",
+            labels=lbl,
         )
         self.crm_acl_stats_ingress_vlan_crm_stats_acl_table_used = GaugeMetricFamily(
             "crm_acl_stats_ingress_vlan_crm_stats_acl_table_used",
             "crm_acl_stats_ingress_vlan_crm_stats_acl_table_used",
-        )
-        self.crm_acl_stats_ingress_vlan_crm_stats_acl_group_available = GaugeMetricFamily(
-            "crm_acl_stats_ingress_vlan_crm_stats_acl_group_available",
-            "crm_acl_stats_ingress_vlan_crm_stats_acl_group_available",
-        )
-        self.crm_acl_stats_ingress_vlan_crm_stats_acl_table_available = GaugeMetricFamily(
-            "crm_acl_stats_ingress_vlan_crm_stats_acl_table_available",
-            "crm_acl_stats_ingress_vlan_crm_stats_acl_table_available",
+            labels=lbl,
         )
 
         self.crm_stats_dnat_entry_used = GaugeMetricFamily(
-            "crm_stats_dnat_entry_used", "crm_stats_dnat_entry_used"
+            "crm_stats_dnat_entry_used", "crm_stats_dnat_entry_used", labels=lbl
         )
         self.crm_stats_fdb_entry_used = GaugeMetricFamily(
-            "crm_stats_fdb_entry_used", "crm_stats_fdb_entry_used"
+            "crm_stats_fdb_entry_used", "crm_stats_fdb_entry_used", labels=lbl
         )
         self.crm_stats_ipmc_entry_used = GaugeMetricFamily(
-            "crm_stats_ipmc_entry_used", "crm_stats_ipmc_entry_used"
+            "crm_stats_ipmc_entry_used", "crm_stats_ipmc_entry_used", labels=lbl
         )
         self.crm_stats_ipv4_neighbor_used = GaugeMetricFamily(
-            "crm_stats_ipv4_neighbor_used", "crm_stats_ipv4_neighbor_used"
+            "crm_stats_ipv4_neighbor_used", "crm_stats_ipv4_neighbor_used", labels=lbl
         )
         self.crm_stats_ipv4_nexthop_used = GaugeMetricFamily(
-            "crm_stats_ipv4_nexthop_used", "crm_stats_ipv4_nexthop_used"
+            "crm_stats_ipv4_nexthop_used", "crm_stats_ipv4_nexthop_used", labels=lbl
         )
         self.crm_stats_ipv4_route_used = GaugeMetricFamily(
-            "crm_stats_ipv4_route_used", "crm_stats_ipv4_route_used"
+            "crm_stats_ipv4_route_used", "crm_stats_ipv4_route_used", labels=lbl
         )
         self.crm_stats_ipv6_neighbor_used = GaugeMetricFamily(
-            "crm_stats_ipv6_neighbor_used", "crm_stats_ipv6_neighbor_used"
+            "crm_stats_ipv6_neighbor_used", "crm_stats_ipv6_neighbor_used", labels=lbl
         )
         self.crm_stats_ipv6_nexthop_used = GaugeMetricFamily(
-            "crm_stats_ipv6_nexthop_used", "crm_stats_ipv6_nexthop_used"
+            "crm_stats_ipv6_nexthop_used", "crm_stats_ipv6_nexthop_used", labels=lbl
         )
         self.crm_stats_ipv6_route_used = GaugeMetricFamily(
-            "crm_stats_ipv6_route_used", "crm_stats_ipv6_route_used"
+            "crm_stats_ipv6_route_used", "crm_stats_ipv6_route_used", labels=lbl
         )
         self.crm_stats_nexthop_group_member_used = GaugeMetricFamily(
-            "crm_stats_nexthop_group_member_used", "crm_stats_nexthop_group_member_used"
+            "crm_stats_nexthop_group_member_used",
+            "crm_stats_nexthop_group_member_used",
+            labels=lbl,
         )
         self.crm_stats_nexthop_group_used = GaugeMetricFamily(
-            "crm_stats_nexthop_group_used", "crm_stats_nexthop_group_used"
+            "crm_stats_nexthop_group_used", "crm_stats_nexthop_group_used", labels=lbl
         )
         self.crm_stats_snat_entry_used = GaugeMetricFamily(
-            "crm_stats_snat_entry_used", "crm_stats_snat_entry_used"
-        )
-        self.crm_stats_dnat_entry_available = GaugeMetricFamily(
-            "crm_stats_dnat_entry_available", "crm_stats_dnat_entry_available"
-        )
-        self.crm_stats_fdb_entry_available = GaugeMetricFamily(
-            "crm_stats_fdb_entry_available", "crm_stats_fdb_entry_available"
-        )
-        self.crm_stats_ipmc_entry_available = GaugeMetricFamily(
-            "crm_stats_ipmc_entry_available", "crm_stats_ipmc_entry_available"
-        )
-        self.crm_stats_ipv4_neighbor_available = GaugeMetricFamily(
-            "crm_stats_ipv4_neighbor_available", "crm_stats_ipv4_neighbor_available"
-        )
-        self.crm_stats_ipv4_nexthop_available = GaugeMetricFamily(
-            "crm_stats_ipv4_nexthop_available", "crm_stats_ipv4_nexthop_available"
-        )
-        self.crm_stats_ipv4_route_available = GaugeMetricFamily(
-            "crm_stats_ipv4_route_available", "crm_stats_ipv4_route_available"
-        )
-        self.crm_stats_ipv6_neighbor_available = GaugeMetricFamily(
-            "crm_stats_ipv6_neighbor_available", "crm_stats_ipv6_neighbor_available"
-        )
-        self.crm_stats_ipv6_nexthop_available = GaugeMetricFamily(
-            "crm_stats_ipv6_nexthop_available", "crm_stats_ipv6_nexthop_available"
-        )
-        self.crm_stats_ipv6_route_available = GaugeMetricFamily(
-            "crm_stats_ipv6_route_available", "crm_stats_ipv6_route_available"
-        )
-        self.crm_stats_nexthop_group_available = GaugeMetricFamily(
-            "crm_stats_nexthop_group_available", "crm_stats_nexthop_group_available"
-        )
-        self.crm_stats_nexthop_group_member_available = GaugeMetricFamily(
-            "crm_stats_nexthop_group_member_available",
-            "crm_stats_nexthop_group_member_available",
-        )
-        self.crm_stats_snat_entry_available = GaugeMetricFamily(
-            "crm_stats_snat_entry_available", "crm_stats_snat_entry_available"
+            "crm_stats_snat_entry_used", "crm_stats_snat_entry_used", labels=lbl
         )
 
     def export_crm(self):
         try:
-            out_put = getAllFromDB(sonic_db.COUNTERS_DB,
-                                   "CRM:ACL_STATS:EGRESS:LAG")
+            out_put = getAllFromDB(sonic_db.COUNTERS_DB, "CRM:ACL_STATS:EGRESS:LAG")
             if out_put:
                 self.crm_acl_stats_egress_lag_crm_stats_acl_group_used.add_metric(
-                    [], out_put.get("crm_stats_acl_group_used", 0)
+                    [str(out_put.get("crm_stats_acl_group_available", 0))],
+                    out_put.get("crm_stats_acl_group_used", 0),
                 )
                 self.crm_acl_stats_egress_lag_crm_stats_acl_table_used.add_metric(
-                    [], out_put.get("crm_stats_acl_table_used", 0)
-                )
-                self.crm_acl_stats_egress_lag_crm_stats_acl_group_available.add_metric(
-                    [], out_put.get("crm_stats_acl_group_available", 0)
-                )
-                self.crm_acl_stats_egress_lag_crm_stats_acl_table_available.add_metric(
-                    [], out_put.get("crm_stats_acl_table_available", 0)
+                    [str(out_put.get("crm_stats_acl_table_available", 0))],
+                    out_put.get("crm_stats_acl_table_used", 0),
                 )
 
-            out_put = getAllFromDB(sonic_db.COUNTERS_DB,
-                                   "CRM:ACL_STATS:EGRESS:PORT")
+            out_put = getAllFromDB(sonic_db.COUNTERS_DB, "CRM:ACL_STATS:EGRESS:PORT")
             if out_put:
                 self.crm_acl_stats_egress_port_crm_stats_acl_group_used.add_metric(
-                    [], out_put.get("crm_stats_acl_group_used", 0)
+                    [str(out_put.get("crm_stats_acl_group_available", 0))],
+                    out_put.get("crm_stats_acl_group_used", 0),
                 )
                 self.crm_acl_stats_egress_port_crm_stats_acl_table_used.add_metric(
-                    [], out_put.get("crm_stats_acl_table_used", 0)
-                )
-                self.crm_acl_stats_egress_port_crm_stats_acl_group_available.add_metric(
-                    [], out_put.get("crm_stats_acl_group_available", 0)
-                )
-                self.crm_acl_stats_egress_port_crm_stats_acl_table_available.add_metric(
-                    [], out_put.get("crm_stats_acl_table_available", 0)
+                    [str(out_put.get("crm_stats_acl_table_available", 0))],
+                    out_put.get("crm_stats_acl_table_used", 0),
                 )
 
-            out_put = getAllFromDB(sonic_db.COUNTERS_DB,
-                                   "CRM:ACL_STATS:EGRESS:RIF")
+            out_put = getAllFromDB(sonic_db.COUNTERS_DB, "CRM:ACL_STATS:EGRESS:RIF")
             if out_put:
                 self.crm_acl_stats_egress_rif_crm_stats_acl_group_used.add_metric(
-                    [], out_put.get("crm_stats_acl_group_used", 0)
+                    [str(out_put.get("crm_stats_acl_group_available", 0))],
+                    out_put.get("crm_stats_acl_group_used", 0),
                 )
                 self.crm_acl_stats_egress_rif_crm_stats_acl_table_used.add_metric(
-                    [], out_put.get("crm_stats_acl_table_used", 0)
-                )
-                self.crm_acl_stats_egress_rif_crm_stats_acl_group_available.add_metric(
-                    [], out_put.get("crm_stats_acl_group_available", 0)
-                )
-                self.crm_acl_stats_egress_rif_crm_stats_acl_table_available.add_metric(
-                    [], out_put.get("crm_stats_acl_table_available", 0)
+                    [str(out_put.get("crm_stats_acl_table_available", 0))],
+                    out_put.get("crm_stats_acl_table_used", 0),
                 )
 
-            out_put = getAllFromDB(sonic_db.COUNTERS_DB,
-                                   "CRM:ACL_STATS:EGRESS:SWITCH")
+            out_put = getAllFromDB(sonic_db.COUNTERS_DB, "CRM:ACL_STATS:EGRESS:SWITCH")
             if out_put:
                 self.crm_acl_stats_egress_switch_crm_stats_acl_group_used.add_metric(
-                    [], out_put.get("crm_stats_acl_group_used", 0)
+                    [str(out_put.get("crm_stats_acl_group_available", 0))],
+                    out_put.get("crm_stats_acl_group_used", 0),
                 )
                 self.crm_acl_stats_egress_switch_crm_stats_acl_table_used.add_metric(
-                    [], out_put.get("crm_stats_acl_table_used", 0)
-                )
-                self.crm_acl_stats_egress_switch_crm_stats_acl_group_available.add_metric(
-                    [], out_put.get("crm_stats_acl_group_available", 0)
-                )
-                self.crm_acl_stats_egress_switch_crm_stats_acl_table_available.add_metric(
-                    [], out_put.get("crm_stats_acl_table_available", 0)
+                    [str(out_put.get("crm_stats_acl_table_available", 0))],
+                    out_put.get("crm_stats_acl_table_used", 0),
                 )
 
-            out_put = getAllFromDB(sonic_db.COUNTERS_DB,
-                                   "CRM:ACL_STATS:EGRESS:VLAN")
+            out_put = getAllFromDB(sonic_db.COUNTERS_DB, "CRM:ACL_STATS:EGRESS:VLAN")
             if out_put:
                 self.crm_acl_stats_egress_vlan_crm_stats_acl_group_used.add_metric(
-                    [], out_put.get("crm_stats_acl_group_used", 0)
+                    [str(out_put.get("crm_stats_acl_group_available", 0))],
+                    out_put.get("crm_stats_acl_group_used", 0),
                 )
                 self.crm_acl_stats_egress_vlan_crm_stats_acl_table_used.add_metric(
-                    [], out_put.get("crm_stats_acl_table_used", 0)
-                )
-                self.crm_acl_stats_egress_vlan_crm_stats_acl_group_available.add_metric(
-                    [], out_put.get("crm_stats_acl_group_available", 0)
-                )
-                self.crm_acl_stats_egress_vlan_crm_stats_acl_table_available.add_metric(
-                    [], out_put.get("crm_stats_acl_table_available", 0)
+                    [str(out_put.get("crm_stats_acl_table_available", 0))],
+                    out_put.get("crm_stats_acl_table_used", 0),
                 )
 
-            out_put = getAllFromDB(sonic_db.COUNTERS_DB,
-                                   "CRM:ACL_STATS:INGRESS:LAG")
+            out_put = getAllFromDB(sonic_db.COUNTERS_DB, "CRM:ACL_STATS:INGRESS:LAG")
             if out_put:
                 self.crm_acl_stats_ingress_lag_crm_stats_acl_group_used.add_metric(
-                    [], out_put.get("crm_stats_acl_group_used", 0)
+                    [str(out_put.get("crm_stats_acl_group_available", 0))],
+                    out_put.get("crm_stats_acl_group_used", 0),
                 )
                 self.crm_acl_stats_ingress_lag_crm_stats_acl_table_used.add_metric(
-                    [], out_put.get("crm_stats_acl_table_used", 0)
-                )
-                self.crm_acl_stats_ingress_lag_crm_stats_acl_group_available.add_metric(
-                    [], out_put.get("crm_stats_acl_group_available", 0)
-                )
-                self.crm_acl_stats_ingress_lag_crm_stats_acl_table_available.add_metric(
-                    [], out_put.get("crm_stats_acl_table_available", 0)
+                    [str(out_put.get("crm_stats_acl_table_available", 0))],
+                    out_put.get("crm_stats_acl_table_used", 0),
                 )
 
-            out_put = getAllFromDB(sonic_db.COUNTERS_DB,
-                                   "CRM:ACL_STATS:INGRESS:PORT")
+            out_put = getAllFromDB(sonic_db.COUNTERS_DB, "CRM:ACL_STATS:INGRESS:PORT")
             if out_put:
                 self.crm_acl_stats_ingress_port_crm_stats_acl_group_used.add_metric(
-                    [], out_put.get("crm_stats_acl_group_used", 0)
+                    [str(out_put.get("crm_stats_acl_group_available", 0))],
+                    out_put.get("crm_stats_acl_group_used", 0),
                 )
                 self.crm_acl_stats_ingress_port_crm_stats_acl_table_used.add_metric(
-                    [], out_put.get("crm_stats_acl_table_used", 0)
-                )
-                self.crm_acl_stats_ingress_port_crm_stats_acl_group_available.add_metric(
-                    [], out_put.get("crm_stats_acl_group_available", 0)
-                )
-                self.crm_acl_stats_ingress_port_crm_stats_acl_table_available.add_metric(
-                    [], out_put.get("crm_stats_acl_table_available", 0)
+                    [str(out_put.get("crm_stats_acl_table_available", 0))],
+                    out_put.get("crm_stats_acl_table_used", 0),
                 )
 
-            out_put = getAllFromDB(sonic_db.COUNTERS_DB,
-                                   "CRM:ACL_STATS:INGRESS:RIF")
+            out_put = getAllFromDB(sonic_db.COUNTERS_DB, "CRM:ACL_STATS:INGRESS:RIF")
             if out_put:
                 self.crm_acl_stats_ingress_rif_crm_stats_acl_group_used.add_metric(
-                    [], out_put.get("crm_stats_acl_group_used", 0)
+                    [str(out_put.get("crm_stats_acl_group_available", 0))],
+                    out_put.get("crm_stats_acl_group_used", 0),
                 )
                 self.crm_acl_stats_ingress_rif_crm_stats_acl_table_used.add_metric(
-                    [], out_put.get("crm_stats_acl_table_used", 0)
-                )
-                self.crm_acl_stats_ingress_rif_crm_stats_acl_group_available.add_metric(
-                    [], out_put.get("crm_stats_acl_group_available", 0)
-                )
-                self.crm_acl_stats_ingress_rif_crm_stats_acl_table_available.add_metric(
-                    [], out_put.get("crm_stats_acl_table_available", 0)
+                    [str(out_put.get("crm_stats_acl_table_available", 0))],
+                    out_put.get("crm_stats_acl_table_used", 0),
                 )
 
-            out_put = getAllFromDB(sonic_db.COUNTERS_DB,
-                                   "CRM:ACL_STATS:INGRESS:SWITCH")
+            out_put = getAllFromDB(sonic_db.COUNTERS_DB, "CRM:ACL_STATS:INGRESS:SWITCH")
             if out_put:
                 self.crm_acl_stats_ingress_switch_crm_stats_acl_group_used.add_metric(
-                    [], out_put.get("crm_stats_acl_group_used", 0)
+                    [str(out_put.get("crm_stats_acl_group_available", 0))],
+                    out_put.get("crm_stats_acl_group_used", 0),
                 )
                 self.crm_acl_stats_ingress_switch_crm_stats_acl_table_used.add_metric(
-                    [], out_put.get("crm_stats_acl_table_used", 0)
-                )
-                self.crm_acl_stats_ingress_switch_crm_stats_acl_group_available.add_metric(
-                    [], out_put.get("crm_stats_acl_group_available", 0)
-                )
-                self.crm_acl_stats_ingress_switch_crm_stats_acl_table_available.add_metric(
-                    [], out_put.get("crm_stats_acl_table_available", 0)
+                    [str(out_put.get("crm_stats_acl_table_available", 0))],
+                    out_put.get("crm_stats_acl_table_used", 0),
                 )
 
-            out_put = getAllFromDB(sonic_db.COUNTERS_DB,
-                                   "CRM:ACL_STATS:INGRESS:VLAN")
+            out_put = getAllFromDB(sonic_db.COUNTERS_DB, "CRM:ACL_STATS:INGRESS:VLAN")
             if out_put:
                 self.crm_acl_stats_ingress_vlan_crm_stats_acl_group_used.add_metric(
-                    [], out_put.get("crm_stats_acl_group_used", 0)
+                    [str(out_put.get("crm_stats_acl_group_available", 0))],
+                    out_put.get("crm_stats_acl_group_used", 0),
                 )
                 self.crm_acl_stats_ingress_vlan_crm_stats_acl_table_used.add_metric(
-                    [], out_put.get("crm_stats_acl_table_used", 0)
-                )
-                self.crm_acl_stats_ingress_vlan_crm_stats_acl_group_available.add_metric(
-                    [], out_put.get("crm_stats_acl_group_available", 0)
-                )
-                self.crm_acl_stats_ingress_vlan_crm_stats_acl_table_available.add_metric(
-                    [], out_put.get("crm_stats_acl_table_available", 0)
+                    [str(out_put.get("crm_stats_acl_table_available", 0))],
+                    out_put.get("crm_stats_acl_table_used", 0),
                 )
 
             out_put = getAllFromDB(sonic_db.COUNTERS_DB, "CRM:STATS")
             if out_put:
                 self.crm_stats_dnat_entry_used.add_metric(
-                    [], out_put.get("crm_stats_dnat_entry_used", 0)
+                    [str(out_put.get("crm_stats_dnat_entry_available", 0))],
+                    out_put.get("crm_stats_dnat_entry_used", 0),
                 )
                 self.crm_stats_fdb_entry_used.add_metric(
-                    [], out_put.get("crm_stats_fdb_entry_used", 0)
+                    [str(out_put.get("crm_stats_fdb_entry_available", 0))],
+                    out_put.get("crm_stats_fdb_entry_used", 0),
                 )
                 self.crm_stats_ipmc_entry_used.add_metric(
-                    [], out_put.get("crm_stats_ipmc_entry_used", 0)
+                    [str(out_put.get("crm_stats_ipmc_entry_available", 0))],
+                    out_put.get("crm_stats_ipmc_entry_used", 0),
                 )
                 self.crm_stats_ipv4_neighbor_used.add_metric(
-                    [], out_put.get("crm_stats_ipv4_neighbor_used", 0)
+                    [str(out_put.get("crm_stats_ipv4_neighbor_available", 0))],
+                    out_put.get("crm_stats_ipv4_neighbor_used", 0),
                 )
                 self.crm_stats_ipv4_nexthop_used.add_metric(
-                    [], out_put.get("crm_stats_ipv4_nexthop_used", 0)
+                    [str(out_put.get("crm_stats_ipv4_nexthop_available", 0))],
+                    out_put.get("crm_stats_ipv4_nexthop_used", 0),
                 )
                 self.crm_stats_ipv4_route_used.add_metric(
-                    [], out_put.get("crm_stats_ipv4_route_used", 0)
+                    [str(out_put.get("crm_stats_ipv4_route_available", 0))],
+                    out_put.get("crm_stats_ipv4_route_used", 0),
                 )
                 self.crm_stats_ipv6_neighbor_used.add_metric(
-                    [], out_put.get("crm_stats_ipv6_neighbor_used", 0)
+                    [str(out_put.get("crm_stats_ipv6_neighbor_available", 0))],
+                    out_put.get("crm_stats_ipv6_neighbor_used", 0),
                 )
                 self.crm_stats_ipv6_nexthop_used.add_metric(
-                    [], out_put.get("crm_stats_ipv6_nexthop_used", 0)
+                    [str(out_put.get("crm_stats_ipv6_nexthop_available", 0))],
+                    out_put.get("crm_stats_ipv6_nexthop_used", 0),
                 )
                 self.crm_stats_ipv6_route_used.add_metric(
-                    [], out_put.get("crm_stats_ipv6_route_used", 0)
+                    [str(out_put.get("crm_stats_ipv6_route_available", 0))],
+                    out_put.get("crm_stats_ipv6_route_used", 0),
                 )
                 self.crm_stats_nexthop_group_member_used.add_metric(
-                    [], out_put.get("crm_stats_nexthop_group_member_used", 0)
+                    [str(out_put.get("crm_stats_nexthop_group_member_available", 0))],
+                    out_put.get("crm_stats_nexthop_group_member_used", 0),
                 )
                 self.crm_stats_nexthop_group_used.add_metric(
-                    [], out_put.get("crm_stats_nexthop_group_used", 0)
+                    [str(out_put.get("crm_stats_nexthop_group_available", 0))],
+                    out_put.get("crm_stats_nexthop_group_used", 0),
                 )
                 self.crm_stats_snat_entry_used.add_metric(
-                    [], out_put.get("crm_stats_snat_entry_used", 0)
-                )
-                self.crm_stats_dnat_entry_available.add_metric(
-                    [], out_put.get("crm_stats_dnat_entry_available", 0)
-                )
-                self.crm_stats_fdb_entry_available.add_metric(
-                    [], out_put.get("crm_stats_fdb_entry_available", 0)
-                )
-                self.crm_stats_ipmc_entry_available.add_metric(
-                    [], out_put.get("crm_stats_ipmc_entry_available", 0)
-                )
-                self.crm_stats_ipv4_neighbor_available.add_metric(
-                    [], out_put.get("crm_stats_ipv4_neighbor_available", 0)
-                )
-                self.crm_stats_ipv4_nexthop_available.add_metric(
-                    [], out_put.get("crm_stats_ipv4_nexthop_available", 0)
-                )
-                self.crm_stats_ipv4_route_available.add_metric(
-                    [], out_put.get("crm_stats_ipv4_route_available", 0)
-                )
-                self.crm_stats_ipv6_neighbor_available.add_metric(
-                    [], out_put.get("crm_stats_ipv6_neighbor_available", 0)
-                )
-                self.crm_stats_ipv6_nexthop_available.add_metric(
-                    [], out_put.get("crm_stats_ipv6_nexthop_available", 0)
-                )
-                self.crm_stats_ipv6_route_available.add_metric(
-                    [], out_put.get("crm_stats_ipv6_route_available", 0)
-                )
-                self.crm_stats_nexthop_group_available.add_metric(
-                    [], out_put.get("crm_stats_nexthop_group_available", 0)
-                )
-                self.crm_stats_nexthop_group_member_available.add_metric(
-                    [], out_put.get(
-                        "crm_stats_nexthop_group_member_available", 0)
-                )
-                self.crm_stats_snat_entry_available.add_metric(
-                    [], out_put.get("crm_stats_snat_entry_available", 0)
+                    [str(out_put.get("crm_stats_snat_entry_available", 0))],
+                    out_put.get("crm_stats_snat_entry_used", 0),
                 )
 
         except:
