@@ -103,7 +103,6 @@ class SystemCollector():
         self.metric_sys_status = GaugeMetricFamily(
             "sonic_system_status",
             "SONiC System Status",
-            labels=["status", "status_core"],
         )
 
         # Temp Info
@@ -284,4 +283,4 @@ class SystemCollector():
     def export_sys_status(self):
         sts, sts_core = is_sonic_sys_ready()
         self.metric_sys_status.add_metric(
-            [str(sts), str(sts_core)], floatify(sts & sts_core))
+            [], floatify(sts & sts_core))
