@@ -1,8 +1,35 @@
-from distutils.version import Version
-import functools
-import re
-from datetime import datetime, timedelta
+# Copyright 2021 STORDIS GmbH
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 
+from concurrent.futures import ThreadPoolExecutor
+import functools
+from datetime import datetime, timedelta
+import ipaddress
+import logging
+import logging.config
+import os
+from pathlib import Path
+import socket
+
+import yaml
+
+from .constants import TRUE_VALUES
+
+developer_mode = os.environ.get("DEVELOPER_MODE", "False").lower() in TRUE_VALUES
+
+thread_pool = ThreadPoolExecutor(20)
 
 def timed_cache(**timedelta_kwargs):
     def _wrapper(f):
@@ -38,40 +65,38 @@ def timed_cache(**timedelta_kwargs):
     return _wrapper
 
 
-class ConfigDBVersion(Version):
-    component_re = re.compile(r"(\d+|_)", re.VERBOSE)
-    vstring = ""
-    version = []
+@timed_cache(seconds=600)
+def dns_lookup(ip: str) -> str:
+    if ip is None:
+        return ""
+    try:
+        ipaddress.ip_address(ip)
+        return socket.gethostbyaddr(ip)[0]
+    except (ValueError, socket.herror):
+        return ip
 
-    def parse(self, vstring):
-        # I've given up on thinking I can reconstruct the version string
-        # from the parsed tuple -- so I just store the string here for
-        # use by __str__
-        self.vstring = vstring
-        components = [x for x in self.component_re.split(vstring) if x and x != "_"]
-        for i, obj in enumerate(components):
-            try:
-                components[i] = int(obj)
-            except ValueError:
-                pass
 
-        self.version = components
+BASE_PATH = Path(__file__).parent
 
-    def __str__(self):
-        return self.vstring
-
-    def __repr__(self):
-        return "ConfigDBVersion ('{}')".format(self)
-
-    def _cmp(self, other):
-        if isinstance(other, str):
-            other = ConfigDBVersion(other)
-        elif not isinstance(other, ConfigDBVersion):
-            return NotImplemented
-
-        if self.version == other.version:
-            return 0
-        if self.version < other.version:
-            return -1
-        if self.version > other.version:
-            return 1
+_logging_initialized=False
+def get_logger():
+    global _logging_initialized
+    if not _logging_initialized:
+        logging_config_path = os.environ.get(
+            "SONIC_EXPORTER_LOGGING_CONFIG", (BASE_PATH / "./config/logging.yml").resolve()
+        )
+        LOGGING_CONFIG_RAW = ""
+        with open(logging_config_path, "r") as file:
+            LOGGING_CONFIG_RAW = file.read()
+        loglevel = os.environ.get("SONIC_EXPORTER_LOGLEVEL", None)
+        LOGGING_CONFIG = yaml.safe_load(LOGGING_CONFIG_RAW)
+        if (
+            loglevel
+            and "handlers" in LOGGING_CONFIG
+            and "console" in LOGGING_CONFIG["handlers"]
+            and "level" in LOGGING_CONFIG["handlers"]["console"]
+        ):
+            LOGGING_CONFIG["handlers"]["console"]["level"] = loglevel
+        logging.config.dictConfig(LOGGING_CONFIG)
+        _logging_initialized=True
+    return logging
