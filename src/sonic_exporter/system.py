@@ -44,38 +44,44 @@ _logger = get_logger().getLogger(__name__)
 
 if developer_mode:
     from sonic_exporter.test.mock_sys_class_hwmon import MockSystemClassHWMon
+
     sys_class_hwmon = MockSystemClassHWMon()
 else:
     from sonic_exporter.sys_class_hwmon import SystemClassHWMon
+
     sys_class_hwmon = SystemClassHWMon()
 
 chassis_slot_regex = re.compile(r"^.*?(\d+)$")
 
-syseeprom = {
-    decode(key)
-    .replace(EEPROM_INFO, "")
-    .replace(" ", "_")
-    .lower(): getAllFromDB(sonic_db.STATE_DB, key)
-    for key in getKeysFromDB(sonic_db.STATE_DB, EEPROM_INFO_PATTERN)
-}
 
-chassis = {
-    decode(key).replace(CHASSIS_INFO, ""): getAllFromDB(sonic_db.STATE_DB, key)
-    for key in getKeysFromDB(sonic_db.STATE_DB, CHASSIS_INFO_PATTERN)
-}
+def get_syseeprom():
+    return {
+        decode(key)
+        .replace(EEPROM_INFO, "")
+        .replace(" ", "_")
+        .lower(): getAllFromDB(sonic_db.STATE_DB, key)
+        for key in getKeysFromDB(sonic_db.STATE_DB, EEPROM_INFO_PATTERN)
+    }
+
+
+def get_chassis_info():
+    return {
+        decode(key).replace(CHASSIS_INFO, ""): getAllFromDB(sonic_db.STATE_DB, key)
+        for key in getKeysFromDB(sonic_db.STATE_DB, CHASSIS_INFO_PATTERN)
+    }
 
 
 def _find_in_syseeprom(key: str):
     return list(
         set(
             syseeprom.get("Value", "")
-            for syseeprom in syseeprom.values()
+            for syseeprom in get_syseeprom().values()
             if str(syseeprom.get("Name", "")).replace(" ", "_").lower() == key
         )
     )[0].strip()
 
 
-class SystemCollector():
+class SystemCollector:
     def collect(self):
         date_time = datetime.now()
         self.__init_metrics()
@@ -83,14 +89,12 @@ class SystemCollector():
             [
                 thread_pool.submit(self.export_temp_info),
                 thread_pool.submit(self.export_system_info),
-                thread_pool.submit(self.export_sys_status)
+                thread_pool.submit(self.export_sys_status),
             ],
             return_when=ALL_COMPLETED,
         )
 
-        _logger.debug(
-            f"Time taken in metrics collection {datetime.now() - date_time}"
-        )
+        _logger.debug(f"Time taken in metrics collection {datetime.now() - date_time}")
         yield self.metric_sys_status
         yield self.metric_device_sensor_celsius
         yield self.metric_device_threshold_sensor_celsius
@@ -158,7 +162,8 @@ class SystemCollector():
             for value in sensor.values:
                 _, subvalue = value.name.split("_", maxsplit=1)
                 _logger.debug(
-                    f"export_hwmon_temp_info :: name={name}, -> value={value}")
+                    f"export_hwmon_temp_info :: name={name}, -> value={value}"
+                )
                 match subvalue:
                     case "max":
                         self.metric_device_threshold_sensor_celsius.add_metric(
@@ -170,18 +175,23 @@ class SystemCollector():
                         )
                     case "input":
                         self.metric_device_sensor_celsius.add_metric(
-                            [name], value.value)
+                            [name], value.value
+                        )
 
     def export_temp_info(self):
         platform_name: str = list(
-            set(decode(chassis.get("platform_name", ""))
-                for chassis in chassis.values())
+            set(
+                decode(chassis.get("platform_name", ""))
+                for chassis in get_chassis_info().values()
+            )
         )[0].strip()
         if not platform_name:
             platform_name = _find_in_syseeprom("platform_name")
         product_name = list(
-            set(decode(chassis.get("product_name", ""))
-                for chassis in chassis.values())
+            set(
+                decode(chassis.get("product_name", ""))
+                for chassis in get_chassis_info().values()
+            )
         )[0].strip()
         if not product_name:
             product_name = _find_in_syseeprom("product_name")
@@ -207,10 +217,12 @@ class SystemCollector():
                 last_two_bytes: str = name[-2:]
                 if not unknown_switch_model:
                     name = TEMP_SENSORS[switch_model][air_flow].get(
-                        last_two_bytes, name)
+                        last_two_bytes, name
+                    )
 
                 temp = floatify(
-                    decode(getFromDB(sonic_db.STATE_DB, key, "temperature")))
+                    decode(getFromDB(sonic_db.STATE_DB, key, "temperature"))
+                )
                 high_threshold = floatify(
                     decode(getFromDB(sonic_db.STATE_DB, key, "high_threshold"))
                 )
@@ -229,7 +241,7 @@ class SystemCollector():
 
     def export_system_info(self):
         self.metric_device_uptime.add_metric([], get_uptime().total_seconds())
-        for chassis_raw, data in chassis.items():
+        for chassis_raw, data in get_chassis_info().items():
             chs = chassis_raw
             if match := chassis_slot_regex.fullmatch(chassis_raw):
                 chs = match.group(1)
@@ -272,8 +284,7 @@ class SystemCollector():
             if not key.replace(PROCESS_STATS, "").lower() in PROCESS_STATS_IGNORE
         ]
         cpu_usage = sum(cpu_usage for cpu_usage, _ in cpu_memory_usages)
-        memory_usage = sum(memory_usage for _,
-                           memory_usage in cpu_memory_usages)
+        memory_usage = sum(memory_usage for _, memory_usage in cpu_memory_usages)
         self.system_cpu_ratio.add_metric([], cpu_usage / 100)
         self.system_memory_ratio.add_metric([], memory_usage / 100)
         _logger.debug(
@@ -282,5 +293,4 @@ class SystemCollector():
 
     def export_sys_status(self):
         sts, sts_core = is_sonic_sys_ready()
-        self.metric_sys_status.add_metric(
-            [], floatify(sts & sts_core))
+        self.metric_sys_status.add_metric([], floatify(sts & sts_core))
