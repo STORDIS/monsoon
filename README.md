@@ -59,7 +59,7 @@ If your switch is not connected to internet, then on any of your host connected 
   #### Start sonic-exporter container
   Execute following command on SONiC host to start sonic-exporter container :
 
-    docker run -e SONIC_EXPORTER_ADDRESS="0.0.0.0" --name sonic-exporter --network=host --pid=host --privileged --restart=always -d -v /var/run/redis:/var/run/redis -v /usr/bin/vtysh:/usr/bin/vtysh -v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/ntpq:/usr/bin/ntpq -v /usr/lib/x86_64-linux-gnu/:/usr/lib/x86_64-linux-gnu/ --log-opt mode=non-blocking --log-opt max-buffer-size=4m --log-driver json-file --log-opt max-size=10m --log-opt max-file=3 --log-opt compress=true stordis/sonic-exporter:main
+    docker run -e SONIC_EXPORTER_ADDRESS="0.0.0.0" --name sonic-exporter --network=host --pid=host --privileged --restart=always -d -v /var/run/redis:/var/run/redis -v /usr/bin/vtysh:/usr/bin/vtysh -v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/ntpq:/usr/bin/ntpq -v /usr/lib/x86_64-linux-gnu/:/usr/lib/x86_64-linux-gnu/ -v /usr/bin/cgexec:/usr/bin/cgexec --log-opt mode=non-blocking --log-opt max-buffer-size=4m --log-driver json-file --log-opt max-size=10m --log-opt max-file=3 --log-opt compress=true stordis/sonic-exporter:main
 
   #### Verify sonic-exporter installation:
   Metrices from sonic-exporter should be available in raw text format :

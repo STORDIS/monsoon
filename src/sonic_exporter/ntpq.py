@@ -20,7 +20,7 @@ from subprocess import PIPE, CalledProcessError, run
 from typing import Optional
 
 from .utilities import get_logger, thread_pool
-from .constants import NTP_SERVER_PATTERN
+from .constants import NTP_SERVER_PATTERN, TRUE_VALUES
 
 from .converters import floatify
 from .db_util import getAllFromDB, getFromDB, getKeysFromDB, sonic_db
@@ -33,11 +33,11 @@ _logger = get_logger().getLogger(__name__)
 def run_command(command: list, vrf: Optional[str] = None):
     # TODO: Put local VRF commands into their own module
     command = ["ntpq"] + command
-    if vrf:
+    if vrf in TRUE_VALUES:
         command = [
             "cgexec",
             "-g",
-            f"l3mdev:{vrf.strip()}",
+            f"l3mdev:mgmt",
         ] + command
     try:
         out_put = run(command, check=True, stdout=PIPE, stderr=PIPE).stdout.decode(
@@ -175,8 +175,8 @@ class NtpCollector():
                 )
 
     def export_ntp_peers(self):
-        vrf = getFromDB(sonic_db.CONFIG_DB, "NTP|global",
-                        "vrf", retries=0, timeout=0)
+        vrf = getFromDB(sonic_db.CONFIG_DB, "MGMT_VRF_CONFIG|vrf_global",
+                        "mgmtVrfEnabled")
         peers = get_peers(vrf=vrf)
         ntp_rv = get_rv(vrf=vrf)
         ntp_status = ntp_rv.get("associd", "")
@@ -184,7 +184,6 @@ class NtpCollector():
             self.metric_ntp_sync_status.add_metric([], 1.0)
         else:
             self.metric_ntp_sync_status.add_metric([], 0)
-        _logger.debug(f"hello {json.dumps(peers, indent=2)}")
         for op in peers:
             _logger.debug(
                 f"export_ntp_peers :: {' '.join([f'{key}={value}' for key, value in op.items()])}"
