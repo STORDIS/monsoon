@@ -2585,7 +2585,7 @@
               },
               "editorMode": "builder",
               "exemplar": false,
-              "expr": "sonic_interface_optic_volts{instance=\"$target\"}",
+              "expr": "delta(sonic_interface_optic_volts{instance=\"$target\"}[1m])",
               "instant": false,
               "legendFormat": "{{port}} {{interface}}",
               "range": true,
@@ -2676,7 +2676,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_interface_optic_celsius{instance=\"$target\"}",
+              "expr": "delta(sonic_interface_optic_celsius{instance=\"$target\"}[1m])",
               "legendFormat": "{{port}} {{interface}}",
               "range": true,
               "refId": "A"
@@ -2766,7 +2766,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_interface_transmit_optic_bias_amperes{instance=\"$target\"}",
+              "expr": "delta(sonic_interface_transmit_optic_bias_amperes{instance=\"$target\"}[1m])",
               "legendFormat": "{{port}} {{interface}}",
               "range": true,
               "refId": "A"
@@ -2856,7 +2856,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_interface_receive_optic_power_dbm{instance=\"$target\"}",
+              "expr": "delta(sonic_interface_receive_optic_power_dbm{instance=\"$target\"}[1m])",
               "legendFormat": "{{port}} {{interface}}",
               "range": true,
               "refId": "A"
@@ -2971,7 +2971,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_interface_transmit_optic_power_dbm{instance=\"$target\"}",
+              "expr": "delta(sonic_interface_transmit_optic_power_dbm{instance=\"$target\"}[1m])",
               "legendFormat": "{{port}} {{interface}}",
               "range": true,
               "refId": "A"
@@ -8407,7 +8407,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_interface_received_ethernet_packets_total{instance=\"$target\"}",
+              "expr": "delta(sonic_interface_received_ethernet_packets_total{instance=\"$target\"}[1m])",
               "range": true,
               "refId": "A"
             }
@@ -8633,7 +8633,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_interface_queue_processed_packets_total{instance=\"$target\"}",
+              "expr": "delta(sonic_interface_queue_processed_packets_total{instance=\"$target\"}[1m])",
               "range": true,
               "refId": "A"
             }
@@ -8728,7 +8728,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_interface_queue_processed_bytes_total{instance=\"$target\"}",
+              "expr": "delta(sonic_interface_queue_processed_bytes_total{instance=\"$target\"}[1m])",
               "range": true,
               "refId": "A"
             }
@@ -8944,7 +8944,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_interface_transmitted_bytes_total{instance=\"$target\"}",
+              "expr": "delta(sonic_interface_transmitted_bytes_total{instance=\"$target\"}[1m])",
               "range": true,
               "refId": "A"
             }
@@ -9039,7 +9039,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_interface_received_bytes_total{instance=\"$target\"}",
+              "expr": "delta(sonic_interface_received_bytes_total{instance=\"$target\"}[1m])",
               "range": true,
               "refId": "A"
             }
@@ -9134,7 +9134,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_interface_receive_error_input_packets_total{instance=\"$target\"}",
+              "expr": "delta(sonic_interface_receive_error_input_packets_total{instance=\"$target\"}[1m])",
               "range": true,
               "refId": "A"
             }
@@ -9229,7 +9229,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_interface_received_packets_total{instance=\"$target\"}",
+              "expr": "delta(sonic_interface_received_packets_total{instance=\"$target\"}[1m])",
               "range": true,
               "refId": "A"
             }
@@ -9324,7 +9324,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_interface_transmitted_packets_total{instance=\"$target\"}",
+              "expr": "delta(sonic_interface_transmitted_packets_total{instance=\"$target\"}[1m])",
               "range": true,
               "refId": "A"
             }
@@ -9419,7 +9419,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_interface_transmit_error_output_packets_total{instance=\"$target\"}",
+              "expr": "delta(sonic_interface_transmit_error_output_packets_total{instance=\"$target\"}[1m])",
               "range": true,
               "refId": "A"
             }
@@ -9514,7 +9514,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_interface_transmitted_ethernet_packets_total{instance=\"$target\"}",
+              "expr": "delta(sonic_interface_transmitted_ethernet_packets_total{instance=\"$target\"}[1m])",
               "range": true,
               "refId": "A"
             }
@@ -9741,7 +9741,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "builder",
-              "expr": "sonic_interface_last_flapped_seconds_total{instance=\"$target\"}",
+              "expr": "delta(sonic_interface_last_flapped_seconds_total{instance=\"$target\"}[1m])",
               "range": true,
               "refId": "A"
             }
