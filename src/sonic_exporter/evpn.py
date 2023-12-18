@@ -15,12 +15,16 @@
 
 from concurrent.futures import ALL_COMPLETED, wait
 from datetime import datetime
+from typing import Union
 from prometheus_client.core import GaugeMetricFamily
 from .enums import OSILayer
 from .converters import boolify, decode, floatify
 from .vtysh import vtysh
 from .utilities import developer_mode, thread_pool, get_logger
+
 _logger = get_logger().getLogger(__name__)
+
+sys_class_net: Union['MockSystemClassNetworkInfo', 'SystemClassNetworkInfo']
 
 if developer_mode:
     from sonic_exporter.test.mock_sys_class_net import (
@@ -34,21 +38,16 @@ else:
     sys_class_net = SystemClassNetworkInfo()
 
 
-class EvpnCollector():
-
+class EvpnCollector:
     def collect(self):
         date_time = datetime.now()
         self.__init_metrics()
         wait(
-            [
-                thread_pool.submit(self.export_evpn_vni_info)
-            ],
+            [thread_pool.submit(self.export_evpn_vni_info)],
             return_when=ALL_COMPLETED,
         )
 
-        _logger.debug(
-            f"Time taken in metrics collection {datetime.now() - date_time}"
-        )
+        _logger.debug(f"Time taken in metrics collection {datetime.now() - date_time}")
 
         yield self.metric_evpn_status
         yield self.metric_evpn_remote_vteps
@@ -112,8 +111,7 @@ class EvpnCollector():
                         floatify(len(evpn_vni.get("numRemoteVteps", []))),
                     )
                     self.metric_evpn_arps.add_metric(
-                        [vni, interface, svi, layer.value,
-                            vrf], evpn_vni["numArpNd"]
+                        [vni, interface, svi, layer.value, vrf], evpn_vni["numArpNd"]
                     )
                     self.metric_evpn_mac_addresses.add_metric(
                         [vni, interface, svi, layer.value, vrf],

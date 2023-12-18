@@ -15,6 +15,7 @@
 import json
 import re
 from enum import Enum
+from typing import Dict, Any
 from importlib.resources import read_text
 from importlib import import_module
 
@@ -65,7 +66,7 @@ class SonicV2Connector:
 
     def __init__(self, password: str):
         self.password = password
-        self.db = {}
+        self.db: Dict[SonicV2Connector.DB, Dict[str, Any]]= {}
 
     def connect(self, db: DB):
         self.db = {**self.db, **{db: self.load_db(self.version, self.model, db)}}
@@ -76,7 +77,7 @@ class SonicV2Connector:
     def get(self, db: DB, key: str, sub_key: str):
         return self.db[db][key]["value"].get(sub_key, None)
 
-    def keys(self, db: DB, pattern: str = None):
+    def keys(self, db: DB, pattern: str = ""):
         regex = re.compile(
             r"^{}$".format(pattern.replace("*", ".*?").replace("|", "\|"))
         )

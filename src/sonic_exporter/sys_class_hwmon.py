@@ -293,7 +293,7 @@ class SystemClassHWMon:
         return SensorData(name=metric_name, unit=si_unit, value=value)
 
     @staticmethod
-    def get_sensor_data(file_path: Path) -> SensorData:
+    def get_sensor_data(file_path: Path) -> Optional[SensorData]:
         if match := SystemClassHWMon.sensor_regex.match(file_path.name):
             sensor_type = SystemClassHWMon.SensorType(match.group(1))
             try:
@@ -306,12 +306,13 @@ class SystemClassHWMon:
                 # logging.debug(e)
         # else:
         # logging.debug(file_path.name)
+        return None
 
     @property
     def sensors(self) -> Dict[str, Sensor]:
         for file_path in self.sys_path.iterdir():
             if file_path.is_dir():
-                name = None
+                name = ""
                 address = None
                 modalias = None
                 name_path = file_path / self.GlobalAttributes.NAME.value

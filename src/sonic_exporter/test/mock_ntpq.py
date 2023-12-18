@@ -17,8 +17,6 @@ import jc
 from typing import Optional
 from sonic_exporter.ntpq import NTPQ
 
-from sonic_exporter.utilities import ConfigDBVersion
-
 
 class MockNTPQ(NTPQ):
     def run_command(self, command: list, vrf: Optional[str] = None):
@@ -45,5 +43,4 @@ clk_jitter=0.641, clk_wander=0.007
 """
         else:
             raise NotImplementedError(f"This mock function is missing {command}")
-        self.logger.debug(f"NTPQ mock:\n{out_put}")
         return out_put

@@ -14,6 +14,7 @@
 #
 from concurrent.futures import ALL_COMPLETED, wait
 from datetime import datetime
+from typing import Union
 from prometheus_client.core import GaugeMetricFamily
 from .constants import (
     SAG,
@@ -30,6 +31,8 @@ from .enums import InternetProtocol
 
 _logger = get_logger().getLogger(__name__)
 
+sys_class_net: Union['MockSystemClassNetworkInfo', 'SystemClassNetworkInfo']
+
 if developer_mode:
     from sonic_exporter.test.mock_sys_class_net import (
         MockSystemClassNetworkInfo,
@@ -42,27 +45,21 @@ else:
     sys_class_net = SystemClassNetworkInfo()
 
 
-class SagCollector():
-
+class SagCollector:
     def collect(self):
         date_time = datetime.now()
         self.__init_metrics()
         wait(
-            [
-                thread_pool.submit(self.export_static_anycast_gateway_info)
-            ],
+            [thread_pool.submit(self.export_static_anycast_gateway_info)],
             return_when=ALL_COMPLETED,
         )
 
-        _logger.debug(
-            f"Time taken in metrics collection {datetime.now() - date_time}"
-        )
+        _logger.debug(f"Time taken in metrics collection {datetime.now() - date_time}")
         yield self.metric_sag_operational_status
         yield self.metric_sag_admin_status
         yield self.metric_sag_info
 
     def __init_metrics(self):
-
         sag_labels = [
             "interface",
             "vrf",
@@ -103,8 +100,7 @@ class SagCollector():
             # break if no SAG is configured
             return
         global_data = getAllFromDB(sonic_db.CONFIG_DB, SAG_GLOBAL)
-        vxlan_tunnel_map = getKeysFromDB(
-            sonic_db.CONFIG_DB, VXLAN_TUNNEL_MAP_PATTERN)
+        vxlan_tunnel_map = getKeysFromDB(sonic_db.CONFIG_DB, VXLAN_TUNNEL_MAP_PATTERN)
 
         for internet_protocol in InternetProtocol:
             if global_data and boolify(global_data[internet_protocol.value].lower()):
@@ -130,8 +126,7 @@ class SagCollector():
                             "vrf_name",
                         )
                     )
-                    gateway_ip = decode(
-                        getFromDB(sonic_db.CONFIG_DB, key, "gwip@"))
+                    gateway_ip = decode(getFromDB(sonic_db.CONFIG_DB, key, "gwip@"))
                     vni_key = next(
                         vxlan_tunnel_key
                         for vxlan_tunnel_key in vxlan_tunnel_map
@@ -139,13 +134,11 @@ class SagCollector():
                     )
                     vni = decode(getFromDB(sonic_db.CONFIG_DB, vni_key, "vni"))
                     self.metric_sag_admin_status.add_metric(
-                        [interface, vrf, gateway_ip, ip_family.value.lower(),
-                         str(vni)],
+                        [interface, vrf, gateway_ip, ip_family.value.lower(), str(vni)],
                         sys_class_net.admin_enabled(interface),
                     )
                     self.metric_sag_operational_status.add_metric(
-                        [interface, vrf, gateway_ip, ip_family.value.lower(),
-                         str(vni)],
+                        [interface, vrf, gateway_ip, ip_family.value.lower(), str(vni)],
                         sys_class_net.operational(interface),
                     )
                 except (KeyError, StopIteration, OSError):

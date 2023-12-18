@@ -14,6 +14,7 @@
 #
 
 from concurrent.futures import ALL_COMPLETED, wait
+from typing import Union
 from datetime import datetime
 import re
 from prometheus_client.core import GaugeMetricFamily, CounterMetricFamily
@@ -41,6 +42,8 @@ from .converters import decode, floatify, get_uptime
 from .utilities import developer_mode, get_logger, thread_pool
 
 _logger = get_logger().getLogger(__name__)
+
+sys_class_hwmon: Union['MockSystemClassHWMon', 'SystemClassHWMon']
 
 if developer_mode:
     from sonic_exporter.test.mock_sys_class_hwmon import MockSystemClassHWMon

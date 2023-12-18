@@ -29,52 +29,52 @@ from prometheus_client.core import GaugeMetricFamily
 
 _logger = get_logger().getLogger(__name__)
 
-
-def run_command(command: list, vrf: Optional[str] = None):
-    # TODO: Put local VRF commands into their own module
-    command = ["ntpq"] + command
-    if vrf in TRUE_VALUES:
-        command = [
-            "cgexec",
-            "-g",
-            f"l3mdev:mgmt",
-        ] + command
-    try:
-        out_put = run(command, check=True, stdout=PIPE, stderr=PIPE).stdout.decode(
-            "utf-8"
-        )
-        _logger.debug(f"run command [{' '.join(command)}]")
-        _logger.debug(f"got output \n {out_put}")
-        return out_put
-    except CalledProcessError as e:
-        _logger.debug(
-            f"{e.cmd} error_code: {e.returncode} error_msg: {e.stderr} output: {e.stdout}"
-        )
-        raise e
-
-
-def get_peers(
-    vrf: Optional[str] = None,
-):
-    data = jc.parse("ntpq", run_command(["-p", "-n"], vrf=vrf))
-    _logger.debug(f"parsed data :: {data}")
-    return data
-
-
-def get_rv(vrf: Optional[str] = None):
-    rv = {}
-    output = run_command(["-c", "rv"], vrf=vrf)
-    for element in output.replace("\n", "").split(","):
+class NTPQ:
+    def run_command(self, command: list, vrf: Optional[str] = None):
+        # TODO: Put local VRF commands into their own module
+        command = ["ntpq"] + command
+        if vrf in TRUE_VALUES:
+            command = [
+                "cgexec",
+                "-g",
+                f"l3mdev:mgmt",
+            ] + command
         try:
-            key, value = element.strip().split("=", maxsplit=1)
-            rv[key] = value.replace('"', "")
-        except ValueError:
-            _logger.debug(f"[{element}] is not '=' separated")
-            continue
-    return rv
+            out_put = run(command, check=True, stdout=PIPE, stderr=PIPE).stdout.decode(
+                "utf-8"
+            )
+            _logger.debug(f"run command [{' '.join(command)}]")
+            _logger.debug(f"got output \n {out_put}")
+            return out_put
+        except CalledProcessError as e:
+            _logger.debug(
+                f"{e.cmd} error_code: {e.returncode} error_msg: {e.stderr} output: {e.stdout}"
+            )
+            raise e
 
 
-class NtpCollector():
+    def get_peers(self,
+        vrf: Optional[str] = None,
+    ):
+        data = jc.parse("ntpq", self.run_command(["-p", "-n"], vrf=vrf))
+        _logger.debug(f"parsed data :: {data}")
+        return data
+
+
+    def get_rv(self, vrf: Optional[str] = None):
+        rv = {}
+        output = self.run_command(["-c", "rv"], vrf=vrf)
+        for element in output.replace("\n", "").split(","):
+            try:
+                key, value = element.strip().split("=", maxsplit=1)
+                rv[key] = value.replace('"', "")
+            except ValueError:
+                _logger.debug(f"[{element}] is not '=' separated")
+                continue
+        return rv
+
+
+class NtpCollector:
     def collect(self):
         date_time = datetime.now()
         self.__init_metrics()
@@ -82,15 +82,12 @@ class NtpCollector():
             [
                 thread_pool.submit(self.export_ntp_global),
                 thread_pool.submit(self.export_ntp_server),
-                thread_pool.submit(self.export_ntp_peers)
-
+                thread_pool.submit(self.export_ntp_peers),
             ],
             return_when=ALL_COMPLETED,
         )
 
-        _logger.debug(
-            f"Time taken in metrics collection {datetime.now() - date_time}"
-        )
+        _logger.debug(f"Time taken in metrics collection {datetime.now() - date_time}")
         yield self.metric_ntp_peers
         yield self.metric_ntp_sync_status
         yield self.metric_ntp_when
@@ -175,10 +172,11 @@ class NtpCollector():
                 )
 
     def export_ntp_peers(self):
-        vrf = getFromDB(sonic_db.CONFIG_DB, "MGMT_VRF_CONFIG|vrf_global",
-                        "mgmtVrfEnabled")
-        peers = get_peers(vrf=vrf)
-        ntp_rv = get_rv(vrf=vrf)
+        vrf = getFromDB(
+            sonic_db.CONFIG_DB, "MGMT_VRF_CONFIG|vrf_global", "mgmtVrfEnabled"
+        )
+        peers = NTPQ().get_peers(vrf=vrf)
+        ntp_rv = NTPQ().get_rv(vrf=vrf)
         ntp_status = ntp_rv.get("associd", "")
         if "leap_none" in ntp_status:
             self.metric_ntp_sync_status.add_metric([], 1.0)
@@ -220,5 +218,5 @@ if __name__ == "__main__":
 
     print(json.dumps(MockNTPQ().get_peers(), indent=2))
     print(json.dumps(MockNTPQ().get_rv(), indent=2))
-    print(json.dumps(get_peers(), indent=2))
-    print(json.dumps(get_rv(), indent=2))
+    print(json.dumps(NTPQ().get_peers(), indent=2))
+    print(json.dumps(NTPQ().get_rv(), indent=2))

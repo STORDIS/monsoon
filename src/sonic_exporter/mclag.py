@@ -26,30 +26,27 @@ from .constants import (
 )
 from .db_util import getAllFromDB, getKeysFromDB, sonic_db
 from .converters import decode
+
 _logger = get_logger().getLogger(__name__)
 
 
 class MclagCollector(object):
-
     def collect(self):
         date_time = datetime.now()
         self.__init_metrics()
         wait(
             [
                 thread_pool.submit(self.export_mclag_domain),
-                thread_pool.submit(self.export_mclag_oper_state)
+                thread_pool.submit(self.export_mclag_oper_state),
             ],
             return_when=ALL_COMPLETED,
         )
 
-        _logger.debug(
-            f"Time taken in metrics collection {datetime.now() - date_time}"
-        )
+        _logger.debug(f"Time taken in metrics collection {datetime.now() - date_time}")
         yield self.metric_mclag_domain
         yield self.metric_mclag_oper_state
 
     def __init_metrics(self):
-
         self.metric_mclag_domain = GaugeMetricFamily(
             "sonic_mclag_domain",
             "MCLAG Domain",
@@ -94,8 +91,7 @@ class MclagCollector(object):
                     [
                         domain_id,
                         "" if not source_ip else source_ip,
-                        "" if not keepalive_interval else str(
-                            keepalive_interval),
+                        "" if not keepalive_interval else str(keepalive_interval),
                         "" if not session_timeout else str(session_timeout),
                         "" if not peer_ip else peer_ip,
                         "" if not peer_link else peer_link,
@@ -111,13 +107,13 @@ class MclagCollector(object):
         }
         if mclag_state and mclag_state is not None:
             for domain_id, domain_state_attr in mclag_state.items():
-                mclag_system_mac = domain_state_attr.get(
-                    "mclag_system_mac", "")
+                mclag_system_mac = domain_state_attr.get("mclag_system_mac", "")
                 role = domain_state_attr.get("role", "")
                 system_mac = domain_state_attr.get("system_mac", "")
                 peer_mac = domain_state_attr.get("peer_mac", "")
-                oper_status = 1 if domain_state_attr.get(
-                    "oper_status", "") == "up" else 0
+                oper_status = (
+                    1 if domain_state_attr.get("oper_status", "") == "up" else 0
+                )
                 reason = domain_state_attr.get("reason", "")
                 self.metric_mclag_oper_state.add_metric(
                     [
