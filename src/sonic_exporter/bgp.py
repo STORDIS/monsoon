@@ -41,8 +41,6 @@ class BgpCollector:
         yield self.metric_bgp_prefixes_transmitted
         yield self.metric_bgp_messages_received
         yield self.metric_bgp_messages_transmitted
-        yield self.metric_bgp_routes_received
-        yield self.metric_bgp_routes_advertised
         yield self.metric_routes_fib
         yield self.metric_routes_rib
 
@@ -86,16 +84,6 @@ class BgpCollector:
         self.metric_bgp_messages_transmitted = CounterMetricFamily(
             "sonic_bgp_messages_transmitted_total",
             "The messages Transmitted to the other peer.",
-            labels=bgp_labels,
-        )
-        self.metric_bgp_routes_received = GaugeMetricFamily(
-            "sonic_bgp_routes_received",
-            "The amount of routes received from neighbor",
-            labels=bgp_labels,
-        )
-        self.metric_bgp_routes_advertised = GaugeMetricFamily(
-            "sonic_bgp_routes_advertised",
-            "The amount of routes advertised to neighbor",
             labels=bgp_labels,
         )
         self.metric_bgp_routes_rib = GaugeMetricFamily(
@@ -190,34 +178,6 @@ class BgpCollector:
                             vtysh.show_bgp_vrf_afi_safi_neighbors_prefix_counts(
                                 vrf, neighbor=peername, afi=afi, safi=safi
                             )
-                        )
-                        if "warning" in prefix_counts_data.keys():
-                            _logger.info(
-                                f"Skipped vrf because of not existant neighbor config: {vrf} afi: {afi} safi: {safi} neighbor: {remote}"
-                            )
-                            continue
-                        advertised_routes_data = (
-                            vtysh.show_bgp_vrf_afi_safi_neighbors_advertised_routes(
-                                vrf, neighbor=peername, afi=afi, safi=safi
-                            )
-                        )
-                        received_routes_data = (
-                            vtysh.show_bgp_vrf_afi_safi_neighbors_received_routes(
-                                vrf, neighbor=peername, afi=afi, safi=safi
-                            )
-                        )
-
-                        advertised_routes = len(
-                            advertised_routes_data.get("advertisedRoutes", {})
-                        )
-                        received_routes = len(
-                            received_routes_data.get("receivedRoutes", {})
-                        )
-                        self.metric_bgp_routes_advertised.add_metric(
-                            [*bgp_lbl], floatify(advertised_routes)
-                        )
-                        self.metric_bgp_routes_received.add_metric(
-                            [*bgp_lbl], floatify(received_routes)
                         )
                         self.metric_bgp_routes_rib.add_metric(
                             [*bgp_lbl], floatify(prefix_counts_data.get("All RIB", 0))
