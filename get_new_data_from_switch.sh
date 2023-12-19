@@ -46,7 +46,8 @@ done < <(show database map | grep /var/run)
 # Everything else lives here.
 vtysh -c "show bgp vrf all summary json" | python -m json.tool > ${PLATFORM}.frr.show_bgp_vrf_all_summary.json
 vtysh -c "show evpn vni detail json" | python -m json.tool > ${PLATFORM}.frr.show_evpn_vni_detail.json
-
+vtysh -c "show ip route vrf all summary json" | python -m json.tool > ${PLATFORM}.frr.show_ip_route_vrf_all_summary.json
+vtysh -c "show ipv6 route vrf all summary json" | python -m json.tool > ${PLATFORM}.frr.show_ipv6_route_vrf_all_summary.json
 # Let the for loop run on different file descriptor as it seems vtysh uses stdin as well.
 while IFS="," read -r vrf neighbor <&3; do
     echo "Dumping VRF[${vrf}]::${neighbor} Summary"
@@ -66,4 +67,4 @@ while IFS="," read -r vrf neighbor <&3; do
     echo "Dumping VRF[${vrf}]::${neighbor} l2vpn evpn"
     vtysh -c "show bgp vrf ${vrf} l2vpn evpn summary json" | python -m json.tool > ${PLATFORM}.frr.show_bgp_vrf_${vrf}_l2vpn_evpn_summary.json
     vtysh -c "show bgp vrf ${vrf} l2vpn evpn statistics json" | python -m json.tool > ${PLATFORM}.frr.show_bgp_vrf_${vrf}_l2vpn_evpn_statistics.json
-done 3< <(jq -r 'keys[] as $k | "\($k),\(.[$k] | .[].peers | keys[])"' ${PLATFORM}.frr.show_bgp_vrf_all_summary.json)
+done 3< <(jq -r 'keys[] as $k | "\($k),\(.[$k] | .[].peers | keys[])"' ${PLATFORM}.frr.show_bgp_vrf_all_summary.json | uniq)

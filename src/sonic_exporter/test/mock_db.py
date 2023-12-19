@@ -66,7 +66,7 @@ class SonicV2Connector:
 
     def __init__(self, password: str):
         self.password = password
-        self.db: Dict[SonicV2Connector.DB, Dict[str, Any]]= {}
+        self.db: Dict[SonicV2Connector.DB, Dict[str, Any]] = {}
 
     def connect(self, db: DB):
         self.db = {**self.db, **{db: self.load_db(self.version, self.model, db)}}

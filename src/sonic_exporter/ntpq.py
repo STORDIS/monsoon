@@ -29,6 +29,7 @@ from prometheus_client.core import GaugeMetricFamily
 
 _logger = get_logger().getLogger(__name__)
 
+
 class NTPQ:
     def run_command(self, command: list, vrf: Optional[str] = None):
         # TODO: Put local VRF commands into their own module
@@ -52,14 +53,13 @@ class NTPQ:
             )
             raise e
 
-
-    def get_peers(self,
+    def get_peers(
+        self,
         vrf: Optional[str] = None,
     ):
         data = jc.parse("ntpq", self.run_command(["-p", "-n"], vrf=vrf))
         _logger.debug(f"parsed data :: {data}")
         return data
-
 
     def get_rv(self, vrf: Optional[str] = None):
         rv = {}

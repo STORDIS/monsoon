@@ -23,6 +23,15 @@ from .utilities import developer_mode
 
 class VtySH:
     @staticmethod
+    def get_protocol_family(afi: AddressFamily) -> str:
+        assert afi in [AddressFamily.IPV4, AddressFamily.IPV6]
+        match afi:
+            case AddressFamily.IPV4:
+                return "ip"
+            case AddressFamily.IPV6:
+                return AddressFamily.IPV6.value
+
+    @staticmethod
     def get_safi(prefix: str, afi_safi: str):
         safi = afi_safi.removeprefix(prefix)
         return SubsequentAddressFamily(safi)
@@ -125,15 +134,29 @@ class VtySH:
             return self.run_command(f"show bgp vrf {vrf} {afi} summary")
         return self.run_command(f"show bgp vrf {vrf} summary")
 
+    def show_route_vrf_summary(
+        self,
+        afi: AddressFamily,
+        vrf: str,
+    ) -> dict:
+        afi_string = VtySH.get_protocol_family(afi)
+        return self.run_command(f"show {afi_string} route vrf {vrf} summary")
+
     def show_bgp_vrf_all_summary(self) -> dict:
         return self.show_bgp_vrf_afi_safi_summary("all")
+
+    def show_ipv6_route_vrf_all_summary(self) -> dict:
+        return self.show_route_vrf_summary(AddressFamily.IPV6, "all")
+
+    def show_ip_route_vrf_all_summary(self) -> dict:
+        return self.show_route_vrf_summary(AddressFamily.IPV4, "all")
 
     def show_evpn_vni_detail(self) -> dict:
         data = self.run_command("show evpn vni detail")
         return data
 
 
-vtysh: Union[VtySH, 'MockVtySH']
+vtysh: Union[VtySH, "MockVtySH"]
 
 if developer_mode:
     from sonic_exporter.test.mock_vtysh import MockVtySH

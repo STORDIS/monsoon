@@ -31,7 +31,7 @@ from .enums import InternetProtocol
 
 _logger = get_logger().getLogger(__name__)
 
-sys_class_net: Union['MockSystemClassNetworkInfo', 'SystemClassNetworkInfo']
+sys_class_net: Union["MockSystemClassNetworkInfo", "SystemClassNetworkInfo"]
 
 if developer_mode:
     from sonic_exporter.test.mock_sys_class_net import (

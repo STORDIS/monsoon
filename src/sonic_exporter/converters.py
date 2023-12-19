@@ -57,6 +57,7 @@ def decode(string: Union[bytes, str, None]) -> str:
             return ""
     return ""
 
+
 def to_timestamp(data: Union[int, float]) -> float:
     assert isinstance(data, (int, float))
     delta = datetime.timedelta(seconds=data)

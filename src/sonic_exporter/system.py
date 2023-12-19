@@ -43,7 +43,7 @@ from .utilities import developer_mode, get_logger, thread_pool
 
 _logger = get_logger().getLogger(__name__)
 
-sys_class_hwmon: Union['MockSystemClassHWMon', 'SystemClassHWMon']
+sys_class_hwmon: Union["MockSystemClassHWMon", "SystemClassHWMon"]
 
 if developer_mode:
     from sonic_exporter.test.mock_sys_class_hwmon import MockSystemClassHWMon

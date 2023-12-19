@@ -20,6 +20,7 @@ from .converters import boolify, floatify
 
 from .utilities import dns_lookup, thread_pool, get_logger
 from .vtysh import vtysh
+from .enums import AddressFamily
 
 _logger = get_logger().getLogger(__name__)
 
@@ -42,8 +43,11 @@ class BgpCollector:
         yield self.metric_bgp_messages_transmitted
         yield self.metric_bgp_routes_received
         yield self.metric_bgp_routes_advertised
+        yield self.metric_routes_fib
+        yield self.metric_routes_rib
 
     def __init_metrics(self):
+        # BGP Info
         bgp_labels = [
             "vrf",
             "as",
@@ -54,7 +58,6 @@ class BgpCollector:
             "safi",
             "remote_as",
         ]
-        # BGP Info
         self.metric_bgp_uptime_seconds = CounterMetricFamily(
             "sonic_bgp_uptime_seconds_total",
             "Uptime of the session with the other BGP Peer",
@@ -100,6 +103,18 @@ class BgpCollector:
             "The amount of routes learnt into RIB",
             labels=bgp_labels,
         )
+        # IP/IPV6 Route Info
+        route_labels = ["vrf", "family", "route_source"]
+        self.metric_routes_rib = GaugeMetricFamily(
+            "sonic_routes_rib",
+            "The amount of routes present in frr rib",
+            labels=route_labels,
+        )
+        self.metric_routes_fib = GaugeMetricFamily(
+            "sonic_routes_fib",
+            "The amount of routes present in frr fib",
+            labels=route_labels,
+        )
 
     def export_bgp_info(self):
         # vtysh -c "show bgp vrf all ipv4 unicast summary json"
@@ -122,7 +137,33 @@ class BgpCollector:
         # Sent Prefixes
         # status
         bgp_vrf_all = vtysh.show_bgp_vrf_all_summary()
+        ip_route_vrf_all = vtysh.show_ip_route_vrf_all_summary()
+        ipv6_route_vrf_all = vtysh.show_ipv6_route_vrf_all_summary()
         for vrf in bgp_vrf_all:
+            for routes_by_protocol in ip_route_vrf_all[vrf].get("routes", []):
+                route_label = [
+                    vrf,
+                    AddressFamily.IPV4.value,
+                    routes_by_protocol.get("type", "unknown"),
+                ]
+                self.metric_routes_fib.add_metric(
+                    [*route_label], float(routes_by_protocol.get("fib", 0))
+                )
+                self.metric_routes_rib.add_metric(
+                    [*route_label], float(routes_by_protocol.get("rib", 0))
+                )
+            for routes_by_protocol in ipv6_route_vrf_all[vrf].get("routes", []):
+                route_label = [
+                    vrf,
+                    AddressFamily.IPV6.value,
+                    routes_by_protocol.get("type", "unknown"),
+                ]
+                self.metric_routes_fib.add_metric(
+                    [*route_label], float(routes_by_protocol.get("fib", 0))
+                )
+                self.metric_routes_rib.add_metric(
+                    [*route_label], float(routes_by_protocol.get("rib", 0))
+                )
             for family in bgp_vrf_all[vrf].keys():
                 family_data = None
                 afi, safi = vtysh.get_afi_safi(family)
