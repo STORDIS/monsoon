@@ -26,10 +26,18 @@ class InternetProtocol(enum.Enum):
     v6 = "IPv6"
 
 
+# AFI
 class AddressFamily(enum.Enum):
-    IPV4 = "ipv4Unicast"
-    IPV6 = "ipv6Unicast"
-    L2VPN_EVPN = "l2VpnEvpn"
+    IPV4 = "ipv4"
+    IPV6 = "ipv6"
+    L2VPN = "l2vpn"
+
+
+# SAFI
+class SubsequentAddressFamily(enum.Enum):
+    UNICAST = "unicast"
+    MULTICAST = "multicast"
+    EVPN = "evpn"
 
 
 class SwitchModel(enum.Enum):

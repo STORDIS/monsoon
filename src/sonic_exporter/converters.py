@@ -48,11 +48,14 @@ def get_uptime() -> datetime.timedelta:
 
 
 def decode(string: Union[bytes, str, None]) -> str:
-    if hasattr(string, "decode"):
-        return string.decode("utf-8")
-    if string is None:
-        return ""
-    return string
+    match string:
+        case bytes():
+            return string.decode("utf-8")
+        case str():
+            return string
+        case None:
+            return ""
+    return ""
 
 
 def to_timestamp(data: Union[int, float]) -> float:

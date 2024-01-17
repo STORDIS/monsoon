@@ -27,20 +27,15 @@ _logger = get_logger().getLogger(__name__)
 
 
 class FanCollector(object):
-
     def collect(self):
         date_time = datetime.now()
         self.__init_metrics()
         wait(
-            [
-                thread_pool.submit(self.export_fan_info)
-            ],
+            [thread_pool.submit(self.export_fan_info)],
             return_when=ALL_COMPLETED,
         )
 
-        _logger.debug(
-            f"Time taken in metrics collection {datetime.now() - date_time}"
-        )
+        _logger.debug(f"Time taken in metrics collection {datetime.now() - date_time}")
         yield self.metric_device_fan_rpm
         yield self.metric_device_fan_operational_status
         yield self.metric_device_fan_available_status
@@ -63,8 +58,7 @@ class FanCollector(object):
         )
 
     def export_fan_info(self):
-        fan_slot_regex = re.compile(
-            r"^((?:PSU|Fantray).*?\d+).*?(?!FAN|_).*?(\d+)$")
+        fan_slot_regex = re.compile(r"^((?:PSU|Fantray).*?\d+).*?(?!FAN|_).*?(\d+)$")
         keys = getKeysFromDB(sonic_db.STATE_DB, FAN_INFO_PATTERN)
         if not keys:
             return
@@ -72,8 +66,7 @@ class FanCollector(object):
             try:
                 fullname = decode(getFromDB(sonic_db.STATE_DB, key, "name"))
                 rpm = floatify(getFromDB(sonic_db.STATE_DB, key, "speed"))
-                is_operational = decode(
-                    getFromDB(sonic_db.STATE_DB, key, "status"))
+                is_operational = decode(getFromDB(sonic_db.STATE_DB, key, "status"))
                 is_available = boolify(
                     decode(getFromDB(sonic_db.STATE_DB, key, "presence"))
                 )
@@ -98,7 +91,8 @@ class FanCollector(object):
                     [name, slot], boolify(is_operational)
                 )
                 self.metric_device_fan_available_status.add_metric(
-                    [name, slot], is_available)
+                    [name, slot], is_available
+                )
                 _logger.debug(
                     f"export_fan_info :: fullname={fullname} oper={boolify(is_operational)}, presence={is_available}, rpm={rpm}"
                 )

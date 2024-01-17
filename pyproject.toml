@@ -20,6 +20,8 @@ black = "*"
 
 [tool.poetry.group.dev.dependencies]
 black = {version = "^23.1a1", allow-prereleases = true}
+mypy = "^1.7.1"
+types-pyyaml = "^6.0.12.12"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

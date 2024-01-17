@@ -14,6 +14,7 @@
 #
 
 from distutils.version import Version
+from typing import List, Any
 import re
 from .converters import decode as _decode
 from .utilities import developer_mode, get_logger
@@ -109,7 +110,10 @@ def getAllFromDB(db_name, hash, retries=db_default_retries, timeout=db_default_t
 class ConfigDBVersion(Version):
     component_re = re.compile(r"(\d+|_)", re.VERBOSE)
     vstring = ""
-    version = []
+    version: List[Any] = []
+
+    def __init__(self, vstring: str | None = None) -> None:
+        super().__init__(vstring)
 
     def parse(self, vstring):
         # I've given up on thinking I can reconstruct the version string

@@ -31,15 +31,11 @@ class VxlanCollector(object):
         date_time = datetime.now()
         self.__init_metrics()
         wait(
-            [
-                thread_pool.submit(self.export_vxlan_tunnel_info)
-            ],
+            [thread_pool.submit(self.export_vxlan_tunnel_info)],
             return_when=ALL_COMPLETED,
         )
 
-        _logger.debug(
-            f"Time taken in metrics collection {datetime.now() - date_time}"
-        )
+        _logger.debug(f"Time taken in metrics collection {datetime.now() - date_time}")
         yield self.metric_vxlan_operational_status
 
     def __init_metrics(self):
@@ -56,8 +52,7 @@ class VxlanCollector(object):
         for key in keys:
             try:
                 neighbor = ""
-                _, neighbor = tuple(key.replace(
-                    VXLAN_TUNNEL_TABLE, "").split("_"))
+                _, neighbor = tuple(key.replace(VXLAN_TUNNEL_TABLE, "").split("_"))
                 is_operational = boolify(
                     decode(getFromDB(sonic_db.STATE_DB, key, "operstatus"))
                 )

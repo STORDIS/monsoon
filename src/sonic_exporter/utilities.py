@@ -31,6 +31,7 @@ developer_mode = os.environ.get("DEVELOPER_MODE", "False").lower() in TRUE_VALUE
 
 thread_pool = ThreadPoolExecutor(20)
 
+
 def timed_cache(**timedelta_kwargs):
     def _wrapper(f):
         maxsize = timedelta_kwargs.pop("maxsize", 128)
@@ -78,12 +79,15 @@ def dns_lookup(ip: str) -> str:
 
 BASE_PATH = Path(__file__).parent
 
-_logging_initialized=False
+_logging_initialized = False
+
+
 def get_logger():
     global _logging_initialized
     if not _logging_initialized:
         logging_config_path = os.environ.get(
-            "SONIC_EXPORTER_LOGGING_CONFIG", (BASE_PATH / "./config/logging.yml").resolve()
+            "SONIC_EXPORTER_LOGGING_CONFIG",
+            (BASE_PATH / "./config/logging.yml").resolve(),
         )
         LOGGING_CONFIG_RAW = ""
         with open(logging_config_path, "r") as file:
@@ -98,5 +102,5 @@ def get_logger():
         ):
             LOGGING_CONFIG["handlers"]["console"]["level"] = loglevel
         logging.config.dictConfig(LOGGING_CONFIG)
-        _logging_initialized=True
+        _logging_initialized = True
     return logging

@@ -75,7 +75,6 @@ def get_port_table_key(name: str) -> str:
 
 
 class InterfaceCollector(object):
-
     def collect(self):
         date_time = datetime.now()
         self.__init_metrics()
@@ -84,14 +83,12 @@ class InterfaceCollector(object):
                 thread_pool.submit(self.export_interface_counters),
                 thread_pool.submit(self.export_interface_queue_counters),
                 thread_pool.submit(self.export_interface_optic_data),
-                thread_pool.submit(self.export_interface_cable_data)
+                thread_pool.submit(self.export_interface_cable_data),
             ],
             return_when=ALL_COMPLETED,
         )
 
-        _logger.debug(
-            f"Time taken in metrics collection {datetime.now() - date_time}"
-        )
+        _logger.debug(f"Time taken in metrics collection {datetime.now() - date_time}")
         yield self.metric_interface_transceiver_info
         yield self.metric_interface_cable_length_meters
         yield self.metric_transceiver_threshold_info
@@ -174,8 +171,7 @@ class InterfaceCollector(object):
         self.metric_interface_info = GaugeMetricFamily(
             "sonic_interface_info",
             "Interface Information (Description, MTU, Speed)",
-            labels=interface_labels +
-            ["description", "mtu", "speed", "device"],
+            labels=interface_labels + ["description", "mtu", "speed", "device"],
         )
         self.metric_interface_speed = GaugeMetricFamily(
             "sonic_interface_speed_bytes",
@@ -323,7 +319,8 @@ class InterfaceCollector(object):
                 self.metric_interface_received_ethernet_packets.add_metric(
                     [get_additional_info(ifname), str(size)],
                     floatify(
-                        _decode(getFromDB(sonic_db.COUNTERS_DB, counter_key, key))),
+                        _decode(getFromDB(sonic_db.COUNTERS_DB, counter_key, key))
+                    ),
                 )
             # Ethernet TX
             for size, key in zip(
@@ -344,7 +341,8 @@ class InterfaceCollector(object):
                 self.metric_interface_transmitted_ethernet_packets.add_metric(
                     [get_additional_info(ifname), str(size)],
                     floatify(
-                        _decode(getFromDB(sonic_db.COUNTERS_DB, counter_key, key))),
+                        _decode(getFromDB(sonic_db.COUNTERS_DB, counter_key, key))
+                    ),
                 )
             # RX
             self.metric_interface_received_bytes.add_metric(
@@ -528,8 +526,7 @@ class InterfaceCollector(object):
                     [get_additional_info(ifname)], boolify(is_admin)
                 )
                 self.metric_interface_last_flapped_seconds.add_metric(
-                    [get_additional_info(ifname)], floatify(
-                        last_flapped_seconds)
+                    [get_additional_info(ifname)], floatify(last_flapped_seconds)
                 )
             except ValueError:
                 pass
@@ -576,12 +573,10 @@ class InterfaceCollector(object):
                 )
             )
             self.metric_interface_queue_processed_packets.add_metric(
-                [get_additional_info(ifname), queue,
-                 queue_type], floatify(packets)
+                [get_additional_info(ifname), queue, queue_type], floatify(packets)
             )
             self.metric_interface_queue_processed_bytes.add_metric(
-                [get_additional_info(ifname), queue,
-                 queue_type], floatify(bytes)
+                [get_additional_info(ifname), queue, queue_type], floatify(bytes)
             )
 
     def export_interface_optic_data(self):
@@ -762,22 +757,20 @@ class InterfaceCollector(object):
             connector_type = _decode(
                 str(getFromDB(sonic_db.STATE_DB, key, "connector_type"))
             ).lower()
-            serial = _decode(getFromDB(sonic_db.STATE_DB,
-                             key, "vendor_serial_number"))
+            serial = _decode(getFromDB(sonic_db.STATE_DB, key, "vendor_serial_number"))
             part_number = _decode(
-                getFromDB(sonic_db.STATE_DB, key, "vendor_part_number"))
-            revision = _decode(
-                getFromDB(sonic_db.STATE_DB, key, "vendor_revision"))
+                getFromDB(sonic_db.STATE_DB, key, "vendor_part_number")
+            )
+            revision = _decode(getFromDB(sonic_db.STATE_DB, key, "vendor_revision"))
             form_factor = _decode(
-                getFromDB(sonic_db.STATE_DB, key, "form_factor")).lower()
-            display_name = _decode(
-                getFromDB(sonic_db.STATE_DB, key, "display_name"))
+                getFromDB(sonic_db.STATE_DB, key, "form_factor")
+            ).lower()
+            display_name = _decode(getFromDB(sonic_db.STATE_DB, key, "display_name"))
             media_interface = _decode(
                 getFromDB(sonic_db.STATE_DB, key, "media_interface")
             ).lower()
             try:
-                cable_len = floatify(
-                    getFromDB(sonic_db.STATE_DB, key, "cable_length"))
+                cable_len = floatify(getFromDB(sonic_db.STATE_DB, key, "cable_length"))
                 self.metric_interface_cable_length_meters.add_metric(
                     [get_additional_info(ifname), cable_type, connector_type],
                     cable_len,

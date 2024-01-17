@@ -1,3 +1,6 @@
 [submodule "src/sonic-py-swsssdk"]
 	path = src/sonic-py-swsssdk
 	url = https://github.com/Azure/sonic-py-swsssdk.git
+[submodule "sonic-swss-common"]
+	path = sonic-swss-common
+	url = https://github.com/sonic-net/sonic-swss-common.git
