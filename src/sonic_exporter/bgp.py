@@ -127,6 +127,7 @@ class BgpCollector:
         bgp_vrf_all = vtysh.show_bgp_vrf_all_summary()
         ip_route_vrf_all = vtysh.show_ip_route_vrf_all_summary()
         ipv6_route_vrf_all = vtysh.show_ipv6_route_vrf_all_summary()
+        _logger.debug(f"Found VRFs: {bgp_vrf_all.keys()}")
         for vrf in bgp_vrf_all.keys():
             _logger.debug(f"Start VRF export: vrf: {vrf}")
             for routes_by_protocol in ip_route_vrf_all[vrf].get("routes", []):
@@ -208,8 +209,8 @@ class BgpCollector:
                         self.metric_bgp_messages_transmitted.add_metric(
                             [*bgp_lbl], floatify(peerdata.get("msgSent", 0))
                         )
-                except KeyError as e:
+                except (KeyError, Exception) as e:
                     _logger.debug(
                         f"Skipped vrf bgp export: vrf: {vrf} family: {family} afi: {afi} safi: {safi} error: {e}"
                     )
-                    pass
+                    continue
