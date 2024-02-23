@@ -5,7 +5,7 @@ declare -r VERSION=$(show version | grep "SONiC Software Version:" | xargs -n 1 
 # These two databases are separate instances each
 while IFS=" " read -r id name instance port socket ; do
     internal_name=$( echo "${name%_DB}" | tr '[:upper:]' '[:lower:]')
-    if [[ $VERSION == "SONiC-OS-4.0.1-Enterprise_Base" ]]
+    if [[ $VERSION == "SONiC-OS-4.0.2-Enterprise_Base" ]]
         then
             # $ show database  map --verbose
             #   ID                Name    Instance    TCP Port            Unix Socket Path

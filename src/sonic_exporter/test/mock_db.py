@@ -25,8 +25,8 @@ from . import ressources
 
 
 class SonicV2Connector:
-    model: SwitchModel = SwitchModel.AS5853
-    version: str = "4.0.1"
+    model: SwitchModel = SwitchModel.AS7726
+    version: str = "4.0.2"
 
     class DB(Enum):
         APPL_DB = "appl"

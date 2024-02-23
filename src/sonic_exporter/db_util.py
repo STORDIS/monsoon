@@ -13,7 +13,7 @@
 # limitations under the License.
 #
 
-from distutils.version import Version
+from packaging.version import Version
 from typing import List, Any
 import re
 from .converters import decode as _decode
@@ -28,13 +28,13 @@ db_default_retries = 1
 db_default_timeout = 3
 # Non default values of retries and timeout are usefull for DB calls, when DB may not be ready to serve requests
 # e.g. right after SONiC boots up while getting sonic system status from DB.
-import swsssdk
 
 if developer_mode:
     import sonic_exporter.test.mock_db as mock_db
 
     sonic_db = mock_db.SonicV2Connector(password="")
 else:
+    import swsssdk
     try:
         with open("/run/redis/auth/passwd", "r") as secret:
             sonic_db = swsssdk.SonicV2Connector(password=secret.read().strip())
@@ -108,26 +108,13 @@ def getAllFromDB(db_name, hash, retries=db_default_retries, timeout=db_default_t
 
 
 class ConfigDBVersion(Version):
-    component_re = re.compile(r"(\d+|_)", re.VERBOSE)
-    vstring = ""
-    version: List[Any] = []
+    VERSION_PATTERN = re.compile(r"_", re.VERBOSE)
 
     def __init__(self, vstring: str | None = None) -> None:
-        super().__init__(vstring)
-
-    def parse(self, vstring):
-        # I've given up on thinking I can reconstruct the version string
-        # from the parsed tuple -- so I just store the string here for
-        # use by __str__
         self.vstring = vstring
-        components = [x for x in self.component_re.split(vstring) if x and x != "_"]
-        for i, obj in enumerate(components):
-            try:
-                components[i] = int(obj)
-            except ValueError:
-                pass
-
-        self.version = components
+        self.version_representation = str(self.vstring).replace("version_", "", 1)
+        self.version_representation = str(self.version_representation).replace("_", ".")
+        super().__init__(self.version_representation)
 
     def __str__(self):
         return self.vstring
