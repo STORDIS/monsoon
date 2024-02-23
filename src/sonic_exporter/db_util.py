@@ -35,6 +35,7 @@ if developer_mode:
     sonic_db = mock_db.SonicV2Connector(password="")
 else:
     import swsssdk
+
     try:
         with open("/run/redis/auth/passwd", "r") as secret:
             sonic_db = swsssdk.SonicV2Connector(password=secret.read().strip())

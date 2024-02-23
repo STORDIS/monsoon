@@ -14,12 +14,8 @@ dacite = "^1.8.1"
 PyYAML = "^6.0"
 jc = "^1.22.1"
 
-[tool.poetry.dev-dependencies]
-black = "*"
-
-
 [tool.poetry.group.dev.dependencies]
-black = {version = "^23.1a1", allow-prereleases = true}
+black = "24.2.0"
 mypy = "^1.7.1"
 types-pyyaml = "^6.0.12.12"
 

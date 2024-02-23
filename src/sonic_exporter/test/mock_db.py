@@ -21,7 +21,7 @@ from importlib import import_module
 
 from sonic_exporter.enums import SwitchModel
 
-from . import ressources
+from . import resources
 
 
 class SonicV2Connector:
@@ -58,7 +58,7 @@ class SonicV2Connector:
         return json.loads(
             read_text(
                 import_module(
-                    f"{ressources.__package__}.{SonicV2Connector.get_version(version)}"
+                    f"{resources.__package__}.{SonicV2Connector.get_version(version)}"
                 ),
                 f"{model.value}.{db.value}.json",
             )

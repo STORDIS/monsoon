@@ -252,7 +252,10 @@ class SystemClassHWMon:
     ) -> SensorData:
         try:
             match sensor_type:
-                case SystemClassHWMon.SensorType.INLET | SystemClassHWMon.SensorType.VOLTAGE:
+                case (
+                    SystemClassHWMon.SensorType.INLET
+                    | SystemClassHWMon.SensorType.VOLTAGE
+                ):
                     si_unit = SIUnit.VOLTAGE
                     value = int(data) / 1000
                 case SystemClassHWMon.SensorType.TEMPERATURE:

@@ -589,39 +589,15 @@ class InterfaceCollector(object):
             ifname = _decode(key).replace(TRANSCEIVER_DOM_SENSOR, "")
             transceiver_sensor_data = getAllFromDB(sonic_db.STATE_DB, key)
 
-            vcchighalarm = (
-                vcchighwarning
-            ) = (
-                vcclowalarm
-            ) = (
-                vcclowwarning
-            ) = (
+            vcchighalarm = vcchighwarning = vcclowalarm = vcclowwarning = (
                 temphighalarm
-            ) = (
-                temphighwarning
-            ) = (
-                templowalarm
-            ) = (
-                templowwarning
-            ) = (
-                txbiashighalarm
-            ) = (
+            ) = temphighwarning = templowalarm = templowwarning = txbiashighalarm = (
                 txbiashighwarning
-            ) = (
-                txbiaslowalarm
-            ) = (
-                txbiaslowwarning
-            ) = (
-                txpowerhighalarm
-            ) = (
+            ) = txbiaslowalarm = txbiaslowwarning = txpowerhighalarm = (
                 txpowerhighwarning
-            ) = (
-                txpowerlowalarm
-            ) = (
-                txpowerlowwarning
-            ) = (
-                rxpowerhighalarm
-            ) = rxpowerhighwarning = rxpowerlowalarm = rxpowerlowwarning = "none"
+            ) = txpowerlowalarm = txpowerlowwarning = rxpowerhighalarm = (
+                rxpowerhighwarning
+            ) = rxpowerlowalarm = rxpowerlowwarning = "none"
             for measure in transceiver_sensor_data:
                 measure_dec = _decode(measure)
                 try:
