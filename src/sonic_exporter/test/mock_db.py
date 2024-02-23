@@ -79,7 +79,7 @@ class SonicV2Connector:
 
     def keys(self, db: DB, pattern: str = ""):
         regex = re.compile(
-            r"^{}$".format(pattern.replace("*", ".*?").replace("|", "\|"))
+            r"^{}$".format(pattern.replace("*", ".*?").replace("|", "\\|"))
         )
         for key in self.db[db].keys():
             if regex.match(str(key)):
