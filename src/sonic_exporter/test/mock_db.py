@@ -21,12 +21,12 @@ from importlib import import_module
 
 from sonic_exporter.enums import SwitchModel
 
-from . import ressources
+from . import resources
 
 
 class SonicV2Connector:
-    model: SwitchModel = SwitchModel.AS5853
-    version: str = "4.0.1"
+    model: SwitchModel = SwitchModel.AS7726
+    version: str = "4.0.2"
 
     class DB(Enum):
         APPL_DB = "appl"
@@ -58,7 +58,7 @@ class SonicV2Connector:
         return json.loads(
             read_text(
                 import_module(
-                    f"{ressources.__package__}.{SonicV2Connector.get_version(version)}"
+                    f"{resources.__package__}.{SonicV2Connector.get_version(version)}"
                 ),
                 f"{model.value}.{db.value}.json",
             )
@@ -79,7 +79,7 @@ class SonicV2Connector:
 
     def keys(self, db: DB, pattern: str = ""):
         regex = re.compile(
-            r"^{}$".format(pattern.replace("*", ".*?").replace("|", "\|"))
+            r"^{}$".format(pattern.replace("*", ".*?").replace("|", "\\|"))
         )
         for key in self.db[db].keys():
             if regex.match(str(key)):

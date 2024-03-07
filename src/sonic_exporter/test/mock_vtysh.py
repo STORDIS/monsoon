@@ -17,7 +17,7 @@ import json
 from importlib.resources import read_text
 
 from sonic_exporter.enums import SwitchModel
-from sonic_exporter.test.ressources import frr
+from sonic_exporter.test.resources import frr
 from sonic_exporter.vtysh import VtySH
 
 

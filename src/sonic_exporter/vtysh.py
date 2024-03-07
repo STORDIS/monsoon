@@ -14,7 +14,7 @@
 #
 
 import json
-from subprocess import PIPE, CalledProcessError, run
+from subprocess import CalledProcessError, run
 from typing import Optional, Tuple, Union
 
 from .enums import AddressFamily, SubsequentAddressFamily
@@ -48,11 +48,13 @@ class VtySH:
 
     def run_command(self, command: str):
         try:
-            out_put = run(
-                ["vtysh", "-c", f"{command.rstrip()} json"], check=True, stdout=PIPE
-            ).stdout.decode("utf-8")
+            process = run(
+                ["vtysh", "-c", f"{command.rstrip()} json"],
+                check=True,
+                capture_output=True,
+            )
             try:
-                return json.loads(out_put)
+                return json.loads(process.stdout.decode("utf-8"))
             except json.JSONDecodeError:
                 return {}
         except CalledProcessError:
