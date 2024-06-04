@@ -1,4 +1,21 @@
 # Monsoon - A data visualization and monitoring solution for SONiC
+<p align="center">
+<a href="https://hub.docker.com/r/stordis/monsoon/">
+      <img alt="Tests Passing" src="https://badgen.net/docker/pulls/stordis/sonic-exporter?icon=docker&label=pulls" />
+    </a>
+<a href="https://github.com/stordis/monsoon/actions">
+      <img alt="Tests Passing" src="https://github.com/stordis/monsoon/workflows/Docker/badge.svg" />
+    </a>
+<a href="https://github.com/stordis/monsoon/issues">
+      <img alt="Issues" src="https://img.shields.io/github/issues/stordis/monsoon?color=0088ff" />
+</a>
+<a href="https://github.com/stordis/monsoon/graphs/contributors">
+      <img alt="GitHub Contributors" src="https://img.shields.io/github/contributors/stordis/monsoon" />
+</a>
+<a href="https://github.com/stordis/monsoon/pulls?q=">
+      <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/stordis/monsoon?color=0088ff" />
+</a>
+</p>
 
 Try [Live Demo](http://monsoon.stordis.com:8080).
 
