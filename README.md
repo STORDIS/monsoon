@@ -1,5 +1,5 @@
 <p align="center">
-<a href="https://hub.docker.com/r/stordis/monsoon/">
+<a href="https://hub.docker.com/r/stordis/sonic-exporter/">
       <img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/stordis/sonic-exporter?style=for-the-badge&logo=docker&logoColor=white&link=https%3A%2F%2Fhub.docker.com%2Fr%2Fstordis%2Fsonic-exporter" />
     </a>
 <a href="https://github.com/stordis/monsoon/actions">
