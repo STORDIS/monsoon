@@ -1,21 +1,24 @@
-# Monsoon - A data visualization and monitoring solution for SONiC
 <p align="center">
 <a href="https://hub.docker.com/r/stordis/monsoon/">
-      <img alt="Tests Passing" src="https://badgen.net/docker/pulls/stordis/sonic-exporter?icon=docker&label=pulls" />
+      <img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/stordis/sonic-exporter?style=for-the-badge&logo=docker&logoColor=white&link=https%3A%2F%2Fhub.docker.com%2Fr%2Fstordis%2Fsonic-exporter" />
     </a>
 <a href="https://github.com/stordis/monsoon/actions">
-      <img alt="Tests Passing" src="https://github.com/stordis/monsoon/workflows/Docker/badge.svg" />
-    </a>
+      <img alt="Tests Passing" src="https://img.shields.io/github/actions/workflow/status/stordis/monsoon/docker-publish.yml?style=for-the-badge&logo=github&link=https%3A%2F%2Fgithub.com%2FSTORDIS%2Fmonsoon%2Factions
+      " />
+</a>
 <a href="https://github.com/stordis/monsoon/issues">
-      <img alt="Issues" src="https://img.shields.io/github/issues/stordis/monsoon?color=0088ff" />
+      <img alt="Issues" src="https://img.shields.io/github/issues/stordis/monsoon?style=for-the-badge&logo=github&link=https%3A%2F%2Fgithub.com%2FSTORDIS%monsoon%2Fissues
+      " />
 </a>
 <a href="https://github.com/stordis/monsoon/graphs/contributors">
-      <img alt="GitHub Contributors" src="https://img.shields.io/github/contributors/stordis/monsoon" />
+      <img alt="GitHub Contributors" src="https://img.shields.io/github/contributors/stordis/monsoon?style=for-the-badge&logo=github&link=https%3A%2F%2Fgithub.com%2FSTORDIS%monsoon%2Fgraphs%2Fcontributors" />
 </a>
 <a href="https://github.com/stordis/monsoon/pulls?q=">
-      <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/stordis/monsoon?color=0088ff" />
+      <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/stordis/monsoon?color=0088ff&style=for-the-badge&logo=github&link=https%3A%2F%2Fgithub.com%2FSTORDIS%monsoon%2Fpulls" />
 </a>
 </p>
+
+# Monsoon - A data visualization and monitoring solution for SONiC
 
 Try [Live Demo](http://monsoon.stordis.com:8080).
 
