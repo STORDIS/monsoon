@@ -51,7 +51,7 @@ jobs:
         with:
           username: ${{ secrets.STORDIS_DOCKER_HUB_USER }}
           password: ${{ secrets.STORDIS_DOCKER_HUB_ACCESS_TOKEN }}
-          repository: stordis/monsoon
+          repository: stordis/sonic-exporter
           short-description: ${{ github.event.repository.description }}
           enable-url-completion: true
 
