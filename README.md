@@ -62,7 +62,7 @@ Contributions can be made to Monsoon Project by :
 
 ## Monsoon Design 
 A high level monsoon design is as follows, various components are explained in further sections.
-![Monsoon Design](images/monsoon_design.png)
+![Monsoon Design](images/monsoon.drawio.svg)
 
 ## Getting started with monsoon
   There are 4 major components of monsoon project- sonic-exporter, node-exporter, Prometheus, Grafana.
