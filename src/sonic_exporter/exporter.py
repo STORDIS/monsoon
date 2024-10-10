@@ -59,7 +59,7 @@ def main():
     )  # setting port static as 9101. if required map it to someother port of host by editing compose file.
     address = str(os.environ.get("SONIC_EXPORTER_ADDRESS", "localhost"))
 
-    _logger.info("Starting Python exporter server at {}:{}".format(address, port))
+    _logger.info("Starting sonic-exporter at {}:{}".format(address, port))
     # TODO ip address validation
     prom.start_http_server(port, addr=address)
     REGISTRY.register(system.SystemCollector())

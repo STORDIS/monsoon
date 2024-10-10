@@ -14,6 +14,7 @@ dacite = "^1.8.1"
 PyYAML = "^6.0"
 jc = "^1.22.1"
 packaging = "^23.2"
+setuptools = "^75.1.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "24.2.0"
