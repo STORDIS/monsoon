@@ -1,4 +1,15 @@
 <p align="center">
+<img src="images/monsoon_logo.png" alt="Monsoon Logo" width="200"/> 
+</p>
+
+<p align="center">
+  <span style="font-size:2em;">**📢 Check out Next-generation Agentless SONiC Monitoring MONSOON2 Here!** 🚀</span>
+  <br>
+  <a href="https://stordis.com/test-monsoon2/" style="font-size:1.5em; font-weight:bold;">Get Monsoon2</a>
+</p>
+
+
+<p align="center">
 <a href="https://hub.docker.com/r/stordis/sonic-exporter/">
       <img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/stordis/sonic-exporter?style=for-the-badge&logo=docker&logoColor=white&link=https%3A%2F%2Fhub.docker.com%2Fr%2Fstordis%2Fsonic-exporter" />
     </a>
