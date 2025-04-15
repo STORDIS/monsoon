@@ -32,8 +32,6 @@
 
 # Monsoon - A data visualization and monitoring solution for SONiC
 
-Try [Live Demo](https://monsoon.stordis.com).
-
 Monsoon uses Prometheus and Grafana for data collection and visualization. Apart from using 'node_exporter' (standard data collector for prometheus client) Monsoon uses sonic-exporter to fetch data from SONiC DB to Prometheus and Grafana.
 
 - [Monsoon - A data visualization and monitoring solution for SONiC](#monsoon---a-data-visualization-and-monitoring-solution-for-sonic)
